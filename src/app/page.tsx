@@ -412,10 +412,8 @@ export default function HomePage() {
 
       {/* MAIN NAV — white/light bg so logo is visible (RS model) */}
       <header
-        className={`fixed top-10 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-xl shadow-xl"
-            : "bg-[#1A1A1A]"
+        className={`fixed top-10 left-0 right-0 z-50 transition-all duration-300 bg-white ${
+          scrolled ? "shadow-xl" : "shadow-md"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -439,11 +437,7 @@ export default function HomePage() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                    scrolled
-                      ? "text-[#333333] hover:text-[#E00000]"
-                      : "text-[#F5F5F5] hover:text-[#E00000]"
-                  }`}
+                  className="px-3 py-2 text-sm font-medium text-[#333333] hover:text-[#E00000] transition-colors duration-200"
                 >
                   {link.label}
                 </a>
@@ -454,9 +448,7 @@ export default function HomePage() {
             <div className="hidden lg:flex items-center gap-3">
               <a
                 href="tel:+17744841895"
-                className={`flex items-center gap-2 text-sm font-semibold transition-colors ${
-                  scrolled ? "text-[#333333] hover:text-[#E00000]" : "text-[#F5F5F5] hover:text-[#E00000]"
-                }`}
+                className="flex items-center gap-2 text-sm font-semibold text-[#333333] hover:text-[#E00000] transition-colors"
               >
                 <PhoneIcon className="w-4 h-4 text-[#E00000]" />
                 (774) 484-1895
@@ -481,7 +473,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`p-2 ${scrolled ? "text-[#333333]" : "text-[#F5F5F5]"}`}
+                className="p-2 text-[#333333]"
                 aria-label="Toggle menu"
               >
                 {mobileMenuOpen ? <XMarkIcon /> : <MenuIcon />}
@@ -492,22 +484,14 @@ export default function HomePage() {
 
         {/* Mobile dropdown */}
         {mobileMenuOpen && (
-          <div className={`lg:hidden border-t mobile-menu-enter ${
-            scrolled
-              ? "bg-white/95 backdrop-blur-xl border-gray-200"
-              : "bg-[#1A1A1A] border-white/10"
-          }`}>
+          <div className="lg:hidden border-t border-gray-200 bg-white mobile-menu-enter">
             <div className="px-4 py-4 space-y-1">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={handleNavClick}
-                  className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                    scrolled
-                      ? "text-[#333333] hover:text-[#E00000] hover:bg-gray-100"
-                      : "text-[#F5F5F5] hover:text-[#E00000] hover:bg-white/5"
-                  }`}
+                  className="block px-4 py-3 rounded-lg text-base font-medium text-[#333333] hover:text-[#E00000] hover:bg-gray-100 transition-colors"
                 >
                   {link.label}
                 </a>
