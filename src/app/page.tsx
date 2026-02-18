@@ -598,20 +598,18 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Right — Form */}
+              {/* Right — GHL form iframe only, no wrapper */}
               <div>
-                <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-                  <iframe
-                    src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                    className="form-iframe"
-                    id="inline-altG7jV8Jt79wwRd8WbH"
-                    data-form-name="FORMULARIO WEBSITE"
-                    data-height="558"
-                    title="Wolf's Siding Free Quote Form"
-                    loading="lazy"
-                  />
-                  <script src="https://link.msgsndr.com/js/form_embed.js" async />
-                </div>
+                <iframe
+                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+                  className="form-iframe"
+                  id="inline-altG7jV8Jt79wwRd8WbH"
+                  data-form-name="FORMULARIO WEBSITE"
+                  data-height="558"
+                  title="Wolf's Siding Free Quote Form"
+                  loading="lazy"
+                />
+                <script src="https://link.msgsndr.com/js/form_embed.js" async />
               </div>
             </div>
           </div>
