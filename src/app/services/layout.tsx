@@ -1,24 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getCityBySlug, SERVICES, CITIES } from "../data/cities";
-import CityNav from "./CityNav";
+import { SERVICES, CITIES } from "../data/cities";
+import ServiceNav from "./ServiceNav";
 
-export default async function CityLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ city: string }>;
-}) {
-  const { city: slug } = await params;
-  const city = getCityBySlug(slug);
-  const cityName = city?.name ?? "Massachusetts";
-
+export default function ServicesLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <CityNav citySlug={slug} cityName={cityName} />
+      <ServiceNav />
 
-      {/* Page content */}
       {children}
 
       {/* Reviews Widget */}
@@ -39,7 +28,7 @@ export default async function CityLayout({
 
       {/* Footer */}
       <footer className="bg-black">
-        {/* Service areas footer band — ALL cities like RS */}
+        {/* Service areas footer band */}
         <div className="border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <h4 className="text-center mb-6 flex items-center justify-center gap-2">
@@ -51,8 +40,8 @@ export default async function CityLayout({
             <div className="flex flex-wrap justify-center gap-x-1 gap-y-1 max-w-6xl mx-auto">
               {CITIES.map((c, i) => (
                 <span key={c.slug} className="text-white/40 text-xs">
-                  <Link href={`/${c.slug}`} className={`hover:text-[#E00000] transition-colors ${c.slug === slug ? "text-[#E00000] font-semibold" : ""}`}>{c.name}</Link>
-                  {i < CITIES.length - 1 && <span className="mx-1">·</span>}
+                  <Link href={`/${c.slug}`} className="hover:text-[#E00000] transition-colors">{c.name}</Link>
+                  {i < CITIES.length - 1 && <span className="mx-1">&middot;</span>}
                 </span>
               ))}
             </div>
@@ -63,7 +52,6 @@ export default async function CityLayout({
         <div className="border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="grid md:grid-cols-4 gap-10">
-              {/* Col 1: Logo + info */}
               <div>
                 <Image
                   src="https://i0.wp.com/wolfs-siding.com/wp-content/uploads/2019/01/lOGO_wOLF_S__3_-removebg-preview-1.png?w=594&ssl=1"
@@ -78,13 +66,12 @@ export default async function CityLayout({
                 </p>
               </div>
 
-              {/* Col 2: Services */}
               <div>
                 <h4 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Services</h4>
                 <ul className="space-y-2">
                   {SERVICES.map((s) => (
                     <li key={s.slug}>
-                      <Link href={`/${slug}/${s.slug}`} className="text-white/60 hover:text-[#E00000] text-sm transition-colors">
+                      <Link href={`/services/${s.slug}`} className="text-white/60 hover:text-[#E00000] text-sm transition-colors">
                         {s.shortName}
                       </Link>
                     </li>
@@ -92,7 +79,6 @@ export default async function CityLayout({
                 </ul>
               </div>
 
-              {/* Col 3: Contact */}
               <div>
                 <h4 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Contact Us</h4>
                 <ul className="space-y-4">
@@ -113,7 +99,6 @@ export default async function CityLayout({
                 </ul>
               </div>
 
-              {/* Col 4: Social + Reviews */}
               <div>
                 <h4 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Follow Us</h4>
                 <div className="flex gap-3 mb-6">
@@ -124,7 +109,6 @@ export default async function CityLayout({
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
                   </a>
                 </div>
-                {/* Google review badge */}
                 <div className="bg-white/5 rounded-xl p-4 border border-white/10">
                   <div className="flex items-center gap-2 mb-1">
                     <div className="flex text-yellow-400">

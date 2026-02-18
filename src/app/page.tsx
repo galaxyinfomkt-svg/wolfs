@@ -1182,22 +1182,16 @@ export default function HomePage() {
 
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Left — Form with red bg (RS pattern: gold bg form) */}
-              <div className="bg-[#E00000] rounded-2xl p-6 sm:p-8 shadow-2xl scroll-animate opacity-0">
-                <h3 className="text-2xl font-bold text-white mb-2">Send Us a Message</h3>
-                <p className="text-white/80 text-sm mb-5">
-                  Fill out the form and we&apos;ll get back to you within 24 hours.
-                </p>
-                <div className="bg-white rounded-xl overflow-hidden">
-                  <iframe
-                    src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                    className="form-iframe"
-                    id="inline-altG7jV8Jt79wwRd8WbH-2"
-                    data-form-name="FORMULARIO WEBSITE"
-                    data-height="558"
-                    title="Wolf's Siding Contact Form"
-                    loading="lazy"
-                  />
-                </div>
+              <div className="scroll-animate opacity-0">
+                <iframe
+                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+                  className="form-iframe"
+                  id="inline-altG7jV8Jt79wwRd8WbH-2"
+                  data-form-name="FORMULARIO WEBSITE"
+                  data-height="558"
+                  title="Wolf's Siding Contact Form"
+                  loading="lazy"
+                />
                 <script src="https://link.msgsndr.com/js/form_embed.js" async />
               </div>
 
@@ -1330,6 +1324,22 @@ export default function HomePage() {
                 (774) 484-1895
               </a>
             </div>
+          </div>
+        </section>
+
+        {/* Reviews Widget */}
+        <section className="py-16 bg-[#F5F5F5]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-black text-black text-center mb-8">
+              What Our Customers Say
+            </h2>
+            <iframe
+              className="lc_reviews_widget reviews-widget"
+              src="https://reputationhub.site/reputation/widgets/review_widget/BCczy6muFwhd63dPhKCC"
+              frameBorder="0"
+              scrolling="no"
+              title="Customer Reviews"
+            />
           </div>
         </section>
       </main>

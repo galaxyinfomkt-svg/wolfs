@@ -122,9 +122,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             </div>
 
             {/* Right: Form */}
-            <div className="bg-black/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6 lg:p-8">
-              <h2 className="text-xl font-black text-white mb-1">Get Your Free Quote</h2>
-              <p className="text-white/60 text-sm mb-4">Fill out the form below and we&apos;ll contact you within 24 hours</p>
+            <div>
               <iframe
                 src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                 className="form-iframe-hero"
@@ -295,9 +293,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             <div className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
                 {/* Form CTA */}
-                <div className="bg-[#E00000] rounded-2xl p-6">
-                  <h3 className="text-lg font-black text-white mb-1">Get a Free Estimate</h3>
-                  <p className="text-white/80 text-sm mb-4">Siding Services in {city.name}, {STATE_ABBR}</p>
+                <div>
                   <iframe
                     src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                     className="form-iframe-sidebar"
