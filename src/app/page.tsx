@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 /* ════════════════════════════════════════════════════════════
    INLINE SVG ICON COMPONENTS
@@ -294,11 +295,26 @@ const FAQS = [
 ];
 
 const SERVICE_AREAS = [
-  "Berlin, MA", "Boston, MA", "Holden, MA", "Hudson, MA", "Nashua, NH",
-  "Rutland, MA", "Boylston, MA", "Millbury, MA", "Leicester, MA",
-  "Worcester, MA", "Framingham, MA", "Shrewsbury, MA", "Marlborough, MA",
-  "Westborough, MA", "Millis, MA", "Weston, MA", "West Boylston, MA",
-  "Northborough, MA", "Sudbury, MA", "Rhode Island",
+  { name: "Berlin, MA", slug: "berlin" },
+  { name: "Boston, MA", slug: "boston" },
+  { name: "Holden, MA", slug: "holden" },
+  { name: "Hudson, MA", slug: "hudson" },
+  { name: "Nashua, NH", slug: "nashua" },
+  { name: "Rutland, MA", slug: "rutland" },
+  { name: "Boylston, MA", slug: "boylston" },
+  { name: "Millbury, MA", slug: "millbury" },
+  { name: "Leicester, MA", slug: "leicester" },
+  { name: "Worcester, MA", slug: "worcester" },
+  { name: "Framingham, MA", slug: "framingham" },
+  { name: "Shrewsbury, MA", slug: "shrewsbury" },
+  { name: "Marlborough, MA", slug: "marlborough" },
+  { name: "Westborough, MA", slug: "westborough" },
+  { name: "Millis, MA", slug: "millis" },
+  { name: "Weston, MA", slug: "weston" },
+  { name: "West Boylston, MA", slug: "west-boylston" },
+  { name: "Northborough, MA", slug: "northborough" },
+  { name: "Sudbury, MA", slug: "sudbury" },
+  { name: "Rhode Island", slug: "providence" },
 ];
 
 const REVIEWS = [
@@ -1086,13 +1102,14 @@ export default function HomePage() {
 
             <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
               {SERVICE_AREAS.map((city) => (
-                <div
-                  key={city}
+                <Link
+                  key={city.slug}
+                  href={`/${city.slug}`}
                   className="inline-flex items-center gap-2 bg-white px-5 py-3 rounded-full border border-[#A3B5A4]/30 shadow-sm hover:shadow-lg hover:border-[#E00000]/40 hover:-translate-y-0.5 transition-all duration-200 scroll-animate opacity-0"
                 >
                   <MapPinIcon className="w-4 h-4 text-[#E00000] flex-shrink-0" />
-                  <span className="text-sm font-medium text-[#333333]">{city}</span>
-                </div>
+                  <span className="text-sm font-medium text-[#333333]">{city.name}</span>
+                </Link>
               ))}
             </div>
 
@@ -1347,10 +1364,10 @@ export default function HomePage() {
               <h4 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Service Areas</h4>
               <ul className="space-y-2">
                 {SERVICE_AREAS.slice(0, 12).map((city) => (
-                  <li key={city}>
-                    <a href="#service-area" className="text-white/60 hover:text-[#E00000] text-sm transition-colors duration-200">
-                      {city}
-                    </a>
+                  <li key={city.slug}>
+                    <Link href={`/${city.slug}`} className="text-white/60 hover:text-[#E00000] text-sm transition-colors duration-200">
+                      {city.name}
+                    </Link>
                   </li>
                 ))}
                 <li>
