@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CITIES as SERVICE_AREAS_ALL } from "./data/cities";
+import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
 
 /* ════════════════════════════════════════════════════════════
    INLINE SVG ICON COMPONENTS
@@ -449,16 +449,36 @@ export default function HomePage() {
             </a>
 
             {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-1">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="px-3 py-2 text-sm font-medium text-[#333333] hover:text-[#E00000] transition-colors duration-200"
-                >
-                  {link.label}
-                </a>
-              ))}
+            <nav className="hidden lg:flex items-center gap-6">
+              <a href="#home" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Home</a>
+
+              {/* Services dropdown */}
+              <div className="relative group">
+                <button type="button" className="flex items-center gap-1 text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">
+                  Services
+                  <svg className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+                </button>
+                <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-2 w-64">
+                    {SIDING_SERVICES.map((s) => (
+                      <Link
+                        key={s.slug}
+                        href={`/marlborough/${s.slug}`}
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-[#E00000]/5 transition-colors"
+                      >
+                        <div className="w-8 h-8 bg-[#E00000]/10 rounded-lg flex items-center justify-center">
+                          <svg className="w-4 h-4 text-[#E00000]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+                        </div>
+                        <span className="text-sm font-semibold text-[#333]">{s.shortName}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <a href="#projects" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Projects</a>
+              <a href="#service-area" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Areas</a>
+              <a href="#contact" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Contact</a>
             </nav>
 
             {/* Desktop CTA */}
@@ -503,16 +523,25 @@ export default function HomePage() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-gray-200 bg-white mobile-menu-enter">
             <div className="px-4 py-4 space-y-1">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
+              <a href="#home" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Home</a>
+              <div className="px-4 py-2 text-xs font-bold text-[#E00000] uppercase tracking-wider">Services</div>
+              {SIDING_SERVICES.map((s) => (
+                <Link
+                  key={s.slug}
+                  href={`/marlborough/${s.slug}`}
                   onClick={handleNavClick}
-                  className="block px-4 py-3 rounded-lg text-base font-medium text-[#333333] hover:text-[#E00000] hover:bg-gray-100 transition-colors"
+                  className="block px-6 py-2.5 rounded-lg text-sm text-[#333] hover:bg-[#E00000]/5"
                 >
-                  {link.label}
-                </a>
+                  {s.shortName}
+                </Link>
               ))}
+              <a href="#projects" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</a>
+              <a href="#service-area" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Areas</a>
+              <a href="#contact" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Contact</a>
+              <a href="tel:+17744841895" className="flex items-center justify-center gap-2 mt-3 bg-[#E00000] text-white px-6 py-3 rounded-lg text-sm font-bold">
+                <PhoneIcon className="w-4 h-4" />
+                Call (774) 484-1895
+              </a>
             </div>
           </div>
         )}
