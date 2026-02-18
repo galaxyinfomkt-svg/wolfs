@@ -36,12 +36,11 @@ export default function ServiceNav() {
           <div className="flex items-center justify-between h-[70px]">
             <Link href="/" className="flex-shrink-0" title="Wolf's Siding Inc. - Home">
               <Image
-                src="https://i0.wp.com/wolfs-siding.com/wp-content/uploads/2019/01/lOGO_wOLF_S__3_-removebg-preview-1.png?w=594&ssl=1"
+                src="/logo.png"
                 alt="Wolf's Siding Inc. Logo"
                 width={160}
                 height={50}
                 className="h-12 w-auto"
-                unoptimized
               />
             </Link>
 

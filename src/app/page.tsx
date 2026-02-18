@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
+import LazyIframe from "./components/LazyIframe";
 
 /* ════════════════════════════════════════════════════════════
    INLINE SVG ICON COMPONENTS
@@ -438,13 +439,11 @@ export default function HomePage() {
             {/* Logo */}
             <a href="#home" className="flex-shrink-0" title="Wolf's Siding Inc. - Home">
               <Image
-                src="https://i0.wp.com/wolfs-siding.com/wp-content/uploads/2019/01/lOGO_wOLF_S__3_-removebg-preview-1.png?w=594&ssl=1"
+                src="/logo.png"
                 alt="Wolf's Siding Inc. Logo — Siding Contractor Massachusetts"
                 width={160}
                 height={50}
                 className="h-12 w-auto"
-                priority
-                sizes="100vw"
               />
             </a>
 
@@ -562,7 +561,7 @@ export default function HomePage() {
               fill
               className="object-cover"
               priority
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/50" />
           </div>
@@ -632,16 +631,14 @@ export default function HomePage() {
 
               {/* Right — GHL form iframe only, no wrapper */}
               <div>
-                <iframe
+                <LazyIframe
                   src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                   className="form-iframe"
                   id="inline-altG7jV8Jt79wwRd8WbH"
                   data-form-name="FORMULARIO WEBSITE"
                   data-height="558"
                   title="Wolf's Siding Free Quote Form"
-                  loading="lazy"
                 />
-                <script src="https://link.msgsndr.com/js/form_embed.js" async />
               </div>
             </div>
           </div>
@@ -1185,16 +1182,14 @@ export default function HomePage() {
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Left — Form with red bg (RS pattern: gold bg form) */}
               <div className="scroll-animate opacity-0">
-                <iframe
+                <LazyIframe
                   src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                   className="form-iframe"
                   id="inline-altG7jV8Jt79wwRd8WbH-2"
                   data-form-name="FORMULARIO WEBSITE"
                   data-height="558"
                   title="Wolf's Siding Contact Form"
-                  loading="lazy"
                 />
-                <script src="https://link.msgsndr.com/js/form_embed.js" async />
               </div>
 
               {/* Right — Contact info blocks (RS pattern: stacked boxes) */}
@@ -1356,12 +1351,11 @@ export default function HomePage() {
             {/* Col 1: Logo + desc */}
             <div>
               <Image
-                src="https://i0.wp.com/wolfs-siding.com/wp-content/uploads/2019/01/lOGO_wOLF_S__3_-removebg-preview-1.png?w=594&ssl=1"
+                src="/logo.png"
                 alt="Wolf's Siding Inc. Logo"
                 width={140}
                 height={44}
                 className="h-10 w-auto mb-5"
-                unoptimized
               />
               <p className="text-white/60 text-sm leading-relaxed mb-5">
                 Quality, Durability, and Impeccable Craftsmanship for Your Home&apos;s Exterior.

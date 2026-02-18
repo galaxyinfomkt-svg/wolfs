@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BLOG_POSTS, getBlogPostBySlug, getRelatedPosts } from "../../data/blog";
 import { getServiceBySlug } from "../../data/cities";
+import LazyIframe from "../../components/LazyIframe";
 
 export function generateStaticParams() {
   return BLOG_POSTS.map((p) => ({ slug: p.slug }));
@@ -48,7 +49,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     publisher: {
       "@type": "Organization",
       name: "Wolf's Siding Inc.",
-      logo: { "@type": "ImageObject", url: "https://i0.wp.com/wolfs-siding.com/wp-content/uploads/2019/01/lOGO_wOLF_S__3_-removebg-preview-1.png?w=594&ssl=1" },
+      logo: { "@type": "ImageObject", url: "/logo.png" },
     },
     url: `https://wolfs-siding.com/blog/${slug}`,
   };
@@ -141,7 +142,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <aside className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
                 {/* Form */}
-                <iframe
+                <LazyIframe
                   src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                   className="form-iframe-sidebar"
                   title="Contact form"

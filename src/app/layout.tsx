@@ -61,9 +61,8 @@ const jsonLd = {
     "Expert siding installation, replacement and repair company serving Massachusetts. Specializing in Vinyl, Hardie Plank, Cedar, Clapboard siding and exterior trim work with 18+ years of industry experience.",
   url: "https://wolfs-siding.com",
   telephone: "+17744841895",
-  image:
-    "https://i0.wp.com/wolfs-siding.com/wp-content/uploads/2019/01/lOGO_wOLF_S__3_-removebg-preview-1.png?w=594&ssl=1",
-  logo: "https://i0.wp.com/wolfs-siding.com/wp-content/uploads/2019/01/lOGO_wOLF_S__3_-removebg-preview-1.png?w=594&ssl=1",
+  image: "https://wolfs-siding.com/logo.png",
+  logo: "https://wolfs-siding.com/logo.png",
   founder: {
     "@type": "Person",
     name: "Ezequias Lobo",

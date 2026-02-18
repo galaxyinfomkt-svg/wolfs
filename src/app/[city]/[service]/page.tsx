@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getCityBySlug, getServiceBySlug, getNearbyCities, generateAllParams, SERVICES, REGION_CLIMATE, STATE_ABBR } from "../../data/cities";
+import LazyIframe from "../../components/LazyIframe";
 
 type Params = { city: string; service: string };
 
@@ -131,7 +132,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
             </div>
 
             {/* Right: Form */}
-            <iframe
+            <LazyIframe
               src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
               className="form-iframe-hero"
               title="Contact form"
@@ -359,7 +360,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
             <div className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
                 {/* Form CTA */}
-                <iframe
+                <LazyIframe
                   src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                   className="form-iframe-sidebar"
                   title="Contact form"

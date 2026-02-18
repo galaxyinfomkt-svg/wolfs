@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE } from "../../data/cities";
+import LazyIframe from "../../components/LazyIframe";
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ service: s.slug }));
@@ -114,7 +115,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
             </div>
 
             {/* Form */}
-            <iframe
+            <LazyIframe
               src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
               className="form-iframe-hero"
               title="Contact form"
@@ -365,7 +366,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
             <div className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
                 {/* Form CTA */}
-                <iframe
+                <LazyIframe
                   src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                   className="form-iframe-sidebar"
                   title="Contact form"

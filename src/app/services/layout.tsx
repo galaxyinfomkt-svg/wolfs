@@ -55,12 +55,11 @@ export default function ServicesLayout({ children }: { children: React.ReactNode
             <div className="grid md:grid-cols-4 gap-10">
               <div>
                 <Image
-                  src="https://i0.wp.com/wolfs-siding.com/wp-content/uploads/2019/01/lOGO_wOLF_S__3_-removebg-preview-1.png?w=594&ssl=1"
+                  src="/logo.png"
                   alt="Wolf's Siding Inc. Logo"
                   width={150}
                   height={48}
                   className="h-10 w-auto mb-4"
-                  unoptimized
                 />
                 <p className="text-white/40 text-sm leading-relaxed">
                   Professional siding contractor serving 110+ cities across Massachusetts. 18+ years of experience in vinyl, Hardie Plank, cedar, and clapboard siding.

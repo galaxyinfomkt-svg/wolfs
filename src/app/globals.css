@@ -113,6 +113,12 @@ body {
   width: 100%;
 }
 
+/* Content visibility for below-fold sections */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
 /* Process step number watermark */
 .process-number {
   position: absolute;
