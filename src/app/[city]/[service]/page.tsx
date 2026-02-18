@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!city || !service) return {};
 
   const title = `${service.name} ${city.name}, ${STATE_ABBR} | Wolf's Siding Inc.`;
-  const description = `Professional ${service.shortName.toLowerCase()} in ${city.name}, ${STATE_ABBR}. ${service.priceRange}. ${service.lifespan} lifespan. 18+ years experience. Free estimates. Call (774) 484-1895!`;
+  const description = `Professional ${service.shortName.toLowerCase()} in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. 18+ years experience. Free estimates. Call (774) 484-1895!`;
 
   return {
     title,
@@ -41,7 +41,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
     "@context": "https://schema.org",
     "@type": "Service",
     name: `${service.name} in ${city.name}, ${STATE_ABBR}`,
-    description: `Professional ${service.material} in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. ${service.priceRange}.`,
+    description: `Professional ${service.material} in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. Expert installation.`,
     url: `https://wolfs-siding.com/${citySlug}/${serviceSlug}`,
     provider: {
       "@type": "HomeAndConstructionBusiness",
@@ -51,7 +51,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
       aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "22" },
     },
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
-    offers: { "@type": "Offer", priceRange: service.priceRange, priceCurrency: "USD" },
+    offers: { "@type": "Offer", priceCurrency: "USD" },
   };
 
   return (
@@ -178,7 +178,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   </p>
                   <p>
                     Our team specializes in {service.material} that&apos;s specifically selected to handle the demanding conditions
-                    {city.name} throws at your home. With a typical investment of <strong>{service.priceRange}</strong> and an expected lifespan of{" "}
+                    {city.name} throws at your home. With an expected lifespan of{" "}
                     <strong>{service.lifespan}</strong>, {service.material} delivers exceptional long-term value for {city.name} homeowners
                     — ideal for {service.idealFor}.
                   </p>

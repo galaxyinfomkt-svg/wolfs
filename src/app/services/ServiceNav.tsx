@@ -70,6 +70,8 @@ export default function ServiceNav() {
                 </div>
               </div>
               <Link href="/#projects" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Projects</Link>
+              <Link href="/#service-area" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Areas</Link>
+              <Link href="/blog" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Blog</Link>
               <Link href="/#contact" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Contact</Link>
             </nav>
 
@@ -113,6 +115,8 @@ export default function ServiceNav() {
                 </Link>
               ))}
               <Link href="/#projects" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</Link>
+              <Link href="/#service-area" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Areas</Link>
+              <Link href="/blog" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Blog</Link>
               <Link href="/#contact" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Contact</Link>
               <a href="tel:+17744841895" className="flex items-center justify-center gap-2 mt-3 bg-[#E00000] text-white px-6 py-3 rounded-lg text-sm font-bold">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>

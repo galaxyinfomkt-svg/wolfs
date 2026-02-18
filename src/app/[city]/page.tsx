@@ -197,13 +197,10 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                       </div>
                       <h3 className="text-base font-bold text-black mb-2 group-hover:text-[#E00000] transition-colors">{s.shortName}</h3>
                       <p className="text-[#333] text-sm leading-relaxed mb-3 line-clamp-2">{s.description}</p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-[#333]/60">{s.priceRange}</span>
-                        <span className="inline-flex items-center gap-1 text-[#E00000] font-semibold text-sm">
-                          Details
-                          <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-                        </span>
-                      </div>
+                      <span className="inline-flex items-center gap-1 text-[#E00000] font-semibold text-sm">
+                        Learn More
+                        <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                      </span>
                     </Link>
                   ))}
                 </div>

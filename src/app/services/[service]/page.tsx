@@ -46,7 +46,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
       aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "22" },
     },
     areaServed: { "@type": "State", name: "Massachusetts" },
-    offers: { "@type": "Offer", priceRange: service.priceRange, priceCurrency: "USD" },
+    offers: { "@type": "Offer", priceCurrency: "USD" },
   };
 
   return (
@@ -159,7 +159,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                     the South Shore, North Shore, or Worcester Area, our team has the expertise to deliver exceptional results.
                   </p>
                   <p>
-                    With a typical investment range of <strong>{service.priceRange}</strong> and an expected lifespan of{" "}
+                    With an expected lifespan of{" "}
                     <strong>{service.lifespan}</strong>, {service.material} is {service.idealFor}. Led by owner{" "}
                     <strong>Ezequias Lobo</strong>, our crew understands the unique challenges Massachusetts weather presents
                     and selects materials and techniques proven to perform in our demanding climate.
@@ -410,8 +410,8 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                     <li className="flex items-start gap-3">
                       <svg className="w-4 h-4 text-[#E00000] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                       <div>
-                        <span className="text-xs text-[#333]/60 block">Investment Range</span>
-                        <span className="text-sm text-black font-semibold">{service.priceRange}</span>
+                        <span className="text-xs text-[#333]/60 block">Get a Quote</span>
+                        <span className="text-sm text-black font-semibold">Free Estimate</span>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">

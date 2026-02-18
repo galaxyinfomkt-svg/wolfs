@@ -463,7 +463,7 @@ export default function HomePage() {
                     {SIDING_SERVICES.map((s) => (
                       <Link
                         key={s.slug}
-                        href={`/marlborough/${s.slug}`}
+                        href={`/services/${s.slug}`}
                         className="flex items-center gap-3 px-4 py-3 hover:bg-[#E00000]/5 transition-colors"
                       >
                         <div className="w-8 h-8 bg-[#E00000]/10 rounded-lg flex items-center justify-center">
@@ -478,6 +478,7 @@ export default function HomePage() {
 
               <a href="#projects" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Projects</a>
               <a href="#service-area" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Areas</a>
+              <Link href="/blog" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Blog</Link>
               <a href="#contact" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Contact</a>
             </nav>
 
@@ -528,7 +529,7 @@ export default function HomePage() {
               {SIDING_SERVICES.map((s) => (
                 <Link
                   key={s.slug}
-                  href={`/marlborough/${s.slug}`}
+                  href={`/services/${s.slug}`}
                   onClick={handleNavClick}
                   className="block px-6 py-2.5 rounded-lg text-sm text-[#333] hover:bg-[#E00000]/5"
                 >
@@ -537,6 +538,7 @@ export default function HomePage() {
               ))}
               <a href="#projects" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</a>
               <a href="#service-area" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Areas</a>
+              <Link href="/blog" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Blog</Link>
               <a href="#contact" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Contact</a>
               <a href="tel:+17744841895" className="flex items-center justify-center gap-2 mt-3 bg-[#E00000] text-white px-6 py-3 rounded-lg text-sm font-bold">
                 <PhoneIcon className="w-4 h-4" />
