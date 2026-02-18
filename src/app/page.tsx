@@ -598,24 +598,18 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Right — Form card (RS pattern: dark bg card with form) */}
+              {/* Right — Form */}
               <div>
-                <div className="bg-black/60 backdrop-blur-md border border-white/10 p-6 sm:p-8 rounded-2xl shadow-2xl">
-                  <h3 className="text-2xl font-bold text-white mb-1">Request Your Free Quote</h3>
-                  <p className="text-[#F5F5F5]/70 text-sm mb-5">
-                    Get a personalized estimate within 24 hours — zero obligation.
-                  </p>
-                  <div className="bg-white rounded-xl overflow-hidden">
-                    <iframe
-                      src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                      className="form-iframe"
-                      id="inline-altG7jV8Jt79wwRd8WbH"
-                      data-form-name="FORMULARIO WEBSITE"
-                      data-height="558"
-                      title="Wolf's Siding Free Quote Form"
-                      loading="lazy"
-                    />
-                  </div>
+                <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                  <iframe
+                    src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+                    className="form-iframe"
+                    id="inline-altG7jV8Jt79wwRd8WbH"
+                    data-form-name="FORMULARIO WEBSITE"
+                    data-height="558"
+                    title="Wolf's Siding Free Quote Form"
+                    loading="lazy"
+                  />
                   <script src="https://link.msgsndr.com/js/form_embed.js" async />
                 </div>
               </div>
