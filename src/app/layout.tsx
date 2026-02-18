@@ -184,6 +184,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://storage.googleapis.com" />
+        <link rel="preconnect" href="https://api.leadconnectorhq.com" />
+        <link rel="preconnect" href="https://widgets.leadconnectorhq.com" />
+        <link rel="dns-prefetch" href="https://services.leadconnectorhq.com" />
+        <link rel="dns-prefetch" href="https://appcdn.leadconnectorhq.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -196,11 +201,11 @@ export default function RootLayout({
           src="https://widgets.leadconnectorhq.com/loader.js"
           data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
           data-widget-id="66999080b120684ccf0d5c5f"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <Script
           src="https://reputationhub.site/reputation/assets/review-widget.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       </body>
     </html>

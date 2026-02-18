@@ -56,7 +56,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
       {/* ═══ HERO ═══ */}
       <section className="relative pt-[80px]">
         <div className="absolute inset-0">
-          <Image src={service.heroImage} alt={service.shortName} fill className="object-cover" priority unoptimized />
+          <Image src={service.heroImage} alt={service.shortName} fill className="object-cover" priority sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
@@ -114,13 +114,11 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
             </div>
 
             {/* Form */}
-            <div>
-              <iframe
-                src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                className="form-iframe-hero"
-                title="Contact form"
-              />
-            </div>
+            <iframe
+              src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+              className="form-iframe-hero"
+              title="Contact form"
+            />
           </div>
         </div>
       </section>
@@ -256,7 +254,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                         alt={img.alt}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        unoptimized
+                        sizes="(max-width: 640px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -367,13 +365,11 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
             <div className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
                 {/* Form CTA */}
-                <div>
-                  <iframe
-                    src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                    className="form-iframe-sidebar"
-                    title="Contact form"
-                  />
-                </div>
+                <iframe
+                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+                  className="form-iframe-sidebar"
+                  title="Contact form"
+                />
 
                 {/* Call CTA */}
                 <div className="bg-black rounded-2xl p-6 text-center">

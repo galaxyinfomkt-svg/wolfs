@@ -33,6 +33,7 @@ export default async function CityLayout({
             frameBorder="0"
             scrolling="no"
             title="Customer Reviews"
+            loading="lazy"
           />
         </div>
       </section>

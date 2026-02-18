@@ -21,6 +21,7 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
             frameBorder="0"
             scrolling="no"
             title="Customer Reviews"
+            loading="lazy"
           />
         </div>
       </section>

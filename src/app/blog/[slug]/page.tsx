@@ -60,7 +60,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       {/* Hero */}
       <section className="relative pt-[80px]">
         <div className="absolute inset-0">
-          <Image src={post.heroImage} alt={post.title} fill className="object-cover" priority unoptimized />
+          <Image src={post.heroImage} alt={post.title} fill className="object-cover" priority sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/50" />
         </div>
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
@@ -141,13 +141,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <aside className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
                 {/* Form */}
-                <div>
-                  <iframe
-                    src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                    className="form-iframe-sidebar"
-                    title="Contact form"
-                  />
-                </div>
+                <iframe
+                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+                  className="form-iframe-sidebar"
+                  title="Contact form"
+                />
 
                 {/* Related Service */}
                 {relatedService && (
@@ -184,7 +182,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                       <li key={p.slug}>
                         <Link href={`/blog/${p.slug}`} className="flex items-start gap-3 group">
                           <div className="relative w-16 h-12 rounded-lg overflow-hidden flex-shrink-0">
-                            <Image src={p.heroImage} alt={p.title} fill className="object-cover" unoptimized />
+                            <Image src={p.heroImage} alt={p.title} fill className="object-cover" sizes="80px" />
                           </div>
                           <div>
                             <span className="text-xs text-[#333]/50 block">{p.category}</span>
@@ -210,7 +208,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <Link key={p.slug} href={`/blog/${p.slug}`} className="group">
                 <article className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#E00000]/20 hover:shadow-xl transition-all duration-300">
                   <div className="relative aspect-[16/10] overflow-hidden">
-                    <Image src={p.heroImage} alt={p.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" unoptimized />
+                    <Image src={p.heroImage} alt={p.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 33vw" />
                     <div className="absolute top-3 left-3">
                       <span className="bg-black/70 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">{p.category}</span>
                     </div>

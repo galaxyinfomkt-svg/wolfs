@@ -58,7 +58,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             fill
             className="object-cover"
             priority
-            unoptimized
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/75 to-black/60" />
         </div>
@@ -122,13 +122,11 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             </div>
 
             {/* Right: Form */}
-            <div>
-              <iframe
-                src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                className="form-iframe-hero"
-                title="Contact form"
-              />
-            </div>
+            <iframe
+              src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+              className="form-iframe-hero"
+              title="Contact form"
+            />
           </div>
         </div>
       </section>
@@ -227,7 +225,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                         alt={`${img.alt} near ${city.name}`}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        unoptimized
+                        sizes="(max-width: 640px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -290,13 +288,11 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             <div className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
                 {/* Form CTA */}
-                <div>
-                  <iframe
-                    src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                    className="form-iframe-sidebar"
-                    title="Contact form"
-                  />
-                </div>
+                <iframe
+                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+                  className="form-iframe-sidebar"
+                  title="Contact form"
+                />
 
                 {/* Call CTA */}
                 <div className="bg-black rounded-2xl p-6 text-center">

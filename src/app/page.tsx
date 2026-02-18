@@ -444,7 +444,7 @@ export default function HomePage() {
                 height={50}
                 className="h-12 w-auto"
                 priority
-                unoptimized
+                sizes="100vw"
               />
             </a>
 
@@ -562,7 +562,7 @@ export default function HomePage() {
               fill
               className="object-cover"
               priority
-              unoptimized
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/50" />
           </div>
@@ -720,7 +720,7 @@ export default function HomePage() {
                       alt={`${service.title} in Massachusetts — Wolf's Siding Inc.`}
                       fill
                       className="object-cover service-img transition-transform duration-500"
-                      unoptimized
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   </div>
@@ -810,7 +810,7 @@ export default function HomePage() {
                     width={600}
                     height={750}
                     className="w-full h-auto object-cover"
-                    unoptimized
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </div>
                 {/* Floating badge (RS pattern) */}
@@ -888,7 +888,7 @@ export default function HomePage() {
                       alt="Premium siding installation project in Massachusetts by Wolf's Siding Inc."
                       fill
                       className="object-cover"
-                      unoptimized
+                      sizes="(max-width: 640px) 50vw, 33vw"
                     />
                   </div>
                   <div className="p-8">
@@ -980,7 +980,7 @@ export default function HomePage() {
                     width={600}
                     height={450}
                     className="w-full h-64 sm:h-72 object-cover transition-transform duration-500 group-hover:scale-105"
-                    unoptimized
+                    sizes="(max-width: 640px) 100vw, 50vw"
                   />
                   {/* Gradient overlay (RS pattern) */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
@@ -1341,6 +1341,7 @@ export default function HomePage() {
               frameBorder="0"
               scrolling="no"
               title="Customer Reviews"
+              loading="lazy"
             />
           </div>
         </section>
