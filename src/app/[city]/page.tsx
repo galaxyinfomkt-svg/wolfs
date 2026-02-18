@@ -211,6 +211,38 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 </div>
               </div>
 
+              {/* Project Photos */}
+              <div>
+                <h2 className="text-3xl font-black text-black mb-3">
+                  Our Work in <span className="text-[#E00000]">{city.region}</span>
+                </h2>
+                <div className="w-20 h-1 bg-[#E00000] rounded-full mb-8" />
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {[
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa042a25a1ad9516f03a.jpeg", alt: "Vinyl siding installation" },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa04357b4e5af271fea6.jpeg", alt: "Clapboard siding project" },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d5eef6c92ac.png", alt: "Hardie Plank installation" },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e1d466eed197a9806.png", alt: "Cedar shingle siding" },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3ee0f09220206bdb36.png", alt: "Exterior trim work" },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d2be96c92ab.png", alt: "Complete siding replacement" },
+                  ].map((img) => (
+                    <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
+                      <Image
+                        src={img.src}
+                        alt={`${img.alt} near ${city.name}`}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        <span className="text-white text-xs font-semibold">{img.alt}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Why choose */}
               <div>
                 <h2 className="text-3xl font-black text-black mb-3">

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CITIES as SERVICE_AREAS_ALL } from "./data/cities";
 
 /* ════════════════════════════════════════════════════════════
    INLINE SVG ICON COMPONENTS
@@ -1091,32 +1092,47 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-animate opacity-0">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
-                Serving Homeowners Across <span className="text-[#E00000]">Massachusetts</span>
+                Serving <span className="text-[#E00000]">110+ Cities</span> Across Massachusetts
               </h2>
               <div className="w-20 h-1 bg-[#E00000] mx-auto mb-8 rounded-full" />
               <p className="text-[#333333] text-lg max-w-2xl mx-auto">
                 Wolf&apos;s Siding Inc. proudly serves homeowners throughout MetroWest,
-                Worcester County, Greater Boston, Southern New Hampshire, and Rhode Island.
+                Greater Boston, South Shore, North Shore, and Worcester County.
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-              {SERVICE_AREAS.map((city) => (
-                <Link
-                  key={city.slug}
-                  href={`/${city.slug}`}
-                  className="inline-flex items-center gap-2 bg-white px-5 py-3 rounded-full border border-[#A3B5A4]/30 shadow-sm hover:shadow-lg hover:border-[#E00000]/40 hover:-translate-y-0.5 transition-all duration-200 scroll-animate opacity-0"
-                >
-                  <MapPinIcon className="w-4 h-4 text-[#E00000] flex-shrink-0" />
-                  <span className="text-sm font-medium text-[#333333]">{city.name}</span>
-                </Link>
+            {/* Cities by region */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              {[
+                { region: "Metro West", cities: SERVICE_AREAS_ALL.filter(c => c.region === "Metro West") },
+                { region: "Greater Boston", cities: SERVICE_AREAS_ALL.filter(c => c.region === "Greater Boston") },
+                { region: "South Shore", cities: SERVICE_AREAS_ALL.filter(c => c.region === "South Shore") },
+                { region: "North Shore", cities: SERVICE_AREAS_ALL.filter(c => c.region === "North Shore") },
+                { region: "Worcester Area", cities: SERVICE_AREAS_ALL.filter(c => c.region === "Worcester Area") },
+              ].map((group) => (
+                <div key={group.region} className="scroll-animate opacity-0">
+                  <h3 className="text-lg font-black text-[#E00000] mb-4 flex items-center gap-2">
+                    <MapPinIcon className="w-5 h-5" />
+                    {group.region}
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {group.cities.map((city) => (
+                      <Link
+                        key={city.slug}
+                        href={`/${city.slug}`}
+                        className="inline-flex items-center bg-white px-3 py-1.5 rounded-full border border-[#A3B5A4]/20 shadow-sm hover:shadow-md hover:border-[#E00000]/40 hover:-translate-y-0.5 transition-all duration-200 text-xs font-medium text-[#333333] hover:text-[#E00000]"
+                      >
+                        {city.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
 
-            <div className="text-center mt-10 scroll-animate opacity-0">
-              <p className="text-[#333333] mb-3 text-sm">Don&apos;t see your city? We likely serve your area too.</p>
+            <div className="text-center scroll-animate opacity-0">
               <a href="tel:+17744841895" className="inline-flex items-center gap-2 text-[#E00000] font-bold text-base hover:gap-3 transition-all duration-200">
-                Call to confirm: (774) 484-1895
+                Don&apos;t see your city? Call to confirm: (774) 484-1895
                 <ArrowRightIcon className="w-4 h-4" />
               </a>
             </div>
@@ -1372,10 +1388,28 @@ export default function HomePage() {
                 ))}
                 <li>
                   <a href="#service-area" className="text-[#E00000] text-sm font-semibold">
-                    + {SERVICE_AREAS.length - 12} more cities →
+                    + {SERVICE_AREAS_ALL.length - 12} more cities →
                   </a>
                 </li>
               </ul>
+            </div>
+          </div>
+
+          {/* All cities band — RS style */}
+          <div className="border-t border-white/10 mt-10 pt-8">
+            <h4 className="text-center mb-4 flex items-center justify-center gap-2">
+              <MapPinIcon className="w-5 h-5 text-[#E00000]" />
+              <span className="text-[#E00000] font-bold text-sm uppercase tracking-wider">
+                Service Areas – {SERVICE_AREAS_ALL.length}+ Cities Across Massachusetts
+              </span>
+            </h4>
+            <div className="flex flex-wrap justify-center gap-x-1 gap-y-1 max-w-6xl mx-auto">
+              {SERVICE_AREAS_ALL.map((c, i) => (
+                <span key={c.slug} className="text-white/40 text-xs">
+                  <Link href={`/${c.slug}`} className="hover:text-[#E00000] transition-colors">{c.name}</Link>
+                  {i < SERVICE_AREAS_ALL.length - 1 && <span className="mx-1">·</span>}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -1383,7 +1417,7 @@ export default function HomePage() {
           <div className="pt-8 text-center">
             <p className="text-white/40 text-sm">
               &copy; {new Date().getFullYear()} Wolf&apos;s Siding Inc. All rights reserved. |
-              Expert siding installation contractor serving Massachusetts, New Hampshire &amp; Rhode Island.
+              Licensed Siding Contractor | Serving Massachusetts.
             </p>
           </div>
         </div>

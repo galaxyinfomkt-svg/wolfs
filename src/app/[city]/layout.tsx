@@ -23,22 +23,22 @@ export default async function CityLayout({
 
       {/* Footer */}
       <footer className="bg-black">
-        {/* Service areas footer band */}
+        {/* Service areas footer band — ALL cities like RS */}
         <div className="border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <h4 className="text-[#E00000] font-bold text-sm uppercase tracking-wider text-center mb-6">
-              Siding Services Across Massachusetts
+            <h4 className="text-center mb-6 flex items-center justify-center gap-2">
+              <svg className="w-5 h-5 text-[#E00000]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+              <span className="text-[#E00000] font-bold text-sm uppercase tracking-wider">
+                Service Areas – {CITIES.length}+ Cities Across Massachusetts
+              </span>
             </h4>
-            <div className="flex flex-wrap justify-center gap-x-2 gap-y-1 max-w-5xl mx-auto">
-              {CITIES.slice(0, 30).map((c, i) => (
+            <div className="flex flex-wrap justify-center gap-x-1 gap-y-1 max-w-6xl mx-auto">
+              {CITIES.map((c, i) => (
                 <span key={c.slug} className="text-white/40 text-xs">
-                  <Link href={`/${c.slug}`} className="hover:text-[#E00000] transition-colors">{c.name}</Link>
-                  {i < 29 && <span className="ml-2">·</span>}
+                  <Link href={`/${c.slug}`} className={`hover:text-[#E00000] transition-colors ${c.slug === slug ? "text-[#E00000] font-semibold" : ""}`}>{c.name}</Link>
+                  {i < CITIES.length - 1 && <span className="mx-1">·</span>}
                 </span>
               ))}
-              <Link href="/#service-area" className="text-[#E00000] text-xs font-semibold ml-1">
-                +{CITIES.length - 30} more cities
-              </Link>
             </div>
           </div>
         </div>

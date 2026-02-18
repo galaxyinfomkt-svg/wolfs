@@ -256,6 +256,32 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 </div>
               </div>
 
+              {/* Project Photos */}
+              <div>
+                <h3 className="text-2xl font-black text-black mb-6">
+                  {service.shortName} Projects Near {city.name}
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { src: service.heroImage, alt: `${service.shortName} project` },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f353daa4a8f2.png", alt: "Siding installation detail" },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e8da9670893aa2a4e.png", alt: "Completed siding project" },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3eabbae65f84f175c9.png", alt: "Exterior remodeling project" },
+                  ].map((img) => (
+                    <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
+                      <Image
+                        src={img.src}
+                        alt={`${img.alt} near ${city.name}`}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Benefits */}
               <div>
                 <h3 className="text-2xl font-black text-black mb-3">
