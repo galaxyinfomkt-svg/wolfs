@@ -186,8 +186,6 @@ export const COMPANY_VAN_IMAGE = {
 
 export const PROJECT_VIDEOS = [
   `${CDN}/69975cfb4c25025a9698a268.mp4`,
-  `${CDN}/69975cfb3ff51648e253e637.mov`,
-  `${CDN}/69975cfb20c035425f0dae1b.mov`,
 ];
 
 export const SERVICE_FILTERS = [

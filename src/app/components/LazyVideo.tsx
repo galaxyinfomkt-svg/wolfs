@@ -6,13 +6,15 @@ interface LazyVideoProps {
   src: string;
   poster?: string;
   className?: string;
+  title?: string;
 }
 
-export default function LazyVideo({ src, poster, className = "" }: LazyVideoProps) {
+export default function LazyVideo({ src, poster, className = "", title }: LazyVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -31,6 +33,7 @@ export default function LazyVideo({ src, poster, className = "" }: LazyVideoProp
   }, [playing]);
 
   function handlePlay() {
+    if (error) return;
     if (!loaded) setLoaded(true);
     setTimeout(() => {
       const v = videoRef.current;
@@ -39,7 +42,7 @@ export default function LazyVideo({ src, poster, className = "" }: LazyVideoProp
         v.pause();
         setPlaying(false);
       } else {
-        v.play().then(() => setPlaying(true)).catch(() => {});
+        v.play().then(() => setPlaying(true)).catch(() => setError(true));
       }
     }, 0);
   }
@@ -60,14 +63,15 @@ export default function LazyVideo({ src, poster, className = "" }: LazyVideoProp
           preload="metadata"
           className="w-full h-full object-cover"
           onEnded={() => setPlaying(false)}
+          onError={() => setError(true)}
         />
       ) : (
-        <div className="w-full h-full bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center min-h-[300px]">
+        <div className="w-full h-full bg-gradient-to-br from-[#1A1A1A] to-[#111] flex items-center justify-center min-h-[300px]">
           <div className="text-center">
-            <svg className="w-10 h-10 text-white/40 mx-auto mb-2" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <svg className="w-12 h-12 text-[#E00000]/60 mx-auto mb-3" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
             </svg>
-            <p className="text-white/30 text-xs">Tap to play</p>
+            <p className="text-white/40 text-sm font-medium">{title || "Tap to play"}</p>
           </div>
         </div>
       )}

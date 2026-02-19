@@ -23,23 +23,6 @@ export default function ProjectsGallery({ projects, videos, vanImage, crewProjec
     setAnimated(true);
   }, []);
 
-  // Scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in-up");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll(".scroll-animate-project").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [filter]);
-
   const serviceFilters = ["All", "Vinyl Siding", "Hardie Plank", "Clapboard Siding", "Full Siding Replacement"];
 
   const workProjects = projects.filter((p) => p.serviceType !== "Team");
@@ -80,7 +63,7 @@ export default function ProjectsGallery({ projects, videos, vanImage, crewProjec
           const isExpanded = expandedId === project.id;
           const heroImg = project.images[0];
           return (
-            <div key={project.id} className={`scroll-animate-project opacity-0 ${isExpanded ? "sm:col-span-2 lg:col-span-3" : ""}`}>
+            <div key={project.id} className={`transition-all duration-500 ${isExpanded ? "sm:col-span-2 lg:col-span-3" : ""}`}>
               <div
                 className={`bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 ${isExpanded ? "" : "hover:-translate-y-1 cursor-pointer"}`}
                 onClick={() => !isExpanded && setExpandedId(project.id)}
@@ -196,9 +179,9 @@ export default function ProjectsGallery({ projects, videos, vanImage, crewProjec
               Watch our team in action — real siding installation footage from Massachusetts job sites.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {videos.map((url, i) => (
-              <LazyVideo key={url} src={url} className="aspect-[9/16] sm:aspect-video" />
+          <div className="max-w-2xl mx-auto">
+            {videos.map((url) => (
+              <LazyVideo key={url} src={url} title="Siding Installation in Progress" className="aspect-[9/16] sm:aspect-video" />
             ))}
           </div>
         </div>

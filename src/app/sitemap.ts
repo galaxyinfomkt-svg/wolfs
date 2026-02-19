@@ -3,7 +3,7 @@ import { CITIES, SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
 
 const BASE_URL = "https://wolfs-siding.com";
-const SITE_UPDATED = "2025-06-15";
+const SITE_UPDATED = "2026-02-19";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Homepage

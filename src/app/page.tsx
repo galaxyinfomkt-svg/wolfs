@@ -935,6 +935,47 @@ export default function HomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
+            7b. TRUSTED BRANDS
+            ═══════════════════════════════════════════════════════ */}
+        <section className="py-16 lg:py-20 bg-white border-t border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12 scroll-animate opacity-0">
+              <h2 className="text-2xl sm:text-3xl font-black text-black mb-3 leading-tight">
+                Trusted <span className="text-[#E00000]">Brands</span> We Work With
+              </h2>
+              <div className="w-16 h-1 bg-[#E00000] mx-auto mb-4 rounded-full" />
+              <p className="text-[#333]/70 text-sm max-w-xl mx-auto">
+                We install and service products from the industry&apos;s leading manufacturers.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center scroll-animate opacity-0">
+              {[
+                { src: `${CDN}/689a45c288c2d695b1b12618.webp`, alt: "James Hardie siding products" },
+                { src: `${CDN}/689a45c288c2d63dfcb125e1.webp`, alt: "CertainTeed siding by Saint-Gobain" },
+                { src: `${CDN}/689a45c26bdead1e8a0135f4.webp`, alt: "Pella windows and doors" },
+                { src: `${CDN}/689a45c26bdeadd6b40135f3.webp`, alt: "Ply Gem windows" },
+                { src: `${CDN}/689a45c2924ed980d5157631.webp`, alt: "Andersen windows and doors" },
+                { src: `${CDN}/689a45c2924ed967cd157632.webp`, alt: "ProVia entry doors and siding" },
+                { src: `${CDN}/689a45c2924ed90be6157633.webp`, alt: "Harvey windows and doors" },
+                { src: `${CDN}/689a45c28192733045c0173e.webp`, alt: "AZEK Building Products" },
+                { src: `${CDN}/689a45c206592d8e44ebceb9.webp`, alt: "Simonton windows and doors" },
+                { src: `${CDN}/689a45c206592d0462ebceba.webp`, alt: "Alside siding and windows" },
+              ].map((brand) => (
+                <div key={brand.alt} className="flex items-center justify-center p-4 bg-[#F5F5F5] rounded-xl hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 h-20">
+                  <Image
+                    src={brand.src}
+                    alt={brand.alt}
+                    width={140}
+                    height={50}
+                    className="max-h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
             8. PROJECTS GALLERY (RS model: filter tabs)
             ═══════════════════════════════════════════════════════ */}
         <section id="projects" className="py-20 lg:py-28 bg-white">
@@ -1128,9 +1169,62 @@ export default function HomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
+            11. SERVICE AREAS — Internal backlinks
+            ═══════════════════════════════════════════════════════ */}
+        <section id="service-area" className="py-20 lg:py-28 bg-[#F5F5F5]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 scroll-animate opacity-0">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
+                Serving <span className="text-[#E00000]">110+ Cities</span> Across Massachusetts
+              </h2>
+              <div className="w-20 h-1 bg-[#E00000] mx-auto mb-6 rounded-full" />
+              <p className="text-[#333333] text-lg max-w-2xl mx-auto">
+                Wolf&apos;s Siding Inc. provides expert siding installation, repair, and replacement services
+                throughout Massachusetts. Find siding services near you.
+              </p>
+            </div>
+
+            {/* Featured cities grid */}
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
+              {SERVICE_AREAS_ALL.slice(0, 20).map((city) => (
+                <Link
+                  key={city.slug}
+                  href={`/${city.slug}`}
+                  className="flex items-center gap-3 bg-white rounded-xl px-4 py-3 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 scroll-animate opacity-0 group"
+                >
+                  <div className="w-8 h-8 bg-[#E00000]/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-[#E00000] transition-colors">
+                    <MapPinIcon className="w-4 h-4 text-[#E00000] group-hover:text-white transition-colors" />
+                  </div>
+                  <div>
+                    <span className="text-sm font-semibold text-black group-hover:text-[#E00000] transition-colors">{city.name}</span>
+                    <span className="block text-[10px] text-[#333]/50">Siding Services</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* All cities expandable */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm scroll-animate opacity-0">
+              <h3 className="text-sm font-bold text-[#333] mb-4 flex items-center gap-2">
+                <MapPinIcon className="w-4 h-4 text-[#E00000]" />
+                All {SERVICE_AREAS_ALL.length}+ Service Areas
+              </h3>
+              <div className="flex flex-wrap gap-x-1 gap-y-1">
+                {SERVICE_AREAS_ALL.map((c, i) => (
+                  <span key={c.slug} className="text-xs">
+                    <Link href={`/${c.slug}`} className="text-[#333]/70 hover:text-[#E00000] transition-colors">{c.name}</Link>
+                    {i < SERVICE_AREAS_ALL.length - 1 && <span className="mx-1 text-[#333]/30">&middot;</span>}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
             11b. BLOG / SIDING TIPS
             ═══════════════════════════════════════════════════════ */}
-        <section className="py-20 lg:py-28 bg-[#F5F5F5]">
+        <section className="py-20 lg:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-animate opacity-0">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
