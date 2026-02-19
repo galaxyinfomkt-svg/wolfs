@@ -562,7 +562,7 @@ export default function HomePage() {
               className="object-cover"
               priority
               sizes="100vw"
-              quality={90}
+              quality={80}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/85 to-black/70" />
           </div>
@@ -1197,7 +1197,7 @@ export default function HomePage() {
               <div className="space-y-6 scroll-animate opacity-0">
                 {/* Direct contact box */}
                 <div className="bg-black rounded-2xl p-8 text-white">
-                  <h4 className="font-bold text-lg mb-6">Direct Contact</h4>
+                  <h3 className="font-bold text-lg mb-6">Direct Contact</h3>
                   <div className="space-y-5">
                     {/* Phone */}
                     <a href="tel:+17744841895" className="flex items-center gap-4 group">
@@ -1375,7 +1375,7 @@ export default function HomePage() {
 
             {/* Col 2: Services */}
             <div>
-              <h4 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Our Services</h4>
+              <h3 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Our Services</h3>
               <ul className="space-y-3">
                 {SERVICES.map((s) => (
                   <li key={s.slug}>
@@ -1389,7 +1389,7 @@ export default function HomePage() {
 
             {/* Col 3: Contact */}
             <div>
-              <h4 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Contact Us</h4>
+              <h3 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Contact Us</h3>
               <div className="space-y-4">
                 <a href="tel:+17744841895" className="flex items-center gap-3 text-white/80 hover:text-[#E00000] transition-colors">
                   <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0">
@@ -1414,7 +1414,7 @@ export default function HomePage() {
 
             {/* Col 4: Service Areas */}
             <div>
-              <h4 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Service Areas</h4>
+              <h3 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Service Areas</h3>
               <ul className="space-y-2">
                 {SERVICE_AREAS.slice(0, 12).map((city) => (
                   <li key={city.slug}>
@@ -1434,15 +1434,15 @@ export default function HomePage() {
 
           {/* All cities band — RS style */}
           <div className="border-t border-white/10 mt-10 pt-8">
-            <h4 className="text-center mb-4 flex items-center justify-center gap-2">
+            <h3 className="text-center mb-4 flex items-center justify-center gap-2">
               <MapPinIcon className="w-5 h-5 text-[#E00000]" />
               <span className="text-[#E00000] font-bold text-sm uppercase tracking-wider">
                 Service Areas – {SERVICE_AREAS_ALL.length}+ Cities Across Massachusetts
               </span>
-            </h4>
+            </h3>
             <div className="flex flex-wrap justify-center gap-x-1 gap-y-1 max-w-6xl mx-auto">
               {SERVICE_AREAS_ALL.map((c, i) => (
-                <span key={c.slug} className="text-white/40 text-xs">
+                <span key={c.slug} className="text-white/60 text-xs">
                   <Link href={`/${c.slug}`} className="hover:text-[#E00000] transition-colors">{c.name}</Link>
                   {i < SERVICE_AREAS_ALL.length - 1 && <span className="mx-1">·</span>}
                 </span>
@@ -1452,7 +1452,7 @@ export default function HomePage() {
 
           {/* Copyright */}
           <div className="pt-8 text-center">
-            <p className="text-white/40 text-sm">
+            <p className="text-white/60 text-sm">
               &copy; {new Date().getFullYear()} Wolf&apos;s Siding Inc. All rights reserved. |
               Licensed Siding Contractor | Serving Massachusetts.
             </p>

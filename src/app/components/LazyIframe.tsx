@@ -17,12 +17,12 @@ export default function LazyIframe(
       setLoaded(true);
     };
 
-    const events = ["scroll", "click", "touchstart", "mousemove", "keydown"];
+    const events = ["click", "touchstart", "keydown"];
     events.forEach((e) =>
       window.addEventListener(e, activate, { once: true, passive: true })
     );
 
-    const timer = setTimeout(activate, 5000);
+    const timer = setTimeout(activate, 12000);
 
     return () => {
       events.forEach((e) => window.removeEventListener(e, activate));
