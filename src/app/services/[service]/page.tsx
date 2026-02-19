@@ -20,8 +20,15 @@ export async function generateMetadata({ params }: { params: Promise<{ service: 
   return {
     title,
     description,
-    openGraph: { title, description, url: `https://wolfs-siding.com/services/${slug}`, siteName: "Wolf's Siding Inc.", type: "website" },
-    alternates: { canonical: `https://wolfs-siding.com/services/${slug}` },
+    keywords: `${service.shortName.toLowerCase()} Massachusetts, ${service.material} MA, ${service.name.toLowerCase()} near me, ${service.shortName.toLowerCase()} contractor Massachusetts, siding company MA`,
+    openGraph: { title, description, url: `https://www.wolfs-siding.com/services/${slug}`, siteName: "Wolf's Siding Inc.", type: "website", images: [{ url: service.heroImage, width: 1200, height: 630, alt: title }] },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [service.heroImage],
+    },
+    alternates: { canonical: `https://www.wolfs-siding.com/services/${slug}` },
   };
 }
 
@@ -38,7 +45,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     "@type": "Service",
     name: service.name,
     description: service.description,
-    url: `https://wolfs-siding.com/services/${slug}`,
+    url: `https://www.wolfs-siding.com/services/${slug}`,
     provider: {
       "@type": "HomeAndConstructionBusiness",
       name: "Wolf's Siding Inc.",
@@ -50,9 +57,30 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     offers: { "@type": "Offer", priceCurrency: "USD" },
   };
 
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: service.faqs.map((faq: { q: string; a: string }) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.wolfs-siding.com" },
+      { "@type": "ListItem", position: 2, name: service.shortName, item: `https://www.wolfs-siding.com/services/${slug}` },
+    ],
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       {/* ═══ HERO ═══ */}
       <section className="relative pt-[80px]">

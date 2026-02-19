@@ -23,8 +23,15 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title,
     description,
-    openGraph: { title, description, url: `https://wolfs-siding.com/${citySlug}/${serviceSlug}`, siteName: "Wolf's Siding Inc.", type: "website" },
-    alternates: { canonical: `https://wolfs-siding.com/${citySlug}/${serviceSlug}` },
+    keywords: `${service.shortName.toLowerCase()} ${city.name} MA, ${service.material} ${city.name}, siding contractor ${city.name} Massachusetts, ${service.name.toLowerCase()} near me, ${service.shortName.toLowerCase()} contractor ${city.name}`,
+    openGraph: { title, description, url: `https://www.wolfs-siding.com/${citySlug}/${serviceSlug}`, siteName: "Wolf's Siding Inc.", type: "website", images: [{ url: service.heroImage, width: 1200, height: 630, alt: title }] },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [service.heroImage],
+    },
+    alternates: { canonical: `https://www.wolfs-siding.com/${citySlug}/${serviceSlug}` },
   };
 }
 
@@ -42,22 +49,46 @@ export default async function CityServicePage({ params }: { params: Promise<Para
     "@context": "https://schema.org",
     "@type": "Service",
     name: `${service.name} in ${city.name}, ${STATE_ABBR}`,
-    description: `Professional ${service.material} in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. Expert installation.`,
-    url: `https://wolfs-siding.com/${citySlug}/${serviceSlug}`,
+    description: `Professional ${service.material} in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. Expert installation by Wolf's Siding Inc.`,
+    url: `https://www.wolfs-siding.com/${citySlug}/${serviceSlug}`,
     provider: {
       "@type": "HomeAndConstructionBusiness",
       name: "Wolf's Siding Inc.",
       telephone: "+17744841895",
+      image: "https://www.wolfs-siding.com/logo.png",
       address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
-      aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "22" },
+      aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", bestRating: "5", worstRating: "1", ratingCount: "22", reviewCount: "22" },
+      priceRange: "$$",
     },
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
-    offers: { "@type": "Offer", priceCurrency: "USD" },
+    offers: { "@type": "Offer", priceCurrency: "USD", priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", price: service.priceRange } },
+  };
+
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: service.faqs.map((faq: { q: string; a: string }) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.wolfs-siding.com" },
+      { "@type": "ListItem", position: 2, name: city.name, item: `https://www.wolfs-siding.com/${citySlug}` },
+      { "@type": "ListItem", position: 3, name: service.shortName, item: `https://www.wolfs-siding.com/${citySlug}/${serviceSlug}` },
+    ],
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       {/* ═══ HERO with background image + form ═══ */}
       <section className="relative pt-[80px]">

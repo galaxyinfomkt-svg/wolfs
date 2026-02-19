@@ -18,15 +18,22 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${post.title} | Wolf's Siding Inc. Blog`,
     description: post.excerpt,
+    keywords: `${post.category.toLowerCase()}, siding tips Massachusetts, ${post.title.split(' ').slice(0, 3).join(' ').toLowerCase()}, siding guide, Wolf's Siding blog`,
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `https://wolfs-siding.com/blog/${slug}`,
+      url: `https://www.wolfs-siding.com/blog/${slug}`,
       siteName: "Wolf's Siding Inc.",
       type: "article",
       images: [{ url: post.heroImage, width: 1200, height: 630, alt: post.title }],
     },
-    alternates: { canonical: `https://wolfs-siding.com/blog/${slug}` },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [post.heroImage],
+    },
+    alternates: { canonical: `https://www.wolfs-siding.com/blog/${slug}` },
   };
 }
 
@@ -49,14 +56,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     publisher: {
       "@type": "Organization",
       name: "Wolf's Siding Inc.",
-      logo: { "@type": "ImageObject", url: "/logo.png" },
+      logo: { "@type": "ImageObject", url: "https://www.wolfs-siding.com/logo.png" },
     },
-    url: `https://wolfs-siding.com/blog/${slug}`,
+    url: `https://www.wolfs-siding.com/blog/${slug}`,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `https://www.wolfs-siding.com/blog/${slug}` },
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.wolfs-siding.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.wolfs-siding.com/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: `https://www.wolfs-siding.com/blog/${slug}` },
+    ],
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       {/* Hero */}
       <section className="relative pt-[80px]">

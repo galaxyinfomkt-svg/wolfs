@@ -20,8 +20,22 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   return {
     title,
     description,
-    openGraph: { title, description, url: `https://wolfs-siding.com/${slug}`, siteName: "Wolf's Siding Inc.", type: "website" },
-    alternates: { canonical: `https://wolfs-siding.com/${slug}` },
+    keywords: `siding contractor ${city.name} MA, siding installation ${city.name}, vinyl siding ${city.name} MA, Hardie Plank ${city.name}, cedar shingles ${city.name}, clapboard siding ${city.name}, exterior trim ${city.name}, siding repair ${city.name} Massachusetts`,
+    openGraph: {
+      title,
+      description,
+      url: `https://www.wolfs-siding.com/${slug}`,
+      siteName: "Wolf's Siding Inc.",
+      type: "website",
+      images: [{ url: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png", width: 1200, height: 630, alt: `Siding Contractor ${city.name}, ${STATE_ABBR} | Wolf's Siding Inc.` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png"],
+    },
+    alternates: { canonical: `https://www.wolfs-siding.com/${slug}` },
   };
 }
 
@@ -38,17 +52,35 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     "@type": "HomeAndConstructionBusiness",
     name: "Wolf's Siding Inc.",
     description: `Professional siding contractor serving ${city.name}, ${STATE_ABBR}. Specializing in vinyl siding, Hardie Plank, cedar shingles, clapboard, and exterior trim work.`,
-    url: `https://wolfs-siding.com/${slug}`,
+    url: `https://www.wolfs-siding.com/${slug}`,
     telephone: "+17744841895",
+    image: "https://www.wolfs-siding.com/logo.png",
+    logo: "https://www.wolfs-siding.com/logo.png",
     address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
+    geo: { "@type": "GeoCoordinates", latitude: 42.3195, longitude: -71.6412 },
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
-    aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "22" },
-    sameAs: ["https://www.instagram.com/wolfs_siding_inc/", "https://www.facebook.com/wolfsiding"],
+    aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", bestRating: "5", worstRating: "1", ratingCount: "22", reviewCount: "22" },
+    sameAs: ["https://www.instagram.com/wolfs_siding_inc/", "https://www.facebook.com/wolfsiding", "https://maps.app.goo.gl/ibPzjf7EWQ7aK1HYA"],
+    priceRange: "$$",
+    openingHoursSpecification: [
+      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:00", closes: "18:00" },
+      { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "08:00", closes: "14:00" },
+    ],
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.wolfs-siding.com" },
+      { "@type": "ListItem", position: 2, name: city.name, item: `https://www.wolfs-siding.com/${slug}` },
+    ],
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       {/* ═══ HERO with background image + form ═══ */}
       <section className="relative pt-[80px]">
