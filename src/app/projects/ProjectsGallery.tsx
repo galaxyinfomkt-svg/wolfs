@@ -3,17 +3,15 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import ImageLightbox from "../components/ImageLightbox";
-import LazyVideo from "../components/LazyVideo";
 import type { Project, ProjectImage } from "../data/projects";
 
 interface Props {
   projects: Project[];
-  videos: string[];
   vanImage: { src: string; alt: string };
   crewProject: Project | undefined;
 }
 
-export default function ProjectsGallery({ projects, videos, vanImage, crewProject }: Props) {
+export default function ProjectsGallery({ projects, vanImage, crewProject }: Props) {
   const [filter, setFilter] = useState("All");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [lightbox, setLightbox] = useState<{ images: ProjectImage[]; index: number } | null>(null);
@@ -166,26 +164,6 @@ export default function ProjectsGallery({ projects, videos, vanImage, crewProjec
           );
         })}
       </div>
-
-      {/* Videos Section */}
-      {videos.length > 0 && (
-        <div className="mb-16">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-black text-black mb-3">
-              Project <span className="text-[#E00000]">Videos</span>
-            </h2>
-            <div className="w-20 h-1 bg-[#E00000] mx-auto rounded-full mb-4" />
-            <p className="text-[#333]/70 text-base max-w-xl mx-auto">
-              Watch our team in action — real siding installation footage from Massachusetts job sites.
-            </p>
-          </div>
-          <div className="max-w-2xl mx-auto">
-            {videos.map((url) => (
-              <LazyVideo key={url} src={url} title="Siding Installation in Progress" className="aspect-[9/16] sm:aspect-video" />
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Team Section */}
       {crewProject && (

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE, REVIEW_COUNT, REVIEW_RATING } from "../../data/cities";
 import { BLOG_POSTS } from "../../data/blog";
 import LazyIframe from "../../components/LazyIframe";
+import YouTubeSection from "../../components/YouTubeSection";
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ service: s.slug }));
@@ -515,6 +516,9 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
           </div>
         </section>
       )}
+
+      {/* ═══ YOUTUBE VIDEOS ═══ */}
+      <YouTubeSection />
 
       {/* ═══ CTA ═══ */}
       <section className="bg-gradient-to-r from-[#E00000] to-[#CC0000] py-16">

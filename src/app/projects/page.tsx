@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { PROJECTS, PROJECT_VIDEOS, COMPANY_VAN_IMAGE } from "../data/projects";
+import { PROJECTS, COMPANY_VAN_IMAGE } from "../data/projects";
 import ServiceNav from "../services/ServiceNav";
 import ProjectsGallery from "./ProjectsGallery";
+import YouTubeSection from "../components/YouTubeSection";
 
 export const metadata: Metadata = {
   title: "Our Projects | Wolf's Siding Inc. | Siding Installation Gallery Massachusetts",
@@ -75,7 +76,7 @@ export default function ProjectsPage() {
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z" />
                 </svg>
-                {totalPhotos} Photos &bull; {PROJECT_VIDEOS.length} Video{PROJECT_VIDEOS.length !== 1 ? "s" : ""}
+                {totalPhotos} Photos
               </span>
               <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm text-white text-xs font-semibold px-4 py-2 rounded-full border border-white/20">
                 <svg className="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
@@ -115,12 +116,14 @@ export default function ProjectsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ProjectsGallery
             projects={PROJECTS}
-            videos={PROJECT_VIDEOS}
             vanImage={COMPANY_VAN_IMAGE}
             crewProject={crewProject}
           />
         </div>
       </section>
+
+      {/* YouTube Videos */}
+      <YouTubeSection />
     </>
   );
 }

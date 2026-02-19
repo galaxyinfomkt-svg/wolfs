@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, REGION_CLIMATE, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
 import { BLOG_POSTS } from "../data/blog";
 import LazyIframe from "../components/LazyIframe";
+import YouTubeSection from "../components/YouTubeSection";
 
 export function generateStaticParams() {
   return generateCityParams();
@@ -538,6 +539,9 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           </div>
         </div>
       </section>
+
+      {/* ═══ YOUTUBE VIDEOS ═══ */}
+      <YouTubeSection />
 
       {/* ═══ CTA ═══ */}
       <section className="bg-gradient-to-r from-[#E00000] to-[#CC0000] py-16">
