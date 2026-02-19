@@ -639,7 +639,6 @@ export default function HomePage() {
                   data-form-name="FORMULARIO WEBSITE"
                   data-height="558"
                   title="Wolf's Siding Free Quote Form"
-                  clickOnly
                 />
               </div>
             </div>

@@ -170,7 +170,6 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                 className="form-iframe-hero"
                 title="Contact form"
-                clickOnly
               />
             </div>
           </div>
