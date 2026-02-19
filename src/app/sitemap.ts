@@ -42,6 +42,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
+  // Projects page: /projects
+  const projectsPage: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/projects`,
+      lastModified: SITE_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+  ];
+
   // Blog index: /blog
   const blogIndex: MetadataRoute.Sitemap = [
     {
@@ -63,6 +73,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...homepage,
     ...servicePages,
+    ...projectsPage,
     ...cityPages,
     ...cityServicePages,
     ...blogIndex,

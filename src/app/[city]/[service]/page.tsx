@@ -121,9 +121,9 @@ export default async function CityServicePage({ params }: { params: Promise<Para
         <div className="absolute inset-0">
           <Image
             src={service.heroImage}
-            alt={`${service.shortName} in ${city.name}`}
+            alt={`${service.shortName} installation by Wolf's Siding in ${city.name}, MA`}
             fill
-            className="object-cover"
+            className="object-cover object-[center_30%]"
             priority
             sizes="100vw"
           />
@@ -324,10 +324,10 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { src: service.heroImage, alt: `${service.shortName} project in ${city.name}` },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f353daa4a8f2.png", alt: `${service.shortName} installation detail near ${city.name}` },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e8da9670893aa2a4e.png", alt: `Completed ${service.shortName.toLowerCase()} project in ${city.name}` },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3eabbae65f84f175c9.png", alt: `Exterior remodeling by Wolf's Siding near ${city.name}` },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg", alt: `${service.shortName} project by Wolf's Siding near ${city.name}, MA` },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e32181715caeea6e9c1.jpg", alt: `${service.shortName} installation detail near ${city.name}, MA` },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e324c2502c5f69917b6.jpg", alt: `Completed siding project by Wolf's Siding near ${city.name}, MA` },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328523c5f2c4d090c0.jpg", alt: `Siding installation by Wolf's Siding near ${city.name}, MA` },
                   ].map((img) => (
                     <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
                       <Image

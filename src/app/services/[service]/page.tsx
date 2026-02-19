@@ -106,7 +106,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
       {/* ═══ HERO ═══ */}
       <section className="relative pt-[80px]">
         <div className="absolute inset-0">
-          <Image src={service.heroImage} alt={service.shortName} fill className="object-cover" priority sizes="100vw" />
+          <Image src={service.heroImage} alt={`${service.shortName} installation by Wolf's Siding Inc., Massachusetts`} fill className="object-cover object-[center_30%]" priority sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
@@ -293,12 +293,12 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {[
-                    { src: service.heroImage, alt: `${service.shortName} installation by Wolf's Siding` },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa042a25a1ad9516f03a.jpeg", alt: `Professional ${service.shortName.toLowerCase()} project` },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa04357b4e5af271fea6.jpeg", alt: `${service.shortName} exterior transformation` },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f353daa4a8f2.png", alt: `${service.shortName} installation detail` },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e8da9670893aa2a4e.png", alt: `Completed ${service.shortName.toLowerCase()} project` },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d2be96c92ab.png", alt: `${service.shortName} full home renovation` },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg", alt: `${service.shortName} installation by Wolf's Siding, Massachusetts` },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e32181715caeea6e9c1.jpg", alt: `Professional ${service.shortName.toLowerCase()} project, MA` },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328d5b5a3f718385bf.jpg", alt: `${service.shortName} on Cape Cod home by Wolf's Siding, MA` },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e324c2502c5f69917b6.jpg", alt: `${service.shortName} on colonial home, Massachusetts` },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328523c5f2c4d090c0.jpg", alt: `Completed ${service.shortName.toLowerCase()} project, MA` },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e3220c0353f100e2671.jpg", alt: `${service.shortName} exterior renovation by Wolf's Siding, MA` },
                   ].map((img) => (
                     <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
                       <Image

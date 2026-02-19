@@ -119,6 +119,11 @@ body {
   contain-intrinsic-size: auto 500px;
 }
 
+/* Lightbox fade in */
+.lightbox-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
 /* Process step number watermark */
 .process-number {
   position: absolute;

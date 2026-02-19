@@ -196,7 +196,7 @@ const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Services", href: "#services" },
   { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
+  { label: "Projects", href: "/projects" },
   { label: "Reviews", href: "#reviews" },
   { label: "FAQ", href: "#faq" },
   { label: "Areas", href: "#contact" },
@@ -269,24 +269,24 @@ const SERVICES = [
   },
 ];
 
+const CDN = "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media";
+
 const PROJECT_IMAGES = [
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa042a25a1ad9516f03a.jpeg", alt: "Vinyl siding installation in Hudson, MA", label: "Vinyl Siding", city: "Hudson, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa04357b4e5af271fea6.jpeg", alt: "Clapboard siding installation in Northborough, MA", label: "Clapboard Siding", city: "Northborough, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d5eef6c92ac.png", alt: "Hardie Plank siding project in Marlborough, MA", label: "Hardie Plank", city: "Marlborough, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e1d466eed197a9806.png", alt: "Cedar shingles installation in Sudbury, MA", label: "Cedar Shingles", city: "Sudbury, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3ee0f09220206bdb36.png", alt: "Exterior trim work in Worcester, MA", label: "Exterior Trim", city: "Worcester, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f353daa4a8f2.png", alt: "Vinyl siding replacement in Framingham, MA", label: "Vinyl Siding", city: "Framingham, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d2be96c92ab.png", alt: "Siding installation in Shrewsbury, MA", label: "Vinyl Siding", city: "Shrewsbury, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e8da9670893aa2a4e.png", alt: "Hardie Plank siding in Westborough, MA", label: "Hardie Plank", city: "Westborough, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e7bbd8d15a40f7b92.png", alt: "Wood shingles project in Berlin, MA", label: "Wood Shingles", city: "Berlin, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e1d466e2aab7a9801.png", alt: "Cedar shingles in Holden, MA", label: "Cedar Shingles", city: "Holden, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e8da9674305aa2a4d.png", alt: "Siding contractor work in Boylston, MA", label: "Clapboard Siding", city: "Boylston, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3eabbae65f84f175c9.png", alt: "Exterior remodeling in Millbury, MA", label: "Exterior Trim", city: "Millbury, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e7bbd8d2f5f0f7b91.png", alt: "Clapboard siding project in Leicester, MA", label: "Clapboard Siding", city: "Leicester, MA" },
-  { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/693096f1e0f09255906b2611.jpg", alt: "Complete siding installation in West Boylston, MA", label: "Vinyl Siding", city: "West Boylston, MA" },
+  { src: `${CDN}/69975cfb2a2f15796c002376.jpg`, alt: "Navy blue vinyl siding installation on lakefront cottage, Massachusetts", label: "Vinyl Siding", city: "Massachusetts" },
+  { src: `${CDN}/69975e32181715caeea6e9c1.jpg`, alt: "Hardie Plank siding on craftsman ranch home, Massachusetts", label: "Hardie Plank", city: "Massachusetts" },
+  { src: `${CDN}/69975e328d5b5a3f718385bf.jpg`, alt: "Gray vinyl siding on Cape Cod home by Wolf's Siding, MA", label: "Vinyl Siding", city: "Massachusetts" },
+  { src: `${CDN}/69975e324c2502c5f69917b6.jpg`, alt: "Navy blue vinyl siding on colonial home, Massachusetts", label: "Vinyl Siding", city: "Massachusetts" },
+  { src: `${CDN}/69975e328523c5f2c4d090c0.jpg`, alt: "Upscale gray colonial siding installation, Massachusetts", label: "Vinyl Siding", city: "Massachusetts" },
+  { src: `${CDN}/69975e3220c0353f100e2671.jpg`, alt: "Burgundy board and batten siding on barn, Massachusetts", label: "Clapboard Siding", city: "Massachusetts" },
+  { src: `${CDN}/69975e328523c5721bd090c1.jpg`, alt: "Hardie Plank mixed profile detail on ranch, MA", label: "Hardie Plank", city: "Massachusetts" },
+  { src: `${CDN}/69975e323873af74c39f00be.jpg`, alt: "Subdivision vinyl siding installation by Wolf's Siding crew, MA", label: "Vinyl Siding", city: "Massachusetts" },
+  { src: `${CDN}/69975e328d5b5a152d8385ef.jpg`, alt: "Commercial multi-family sheathing installation, Massachusetts", label: "Full Siding Replacement", city: "Massachusetts" },
+  { src: `${CDN}/69975e323873af3bda9f00d3.jpg`, alt: "Ranch vinyl siding with brick accent, Massachusetts", label: "Vinyl Siding", city: "Massachusetts" },
+  { src: `${CDN}/69975cfb4c25023cb798a266.jpg`, alt: "Completed vinyl siding back view lakefront property, MA", label: "Vinyl Siding", city: "Massachusetts" },
+  { src: `${CDN}/69975e328d5b5ade738385b5.jpg`, alt: "A-frame chalet exterior sheathing preparation, Massachusetts", label: "Full Siding Replacement", city: "Massachusetts" },
 ];
 
-const GALLERY_FILTERS = ["All", "Vinyl Siding", "Clapboard Siding", "Hardie Plank", "Cedar Shingles", "Exterior Trim", "Wood Shingles"];
+const GALLERY_FILTERS = ["All", "Vinyl Siding", "Hardie Plank", "Clapboard Siding", "Full Siding Replacement"];
 
 const FAQS = [
   { q: "How much does siding installation cost in Massachusetts?", a: "Siding installation costs in Massachusetts typically range from $5,000 to $25,000+ depending on the size of your home, material chosen, and project complexity. We provide free on-site assessments with transparent, itemized estimates — no hidden fees or surprises." },
@@ -476,7 +476,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <a href="#projects" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Projects</a>
+              <a href="/projects" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Projects</a>
               <a href="#service-area" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Areas</a>
               <Link href="/blog" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Blog</Link>
               <a href="#contact" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Contact</a>
@@ -536,7 +536,7 @@ export default function HomePage() {
                   {s.shortName}
                 </Link>
               ))}
-              <a href="#projects" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</a>
+              <a href="/projects" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</a>
               <a href="#service-area" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Areas</a>
               <Link href="/blog" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Blog</Link>
               <a href="#contact" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Contact</a>
@@ -553,14 +553,14 @@ export default function HomePage() {
         {/* ═══════════════════════════════════════════════════════
             2. HERO — Full-screen, 2 columns (RS model)
             ═══════════════════════════════════════════════════════ */}
-        <section id="home" className="relative min-h-screen flex items-center pt-[110px]">
+        <section id="home" className="relative min-h-[70vh] lg:min-h-screen flex items-center pt-[110px]">
           {/* BG image + overlay */}
           <div className="absolute inset-0 z-0">
             <Image
               src="https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png"
               alt="Professional siding installation on Massachusetts home by Wolf's Siding Inc."
               fill
-              className="object-cover"
+              className="object-cover object-[center_30%]"
               priority
               sizes="100vw"
               quality={80}
@@ -1000,6 +1000,17 @@ export default function HomePage() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* View All Projects button */}
+            <div className="text-center mt-10 scroll-animate opacity-0">
+              <a
+                href="/projects"
+                className="inline-flex items-center gap-2 bg-[#E00000] hover:bg-[#CC0000] text-white px-8 py-3.5 rounded-lg text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-red-900/30"
+              >
+                View All Projects
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+              </a>
             </div>
           </div>
         </section>

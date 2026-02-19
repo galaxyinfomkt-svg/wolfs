@@ -107,10 +107,10 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       <section className="relative pt-[80px]">
         <div className="absolute inset-0">
           <Image
-            src="https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d2be96c92ab.png"
-            alt={`Siding project in ${city.name}`}
+            src="https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg"
+            alt={`Siding installation project by Wolf's Siding in ${city.name}, MA`}
             fill
-            className="object-cover"
+            className="object-cover object-[center_30%]"
             priority
             sizes="100vw"
           />
@@ -273,12 +273,12 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-8" />
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {[
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa042a25a1ad9516f03a.jpeg", alt: "Vinyl siding installation" },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa04357b4e5af271fea6.jpeg", alt: "Clapboard siding project" },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d5eef6c92ac.png", alt: "Hardie Plank installation" },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e1d466eed197a9806.png", alt: "Cedar shingle siding" },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3ee0f09220206bdb36.png", alt: "Exterior trim work" },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d2be96c92ab.png", alt: "Complete siding replacement" },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg", alt: "Vinyl siding installation by Wolf's Siding" },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e32181715caeea6e9c1.jpg", alt: "Hardie Plank siding project" },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328d5b5a3f718385bf.jpg", alt: "Gray vinyl siding on Cape Cod home" },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e324c2502c5f69917b6.jpg", alt: "Navy blue colonial siding" },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328523c5f2c4d090c0.jpg", alt: "Upscale gray colonial siding" },
+                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e3220c0353f100e2671.jpg", alt: "Board and batten siding" },
                   ].map((img) => (
                     <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
                       <Image

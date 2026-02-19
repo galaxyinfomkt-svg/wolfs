@@ -184,6 +184,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://storage.googleapis.com" />
+        <link rel="preconnect" href="https://assets.cdn.filesafe.space" />
         <link rel="preconnect" href="https://api.leadconnectorhq.com" />
         <link rel="preconnect" href="https://widgets.leadconnectorhq.com" />
         <link rel="dns-prefetch" href="https://services.leadconnectorhq.com" />
