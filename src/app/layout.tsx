@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: "Expert Siding Installation in Massachusetts | Wolf's Siding Inc.",
     description:
       "Transform your home with premium siding installation by Wolf's Siding Inc. Vinyl, Hardie Plank, Cedar & more. 18+ years of experience across Massachusetts. Free assessment!",
-    url: "https://www.wolfs-siding.com",
+    url: "https://wolfs-siding.com",
     siteName: "Wolf's Siding Inc.",
     images: [
       {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
-  alternates: { canonical: "https://www.wolfs-siding.com" },
+  alternates: { canonical: "https://wolfs-siding.com" },
 };
 
 /* JSON-LD structured data for LocalBusiness / Contractor */
@@ -59,10 +59,10 @@ const jsonLd = {
   alternateName: "Wolf's Siding",
   description:
     "Expert siding installation, replacement and repair company serving Massachusetts. Specializing in Vinyl, Hardie Plank, Cedar, Clapboard siding and exterior trim work with 18+ years of industry experience.",
-  url: "https://www.wolfs-siding.com",
+  url: "https://wolfs-siding.com",
   telephone: "+17744841895",
-  image: "https://www.wolfs-siding.com/logo.png",
-  logo: "https://www.wolfs-siding.com/logo.png",
+  image: "https://wolfs-siding.com/logo.png",
+  logo: "https://wolfs-siding.com/logo.png",
   founder: {
     "@type": "Person",
     name: "Ezequias Lobo",

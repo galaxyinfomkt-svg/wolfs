@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Siding Blog | Expert Tips & Guides | Wolf's Siding Inc.",
     description: "Expert siding tips, guides, and advice for Massachusetts homeowners.",
-    url: "https://www.wolfs-siding.com/blog",
+    url: "https://wolfs-siding.com/blog",
     siteName: "Wolf's Siding Inc.",
     type: "website",
     images: [{ url: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png", width: 1200, height: 630, alt: "Wolf's Siding Inc. Blog" }],
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: "Expert siding tips, guides, and advice for Massachusetts homeowners.",
     images: ["https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png"],
   },
-  alternates: { canonical: "https://www.wolfs-siding.com/blog" },
+  alternates: { canonical: "https://wolfs-siding.com/blog" },
 };
 
 export default function BlogIndexPage() {

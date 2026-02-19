@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { CITIES, SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
 
-const BASE_URL = "https://www.wolfs-siding.com";
+const BASE_URL = "https://wolfs-siding.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Homepage

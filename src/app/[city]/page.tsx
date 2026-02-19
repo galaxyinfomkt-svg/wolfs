@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
     openGraph: {
       title,
       description,
-      url: `https://www.wolfs-siding.com/${slug}`,
+      url: `https://wolfs-siding.com/${slug}`,
       siteName: "Wolf's Siding Inc.",
       type: "website",
       images: [{ url: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png", width: 1200, height: 630, alt: `Siding Contractor ${city.name}, ${STATE_ABBR} | Wolf's Siding Inc.` }],
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
       description,
       images: ["https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png"],
     },
-    alternates: { canonical: `https://www.wolfs-siding.com/${slug}` },
+    alternates: { canonical: `https://wolfs-siding.com/${slug}` },
   };
 }
 
@@ -52,10 +52,10 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     "@type": "HomeAndConstructionBusiness",
     name: "Wolf's Siding Inc.",
     description: `Professional siding contractor serving ${city.name}, ${STATE_ABBR}. Specializing in vinyl siding, Hardie Plank, cedar shingles, clapboard, and exterior trim work.`,
-    url: `https://www.wolfs-siding.com/${slug}`,
+    url: `https://wolfs-siding.com/${slug}`,
     telephone: "+17744841895",
-    image: "https://www.wolfs-siding.com/logo.png",
-    logo: "https://www.wolfs-siding.com/logo.png",
+    image: "https://wolfs-siding.com/logo.png",
+    logo: "https://wolfs-siding.com/logo.png",
     address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
     geo: { "@type": "GeoCoordinates", latitude: 42.3195, longitude: -71.6412 },
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
@@ -72,8 +72,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.wolfs-siding.com" },
-      { "@type": "ListItem", position: 2, name: city.name, item: `https://www.wolfs-siding.com/${slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://wolfs-siding.com" },
+      { "@type": "ListItem", position: 2, name: city.name, item: `https://wolfs-siding.com/${slug}` },
     ],
   };
 

@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/", "/_next/"],
     },
-    sitemap: "https://www.wolfs-siding.com/sitemap.xml",
+    sitemap: "https://wolfs-siding.com/sitemap.xml",
   };
 }
