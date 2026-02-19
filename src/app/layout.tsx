@@ -188,6 +188,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://widgets.leadconnectorhq.com" />
         <link rel="dns-prefetch" href="https://services.leadconnectorhq.com" />
         <link rel="dns-prefetch" href="https://appcdn.leadconnectorhq.com" />
+        <link rel="dns-prefetch" href="https://snapwidget.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -204,6 +205,10 @@ export default function RootLayout({
         />
         <Script
           src="https://reputationhub.site/reputation/assets/review-widget.js"
+          strategy="lazyOnload"
+        />
+        <Script
+          src="https://snapwidget.com/js/snapwidget.js"
           strategy="lazyOnload"
         />
       </body>
