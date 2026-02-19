@@ -22,13 +22,9 @@ export default function DeferredScripts() {
       window.addEventListener(e, activate, { once: true, passive: true })
     );
 
-    // Fallback: load after 8 seconds regardless
-    const timer = setTimeout(activate, 8000);
-
     return () => {
       done = true;
       events.forEach((e) => window.removeEventListener(e, activate));
-      clearTimeout(timer);
     };
   }, []);
 

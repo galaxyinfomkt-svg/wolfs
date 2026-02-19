@@ -563,7 +563,7 @@ export default function HomePage() {
               className="object-cover object-[center_30%]"
               priority
               sizes="100vw"
-              quality={60}
+              quality={40}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/85 to-black/70" />
           </div>
@@ -640,7 +640,7 @@ export default function HomePage() {
                   data-form-name="FORMULARIO WEBSITE"
                   data-height="558"
                   title="Wolf's Siding Free Quote Form"
-                  eager
+                  clickOnly
                 />
               </div>
             </div>

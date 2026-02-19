@@ -194,7 +194,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                 className="form-iframe-hero"
                 title="Contact form"
-                eager
+                clickOnly
               />
             </div>
           </div>

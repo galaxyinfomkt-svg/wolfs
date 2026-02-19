@@ -179,7 +179,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                 className="form-iframe-hero"
                 title="Contact form"
-                eager
+                clickOnly
               />
             </div>
           </div>
