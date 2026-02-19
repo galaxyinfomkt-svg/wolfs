@@ -28,6 +28,8 @@ export interface ServiceData {
 
 export const STATE = "Massachusetts";
 export const STATE_ABBR = "MA";
+export const REVIEW_COUNT = "22";
+export const REVIEW_RATING = "5.0";
 
 /* ─── REGION CLIMATE DESCRIPTIONS ─── */
 export const REGION_CLIMATE: Record<string, string> = {

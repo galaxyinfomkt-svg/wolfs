@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE } from "../../data/cities";
+import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE, REVIEW_COUNT, REVIEW_RATING } from "../../data/cities";
 import LazyIframe from "../../components/LazyIframe";
 
 export function generateStaticParams() {
@@ -15,7 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ service: 
   if (!service) return {};
 
   const title = `${service.name} Massachusetts | Wolf's Siding Inc.`;
-  const description = `Professional ${service.shortName.toLowerCase()} services across Massachusetts. ${service.description} 18+ years experience. Free estimates. Call (774) 484-1895!`;
+  const fullDesc = `Professional ${service.shortName.toLowerCase()} services across Massachusetts. ${service.description} 18+ years experience. Free estimates. Call (774) 484-1895!`;
+  const description = fullDesc.length > 160 ? fullDesc.slice(0, 157) + "..." : fullDesc;
 
   return {
     title,
@@ -51,10 +52,10 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
       name: "Wolf's Siding Inc.",
       telephone: "+17744841895",
       address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
-      aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "22" },
+      aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, reviewCount: REVIEW_COUNT },
     },
     areaServed: { "@type": "State", name: "Massachusetts" },
-    offers: { "@type": "Offer", priceCurrency: "USD" },
+    offers: { "@type": "Offer", priceCurrency: "USD", priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", price: service.priceRange } },
   };
 
   const faqLd = {
@@ -108,7 +109,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                       <svg key={i} className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
                     ))}
                   </span>
-                  5.0 (22 reviews)
+                  {REVIEW_RATING} ({REVIEW_COUNT} reviews)
                 </span>
               </div>
 
@@ -143,11 +144,13 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
             </div>
 
             {/* Form */}
-            <LazyIframe
-              src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-              className="form-iframe-hero"
-              title="Contact form"
-            />
+            <div id="contact-form">
+              <LazyIframe
+                src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+                className="form-iframe-hero"
+                title="Contact form"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -161,13 +164,13 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
               <svg key={i} className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
             ))}
           </div>
-          <span className="text-white text-sm font-semibold">5.0</span>
-          <span className="text-white/50 text-sm">(22 Reviews)</span>
+          <span className="text-white text-sm font-semibold">{REVIEW_RATING}</span>
+          <span className="text-white/50 text-sm">({REVIEW_COUNT} Reviews)</span>
         </div>
       </div>
 
       {/* ═══ MAIN CONTENT + SIDEBAR ═══ */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white content-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* ─── LEFT: Main Content ─── */}
@@ -194,7 +197,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                   <p>
                     Every project begins with a <strong>free on-site assessment</strong> where we evaluate your specific needs,
                     discuss your options, and provide a transparent, itemized estimate. No surprises, no pressure — just honest
-                    expertise from a contractor with a <strong>perfect 5.0 Google rating</strong> and 22+ verified reviews.
+                    expertise from a contractor with a <strong>perfect {REVIEW_RATING} Google rating</strong> and {REVIEW_COUNT}+ verified reviews.
                   </p>
                 </div>
               </div>
@@ -237,7 +240,6 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 <div className="grid sm:grid-cols-2 gap-5">
                   {service.processSteps.map((step, i) => (
                     <div key={i} className="bg-[#F5F5F5] rounded-xl p-6 border border-gray-100 relative">
-                      <div className="process-number">{i + 1}</div>
                       <div className="w-10 h-10 bg-[#E00000] rounded-full flex items-center justify-center text-white font-bold text-sm mb-4">
                         {i + 1}
                       </div>
@@ -270,12 +272,12 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {[
-                    { src: service.heroImage, alt: `${service.shortName} project` },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa042a25a1ad9516f03a.jpeg", alt: "Vinyl siding installation" },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa04357b4e5af271fea6.jpeg", alt: "Clapboard siding project" },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f353daa4a8f2.png", alt: "Siding detail" },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e8da9670893aa2a4e.png", alt: "Completed project" },
-                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d2be96c92ab.png", alt: "Exterior remodeling" },
+                    { src: service.heroImage, alt: `${service.shortName} installation by Wolf's Siding` },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa042a25a1ad9516f03a.jpeg", alt: `Professional ${service.shortName.toLowerCase()} project` },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68caaa04357b4e5af271fea6.jpeg", alt: `${service.shortName} exterior transformation` },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f353daa4a8f2.png", alt: `${service.shortName} installation detail` },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e8da9670893aa2a4e.png", alt: `Completed ${service.shortName.toLowerCase()} project` },
+                    { src: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d2be96c92ab.png", alt: `${service.shortName} full home renovation` },
                   ].map((img) => (
                     <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
                       <Image
@@ -369,7 +371,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 <div className="grid sm:grid-cols-2 gap-5">
                   {[
                     { icon: "shield", title: "Licensed & Insured", desc: "Fully licensed and insured for your complete peace of mind on every project." },
-                    { icon: "star", title: "5-Star Rated", desc: "Perfect 5.0 Google rating with 22+ reviews from satisfied Massachusetts homeowners." },
+                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} Google rating with ${REVIEW_COUNT}+ reviews from satisfied Massachusetts homeowners.` },
                     { icon: "clock", title: "On-Time Completion", desc: "Projects completed on time, within budget, with minimal disruption to your life." },
                     { icon: "dollar", title: "Free Estimates", desc: "No-obligation on-site assessments with transparent, itemized pricing — no hidden fees." },
                   ].map((item) => (
@@ -477,9 +479,9 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
               (774) 484-1895
             </a>
-            <Link href="/#contact" className="inline-flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 px-8 py-4 rounded-xl text-lg font-bold transition-all">
+            <a href="#contact-form" className="inline-flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 px-8 py-4 rounded-xl text-lg font-bold transition-all">
               Request Estimate
-            </Link>
+            </a>
           </div>
         </div>
       </section>

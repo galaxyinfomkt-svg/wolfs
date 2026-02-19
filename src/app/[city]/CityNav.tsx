@@ -74,7 +74,7 @@ export default function CityNav({ citySlug, cityName }: { citySlug: string; city
               </div>
 
               <Link href="/#projects" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Projects</Link>
-              <Link href="/#service-area" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Areas</Link>
+              <Link href="/#contact" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Contact</Link>
               <Link href="/blog" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Blog</Link>
               <Link href="/#contact" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Contact</Link>
             </nav>
@@ -123,7 +123,7 @@ export default function CityNav({ citySlug, cityName }: { citySlug: string; city
                 </Link>
               ))}
               <Link href="/#projects" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</Link>
-              <Link href="/#service-area" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Areas</Link>
+              <Link href="/#contact" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Contact</Link>
               <Link href="/blog" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Blog</Link>
               <Link href="/#contact" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Contact</Link>
               <a href="tel:+17744841895" className="flex items-center justify-center gap-2 mt-3 bg-[#E00000] text-white px-6 py-3 rounded-lg text-sm font-bold">

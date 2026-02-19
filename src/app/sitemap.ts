@@ -3,13 +3,14 @@ import { CITIES, SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
 
 const BASE_URL = "https://wolfs-siding.com";
+const SITE_UPDATED = "2025-06-15";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Homepage
   const homepage: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
-      lastModified: new Date(),
+      lastModified: SITE_UPDATED,
       changeFrequency: "weekly",
       priority: 1.0,
     },
@@ -18,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Service pages: /services/{service-slug}
   const servicePages: MetadataRoute.Sitemap = SERVICES.map((service) => ({
     url: `${BASE_URL}/services/${service.slug}`,
-    lastModified: new Date(),
+    lastModified: SITE_UPDATED,
     changeFrequency: "monthly" as const,
     priority: 0.9,
   }));
@@ -26,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // City pages: /{city-slug}
   const cityPages: MetadataRoute.Sitemap = CITIES.map((city) => ({
     url: `${BASE_URL}/${city.slug}`,
-    lastModified: new Date(),
+    lastModified: SITE_UPDATED,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
@@ -35,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const cityServicePages: MetadataRoute.Sitemap = CITIES.flatMap((city) =>
     SERVICES.map((service) => ({
       url: `${BASE_URL}/${city.slug}/${service.slug}`,
-      lastModified: new Date(),
+      lastModified: SITE_UPDATED,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }))
@@ -45,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogIndex: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/blog`,
-      lastModified: new Date(),
+      lastModified: SITE_UPDATED,
       changeFrequency: "weekly",
       priority: 0.6,
     },

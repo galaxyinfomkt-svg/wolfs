@@ -52,6 +52,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     description: post.excerpt,
     image: post.heroImage,
     datePublished: post.date,
+    dateModified: post.date,
     author: { "@type": "Organization", name: "Wolf's Siding Inc." },
     publisher: {
       "@type": "Organization",

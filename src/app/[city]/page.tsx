@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, REGION_CLIMATE, STATE_ABBR } from "../data/cities";
+import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, REGION_CLIMATE, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
 import LazyIframe from "../components/LazyIframe";
 
 export function generateStaticParams() {
@@ -59,7 +59,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
     geo: { "@type": "GeoCoordinates", latitude: 42.3195, longitude: -71.6412 },
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
-    aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", bestRating: "5", worstRating: "1", ratingCount: "22", reviewCount: "22" },
+    aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
     sameAs: ["https://www.instagram.com/wolfs_siding_inc/", "https://www.facebook.com/wolfsiding", "https://maps.app.goo.gl/ibPzjf7EWQ7aK1HYA"],
     priceRange: "$$",
     openingHoursSpecification: [
@@ -83,7 +83,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     { q: `How long does a siding installation take in ${city.name}?`, a: `Most residential siding projects in ${city.name} are completed in 1–3 weeks depending on the size of your home and the type of siding. Wolf's Siding Inc. works efficiently to minimize disruption while maintaining our high quality standards.` },
     { q: `Do you offer free estimates for ${city.name} homeowners?`, a: `Yes! Wolf's Siding Inc. provides completely free, no-obligation on-site assessments for homeowners in ${city.name} and all surrounding ${city.region} communities. We'll inspect your current siding, discuss your options, and provide a detailed written estimate.` },
     { q: `Is Wolf's Siding Inc. licensed and insured to work in ${city.name}?`, a: `Absolutely. Wolf's Siding Inc. is fully licensed and insured with comprehensive liability and workers' compensation coverage. We've been serving ${city.name} and 110+ Massachusetts cities for over 18 years with a perfect 5.0 Google rating.` },
-    { q: `Why should I choose Wolf's Siding over other contractors in ${city.name}?`, a: `Wolf's Siding stands out with 18+ years of experience, a perfect 5.0 Google rating (22+ reviews), hands-on oversight by owner Ezequias Lobo on every project, and deep knowledge of ${city.region} climate challenges. We use premium materials and provide a written warranty on all work.` },
+    { q: `Why should I choose Wolf's Siding over other contractors in ${city.name}?`, a: `Wolf's Siding stands out with 18+ years of experience, a perfect ${REVIEW_RATING} Google rating (${REVIEW_COUNT}+ reviews), hands-on oversight by owner Ezequias Lobo on every project, and deep knowledge of ${city.region} climate challenges. We use premium materials and provide a written warranty on all work.` },
   ];
 
   const faqLd = {
@@ -137,7 +137,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                       <svg key={i} className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
                     ))}
                   </span>
-                  5 (22 reviews)
+                  {REVIEW_RATING} ({REVIEW_COUNT} reviews)
                 </span>
               </div>
 
@@ -173,11 +173,13 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             </div>
 
             {/* Right: Form */}
-            <LazyIframe
-              src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-              className="form-iframe-hero"
-              title="Contact form"
-            />
+            <div id="contact-form">
+              <LazyIframe
+                src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+                className="form-iframe-hero"
+                title="Contact form"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -191,13 +193,13 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
               <svg key={i} className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
             ))}
           </div>
-          <span className="text-white text-sm font-semibold">5.0</span>
-          <span className="text-white/50 text-sm">(22 Reviews)</span>
+          <span className="text-white text-sm font-semibold">{REVIEW_RATING}</span>
+          <span className="text-white/50 text-sm">({REVIEW_COUNT} Reviews)</span>
         </div>
       </div>
 
       {/* ═══ MAIN CONTENT + SIDEBAR ═══ */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white content-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* ─── LEFT: Main Content ─── */}
@@ -302,7 +304,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 <div className="grid sm:grid-cols-2 gap-5">
                   {[
                     { icon: "shield", title: "Licensed & Insured", desc: "Fully licensed and insured for your complete peace of mind. We carry comprehensive liability and workers' compensation coverage." },
-                    { icon: "star", title: "5-Star Rated", desc: "Perfect 5.0 rating on Google with 22+ reviews from satisfied homeowners across Massachusetts. Our reputation speaks for itself." },
+                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} rating on Google with ${REVIEW_COUNT}+ reviews from satisfied homeowners across Massachusetts. Our reputation speaks for itself.` },
                     { icon: "clock", title: "On-Time Completion", desc: "We respect your schedule. Projects are completed on time, within budget, and with minimal disruption to your daily life." },
                     { icon: "dollar", title: "Free Estimates", desc: "No-obligation on-site assessments with transparent, itemized pricing. No hidden fees, no pressure — just honest expertise." },
                   ].map((item) => (
@@ -328,7 +330,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                   <div className="relative aspect-[4/5] sm:aspect-auto">
                     <Image
                       src="https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68e581d6416ab711d774e6cf.jpeg"
-                      alt="Ezequias Lobo — Owner of Wolf's Siding Inc., siding contractor serving ${city.name}, Massachusetts"
+                      alt={`Ezequias Lobo — Owner of Wolf's Siding Inc., siding contractor serving ${city.name}, Massachusetts`}
                       fill
                       className="object-cover"
                       sizes="(max-width: 640px) 100vw, 33vw"
@@ -424,10 +426,9 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                   <svg className="w-6 h-6 text-[#E00000]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
                   Service Area: {city.name}, {STATE_ABBR}
                 </h3>
-                <iframe
+                <LazyIframe
                   src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(city.name + ", MA")}&zoom=12`}
                   className="w-full h-[300px] rounded-xl border-0"
-                  loading="lazy"
                   title={`Map of ${city.name}`}
                 />
                 <p className="text-sm text-[#333]/60 mt-3 flex items-center gap-2">
@@ -516,9 +517,9 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
               (774) 484-1895
             </a>
-            <Link href="/#contact" className="inline-flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 px-8 py-4 rounded-xl text-lg font-bold transition-all">
+            <a href="#contact-form" className="inline-flex items-center justify-center gap-2 bg-white text-black hover:bg-gray-100 px-8 py-4 rounded-xl text-lg font-bold transition-all">
               Request Estimate
-            </Link>
+            </a>
           </div>
         </div>
       </section>
