@@ -198,7 +198,7 @@ const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
   { label: "Reviews", href: "#reviews" },
   { label: "FAQ", href: "#faq" },
-  { label: "Areas", href: "#service-area" },
+  { label: "Areas", href: "#contact" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -684,7 +684,7 @@ export default function HomePage() {
         <section id="services" className="py-20 lg:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Section header */}
-            <div className="text-center mb-16 scroll-animate opacity-0">
+            <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
                 Our <span className="text-[#E00000]">Services</span>
               </h2>
@@ -734,13 +734,13 @@ export default function HomePage() {
                     <p className="text-[#333333] text-sm leading-relaxed mb-5">
                       {service.description}
                     </p>
-                    <a
-                      href="#contact"
+                    <Link
+                      href={`/services/${service.slug}`}
                       className="inline-flex items-center gap-2 text-[#E00000] font-semibold text-sm group/link"
                     >
                       {service.cta}
                       <ArrowRightIcon className="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -1325,9 +1325,9 @@ export default function HomePage() {
               <ul className="space-y-3">
                 {SERVICES.map((s) => (
                   <li key={s.slug}>
-                    <a href="#services" className={`text-sm transition-colors duration-200 ${s.featured ? "text-[#E00000] font-semibold" : "text-white/60 hover:text-[#E00000]"}`}>
+                    <Link href={`/services/${s.slug}`} className={`text-sm transition-colors duration-200 ${s.featured ? "text-[#E00000] font-semibold" : "text-white/60 hover:text-[#E00000]"}`}>
                       {s.title}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -1370,9 +1370,9 @@ export default function HomePage() {
                   </li>
                 ))}
                 <li>
-                  <a href="#service-area" className="text-[#E00000] text-sm font-semibold">
+                  <Link href="/marlborough" className="text-[#E00000] text-sm font-semibold">
                     + {SERVICE_AREAS_ALL.length - 12} more cities →
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

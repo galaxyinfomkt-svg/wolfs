@@ -77,10 +77,30 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     ],
   };
 
+  const cityFaqs = [
+    { q: `How much does siding installation cost in ${city.name}, MA?`, a: `Siding installation in ${city.name} typically costs between $5,000 and $25,000+ depending on home size, material, and project scope. Wolf's Siding Inc. offers free on-site assessments with transparent pricing — no hidden fees. Call (774) 484-1895 for your free estimate.` },
+    { q: `What is the best siding material for homes in ${city.name}?`, a: `For ${city.name} homes in the ${city.region} region, we recommend Hardie Plank for maximum durability against ${climate}, or vinyl siding for a budget-friendly, low-maintenance option. Cedar shingles are ideal for historic New England-style homes. Our 18+ years of local experience means we know what works best.` },
+    { q: `How long does a siding installation take in ${city.name}?`, a: `Most residential siding projects in ${city.name} are completed in 1–3 weeks depending on the size of your home and the type of siding. Wolf's Siding Inc. works efficiently to minimize disruption while maintaining our high quality standards.` },
+    { q: `Do you offer free estimates for ${city.name} homeowners?`, a: `Yes! Wolf's Siding Inc. provides completely free, no-obligation on-site assessments for homeowners in ${city.name} and all surrounding ${city.region} communities. We'll inspect your current siding, discuss your options, and provide a detailed written estimate.` },
+    { q: `Is Wolf's Siding Inc. licensed and insured to work in ${city.name}?`, a: `Absolutely. Wolf's Siding Inc. is fully licensed and insured with comprehensive liability and workers' compensation coverage. We've been serving ${city.name} and 110+ Massachusetts cities for over 18 years with a perfect 5.0 Google rating.` },
+    { q: `Why should I choose Wolf's Siding over other contractors in ${city.name}?`, a: `Wolf's Siding stands out with 18+ years of experience, a perfect 5.0 Google rating (22+ reviews), hands-on oversight by owner Ezequias Lobo on every project, and deep knowledge of ${city.region} climate challenges. We use premium materials and provide a written warranty on all work.` },
+  ];
+
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: cityFaqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
       {/* ═══ HERO with background image + form ═══ */}
       <section className="relative pt-[80px]">
@@ -100,10 +120,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Content */}
             <div>
-              <nav className="text-sm text-white/50 mb-6">
+              <nav className="text-sm text-white/50 mb-6" aria-label="Breadcrumb">
                 <Link href="/" className="hover:text-[#E00000] transition-colors">Home</Link>
-                <span className="mx-2">/</span>
-                <Link href="/#service-area" className="hover:text-[#E00000] transition-colors">Service Areas</Link>
                 <span className="mx-2">/</span>
                 <span className="text-white">{city.name}, {STATE_ABBR}</span>
               </nav>
@@ -198,12 +216,18 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                   </p>
                   <p>
                     At Wolf&apos;s Siding Inc., we understand the specific demands that {city.name}&apos;s climate places on your home.
-                    That&apos;s why we offer a full range of siding solutions — from cost-effective <strong>vinyl siding</strong> to premium{" "}
-                    <strong>Hardie Plank</strong> and <strong>cedar shingles</strong> — each selected for superior performance in New England conditions.
+                    That&apos;s why we offer a full range of siding solutions — from cost-effective{" "}
+                    <Link href={`/${slug}/vinyl-siding-installation`} className="text-[#E00000] font-semibold hover:underline">vinyl siding</Link> to premium{" "}
+                    <Link href={`/${slug}/hardie-plank-siding-installation`} className="text-[#E00000] font-semibold hover:underline">Hardie Plank</Link> and{" "}
+                    <Link href={`/${slug}/cedar-shingle-siding`} className="text-[#E00000] font-semibold hover:underline">cedar shingles</Link> — each selected for superior performance in New England conditions.
                     Our <strong>18+ years of experience</strong> means we know exactly which materials and installation techniques work best for {city.name} homes.
                   </p>
                   <p>
-                    Whether you&apos;re protecting a historic colonial, updating a ranch, or finishing a new build,
+                    Whether you need{" "}
+                    <Link href={`/${slug}/clapboard-siding-installation`} className="text-[#E00000] font-semibold hover:underline">clapboard siding</Link>,{" "}
+                    <Link href={`/${slug}/exterior-trim-work`} className="text-[#E00000] font-semibold hover:underline">exterior trim work</Link>,{" "}
+                    <Link href={`/${slug}/siding-repair-services`} className="text-[#E00000] font-semibold hover:underline">siding repair</Link>, or a{" "}
+                    <Link href={`/${slug}/full-siding-replacement`} className="text-[#E00000] font-semibold hover:underline">full siding replacement</Link>,
                     Wolf&apos;s Siding delivers the craftsmanship and reliability that {city.name} families deserve. Every project
                     starts with a free on-site assessment and ends with a home that&apos;s beautiful, protected, and built to last.
                   </p>
@@ -347,6 +371,51 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* FAQ Section */}
+              <div>
+                <h2 className="text-3xl font-black text-black mb-3">
+                  Siding FAQ — <span className="text-[#E00000]">{city.name}, {STATE_ABBR}</span>
+                </h2>
+                <div className="w-20 h-1 bg-[#E00000] rounded-full mb-8" />
+                <div className="space-y-3">
+                  {cityFaqs.map((faq, i) => (
+                    <details key={i} className="group bg-[#F5F5F5] rounded-xl border border-gray-100">
+                      <summary className="flex items-center justify-between p-5 cursor-pointer list-none font-bold text-black text-sm hover:text-[#E00000] transition-colors">
+                        {faq.q}
+                        <svg className="w-5 h-5 text-[#E00000] flex-shrink-0 ml-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+                      </summary>
+                      <div className="px-5 pb-5 text-sm text-[#333] leading-relaxed border-t border-gray-200 pt-4">
+                        {faq.a}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </div>
+
+              {/* Siding Contractor Near Me */}
+              <div className="bg-gradient-to-br from-[#E00000] to-[#CC0000] rounded-2xl p-8 text-white">
+                <h2 className="text-2xl sm:text-3xl font-black mb-4">
+                  Looking for a Siding Contractor Near {city.name}?
+                </h2>
+                <p className="text-white/90 leading-relaxed mb-6">
+                  Wolf&apos;s Siding Inc. is the top-rated siding contractor near {city.name}, MA. Whether you&apos;re searching for
+                  &ldquo;siding contractor near me&rdquo; or &ldquo;siding installation {city.name}&rdquo;, our team is ready to help.
+                  We serve {city.name} and all nearby {city.region} communities with the same 5-star quality and attention to detail.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {nearby.slice(0, 4).map((c) => (
+                    <Link key={c.slug} href={`/${c.slug}`} className="inline-flex items-center gap-1 bg-white/20 hover:bg-white/30 text-white text-xs font-semibold px-3 py-1.5 rounded-full transition-colors">
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+                      {c.name}, MA
+                    </Link>
+                  ))}
+                </div>
+                <a href="tel:+17744841895" className="inline-flex items-center gap-2 bg-black hover:bg-[#1A1A1A] text-white px-6 py-3 rounded-xl font-bold transition-all hover:scale-105">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
+                  Call (774) 484-1895
+                </a>
               </div>
 
               {/* Map */}
