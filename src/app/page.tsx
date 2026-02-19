@@ -563,7 +563,7 @@ export default function HomePage() {
               className="object-cover object-[center_30%]"
               priority
               sizes="100vw"
-              quality={80}
+              quality={60}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/85 to-black/70" />
           </div>
@@ -665,15 +665,15 @@ export default function HomePage() {
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
-              <span className="text-white/70 text-sm font-medium">Google Reviews</span>
+              <span className="text-white/90 text-sm font-medium">Google Reviews</span>
               <div className="flex">
                 {[...Array(5)].map((_, i) => (
                   <StarIcon key={i} className="w-4 h-4 text-yellow-400" />
                 ))}
               </div>
               <span className="text-white font-bold text-sm">5.0</span>
-              <span className="text-white/50 text-sm">(22 reviews)</span>
-              <span className="text-[#E00000] text-sm font-semibold group-hover:underline flex items-center gap-1">
+              <span className="text-white/70 text-sm">(22 reviews)</span>
+              <span className="text-[#FF4444] text-sm font-semibold group-hover:underline flex items-center gap-1">
                 See Our Reviews <ExternalLinkIcon className="w-3.5 h-3.5" />
               </span>
             </a>
@@ -1314,7 +1314,7 @@ export default function HomePage() {
                 <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">
                   Ready to Transform Your Home&apos;s Exterior?
                 </h2>
-                <p className="text-white/90 text-lg max-w-xl">
+                <p className="text-white text-lg max-w-xl">
                   Get a free on-site assessment and transparent estimate from Massachusetts&apos; trusted
                   siding professionals. No pressure, no hidden fees.
                 </p>
@@ -1363,7 +1363,7 @@ export default function HomePage() {
                 height={44}
                 className="h-10 w-auto mb-5"
               />
-              <p className="text-white/60 text-sm leading-relaxed mb-5">
+              <p className="text-white/70 text-sm leading-relaxed mb-5">
                 Quality, Durability, and Impeccable Craftsmanship for Your Home&apos;s Exterior.
                 Proudly serving Massachusetts homeowners with 18+ years of experience.
               </p>
@@ -1380,11 +1380,11 @@ export default function HomePage() {
 
             {/* Col 2: Services */}
             <div>
-              <h3 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Our Services</h3>
+              <h3 className="text-[#FF4444] font-bold text-sm uppercase tracking-wider mb-5">Our Services</h3>
               <ul className="space-y-3">
                 {SERVICES.map((s) => (
                   <li key={s.slug}>
-                    <Link href={`/services/${s.slug}`} className={`text-sm transition-colors duration-200 ${s.featured ? "text-[#E00000] font-semibold" : "text-white/60 hover:text-[#E00000]"}`}>
+                    <Link href={`/services/${s.slug}`} className={`text-sm transition-colors duration-200 ${s.featured ? "text-[#FF4444] font-semibold" : "text-white/70 hover:text-[#FF4444]"}`}>
                       {s.title}
                     </Link>
                   </li>
@@ -1394,7 +1394,7 @@ export default function HomePage() {
 
             {/* Col 3: Contact */}
             <div>
-              <h3 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Contact Us</h3>
+              <h3 className="text-[#FF4444] font-bold text-sm uppercase tracking-wider mb-5">Contact Us</h3>
               <div className="space-y-4">
                 <a href="tel:+17744841895" className="flex items-center gap-3 text-white/80 hover:text-[#E00000] transition-colors">
                   <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0">
@@ -1402,13 +1402,13 @@ export default function HomePage() {
                   </div>
                   <span className="text-sm font-semibold">(774) 484-1895</span>
                 </a>
-                <div className="flex items-start gap-3 text-white/60">
+                <div className="flex items-start gap-3 text-white/70">
                   <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                     <MapPinIcon className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-sm">156 Washburn St<br />Northborough, MA 01532</span>
                 </div>
-                <div className="flex items-center gap-3 text-white/60">
+                <div className="flex items-center gap-3 text-white/70">
                   <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0">
                     <ClockIcon className="w-4 h-4 text-white" />
                   </div>
@@ -1419,17 +1419,17 @@ export default function HomePage() {
 
             {/* Col 4: Service Areas */}
             <div>
-              <h3 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Service Areas</h3>
+              <h3 className="text-[#FF4444] font-bold text-sm uppercase tracking-wider mb-5">Service Areas</h3>
               <ul className="space-y-2">
                 {SERVICE_AREAS.slice(0, 12).map((city) => (
                   <li key={city.slug}>
-                    <Link href={`/${city.slug}`} className="text-white/60 hover:text-[#E00000] text-sm transition-colors duration-200">
+                    <Link href={`/${city.slug}`} className="text-white/70 hover:text-[#E00000] text-sm transition-colors duration-200">
                       {city.name}
                     </Link>
                   </li>
                 ))}
                 <li>
-                  <Link href="/marlborough" className="text-[#E00000] text-sm font-semibold">
+                  <Link href="/marlborough" className="text-[#FF4444] text-sm font-semibold">
                     + {SERVICE_AREAS_ALL.length - 12} more cities →
                   </Link>
                 </li>
@@ -1441,13 +1441,13 @@ export default function HomePage() {
           <div className="border-t border-white/10 mt-10 pt-8">
             <h3 className="text-center mb-4 flex items-center justify-center gap-2">
               <MapPinIcon className="w-5 h-5 text-[#E00000]" />
-              <span className="text-[#E00000] font-bold text-sm uppercase tracking-wider">
+              <span className="text-[#FF4444] font-bold text-sm uppercase tracking-wider">
                 Service Areas – {SERVICE_AREAS_ALL.length}+ Cities Across Massachusetts
               </span>
             </h3>
             <div className="flex flex-wrap justify-center gap-x-1 gap-y-1 max-w-6xl mx-auto">
               {SERVICE_AREAS_ALL.map((c, i) => (
-                <span key={c.slug} className="text-white/60 text-xs">
+                <span key={c.slug} className="text-white/70 text-xs">
                   <Link href={`/${c.slug}`} className="hover:text-[#E00000] transition-colors">{c.name}</Link>
                   {i < SERVICE_AREAS_ALL.length - 1 && <span className="mx-1">·</span>}
                 </span>
@@ -1457,7 +1457,7 @@ export default function HomePage() {
 
           {/* Copyright */}
           <div className="pt-8 text-center">
-            <p className="text-white/60 text-sm">
+            <p className="text-white/70 text-sm">
               &copy; {new Date().getFullYear()} Wolf&apos;s Siding Inc. All rights reserved. |
               Licensed Siding Contractor | Serving Massachusetts.
             </p>

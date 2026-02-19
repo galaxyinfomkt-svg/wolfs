@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import FloatingPhone from "./components/FloatingPhone";
+import DeferredScripts from "./components/DeferredScripts";
 import "./globals.css";
 
 const inter = Inter({
@@ -189,6 +189,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://widgets.leadconnectorhq.com" />
         <link rel="dns-prefetch" href="https://services.leadconnectorhq.com" />
         <link rel="dns-prefetch" href="https://appcdn.leadconnectorhq.com" />
+        <link rel="dns-prefetch" href="https://backend.leadconnectorhq.com" />
+        <link rel="dns-prefetch" href="https://stcdn.leadconnectorhq.com" />
+        <link rel="dns-prefetch" href="https://www.gstatic.com" />
+        <link rel="dns-prefetch" href="https://www.google.com" />
 
         <script
           type="application/ld+json"
@@ -198,16 +202,7 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         {children}
         <FloatingPhone />
-        <Script
-          src="https://widgets.leadconnectorhq.com/loader.js"
-          data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
-          data-widget-id="66999080b120684ccf0d5c5f"
-          strategy="lazyOnload"
-        />
-        <Script
-          src="https://reputationhub.site/reputation/assets/review-widget.js"
-          strategy="lazyOnload"
-        />
+        <DeferredScripts />
 
       </body>
     </html>
