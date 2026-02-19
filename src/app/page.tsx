@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
+import { BLOG_POSTS } from "./data/blog";
 import LazyIframe from "./components/LazyIframe";
 
 /* ════════════════════════════════════════════════════════════
@@ -639,6 +640,7 @@ export default function HomePage() {
                   data-form-name="FORMULARIO WEBSITE"
                   data-height="558"
                   title="Wolf's Siding Free Quote Form"
+                  eager
                 />
               </div>
             </div>
@@ -1110,6 +1112,52 @@ export default function HomePage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
+            11b. BLOG / SIDING TIPS
+            ═══════════════════════════════════════════════════════ */}
+        <section className="py-20 lg:py-28 bg-[#F5F5F5]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 scroll-animate opacity-0">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
+                Siding Tips & <span className="text-[#E00000]">Guides</span>
+              </h2>
+              <div className="w-20 h-1 bg-[#E00000] mx-auto mb-6 rounded-full" />
+              <p className="text-[#333]/70 max-w-2xl mx-auto">
+                Expert advice to help Massachusetts homeowners make informed decisions about their home&apos;s exterior.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {BLOG_POSTS.slice(0, 6).map((post) => (
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 scroll-animate opacity-0">
+                  <div className="relative aspect-[16/9]">
+                    <Image src={post.heroImage} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 33vw" />
+                    <div className="absolute top-3 left-3">
+                      <span className="bg-[#E00000] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">{post.category}</span>
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-black text-sm mb-2 group-hover:text-[#E00000] transition-colors line-clamp-2">{post.title}</h3>
+                    <p className="text-xs text-[#333]/70 line-clamp-2 mb-3">{post.excerpt}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-[#333]/50 font-medium">{post.readTime}</span>
+                      <span className="inline-flex items-center gap-1 text-[#E00000] text-xs font-semibold">
+                        Read More
+                        <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="text-center mt-10 scroll-animate opacity-0">
+              <Link href="/blog" className="inline-flex items-center gap-2 bg-black hover:bg-[#1A1A1A] text-white px-8 py-4 rounded-xl font-bold transition-all hover:scale-105">
+                View All Articles
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+              </Link>
             </div>
           </div>
         </section>
