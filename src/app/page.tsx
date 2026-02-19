@@ -1115,60 +1115,6 @@ export default function HomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            11. SERVICE AREA
-            ═══════════════════════════════════════════════════════ */}
-        <section id="service-area" className="py-20 lg:py-28 bg-[#F5F5F5]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-animate opacity-0">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
-                Serving <span className="text-[#E00000]">110+ Cities</span> Across Massachusetts
-              </h2>
-              <div className="w-20 h-1 bg-[#E00000] mx-auto mb-8 rounded-full" />
-              <p className="text-[#333333] text-lg max-w-2xl mx-auto">
-                Wolf&apos;s Siding Inc. proudly serves homeowners throughout MetroWest,
-                Greater Boston, South Shore, North Shore, and Worcester County.
-              </p>
-            </div>
-
-            {/* Cities by region */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {[
-                { region: "Metro West", cities: SERVICE_AREAS_ALL.filter(c => c.region === "Metro West") },
-                { region: "Greater Boston", cities: SERVICE_AREAS_ALL.filter(c => c.region === "Greater Boston") },
-                { region: "South Shore", cities: SERVICE_AREAS_ALL.filter(c => c.region === "South Shore") },
-                { region: "North Shore", cities: SERVICE_AREAS_ALL.filter(c => c.region === "North Shore") },
-                { region: "Worcester Area", cities: SERVICE_AREAS_ALL.filter(c => c.region === "Worcester Area") },
-              ].map((group) => (
-                <div key={group.region} className="scroll-animate opacity-0">
-                  <h3 className="text-lg font-black text-[#E00000] mb-4 flex items-center gap-2">
-                    <MapPinIcon className="w-5 h-5" />
-                    {group.region}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {group.cities.map((city) => (
-                      <Link
-                        key={city.slug}
-                        href={`/${city.slug}`}
-                        className="inline-flex items-center bg-white px-3 py-1.5 rounded-full border border-[#A3B5A4]/20 shadow-sm hover:shadow-md hover:border-[#E00000]/40 hover:-translate-y-0.5 transition-all duration-200 text-xs font-medium text-[#333333] hover:text-[#E00000]"
-                      >
-                        {city.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center scroll-animate opacity-0">
-              <a href="tel:+17744841895" className="inline-flex items-center gap-2 text-[#E00000] font-bold text-base hover:gap-3 transition-all duration-200">
-                Don&apos;t see your city? Call to confirm: (774) 484-1895
-                <ArrowRightIcon className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════════════════
             12. CONTACT + MAP (RS model: colored form bg + info boxes)
             ═══════════════════════════════════════════════════════ */}
         <section id="contact" className="py-20 lg:py-28 bg-white">
