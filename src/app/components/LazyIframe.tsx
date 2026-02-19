@@ -3,13 +3,15 @@
 import { useState, useEffect, useRef } from "react";
 
 export default function LazyIframe(
-  props: React.IframeHTMLAttributes<HTMLIFrameElement> & { src: string }
+  props: React.IframeHTMLAttributes<HTMLIFrameElement> & { src: string; eager?: boolean }
 ) {
-  const { src, ...rest } = props;
-  const [loaded, setLoaded] = useState(false);
+  const { src, eager, ...rest } = props;
+  const [loaded, setLoaded] = useState(!!eager);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
+    if (eager) return;
+
     let activated = false;
     const activate = () => {
       if (activated) return;
@@ -28,7 +30,7 @@ export default function LazyIframe(
       events.forEach((e) => window.removeEventListener(e, activate));
       clearTimeout(timer);
     };
-  }, []);
+  }, [eager]);
 
   return (
     <div className="relative">
