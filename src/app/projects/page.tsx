@@ -7,11 +7,12 @@ import ProjectsGallery from "./ProjectsGallery";
 import YouTubeSection from "../components/YouTubeSection";
 
 export const metadata: Metadata = {
-  title: "Our Projects | Wolf's Siding Inc. | Siding Installation Gallery Massachusetts",
+  title: "Siding Projects MA | Installation Gallery & Photos | Wolf's Siding Inc.",
   description:
-    "Browse real siding installation projects by Wolf's Siding Inc. across Massachusetts. Vinyl siding, Hardie Plank, cedar shingles, clapboard & more. 18+ years of expert craftsmanship.",
+    "Browse real siding installation projects by Wolf's Siding Inc. across Massachusetts. Vinyl, Hardie Plank, cedar, clapboard & more. 18+ years of craftsmanship.",
+  keywords: "siding projects Massachusetts, siding gallery, siding installation photos, siding before after, vinyl siding projects MA, Hardie Plank projects",
   openGraph: {
-    title: "Our Projects | Wolf's Siding Inc.",
+    title: "Siding Projects MA | Installation Gallery & Photos | Wolf's Siding Inc.",
     description:
       "Browse real siding installation projects across Massachusetts. Vinyl, Hardie Plank, cedar, clapboard & more.",
     url: "https://wolfs-siding.com/projects",
@@ -25,6 +26,12 @@ export const metadata: Metadata = {
         alt: "Wolf's Siding Inc. Project Gallery — Massachusetts Siding Installation",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Siding Projects MA | Installation Gallery & Photos | Wolf's Siding Inc.",
+    description: "Browse real siding installation projects across Massachusetts by Wolf's Siding Inc.",
+    images: [PROJECTS[0]?.images[0]?.src ?? ""],
   },
   alternates: { canonical: "https://wolfs-siding.com/projects" },
 };

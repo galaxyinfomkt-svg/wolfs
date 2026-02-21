@@ -321,12 +321,6 @@ const SERVICE_AREAS = [
   { name: "Cambridge, MA", slug: "cambridge" },
 ];
 
-const REVIEWS = [
-  { name: "Michael T.", location: "Hudson, MA", text: "Wolf's Siding did an amazing job on our vinyl siding installation. The crew was professional, kept the site clean, and communicated at every step. Our neighbors keep complimenting the transformation. Ezequias truly cares about quality!", rating: 5 },
-  { name: "Sarah K.", location: "Northborough, MA", text: "Ezequias and his team replaced all the cedar siding on our colonial home. The attention to detail was incredible — every corner, every trim piece was perfect. Our house looks brand new and we feel confident it's protected for years.", rating: 5 },
-  { name: "David R.", location: "Marlborough, MA", text: "Best siding contractor in Massachusetts, hands down. Fair pricing, quality Hardie Plank materials, and the crew was respectful and efficient. They finished ahead of schedule and the result exceeded our expectations!", rating: 5 },
-];
-
 const PROCESS_STEPS = [
   { num: "01", title: "Free Consultation", desc: "Contact us for a no-obligation consultation. We'll discuss your goals, budget, and timeline for your siding project.", icon: <PhoneIcon className="w-6 h-6" /> },
   { num: "02", title: "On-Site Assessment", desc: "We visit your home, evaluate the current exterior condition, take precise measurements, and recommend the best materials.", icon: <HomeModernIcon className="w-6 h-6" /> },
@@ -369,9 +363,14 @@ export default function HomePage() {
 
   const handleNavClick = useCallback(() => setMobileMenuOpen(false), []);
 
-  /* Intersection observer for scroll animations */
+  /* Intersection observer for scroll animations
+     opacity-0 is applied via JS only (not in SSR HTML) so crawlers see visible content */
   const observerRef = useRef<IntersectionObserver | null>(null);
   useEffect(() => {
+    const els = document.querySelectorAll(".scroll-animate");
+    // Apply opacity-0 via JS so SSR HTML remains visible to crawlers
+    els.forEach((el) => el.classList.add("opacity-0"));
+
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -384,7 +383,6 @@ export default function HomePage() {
       },
       { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
     );
-    const els = document.querySelectorAll(".scroll-animate");
     els.forEach((el) => observerRef.current?.observe(el));
     return () => observerRef.current?.disconnect();
   }, [galleryFilter]);
@@ -395,8 +393,68 @@ export default function HomePage() {
       ? PROJECT_IMAGES
       : PROJECT_IMAGES.filter((img) => img.label === galleryFilter);
 
+  /* Homepage-specific LocalBusiness JSON-LD */
+  const homepageLd = {
+    "@context": "https://schema.org",
+    "@type": ["HomeAndConstructionBusiness", "GeneralContractor"],
+    name: "Wolf's Siding Inc.",
+    alternateName: "Wolf's Siding",
+    description: "Expert siding installation, replacement and repair company serving Massachusetts. Specializing in Vinyl, Hardie Plank, Cedar, Clapboard siding and exterior trim work with 18+ years of industry experience.",
+    url: "https://wolfs-siding.com",
+    telephone: "+17744841895",
+    image: "https://wolfs-siding.com/logo.png",
+    logo: "https://wolfs-siding.com/logo.png",
+    founder: {
+      "@type": "Person",
+      name: "Ezequias Lobo",
+      jobTitle: "Owner",
+      description: "Founder of Wolf's Siding Inc. with 18+ years of experience in siding installation and exterior remodeling across Massachusetts.",
+      image: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68e581d6416ab711d774e6cf.jpeg",
+    },
+    address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
+    geo: { "@type": "GeoCoordinates", latitude: 42.3195, longitude: -71.6412 },
+    areaServed: [
+      { "@type": "State", name: "Massachusetts" },
+      { "@type": "State", name: "Rhode Island" },
+      { "@type": "State", name: "New Hampshire" },
+    ],
+    sameAs: [
+      "https://www.instagram.com/wolfs_siding_inc/",
+      "https://www.facebook.com/wolfsiding",
+      "https://www.google.com/maps/place/Wolf's+Siding+Inc./@42.3195,-71.6412,15z",
+      "https://g.page/r/CfACa1fxiHsqEAE",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Siding & Exterior Services",
+      itemListElement: SERVICES.map((s) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: s.title, url: `https://wolfs-siding.com/services/${s.slug}` },
+      })),
+    },
+    aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", bestRating: "5", worstRating: "1", ratingCount: "22", reviewCount: "22" },
+    priceRange: "$$",
+    openingHoursSpecification: [
+      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:00", closes: "18:00" },
+      { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "08:00", closes: "14:00" },
+    ],
+  };
+
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+
       {/* ═══════════════════════════════════════════════════════
           1. HEADER — Two-tier (RS model: top bar + main nav)
           ═══════════════════════════════════════════════════════ */}
@@ -654,7 +712,7 @@ export default function HomePage() {
               href="https://g.page/r/CfACa1fxiHsqEAE/review"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 py-4 group"
+              className="flex flex-wrap items-center justify-center gap-3 py-4 group"
             >
               {/* Google "G" */}
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -700,7 +758,7 @@ export default function HomePage() {
               {SERVICES.map((service) => (
                 <div
                   key={service.slug}
-                  className={`service-card group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 scroll-animate opacity-0 ${
+                  className={`service-card group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 scroll-animate ${
                     service.featured ? "ring-2 ring-[#E00000]" : ""
                   } ${SERVICES.indexOf(service) === 6 ? "md:col-span-2 lg:col-span-1" : ""}`}
                 >
@@ -755,7 +813,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               {/* Text column */}
-              <div className="scroll-animate opacity-0">
+              <div className="scroll-animate">
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight">
                   About <span className="text-[#E00000]">Wolf&apos;s Siding Inc.</span>
                 </h2>
@@ -800,7 +858,7 @@ export default function HomePage() {
               </div>
 
               {/* Image column (RS pattern: photo with floating badge) */}
-              <div className="relative scroll-animate opacity-0">
+              <div className="relative scroll-animate">
                 <div className="rounded-2xl overflow-hidden shadow-2xl">
                   <Image
                     src="https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68e581d6416ab711d774e6cf.jpeg"
@@ -812,7 +870,7 @@ export default function HomePage() {
                   />
                 </div>
                 {/* Floating badge (RS pattern) */}
-                <div className="absolute -bottom-6 -left-4 sm:left-6 bg-[#E00000] text-white rounded-2xl px-6 py-4 shadow-xl">
+                <div className="absolute -bottom-6 left-0 sm:left-6 bg-[#E00000] text-white rounded-2xl px-6 py-4 shadow-xl">
                   <div className="flex items-center gap-3">
                     <ShieldCheckIcon className="w-8 h-8" />
                     <div>
@@ -831,7 +889,7 @@ export default function HomePage() {
             ═══════════════════════════════════════════════════════ */}
         <section className="py-20 lg:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-animate opacity-0">
+            <div className="text-center mb-16 scroll-animate">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
                 Our <span className="text-[#E00000]">Process</span>
               </h2>
@@ -845,7 +903,7 @@ export default function HomePage() {
               {PROCESS_STEPS.map((step, i) => (
                 <div
                   key={step.num}
-                  className={`relative bg-[#F5F5F5] rounded-2xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 scroll-animate opacity-0 delay-${(i + 1) * 100}`}
+                  className={`relative bg-[#F5F5F5] rounded-2xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 scroll-animate delay-${(i + 1) * 100}`}
                 >
                   {/* Watermark number (RS pattern) */}
                   <span className="process-number">{step.num}</span>
@@ -868,7 +926,7 @@ export default function HomePage() {
             ═══════════════════════════════════════════════════════ */}
         <section className="py-20 lg:py-28 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-animate opacity-0">
+            <div className="text-center mb-16 scroll-animate">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
                 Expert <span className="text-[#E00000]">Siding</span> in Massachusetts
               </h2>
@@ -878,7 +936,7 @@ export default function HomePage() {
             {/* SEO content (RS pattern: featured block + grid) */}
             <div className="grid lg:grid-cols-5 gap-8 mb-16">
               {/* Featured block */}
-              <div className="lg:col-span-3 bg-white rounded-2xl shadow-lg overflow-hidden scroll-animate opacity-0">
+              <div className="lg:col-span-3 bg-white rounded-2xl shadow-lg overflow-hidden scroll-animate">
                 <div className="grid md:grid-cols-2">
                   <div className="relative h-64 md:h-auto">
                     <Image
@@ -910,7 +968,7 @@ export default function HomePage() {
               </div>
 
               {/* Why Choose grid (RS pattern: stacked cards) */}
-              <div className="lg:col-span-2 grid gap-4 scroll-animate opacity-0">
+              <div className="lg:col-span-2 grid gap-4 scroll-animate">
                 {[
                   { icon: <ClockIcon className="w-6 h-6" />, title: "18+ Years Experience", desc: "Nearly two decades of siding expertise across Massachusetts." },
                   { icon: <SparklesIcon className="w-6 h-6" />, title: "Premium Materials", desc: "Weather-tested materials from trusted manufacturers." },
@@ -937,7 +995,7 @@ export default function HomePage() {
             ═══════════════════════════════════════════════════════ */}
         <section className="py-16 lg:py-20 bg-white border-t border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12 scroll-animate opacity-0">
+            <div className="text-center mb-12 scroll-animate">
               <h2 className="text-2xl sm:text-3xl font-black text-black mb-3 leading-tight">
                 Trusted <span className="text-[#E00000]">Brands</span> We Work With
               </h2>
@@ -946,7 +1004,7 @@ export default function HomePage() {
                 We install and service products from the industry&apos;s leading manufacturers.
               </p>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 items-center scroll-animate opacity-0">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 items-center scroll-animate">
               {[
                 { src: `${CDN}/689a45c288c2d695b1b12618.webp`, alt: "James Hardie siding products", href: "https://www.jameshardie.com/" },
                 { src: `${CDN}/689a45c288c2d63dfcb125e1.webp`, alt: "CertainTeed siding by Saint-Gobain", href: "https://www.certainteed.com/" },
@@ -985,7 +1043,7 @@ export default function HomePage() {
             ═══════════════════════════════════════════════════════ */}
         <section id="projects" className="py-20 lg:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12 scroll-animate opacity-0">
+            <div className="text-center mb-12 scroll-animate">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
                 Our Work <span className="text-[#E00000]">Gallery</span>
               </h2>
@@ -996,7 +1054,7 @@ export default function HomePage() {
             </div>
 
             {/* Filter buttons (RS pattern) */}
-            <div className="flex flex-wrap justify-center gap-2 mb-10 scroll-animate opacity-0">
+            <div className="flex flex-wrap justify-center gap-2 mb-10 scroll-animate">
               {GALLERY_FILTERS.map((filter) => (
                 <button
                   type="button"
@@ -1018,7 +1076,7 @@ export default function HomePage() {
               {filteredImages.map((img) => (
                 <div
                   key={img.src}
-                  className="gallery-item group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 scroll-animate opacity-0"
+                  className="gallery-item group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 scroll-animate"
                 >
                   <Image
                     src={img.src}
@@ -1049,7 +1107,7 @@ export default function HomePage() {
             </div>
 
             {/* View All Projects button */}
-            <div className="text-center mt-10 scroll-animate opacity-0">
+            <div className="text-center mt-10 scroll-animate">
               <a
                 href="/projects"
                 className="inline-flex items-center gap-2 bg-[#E00000] hover:bg-[#CC0000] text-white px-8 py-3.5 rounded-lg text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-red-900/30"
@@ -1062,18 +1120,18 @@ export default function HomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            9. REVIEWS (RS model: dark bg + google badge)
+            9. REVIEWS — Real Google Reviews Widget
             ═══════════════════════════════════════════════════════ */}
         <section id="reviews" className="py-20 lg:py-28 bg-[#111111]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-animate opacity-0">
+            <div className="text-center mb-12 scroll-animate">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight">
                 What Our <span className="text-[#E00000]">Customers</span> Say
               </h2>
               <div className="w-20 h-1 bg-[#E00000] mx-auto mb-8 rounded-full" />
 
-              {/* Google badge (RS pattern) */}
-              <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/10">
+              {/* Google badge */}
+              <div className="inline-flex flex-wrap items-center justify-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/10">
                 <svg className="w-6 h-6" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
@@ -1086,46 +1144,30 @@ export default function HomePage() {
                   ))}
                 </div>
                 <span className="text-white font-bold">5.0</span>
-                <span className="text-white/50 text-sm">(22 Reviews)</span>
+                <span className="text-white/50 text-sm">on Google</span>
               </div>
             </div>
 
-            {/* Review cards */}
-            <div className="grid md:grid-cols-3 gap-6">
-              {REVIEWS.map((review, i) => (
-                <div
-                  key={review.name}
-                  className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 scroll-animate opacity-0 delay-${(i + 1) * 100}`}
-                >
-                  <div className="flex mb-4">
-                    {[...Array(review.rating)].map((_, j) => (
-                      <StarIcon key={j} className="w-5 h-5 text-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="text-white/90 text-base leading-relaxed mb-6">
-                    &ldquo;{review.text}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                    <div className="w-10 h-10 rounded-full bg-[#E00000] flex items-center justify-center text-white font-bold text-sm">
-                      {review.name.charAt(0)}
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold text-sm">{review.name}</p>
-                      <p className="text-white/50 text-xs">{review.location}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            {/* Real Google Reviews Widget */}
+            <div className="scroll-animate">
+              <iframe
+                className="lc_reviews_widget reviews-widget"
+                src="https://reputationhub.site/reputation/widgets/review_widget/BCczy6muFwhd63dPhKCC"
+                frameBorder="0"
+                scrolling="no"
+                title="Google Reviews — Wolf's Siding Inc."
+                loading="lazy"
+              />
             </div>
 
-            <div className="text-center mt-12 scroll-animate opacity-0">
+            <div className="text-center mt-12 scroll-animate">
               <a
                 href="https://g.page/r/CfACa1fxiHsqEAE/review"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#E00000] hover:bg-[#CC0000] text-white px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-red-900/30"
               >
-                Read All Reviews on Google
+                Leave Us a Review on Google
                 <ExternalLinkIcon className="w-5 h-5" />
               </a>
             </div>
@@ -1142,7 +1184,7 @@ export default function HomePage() {
             ═══════════════════════════════════════════════════════ */}
         <section id="faq" className="py-20 lg:py-28 bg-white">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-animate opacity-0">
+            <div className="text-center mb-16 scroll-animate">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
                 Frequently Asked <span className="text-[#E00000]">Questions</span>
               </h2>
@@ -1153,7 +1195,7 @@ export default function HomePage() {
               {FAQS.map((faq, i) => (
                 <div
                   key={i}
-                  className="bg-[#F5F5F5] rounded-2xl overflow-hidden border border-transparent hover:border-[#E00000]/20 transition-colors scroll-animate opacity-0"
+                  className="bg-[#F5F5F5] rounded-2xl overflow-hidden border border-transparent hover:border-[#E00000]/20 transition-colors scroll-animate"
                 >
                   <button
                     type="button"
@@ -1183,7 +1225,7 @@ export default function HomePage() {
             ═══════════════════════════════════════════════════════ */}
         <section className="py-20 lg:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-animate opacity-0">
+            <div className="text-center mb-16 scroll-animate">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
                 Siding Tips & <span className="text-[#E00000]">Guides</span>
               </h2>
@@ -1194,7 +1236,7 @@ export default function HomePage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {BLOG_POSTS.slice(0, 6).map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}`} className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 scroll-animate opacity-0">
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 scroll-animate">
                   <div className="relative aspect-[16/9]">
                     <Image src={post.heroImage} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 33vw" />
                     <div className="absolute top-3 left-3">
@@ -1215,7 +1257,7 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
-            <div className="text-center mt-10 scroll-animate opacity-0">
+            <div className="text-center mt-10 scroll-animate">
               <Link href="/blog" className="inline-flex items-center gap-2 bg-black hover:bg-[#1A1A1A] text-white px-8 py-4 rounded-xl font-bold transition-all hover:scale-105">
                 View All Articles
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
@@ -1229,7 +1271,7 @@ export default function HomePage() {
             ═══════════════════════════════════════════════════════ */}
         <section id="contact" className="py-20 lg:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-animate opacity-0">
+            <div className="text-center mb-16 scroll-animate">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
                 Get Your <span className="text-[#E00000]">Free Estimate</span> Today
               </h2>
@@ -1238,7 +1280,7 @@ export default function HomePage() {
 
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Left — Form with red bg (RS pattern: gold bg form) */}
-              <div className="scroll-animate opacity-0">
+              <div className="scroll-animate">
                 <LazyIframe
                   src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                   className="form-iframe"
@@ -1250,7 +1292,7 @@ export default function HomePage() {
               </div>
 
               {/* Right — Contact info blocks (RS pattern: stacked boxes) */}
-              <div className="space-y-6 scroll-animate opacity-0">
+              <div className="space-y-6 scroll-animate">
                 {/* Direct contact box */}
                 <div className="bg-black rounded-2xl p-8 text-white">
                   <h3 className="font-bold text-lg mb-6">Direct Contact</h3>
@@ -1342,7 +1384,7 @@ export default function HomePage() {
             </div>
 
             {/* Google Maps (RS pattern: below contact with accent border) */}
-            <div className="mt-12 rounded-2xl overflow-hidden shadow-xl border-4 border-[#E00000]/20 scroll-animate opacity-0">
+            <div className="mt-12 rounded-2xl overflow-hidden shadow-xl border-4 border-[#E00000]/20 scroll-animate">
               <iframe
                 src="https://maps.google.com/maps?cid=3061190941863510768&output=embed"
                 loading="lazy"
@@ -1381,22 +1423,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Reviews Widget */}
-        <section className="py-16 bg-[#F5F5F5]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-black text-black text-center mb-8">
-              What Our Customers Say
-            </h2>
-            <iframe
-              className="lc_reviews_widget reviews-widget"
-              src="https://reputationhub.site/reputation/widgets/review_widget/BCczy6muFwhd63dPhKCC"
-              frameBorder="0"
-              scrolling="no"
-              title="Customer Reviews"
-              loading="lazy"
-            />
-          </div>
-        </section>
       </main>
 
       {/* ═══════════════════════════════════════════════════════

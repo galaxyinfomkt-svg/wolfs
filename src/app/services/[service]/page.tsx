@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ service: 
   const service = getServiceBySlug(slug);
   if (!service) return {};
 
-  const title = `${service.name} Massachusetts | Wolf's Siding Inc.`;
-  const fullDesc = `Professional ${service.shortName.toLowerCase()} services across Massachusetts. ${service.description} 18+ years experience. Free estimates. Call (774) 484-1895!`;
+  const title = `${service.shortName} MA | ${service.name} Contractor Massachusetts | Wolf's Siding Inc.`;
+  const fullDesc = `Professional ${service.shortName.toLowerCase()} services across Massachusetts. ${service.description} 18+ years experience. Free estimates. (774) 484-1895`;
   const description = fullDesc.length > 160 ? fullDesc.slice(0, 157) + "..." : fullDesc;
 
   return {
@@ -52,6 +52,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     "@context": "https://schema.org",
     "@type": "Service",
     name: service.name,
+    serviceType: service.shortName,
     description: service.description,
     url: `https://wolfs-siding.com/services/${slug}`,
     provider: {
@@ -59,7 +60,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
       name: "Wolf's Siding Inc.",
       telephone: "+17744841895",
       address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
-      aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, reviewCount: REVIEW_COUNT },
+      aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
     },
     areaServed: { "@type": "State", name: "Massachusetts" },
     offers: { "@type": "Offer", priceCurrency: "USD", priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", price: service.priceRange } },
@@ -80,7 +81,8 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://wolfs-siding.com" },
-      { "@type": "ListItem", position: 2, name: service.shortName, item: `https://wolfs-siding.com/services/${slug}` },
+      { "@type": "ListItem", position: 2, name: "Services", item: "https://wolfs-siding.com/services" },
+      { "@type": "ListItem", position: 3, name: service.shortName, item: `https://wolfs-siding.com/services/${slug}` },
     ],
   };
 
@@ -89,6 +91,8 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     "@type": "HowTo",
     name: `How We Install ${service.shortName} in Massachusetts`,
     description: `Professional ${service.shortName.toLowerCase()} installation process by Wolf's Siding Inc.`,
+    totalTime: "P7D",
+    estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: service.priceRange },
     step: service.processSteps.map((step, i) => ({
       "@type": "HowToStep",
       position: i + 1,
@@ -113,8 +117,10 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <nav className="text-sm text-white/50 mb-6">
+              <nav className="text-sm text-white/50 mb-6" aria-label="Breadcrumb">
                 <Link href="/" className="hover:text-[#E00000] transition-colors">Home</Link>
+                <span className="mx-2">/</span>
+                <span className="hover:text-[#E00000] transition-colors">Services</span>
                 <span className="mx-2">/</span>
                 <span className="text-white">{service.shortName}</span>
               </nav>

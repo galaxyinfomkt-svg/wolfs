@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SERVICES, CITIES } from "../data/cities";
+import { SERVICES, CITIES, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
 import ServiceNav from "../services/ServiceNav";
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
@@ -108,7 +108,7 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
                     </div>
                     <span className="text-white font-bold text-sm">5.0</span>
                   </div>
-                  <span className="text-white/50 text-xs">22 reviews on Google</span>
+                  <span className="text-white/50 text-xs">{REVIEW_COUNT} reviews on Google</span>
                 </div>
               </div>
             </div>

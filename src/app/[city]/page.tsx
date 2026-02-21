@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const city = getCityBySlug(slug);
   if (!city) return {};
 
-  const title = `Siding Contractor ${city.name}, ${STATE_ABBR} | Wolf's Siding Inc.`;
-  const description = `Expert siding installation, replacement & repair in ${city.name}, ${STATE_ABBR}. Vinyl, Hardie Plank, Cedar & more. 18+ years experience. Free estimates. Call (774) 484-1895!`;
+  const title = `Siding Contractor ${city.name}, ${STATE_ABBR} | Vinyl, Hardie Plank, Cedar & Clapboard | Wolf's Siding Inc.`;
+  const description = `Expert siding installation, replacement & repair in ${city.name}, ${STATE_ABBR}. Vinyl, Hardie Plank, Cedar & more. 18+ years experience. Free estimates. (774) 484-1895`;
 
   return {
     title,

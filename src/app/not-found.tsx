@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Page Not Found | Wolf's Siding Inc.",
+  description: "The page you are looking for does not exist. Return to Wolf's Siding Inc. homepage for expert siding installation in Massachusetts.",
+  robots: { index: false, follow: true },
+  alternates: { canonical: null as unknown as string },
+};
 
 export default function NotFound() {
   return (

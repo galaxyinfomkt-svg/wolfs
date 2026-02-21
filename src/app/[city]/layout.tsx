@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getCityBySlug, SERVICES, CITIES } from "../data/cities";
+import { getCityBySlug, SERVICES, CITIES, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
 import CityNav from "./CityNav";
 
 export default async function CityLayout({
@@ -134,7 +134,7 @@ export default async function CityLayout({
                     </div>
                     <span className="text-white font-bold text-sm">5.0</span>
                   </div>
-                  <span className="text-white/50 text-xs">22 reviews on Google</span>
+                  <span className="text-white/50 text-xs">{REVIEW_COUNT} reviews on Google</span>
                 </div>
               </div>
             </div>

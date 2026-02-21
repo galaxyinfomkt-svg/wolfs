@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return {};
 
   return {
-    title: `${post.title} | Wolf's Siding Inc. Blog`,
+    title: `${post.title} | Siding Tips & Guides | Wolf's Siding Inc.`,
     description: post.excerpt,
     keywords: `${post.category.toLowerCase()}, siding tips Massachusetts, ${post.title.split(' ').slice(0, 3).join(' ').toLowerCase()}, siding guide, Wolf's Siding blog`,
     openGraph: {
@@ -53,10 +53,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     image: post.heroImage,
     datePublished: post.date,
     dateModified: post.date,
-    author: { "@type": "Organization", name: "Wolf's Siding Inc." },
+    author: { "@type": "Person", name: "Ezequias Lobo", jobTitle: "Owner, Wolf's Siding Inc." },
     publisher: {
       "@type": "Organization",
       name: "Wolf's Siding Inc.",
+      url: "https://wolfs-siding.com",
       logo: { "@type": "ImageObject", url: "https://wolfs-siding.com/logo.png" },
     },
     url: `https://wolfs-siding.com/blog/${slug}`,

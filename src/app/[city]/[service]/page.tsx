@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const service = getServiceBySlug(serviceSlug);
   if (!city || !service) return {};
 
-  const title = `${service.name} ${city.name}, ${STATE_ABBR} | Wolf's Siding Inc.`;
-  const description = `Professional ${service.shortName.toLowerCase()} in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. 18+ years experience. Free estimates. Call (774) 484-1895!`;
+  const title = `${service.shortName} ${city.name}, ${STATE_ABBR} | ${service.material.charAt(0).toUpperCase() + service.material.slice(1)} Contractor | Wolf's Siding Inc.`;
+  const description = `Professional ${service.shortName.toLowerCase()} in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. 18+ years experience. Free estimates. (774) 484-1895`;
 
   return {
     title,

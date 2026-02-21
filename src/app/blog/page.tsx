@@ -4,12 +4,12 @@ import Image from "next/image";
 import { BLOG_POSTS } from "../data/blog";
 
 export const metadata: Metadata = {
-  title: "Siding Blog | Expert Tips & Guides | Wolf's Siding Inc.",
-  description: "Expert siding tips, guides, and advice for Massachusetts homeowners. Learn about vinyl siding, Hardie Plank, cedar shingles, clapboard, repairs, and more from Wolf's Siding Inc.",
+  title: "Siding Blog MA | Tips, Guides & Expert Advice | Wolf's Siding Inc.",
+  description: "Expert siding tips, guides & advice for Massachusetts homeowners. Vinyl, Hardie Plank, cedar shingles, clapboard, repairs & more from Wolf's Siding Inc.",
   keywords: "siding blog, siding tips Massachusetts, vinyl siding guide, Hardie Plank guide, cedar shingles guide, siding repair tips, home exterior blog",
   openGraph: {
-    title: "Siding Blog | Expert Tips & Guides | Wolf's Siding Inc.",
-    description: "Expert siding tips, guides, and advice for Massachusetts homeowners.",
+    title: "Siding Blog MA | Tips, Guides & Expert Advice | Wolf's Siding Inc.",
+    description: "Expert siding tips, guides & advice for Massachusetts homeowners.",
     url: "https://wolfs-siding.com/blog",
     siteName: "Wolf's Siding Inc.",
     type: "website",
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Siding Blog | Expert Tips & Guides | Wolf's Siding Inc.",
-    description: "Expert siding tips, guides, and advice for Massachusetts homeowners.",
+    title: "Siding Blog MA | Tips, Guides & Expert Advice | Wolf's Siding Inc.",
+    description: "Expert siding tips, guides & advice for Massachusetts homeowners.",
     images: ["https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png"],
   },
   alternates: { canonical: "https://wolfs-siding.com/blog" },
@@ -28,8 +28,43 @@ export default function BlogIndexPage() {
   const featured = BLOG_POSTS[0];
   const rest = BLOG_POSTS.slice(1);
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://wolfs-siding.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://wolfs-siding.com/blog" },
+    ],
+  };
+
+  const blogLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Siding Blog | Expert Tips & Guides",
+    description: "Expert siding tips, guides, and advice for Massachusetts homeowners from Wolf's Siding Inc.",
+    url: "https://wolfs-siding.com/blog",
+    publisher: {
+      "@type": "Organization",
+      name: "Wolf's Siding Inc.",
+      url: "https://wolfs-siding.com",
+      logo: { "@type": "ImageObject", url: "https://wolfs-siding.com/logo.png" },
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: BLOG_POSTS.map((post, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `https://wolfs-siding.com/blog/${post.slug}`,
+        name: post.title,
+      })),
+    },
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogLd) }} />
+
       {/* Hero */}
       <section className="pt-[80px] bg-gradient-to-b from-black to-[#1A1A1A]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
