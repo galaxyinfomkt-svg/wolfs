@@ -85,6 +85,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
       priceRange: "$$",
     },
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
+    aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
     offers: { "@type": "Offer", priceCurrency: "USD", priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", price: service.priceRange } },
   };
 
@@ -255,7 +256,9 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   </p>
                   <p>
                     Led by owner <strong>Ezequias Lobo</strong>, our crew has been serving {city.region} communities like{" "}
-                    {city.name} for over 18 years. We also offer{" "}
+                    {city.name} for over 18 years. Learn more about our{" "}
+                    <Link href={`/services/${serviceSlug}`} className="text-[#E00000] font-semibold hover:underline">{service.shortName.toLowerCase()} services across Massachusetts</Link>.
+                    We also offer{" "}
                     <Link href={`/${citySlug}/${otherServices[0].slug}`} className="text-[#E00000] font-semibold hover:underline">{otherServices[0].shortName.toLowerCase()}</Link>{" "}
                     and{" "}
                     <Link href={`/${citySlug}/${otherServices[1].slug}`} className="text-[#E00000] font-semibold hover:underline">{otherServices[1].shortName.toLowerCase()}</Link>{" "}
@@ -446,6 +449,22 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   <a href="tel:+17744841895" className="text-[#E00000] text-2xl font-black hover:text-white transition-colors">
                     (774) 484-1895
                   </a>
+                </div>
+
+                {/* View statewide service page */}
+                <div className="bg-[#F5F5F5] rounded-2xl p-6">
+                  <Link
+                    href={`/services/${serviceSlug}`}
+                    className="flex items-center gap-3 text-sm text-[#333] hover:text-[#E00000] transition-colors group"
+                  >
+                    <div className="w-9 h-9 bg-[#E00000] rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+                    </div>
+                    <div>
+                      <span className="font-semibold block">{service.shortName} — Statewide</span>
+                      <span className="text-xs text-[#333]/60">View all MA service areas</span>
+                    </div>
+                  </Link>
                 </div>
 
                 {/* Other services */}

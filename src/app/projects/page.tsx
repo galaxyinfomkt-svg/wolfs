@@ -50,9 +50,20 @@ export default function ProjectsPage() {
     ],
   };
 
+  const galleryLd = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: "Wolf's Siding Inc. — Project Gallery",
+    description: `${totalPhotos} photos of real siding installation projects across Massachusetts by Wolf's Siding Inc.`,
+    url: "https://wolfs-siding.com/projects",
+    creator: { "@type": "Organization", name: "Wolf's Siding Inc." },
+    about: { "@type": "Service", name: "Siding Installation", provider: { "@type": "Organization", name: "Wolf's Siding Inc." } },
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(galleryLd) }} />
 
       <ServiceNav />
 

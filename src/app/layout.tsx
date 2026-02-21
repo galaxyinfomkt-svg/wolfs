@@ -98,6 +98,14 @@ const orgLd = {
       { "@type": "OfferCatalog", name: "Exterior Trim Work", position: 7 },
     ],
   },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5.0",
+    bestRating: "5",
+    worstRating: "1",
+    ratingCount: "22",
+    reviewCount: "22",
+  },
   sameAs: [
     "https://www.instagram.com/wolfs_siding_inc/",
     "https://www.facebook.com/wolfsiding",

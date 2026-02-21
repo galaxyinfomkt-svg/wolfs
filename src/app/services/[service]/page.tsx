@@ -74,6 +74,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
       aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
     },
     areaServed: { "@type": "State", name: "Massachusetts" },
+    aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
     offers: { "@type": "Offer", priceCurrency: "USD", priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", price: service.priceRange } },
   };
 
@@ -92,7 +93,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://wolfs-siding.com" },
-      { "@type": "ListItem", position: 2, name: "Services", item: "https://wolfs-siding.com/services" },
+      { "@type": "ListItem", position: 2, name: "Services", item: "https://wolfs-siding.com/#services" },
       { "@type": "ListItem", position: 3, name: service.shortName, item: `https://wolfs-siding.com/services/${slug}` },
     ],
   };

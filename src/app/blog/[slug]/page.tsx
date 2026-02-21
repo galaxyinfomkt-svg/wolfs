@@ -62,6 +62,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     },
     url: `https://wolfs-siding.com/blog/${slug}`,
     mainEntityOfPage: { "@type": "WebPage", "@id": `https://wolfs-siding.com/blog/${slug}` },
+    articleSection: post.category,
+    inLanguage: "en-US",
   };
 
   const breadcrumbLd = {

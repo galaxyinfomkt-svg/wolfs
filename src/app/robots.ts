@@ -20,7 +20,10 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "meta-externalagent", allow: "/" },
       { userAgent: "Amazonbot", allow: "/" },
       { userAgent: "CCBot", allow: "/" },
+      { userAgent: "Bytespider", allow: "/" },
+      { userAgent: "cohere-ai", allow: "/" },
     ],
     sitemap: "https://wolfs-siding.com/sitemap.xml",
+    host: "https://wolfs-siding.com",
   };
 }
