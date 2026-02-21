@@ -53,7 +53,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
     name: "Wolf's Siding Inc.",
-    description: `Professional siding contractor serving ${city.name}, ${STATE_ABBR}. Specializing in vinyl siding, Hardie Plank, cedar shingles, clapboard, and exterior trim work.`,
+    alternateName: ["Wolf's Siding", "Wolfs Siding"],
+    description: `Professional siding contractor serving ${city.name}, ${STATE_ABBR}. Specializing in vinyl siding, Hardie Plank, cedar shingles, clapboard, and exterior trim work. 18+ years experience.`,
     url: `https://wolfs-siding.com/${slug}`,
     telephone: "+17744841895",
     image: "https://wolfs-siding.com/logo.png",
@@ -62,7 +63,16 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     geo: { "@type": "GeoCoordinates", latitude: 42.3195, longitude: -71.6412 },
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
     aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
-    sameAs: ["https://www.instagram.com/wolfs_siding_inc/", "https://www.facebook.com/wolfsiding", "https://maps.app.goo.gl/ibPzjf7EWQ7aK1HYA"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Siding Services",
+      itemListElement: SERVICES.map((s, i) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: s.name, url: `https://wolfs-siding.com/${slug}/${s.slug}` },
+        position: i + 1,
+      })),
+    },
+    sameAs: ["https://www.instagram.com/wolfs_siding_inc/", "https://www.facebook.com/wolfsiding", "https://g.page/r/CfACa1fxiHsqEAE"],
     priceRange: "$$",
     openingHoursSpecification: [
       { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:00", closes: "18:00" },

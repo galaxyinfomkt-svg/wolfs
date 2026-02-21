@@ -52,7 +52,18 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     "@context": "https://schema.org",
     "@type": "Service",
     name: service.name,
-    serviceType: service.shortName,
+    alternateName: [
+      `${service.shortName} Contractor`,
+      `${service.shortName} Company`,
+      `${service.shortName} Installer`,
+      `Professional ${service.shortName}`,
+    ],
+    serviceType: [
+      service.shortName,
+      `${service.shortName} Installation`,
+      `${service.shortName} Contractor`,
+      service.material,
+    ],
     description: service.description,
     url: `https://wolfs-siding.com/services/${slug}`,
     provider: {

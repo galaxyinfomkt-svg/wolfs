@@ -62,6 +62,17 @@ export default async function CityServicePage({ params }: { params: Promise<Para
     "@context": "https://schema.org",
     "@type": "Service",
     name: `${service.name} in ${city.name}, ${STATE_ABBR}`,
+    alternateName: [
+      `${service.shortName} ${city.name}`,
+      `${service.shortName} Contractor ${city.name}`,
+      `${service.shortName} Installation ${city.name} MA`,
+    ],
+    serviceType: [
+      service.shortName,
+      `${service.shortName} Installation`,
+      `${service.shortName} Contractor`,
+      service.material,
+    ],
     description: `Professional ${service.material} in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. Expert installation by Wolf's Siding Inc.`,
     url: `https://wolfs-siding.com/${citySlug}/${serviceSlug}`,
     provider: {

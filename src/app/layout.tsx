@@ -51,15 +51,53 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://wolfs-siding.com" },
 };
 
-/* Organization schema — lightweight, safe for all pages */
+/* Organization schema — enhanced with RS-strategy elements for all pages */
 const orgLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Wolf's Siding Inc.",
-  alternateName: "Wolf's Siding",
+  alternateName: ["Wolf's Siding", "Wolfs Siding", "Wolf Siding Inc"],
   url: "https://wolfs-siding.com",
   logo: "https://wolfs-siding.com/logo.png",
+  image: "https://wolfs-siding.com/logo.png",
+  description:
+    "#1 siding contractor in Massachusetts. Vinyl siding, Hardie Plank, cedar shingles, clapboard installation, repair & replacement. Serving 110+ MA cities. 18+ years experience. 5.0 Google rating.",
   telephone: "+17744841895",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "156 Washburn St",
+    addressLocality: "Northborough",
+    addressRegion: "MA",
+    postalCode: "01532",
+    addressCountry: "US",
+  },
+  founder: { "@type": "Person", name: "Ezequias Lobo", jobTitle: "Owner" },
+  foundingDate: "2007",
+  knowsAbout: [
+    "siding installation",
+    "vinyl siding",
+    "Hardie Plank siding",
+    "fiber cement siding",
+    "cedar shingle siding",
+    "clapboard siding",
+    "exterior trim work",
+    "siding repair",
+    "siding replacement",
+    "Massachusetts siding contractor",
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Siding Services",
+    itemListElement: [
+      { "@type": "OfferCatalog", name: "Vinyl Siding Installation", position: 1 },
+      { "@type": "OfferCatalog", name: "Hardie Plank Siding Installation", position: 2 },
+      { "@type": "OfferCatalog", name: "Cedar Shingle Siding", position: 3 },
+      { "@type": "OfferCatalog", name: "Clapboard Siding Installation", position: 4 },
+      { "@type": "OfferCatalog", name: "Full Siding Replacement", position: 5 },
+      { "@type": "OfferCatalog", name: "Siding Repair Services", position: 6 },
+      { "@type": "OfferCatalog", name: "Exterior Trim Work", position: 7 },
+    ],
+  },
   sameAs: [
     "https://www.instagram.com/wolfs_siding_inc/",
     "https://www.facebook.com/wolfsiding",

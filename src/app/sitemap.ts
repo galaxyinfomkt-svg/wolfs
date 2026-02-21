@@ -16,12 +16,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Service priority map (RS strategy: primary services get higher weight)
+  const servicePriority: Record<string, number> = {
+    "vinyl-siding-installation": 0.95,
+    "hardie-plank-siding-installation": 0.9,
+    "cedar-shingle-siding": 0.85,
+    "clapboard-siding-installation": 0.85,
+    "full-siding-replacement": 0.85,
+    "siding-repair-services": 0.8,
+    "exterior-trim-work": 0.8,
+  };
+
   // Service pages: /services/{service-slug}
   const servicePages: MetadataRoute.Sitemap = SERVICES.map((service) => ({
     url: `${BASE_URL}/services/${service.slug}`,
     lastModified: SITE_UPDATED,
     changeFrequency: "monthly" as const,
-    priority: 0.9,
+    priority: servicePriority[service.slug] ?? 0.8,
   }));
 
   // City pages: /{city-slug}
@@ -29,16 +40,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE_URL}/${city.slug}`,
     lastModified: SITE_UPDATED,
     changeFrequency: "monthly" as const,
-    priority: 0.8,
+    priority: 0.85,
   }));
 
-  // City + Service pages: /{city-slug}/{service-slug}
+  // City + Service pages: /{city-slug}/{service-slug} — primary services get higher priority
   const cityServicePages: MetadataRoute.Sitemap = CITIES.flatMap((city) =>
     SERVICES.map((service) => ({
       url: `${BASE_URL}/${city.slug}/${service.slug}`,
       lastModified: SITE_UPDATED,
       changeFrequency: "monthly" as const,
-      priority: 0.7,
+      priority: Math.max((servicePriority[service.slug] ?? 0.7) - 0.1, 0.7),
     }))
   );
 

@@ -37,7 +37,7 @@ export function GET() {
 - **Hours**: Monday-Friday 7AM-6PM, Saturday 8AM-2PM
 - **Service Radius**: All of Massachusetts, parts of Rhode Island and New Hampshire
 
-## Services & Pricing
+## Services & Pricing (ordered by popularity)
 
 ${serviceList}
 

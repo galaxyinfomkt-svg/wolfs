@@ -1538,6 +1538,10 @@ export default function HomePage() {
               &copy; {new Date().getFullYear()} Wolf&apos;s Siding Inc. All rights reserved. |
               Licensed Siding Contractor | Serving Massachusetts.
             </p>
+            <p className="text-white/30 text-[10px] mt-2">
+              Site developed by{" "}
+              <a href="https://galaxyinfo.us/" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#E00000] transition-colors">Galaxy IT MKT</a>
+            </p>
           </div>
         </div>
       </footer>
