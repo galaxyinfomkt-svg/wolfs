@@ -17,12 +17,12 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   if (!city) return {};
 
   const title = `Siding Contractor ${city.name}, ${STATE_ABBR} | Vinyl, Hardie Plank, Cedar & Clapboard | Wolf's Siding Inc.`;
-  const description = `Expert siding installation, replacement & repair in ${city.name}, ${STATE_ABBR}. Vinyl, Hardie Plank, Cedar & more. 18+ years experience. Free estimates. (774) 484-1895`;
+  const description = `Siding contractor in ${city.name}, Massachusetts. Vinyl siding, Hardie Plank, cedar shingles, clapboard & exterior trim installation, repair & replacement. Serving ${city.name}, ${STATE_ABBR} and the ${city.region} region. Free estimates. (774) 484-1895`;
 
   return {
     title,
     description,
-    keywords: `siding contractor ${city.name} MA, siding installation ${city.name}, vinyl siding ${city.name} MA, Hardie Plank ${city.name}, cedar shingles ${city.name}, clapboard siding ${city.name}, exterior trim ${city.name}, siding repair ${city.name} Massachusetts`,
+    keywords: `siding contractor ${city.name} MA, siding installation ${city.name}, vinyl siding ${city.name} MA, Hardie Plank siding ${city.name}, cedar shingles ${city.name}, clapboard siding ${city.name}, exterior trim ${city.name}, siding repair ${city.name} Massachusetts, siding company ${city.name}`,
     openGraph: {
       title,
       description,

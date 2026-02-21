@@ -5,7 +5,7 @@ import { BLOG_POSTS } from "../data/blog";
 
 export const metadata: Metadata = {
   title: "Siding Blog MA | Tips, Guides & Expert Advice | Wolf's Siding Inc.",
-  description: "Expert siding tips, guides & advice for Massachusetts homeowners. Vinyl, Hardie Plank, cedar shingles, clapboard, repairs & more from Wolf's Siding Inc.",
+  description: "Siding tips, guides & expert advice for Massachusetts homeowners. Vinyl siding, Hardie Plank, cedar shingles, clapboard installation, repair & maintenance guides. Wolf's Siding Inc.",
   keywords: "siding blog, siding tips Massachusetts, vinyl siding guide, Hardie Plank guide, cedar shingles guide, siding repair tips, home exterior blog",
   openGraph: {
     title: "Siding Blog MA | Tips, Guides & Expert Advice | Wolf's Siding Inc.",

@@ -20,12 +20,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!city || !service) return {};
 
   const title = `${service.shortName} ${city.name}, ${STATE_ABBR} | ${service.material.charAt(0).toUpperCase() + service.material.slice(1)} Contractor | Wolf's Siding Inc.`;
-  const description = `Professional ${service.shortName.toLowerCase()} in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. 18+ years experience. Free estimates. (774) 484-1895`;
+  const description = `${service.shortName} contractor in ${city.name}, Massachusetts. Expert ${service.material} installation & repair in ${city.name}, ${STATE_ABBR}. ${service.priceRange}. ${service.lifespan} lifespan. Free estimates. (774) 484-1895`;
 
   return {
     title,
     description,
-    keywords: `${service.shortName.toLowerCase()} ${city.name} MA, ${service.material} ${city.name}, siding contractor ${city.name} Massachusetts, ${service.name.toLowerCase()} near me, ${service.shortName.toLowerCase()} contractor ${city.name}`,
+    keywords: `${service.shortName.toLowerCase()} ${city.name} MA, ${service.material} ${city.name}, ${service.shortName.toLowerCase()} contractor ${city.name} Massachusetts, ${service.name.toLowerCase()} near me, ${service.shortName.toLowerCase()} installation ${city.name}, siding company ${city.name} ${STATE_ABBR}`,
     openGraph: { title, description, url: `https://wolfs-siding.com/${citySlug}/${serviceSlug}`, siteName: "Wolf's Siding Inc.", type: "website", images: [{ url: service.heroImage, width: 1200, height: 630, alt: title }] },
     twitter: {
       card: "summary_large_image",

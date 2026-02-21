@@ -17,13 +17,13 @@ export async function generateMetadata({ params }: { params: Promise<{ service: 
   if (!service) return {};
 
   const title = `${service.shortName} MA | ${service.name} Contractor Massachusetts | Wolf's Siding Inc.`;
-  const fullDesc = `Professional ${service.shortName.toLowerCase()} services across Massachusetts. ${service.description} 18+ years experience. Free estimates. (774) 484-1895`;
+  const fullDesc = `${service.shortName} contractor serving Massachusetts. Expert ${service.material} installation, repair & replacement across ${CITIES.length}+ MA cities. ${service.priceRange}. ${service.lifespan} lifespan. Free estimates. (774) 484-1895`;
   const description = fullDesc.length > 160 ? fullDesc.slice(0, 157) + "..." : fullDesc;
 
   return {
     title,
     description,
-    keywords: `${service.shortName.toLowerCase()} Massachusetts, ${service.material} MA, ${service.name.toLowerCase()} near me, ${service.shortName.toLowerCase()} contractor Massachusetts, siding company MA`,
+    keywords: `${service.shortName.toLowerCase()} Massachusetts, ${service.material} MA, ${service.name.toLowerCase()} near me, ${service.shortName.toLowerCase()} contractor Massachusetts, siding company MA, ${service.shortName.toLowerCase()} installation MA`,
     openGraph: { title, description, url: `https://wolfs-siding.com/services/${slug}`, siteName: "Wolf's Siding Inc.", type: "website", images: [{ url: service.heroImage, width: 1200, height: 630, alt: title }] },
     twitter: {
       card: "summary_large_image",

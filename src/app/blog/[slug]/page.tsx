@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: `${post.title} | Siding Tips & Guides | Wolf's Siding Inc.`,
-    description: post.excerpt,
-    keywords: `${post.category.toLowerCase()}, siding tips Massachusetts, ${post.title.split(' ').slice(0, 3).join(' ').toLowerCase()}, siding guide, Wolf's Siding blog`,
+    description: `${post.excerpt.length > 155 ? post.excerpt.slice(0, 152) + "..." : post.excerpt}`,
+    keywords: `${post.category.toLowerCase()}, siding tips Massachusetts, ${post.title.split(' ').slice(0, 3).join(' ').toLowerCase()}, siding guide MA, Wolf's Siding blog, siding advice Massachusetts`,
     openGraph: {
       title: post.title,
       description: post.excerpt,

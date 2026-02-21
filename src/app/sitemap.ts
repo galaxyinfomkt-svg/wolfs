@@ -3,7 +3,7 @@ import { CITIES, SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
 
 const BASE_URL = "https://wolfs-siding.com";
-const SITE_UPDATED = "2026-02-19";
+const SITE_UPDATED = "2026-02-21";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Homepage
@@ -58,7 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/blog`,
       lastModified: SITE_UPDATED,
       changeFrequency: "weekly",
-      priority: 0.6,
+      priority: 0.7,
     },
   ];
 
@@ -67,8 +67,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: "monthly" as const,
-    priority: 0.5,
+    priority: 0.6,
   }));
+
+  // LLMs.txt for AI Engine Optimization
+  const llmsTxt: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/llms.txt`,
+      lastModified: SITE_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.3,
+    },
+  ];
 
   return [
     ...homepage,
@@ -78,5 +88,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...cityServicePages,
     ...blogIndex,
     ...blogPostPages,
+    ...llmsTxt,
   ];
 }
