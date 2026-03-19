@@ -1536,7 +1536,7 @@ export default function HomePage() {
           <div className="pt-8 text-center">
             <p className="text-white/70 text-sm">
               &copy; {new Date().getFullYear()} Wolf&apos;s Siding Inc. All rights reserved. |
-              Licensed Siding Contractor | Serving Massachusetts.
+              Licensed Siding Contractor | HIC #218835 | Serving Massachusetts.
             </p>
             <p className="text-white/30 text-[10px] mt-2">
               Site developed by{" "}

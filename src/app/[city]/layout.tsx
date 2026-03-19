@@ -145,7 +145,7 @@ export default async function CityLayout({
         <div className="border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
             <p className="text-white/50 text-xs text-center">
-              &copy; {new Date().getFullYear()} Wolf&apos;s Siding Inc. All Rights Reserved. | Licensed Siding Contractor | Serving Massachusetts
+              &copy; {new Date().getFullYear()} Wolf&apos;s Siding Inc. All Rights Reserved. | Licensed Siding Contractor | HIC #218835 | Serving Massachusetts
             </p>
             <p className="text-white/30 text-[10px] text-center mt-2">
               Site developed by{" "}
