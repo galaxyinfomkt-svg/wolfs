@@ -630,14 +630,9 @@ export default function HomePage() {
               {/* Left — Content */}
               <div>
                 {/* Badges row (RS pattern) */}
-                <div className="flex flex-wrap items-center gap-3 mb-6">
-                  <span className="inline-flex items-center gap-2 bg-[#E00000] text-white text-xs font-bold px-4 py-2 rounded-full">
-                    <MapPinIcon className="w-3.5 h-3.5" />
-                    Serving 20+ MA Cities
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm text-white text-xs font-semibold px-4 py-2 rounded-full border border-white/20">
-                    <StarIcon className="w-3.5 h-3.5 text-yellow-400" />
-                    5.0 (22 Reviews)
+                <div className="mb-6">
+                  <span className="inline-flex items-center gap-2 bg-[#D4A017] text-black text-xs font-bold px-5 py-2 rounded-full tracking-wide uppercase">
+                    Serving 110+ MA Cities &bull; 5-Star Rated &bull; HIC #218835
                   </span>
                 </div>
 

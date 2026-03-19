@@ -155,18 +155,9 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 <span className="text-white">{service.shortName}</span>
               </nav>
 
-              <div className="flex flex-wrap gap-3 mb-6">
-                <span className="inline-flex items-center gap-2 bg-[#E00000] text-white text-xs font-bold px-4 py-2 rounded-full">
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
-                  Serving {city.name}, {STATE_ABBR}
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-white text-black text-xs font-bold px-4 py-2 rounded-full">
-                  <span className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
-                    ))}
-                  </span>
-                  {REVIEW_RATING} ({REVIEW_COUNT} reviews)
+              <div className="mb-6">
+                <span className="inline-flex items-center gap-2 bg-[#D4A017] text-black text-xs font-bold px-5 py-2 rounded-full tracking-wide uppercase">
+                  Serving {city.name}, {STATE_ABBR} &bull; 5-Star Rated &bull; HIC #218835
                 </span>
               </div>
 
