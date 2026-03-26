@@ -631,7 +631,7 @@ export default function HomePage() {
               <div>
                 {/* Badges row (RS pattern) */}
                 <div className="mb-6">
-                  <span className="inline-flex items-center gap-2 bg-[#D4A017] text-black text-xs font-bold px-5 py-2 rounded-full tracking-wide uppercase">
+                  <span className="inline-flex items-center gap-2 bg-[#E00000] text-white text-xs font-bold px-5 py-2 rounded-full tracking-wide uppercase">
                     Serving 110+ MA Cities &bull; 5-Star Rated &bull; HIC #218835
                   </span>
                 </div>
