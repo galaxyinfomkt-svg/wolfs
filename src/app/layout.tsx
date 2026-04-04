@@ -13,14 +13,14 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Siding Contractor MA | Vinyl, Hardie Plank, Cedar & Clapboard Siding | Wolf's Siding Inc.",
   description:
-    "Expert siding installation, replacement & repair in Massachusetts. Vinyl, Hardie Plank, Cedar & more. 18+ years experience. Free estimates. (774) 484-1895",
+    "Expert siding installation & replacement in Massachusetts. Vinyl, Hardie Plank, Cedar & more. 18+ years experience. Free estimates. (774) 484-1895",
   keywords:
     "siding contractor Massachusetts, siding installation MA, vinyl siding contractor MA, Hardie Plank siding Massachusetts, cedar shingles MA, clapboard siding MA, siding contractor Hudson MA, siding Northborough MA, siding Marlborough MA, exterior trim Massachusetts, siding replacement Worcester MA, siding company near me",
   authors: [{ name: "Wolf's Siding Inc." }],
   openGraph: {
     title: "Siding Contractor MA | Vinyl, Hardie Plank, Cedar & Clapboard Siding | Wolf's Siding Inc.",
     description:
-      "Expert siding installation, replacement & repair in Massachusetts. Vinyl, Hardie Plank, Cedar & more. 18+ years experience. Free estimates. (774) 484-1895",
+      "Expert siding installation & replacement in Massachusetts. Vinyl, Hardie Plank, Cedar & more. 18+ years experience. Free estimates. (774) 484-1895",
     url: "https://wolfs-siding.com",
     siteName: "Wolf's Siding Inc.",
     images: [
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Siding Contractor MA | Vinyl, Hardie Plank, Cedar & Clapboard Siding | Wolf's Siding Inc.",
     description:
-      "Premium siding installation, replacement & repair across Massachusetts. 18+ years experience. Call (774) 484-1895 for a free estimate!",
+      "Premium siding installation & replacement across Massachusetts. 18+ years experience. Call (774) 484-1895 for a free estimate!",
     images: [
       "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png",
     ],
@@ -61,7 +61,7 @@ const orgLd = {
   logo: "https://wolfs-siding.com/logo.png",
   image: "https://wolfs-siding.com/logo.png",
   description:
-    "#1 siding contractor in Massachusetts. Vinyl siding, Hardie Plank, cedar shingles, clapboard installation, repair & replacement. Serving 110+ MA cities. 18+ years experience. 5.0 Google rating.",
+    "#1 siding contractor in Massachusetts. Vinyl siding, Hardie Plank, cedar shingles, clapboard installation & replacement. Serving 110+ MA cities. 18+ years experience. 5.0 Google rating.",
   telephone: "+17744841895",
   address: {
     "@type": "PostalAddress",

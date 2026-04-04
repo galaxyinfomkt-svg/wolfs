@@ -263,11 +263,11 @@ export const SERVICES: ServiceData[] = [
     ],
   },
   {
-    name: "Siding Repair Services",
+    name: "Siding Repair vs Replacement",
     slug: "siding-repair-services",
     shortName: "Siding Repair",
-    material: "siding repair and restoration",
-    description: "From storm damage to wear and tear, our repair services restore your home's exterior quickly and affordably — matching existing materials for a seamless result.",
+    material: "siding assessment, repair and full replacement",
+    description: "Wondering if repair is the right choice? In most cases, a full siding replacement delivers better long-term value. We offer honest assessments to help you decide — and when a targeted repair makes sense, we do it right.",
     heroImage: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e8da9674305aa2a4d.png",
     priceRange: "$500 – $5,000",
     lifespan: "Extends existing siding 10–20 years",
@@ -294,7 +294,7 @@ export const SERVICES: ServiceData[] = [
     ],
     faqs: [
       { q: "Can you match my existing siding for a repair?", a: "In most cases, yes. We maintain relationships with all major siding manufacturers and distributors. For older or discontinued siding profiles, we'll find the closest match available and may use transition pieces to create a seamless look." },
-      { q: "Should I repair or replace my siding?", a: "If damage is limited to a small area (under 30% of your home), repair is usually the best value. If damage is widespread, you're seeing recurring issues, or your siding is nearing end of life, full replacement is often more cost-effective long-term. We'll give you an honest recommendation." },
+      { q: "Should I repair or replace my siding?", a: "In most cases, if your siding is over 10 years old or damage covers more than a small area, full replacement is the smarter investment. Repairs can address isolated issues, but widespread damage, recurring problems, or aging materials almost always mean replacement is more cost-effective long-term. We'll give you an honest, no-pressure recommendation during your free assessment." },
       { q: "Do you help with insurance claims for storm damage?", a: "Yes. We provide detailed damage assessments, photo documentation, and written estimates that insurance companies require. We work with your adjuster to ensure all damage is accounted for and you receive fair compensation for repairs." },
     ],
     offerings: [

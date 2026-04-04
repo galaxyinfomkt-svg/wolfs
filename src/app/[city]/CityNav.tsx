@@ -57,7 +57,7 @@ export default function CityNav({ citySlug, cityName }: { citySlug: string; city
                 </button>
                 <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                   <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-2 w-72">
-                    {SERVICES.map((s) => (
+                    {SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
                       <Link
                         key={s.slug}
                         href={`/${citySlug}/${s.slug}`}
@@ -111,7 +111,7 @@ export default function CityNav({ citySlug, cityName }: { citySlug: string; city
             <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
               <Link href="/" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Home</Link>
               <div className="px-4 py-2 text-xs font-bold text-[#E00000] uppercase tracking-wider">Services in {cityName}</div>
-              {SERVICES.map((s) => (
+              {SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
                 <Link
                   key={s.slug}
                   href={`/${citySlug}/${s.slug}`}

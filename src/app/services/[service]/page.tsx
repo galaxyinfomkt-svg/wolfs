@@ -199,6 +199,28 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
         </div>
       </div>
 
+      {/* ═══ REPLACEMENT RECOMMENDATION BANNER (only on repair page) ═══ */}
+      {slug === "siding-repair-services" && (
+        <section className="bg-[#1A1A1A] border-b-4 border-[#E00000]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
+            <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
+              Considering Repair? A Full Replacement May Be the Smarter Investment.
+            </h2>
+            <p className="text-white/70 text-base max-w-2xl mx-auto mb-6 leading-relaxed">
+              Most homeowners who request a repair end up choosing full replacement after learning the long-term value.
+              Wolf&apos;s Siding specializes in complete siding installations that protect your home for 30+ years.
+            </p>
+            <Link
+              href="/services/full-siding-replacement"
+              className="inline-flex items-center gap-2 bg-[#E00000] hover:bg-[#CC0000] text-white px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 hover:scale-105"
+            >
+              Explore Full Siding Replacement
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* ═══ MAIN CONTENT + SIDEBAR ═══ */}
       <section className="py-16 bg-white content-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

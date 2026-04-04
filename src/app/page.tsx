@@ -251,15 +251,6 @@ const SERVICES = [
     icon: "swatch",
   },
   {
-    title: "Siding Repair Services",
-    slug: "siding-repair-services",
-    description: "Storm damage, cracks, or wear and tear? Our expert repair services restore your home's exterior quickly and affordably — matching existing materials for a seamless, invisible result.",
-    cta: "Get Repair Estimate",
-    image: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e7bbd8d15a40f7b92.png",
-    featured: false,
-    icon: "wrench",
-  },
-  {
     title: "Full Siding Replacement",
     slug: "full-siding-replacement",
     description: "Ready for a complete exterior transformation? Full siding replacement removes old, worn materials and installs premium new siding for decades of protection, beauty, and increased home value.",
@@ -293,7 +284,7 @@ const FAQS = [
   { q: "How much does siding installation cost in Massachusetts?", a: "Siding installation costs in Massachusetts typically range from $5,000 to $25,000+ depending on the size of your home, material chosen, and project complexity. We provide free on-site assessments with transparent, itemized estimates — no hidden fees or surprises." },
   { q: "How long does siding typically last?", a: "It depends on the material: vinyl siding lasts 20–40 years, Hardie Plank 30–50 years, and cedar shingles 20–40+ years with proper maintenance. With our expert installation and premium materials, your siding will provide decades of protection." },
   { q: "What is the best siding material for New England weather?", a: "For Massachusetts' harsh winters, rain, and summer heat, Hardie Plank and vinyl siding are top choices. Hardie Plank offers superior impact resistance and fire protection. Vinyl is budget-friendly and virtually maintenance-free. We'll help you choose during your free assessment." },
-  { q: "Can you repair my existing siding or do I need full replacement?", a: "It depends on the damage extent. Minor cracks, loose panels, or isolated rot can often be repaired. Widespread damage, mold, or structural issues may warrant full replacement. We'll evaluate on-site and give you an honest recommendation." },
+  { q: "How do I know if it's time for a full replacement?", a: "If your siding is 10+ years old, shows widespread fading, multiple areas of damage, persistent moisture issues, or your energy bills keep climbing, it's likely time for a full replacement rather than patching individual spots. During your free assessment, we'll inspect the entire exterior and give you an honest recommendation based on the overall condition of your home." },
   { q: "Do you offer warranties on your work?", a: "Yes. All installations come with manufacturer material warranties plus our workmanship guarantee. We stand behind every project because our reputation depends on your satisfaction." },
   { q: "How long does a siding installation project take?", a: "Most residential projects take 1–3 weeks depending on home size and weather conditions. We work efficiently while maintaining the highest quality standards and will provide a realistic timeline during your free assessment." },
 ];
@@ -519,7 +510,7 @@ export default function HomePage() {
                 </button>
                 <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                   <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-2 w-64">
-                    {SIDING_SERVICES.map((s) => (
+                    {SIDING_SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
                       <Link
                         key={s.slug}
                         href={`/services/${s.slug}`}
@@ -584,7 +575,7 @@ export default function HomePage() {
             <div className="px-4 py-4 space-y-1">
               <a href="#home" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Home</a>
               <div className="px-4 py-2 text-xs font-bold text-[#E00000] uppercase tracking-wider">Services</div>
-              {SIDING_SERVICES.map((s) => (
+              {SIDING_SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
                 <Link
                   key={s.slug}
                   href={`/services/${s.slug}`}
@@ -643,12 +634,10 @@ export default function HomePage() {
                 </h1>
 
                 <p className="text-lg text-[#F5F5F5]/85 mb-8 leading-relaxed max-w-xl">
-                  Is your home showing <strong className="text-white">water stains</strong>,{" "}
-                  <strong className="text-white">peeling paint</strong>,{" "}
-                  <strong className="text-white">rotting wood</strong>, or{" "}
-                  <strong className="text-white">rising energy bills</strong>? Wolf&apos;s Siding Inc.
-                  delivers premium siding solutions with <strong className="text-white">18+ years of expert craftsmanship</strong> across
-                  Massachusetts.
+                  Ready to transform your home&apos;s exterior for the next <strong className="text-white">30 years</strong>?
+                  Massachusetts homeowners choose Wolf&apos;s Siding for <strong className="text-white">complete installations</strong> that
+                  add value, beauty, and <strong className="text-white">lasting protection</strong> — backed by{" "}
+                  <strong className="text-white">18+ years of expert craftsmanship</strong>.
                 </p>
 
                 {/* CTAs (RS pattern: primary + outline) */}
