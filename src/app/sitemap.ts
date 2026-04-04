@@ -3,7 +3,7 @@ import { CITIES, SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
 
 const BASE_URL = "https://wolfs-siding.com";
-const SITE_UPDATED = "2026-02-21";
+const SITE_UPDATED = "2026-04-04";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Homepage
@@ -22,8 +22,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "hardie-plank-siding-installation": 0.9,
     "cedar-shingle-siding": 0.85,
     "clapboard-siding-installation": 0.85,
-    "full-siding-replacement": 0.85,
-    "siding-repair-services": 0.8,
+    "full-siding-replacement": 0.9,
+    "siding-repair-services": 0.6,
     "exterior-trim-work": 0.8,
   };
 

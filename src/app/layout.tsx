@@ -81,8 +81,8 @@ const orgLd = {
     "cedar shingle siding",
     "clapboard siding",
     "exterior trim work",
-    "siding repair",
     "siding replacement",
+    "full siding replacement",
     "Massachusetts siding contractor",
   ],
   hasOfferCatalog: {
@@ -94,7 +94,7 @@ const orgLd = {
       { "@type": "OfferCatalog", name: "Cedar Shingle Siding", position: 3 },
       { "@type": "OfferCatalog", name: "Clapboard Siding Installation", position: 4 },
       { "@type": "OfferCatalog", name: "Full Siding Replacement", position: 5 },
-      { "@type": "OfferCatalog", name: "Siding Repair Services", position: 6 },
+      { "@type": "OfferCatalog", name: "Siding Assessment & Consultation", position: 6 },
       { "@type": "OfferCatalog", name: "Exterior Trim Work", position: 7 },
     ],
   },
@@ -123,6 +123,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://assets.cdn.filesafe.space" />
+        <link rel="preconnect" href="https://storage.googleapis.com" />
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Information" />
         <meta name="geo.region" content="US-MA" />
         <meta name="geo.placename" content="Northborough, MA" />

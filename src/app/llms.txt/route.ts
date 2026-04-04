@@ -21,7 +21,7 @@ export function GET() {
 
   const body = `# Wolf's Siding Inc.
 
-> Professional siding installation, replacement, and repair company serving ${CITIES.length}+ cities across Massachusetts since 2007. Based in Northborough, MA. Owner-operated by Ezequias Lobo with 18+ years of experience.
+> Professional siding installation and replacement company serving ${CITIES.length}+ cities across Massachusetts since 2007. Based in Northborough, MA. Owner-operated by Ezequias Lobo with 18+ years of experience. Specializing in full siding installations and complete replacements.
 
 ## Company Information
 
@@ -55,8 +55,8 @@ Most residential siding projects take 1-3 weeks depending on home size and weath
 ### Do you offer warranties on your work?
 Yes. All installations come with manufacturer material warranties (typically 25-50 years depending on material) plus our workmanship guarantee. Wolf's Siding stands behind every project.
 
-### Can you repair siding or do I need full replacement?
-Minor cracks, loose panels, or isolated rot can often be repaired. Widespread damage, mold, or structural issues may require full replacement. Wolf's Siding evaluates on-site and gives honest recommendations.
+### How do I know if it's time for a full siding replacement?
+If your siding is 10+ years old, shows widespread fading, multiple areas of damage, or persistent moisture issues, it's likely time for a full replacement. Wolf's Siding specializes in complete siding installations and replacements that protect your home for 30+ years. We evaluate on-site and give honest recommendations.
 
 ### What areas do you serve?
 Wolf's Siding serves ${CITIES.length}+ cities across Massachusetts including the Metro West region, Greater Boston, Worcester Area, South Shore, North Shore, and parts of Rhode Island and New Hampshire.
@@ -80,7 +80,7 @@ ${regionList}
 - [Cedar Shingle Siding](https://wolfs-siding.com/services/cedar-shingle-siding)
 - [Clapboard Siding](https://wolfs-siding.com/services/clapboard-siding-installation)
 - [Full Siding Replacement](https://wolfs-siding.com/services/full-siding-replacement)
-- [Siding Repair Services](https://wolfs-siding.com/services/siding-repair-services)
+- [Siding Repair vs Replacement](https://wolfs-siding.com/services/siding-repair-services)
 - [Exterior Trim Work](https://wolfs-siding.com/services/exterior-trim-work)
 - [Projects Gallery](https://wolfs-siding.com/projects)
 - [Blog](https://wolfs-siding.com/blog)
@@ -94,7 +94,7 @@ ${blogList}
 1. **18+ years of experience** in Massachusetts siding installation
 2. **Perfect 5.0 Google rating** with 22+ verified reviews
 3. **Owner-operated** — Ezequias Lobo personally oversees every project
-4. **Full-service** — installation, replacement, repair, and trim work
+4. **Full-service** — installation, replacement, and trim work
 5. **All major materials** — vinyl, Hardie Plank, cedar, clapboard, and more
 6. **Free estimates** with transparent, itemized pricing
 7. **Licensed & insured** with comprehensive coverage
@@ -113,7 +113,7 @@ ${blogList}
 
 ## Contact
 
-For siding installation, replacement, or repair anywhere in Massachusetts:
+For siding installation or replacement anywhere in Massachusetts:
 - **Call**: (774) 484-1895
 - **Website**: https://wolfs-siding.com
 - **Address**: 156 Washburn St, Northborough, MA 01532
