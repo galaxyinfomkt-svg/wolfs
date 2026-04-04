@@ -390,7 +390,7 @@ export default function HomePage() {
     "@type": ["HomeAndConstructionBusiness", "GeneralContractor"],
     name: "Wolf's Siding Inc.",
     alternateName: "Wolf's Siding",
-    description: "Expert siding installation, replacement and repair company serving Massachusetts. Specializing in Vinyl, Hardie Plank, Cedar, Clapboard siding and exterior trim work with 18+ years of industry experience.",
+    description: "Expert siding installation and replacement company serving Massachusetts since 2007. Specializing in Vinyl, Hardie Plank, Cedar, Clapboard siding and exterior trim work. 18+ years of industry experience. 5.0 Google rating with 22+ verified reviews.",
     url: "https://wolfs-siding.com",
     telephone: "+17744841895",
     image: "https://wolfs-siding.com/logo.png",
@@ -441,10 +441,20 @@ export default function HomePage() {
     })),
   };
 
+  const websiteLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Wolf's Siding Inc.",
+    url: "https://wolfs-siding.com",
+    publisher: { "@type": "Organization", name: "Wolf's Siding Inc." },
+    inLanguage: "en-US",
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }} />
 
       {/* ═══════════════════════════════════════════════════════
           1. HEADER — Two-tier (RS model: top bar + main nav)
@@ -653,7 +663,7 @@ export default function HomePage() {
                     href="#contact"
                     className="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white hover:bg-white hover:text-black px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300"
                   >
-                    Get Free Estimate
+                    Get Your Free Estimate
                   </a>
                 </div>
 

@@ -547,6 +547,36 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
         </section>
       )}
 
+      {/* ═══ SERVICE AREAS — Internal Linking (Site Architecture) ═══ */}
+      <section className="py-16 bg-white content-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-black text-black mb-3">
+            {service.shortName} in <span className="text-[#E00000]">Massachusetts</span>
+          </h2>
+          <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
+          <p className="text-[#333] mb-8 max-w-2xl">
+            We provide professional {service.shortName.toLowerCase()} services across {CITIES.length}+ cities in Massachusetts. Find {service.shortName.toLowerCase()} near you:
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {CITIES.slice(0, 20).map((city) => (
+              <Link
+                key={city.slug}
+                href={`/${city.slug}/${slug}`}
+                className="inline-flex items-center gap-1.5 bg-[#F5F5F5] hover:bg-[#E00000] hover:text-white text-sm text-[#333] px-4 py-2 rounded-full transition-all duration-200"
+              >
+                {city.name}, {STATE_ABBR}
+              </Link>
+            ))}
+            <Link
+              href={`/${CITIES[0].slug}/${slug}`}
+              className="inline-flex items-center gap-1.5 bg-[#E00000] text-white text-sm font-semibold px-4 py-2 rounded-full"
+            >
+              + {CITIES.length - 20} more cities →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ═══ YOUTUBE VIDEOS ═══ */}
       <YouTubeSection />
 

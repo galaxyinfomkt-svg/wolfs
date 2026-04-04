@@ -124,6 +124,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://assets.cdn.filesafe.space" />
         <link rel="preconnect" href="https://storage.googleapis.com" />
+        <link rel="dns-prefetch" href="https://api.leadconnectorhq.com" />
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Information" />
         <meta name="geo.region" content="US-MA" />
         <meta name="geo.placename" content="Northborough, MA" />
