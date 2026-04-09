@@ -952,8 +952,8 @@ export default function HomePage() {
                 <div className="grid md:grid-cols-2">
                   <div className="relative h-64 md:h-auto">
                     <Image
-                      src="https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d2be96c92ab.png"
-                      alt="Premium siding installation project in Massachusetts by Wolf's Siding Inc."
+                      src="/services/specialty-section.jpg"
+                      alt="Wolf's Siding crew working on residential siding project in Massachusetts"
                       fill
                       className="object-cover"
                       sizes="(max-width: 640px) 50vw, 33vw"
