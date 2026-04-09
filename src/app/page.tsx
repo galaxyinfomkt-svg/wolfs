@@ -1035,14 +1035,14 @@ export default function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   title={brand.alt}
-                  className="flex items-center justify-center p-5 bg-white rounded-2xl border border-gray-100 hover:border-[#E00000]/30 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-24 group"
+                  className="flex items-center justify-center p-6 sm:p-8 bg-white rounded-2xl border border-gray-100 hover:border-[#E00000]/30 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-28 sm:h-32 group"
                 >
                   <Image
                     src={brand.src}
                     alt={brand.alt}
-                    width={160}
-                    height={60}
-                    className="max-h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
+                    width={200}
+                    height={80}
+                    className="max-h-16 sm:max-h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
                   />
                 </a>
               ))}
