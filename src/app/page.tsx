@@ -284,15 +284,11 @@ const CDN = "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media";
 const PROJECT_IMAGES = [
   { src: `${CDN}/69975cfb2a2f15796c002376.jpg`, alt: "Navy blue vinyl siding installation on lakefront cottage, Massachusetts", label: "Vinyl Siding", city: "Massachusetts" },
   { src: `${CDN}/69975e32181715caeea6e9c1.jpg`, alt: "Hardie Plank siding on craftsman ranch home, Massachusetts", label: "Hardie Plank", city: "Massachusetts" },
-  { src: `${CDN}/69975e328d5b5a3f718385bf.jpg`, alt: "Gray vinyl siding on Cape Cod home by Wolf's Siding, MA", label: "Vinyl Siding", city: "Massachusetts" },
-  { src: `${CDN}/69975e324c2502c5f69917b6.jpg`, alt: "Navy blue vinyl siding on colonial home, Massachusetts", label: "Vinyl Siding", city: "Massachusetts" },
   { src: `${CDN}/69975e328523c5f2c4d090c0.jpg`, alt: "Hardie Plank fiber cement siding on upscale colonial home in winter, Massachusetts", label: "Hardie Plank", city: "Massachusetts" },
   { src: `${CDN}/69975e3220c0353f100e2671.jpg`, alt: "Burgundy board and batten vinyl siding on barn-style home, Massachusetts", label: "Vinyl Siding", city: "Massachusetts" },
   { src: `${CDN}/69975e328523c5721bd090c1.jpg`, alt: "Hardie Plank mixed profile detail on ranch, MA", label: "Hardie Plank", city: "Massachusetts" },
   { src: `${CDN}/69975e323873af74c39f00be.jpg`, alt: "Subdivision vinyl siding installation by Wolf's Siding crew, MA", label: "Vinyl Siding", city: "Massachusetts" },
   { src: `${CDN}/69975e328d5b5a152d8385ef.jpg`, alt: "Commercial multi-family sheathing installation, Massachusetts", label: "Full Siding Replacement", city: "Massachusetts" },
-  { src: `${CDN}/69975e323873af3bda9f00d3.jpg`, alt: "Ranch vinyl siding with brick accent, Massachusetts", label: "Vinyl Siding", city: "Massachusetts" },
-  { src: `${CDN}/69975cfb4c25023cb798a266.jpg`, alt: "Completed vinyl siding back view lakefront property, MA", label: "Vinyl Siding", city: "Massachusetts" },
   { src: `${CDN}/69975e328d5b5ade738385b5.jpg`, alt: "A-frame chalet exterior sheathing preparation, Massachusetts", label: "Full Siding Replacement", city: "Massachusetts" },
 ];
 
