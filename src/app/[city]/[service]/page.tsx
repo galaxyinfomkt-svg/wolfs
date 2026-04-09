@@ -26,12 +26,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     title,
     description,
     keywords: `${service.shortName.toLowerCase()} ${city.name} MA, ${service.material} ${city.name}, ${service.shortName.toLowerCase()} contractor ${city.name} Massachusetts, ${service.name.toLowerCase()} near me, ${service.shortName.toLowerCase()} installation ${city.name}, siding company ${city.name} ${STATE_ABBR}`,
-    openGraph: { title, description, url: `https://wolfs-siding.com/${citySlug}/${serviceSlug}`, siteName: "Wolf's Siding Inc.", type: "website", images: [{ url: service.heroImage, width: 1200, height: 630, alt: title }] },
+    openGraph: { title, description, url: `https://wolfs-siding.com/${citySlug}/${serviceSlug}`, siteName: "Wolf's Siding Inc.", type: "website", images: [{ url: service.heroImage.startsWith("/") ? `https://wolfs-siding.com${service.heroImage}` : service.heroImage, width: 1200, height: 630, alt: title }] },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [service.heroImage],
+      images: [service.heroImage.startsWith("/") ? `https://wolfs-siding.com${service.heroImage}` : service.heroImage],
     },
     alternates: { canonical: `https://wolfs-siding.com/${citySlug}/${serviceSlug}` },
   };
