@@ -282,21 +282,17 @@ const SERVICES = [
 const CDN = "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media";
 
 const PROJECT_IMAGES = [
-  { src: `${CDN}/69975cfb2a2f15796c002376.jpg`, alt: "Navy blue vinyl siding installation on lakefront cottage, Massachusetts", label: "Vinyl Siding", city: "Massachusetts" },
-  { src: `${CDN}/69975e32181715caeea6e9c1.jpg`, alt: "Hardie Plank siding on craftsman ranch home, Massachusetts", label: "Hardie Plank", city: "Massachusetts" },
+  { src: "/services/vinyl-siding.jpg", alt: "Vinyl siding installation on residential home by Wolf's Siding, MA", label: "Vinyl Siding", city: "Massachusetts" },
+  { src: "/services/hardie-plank-siding.jpg", alt: "Hardie Plank siding on multi-family building with Wolf's Siding van, MA", label: "Hardie Plank", city: "Massachusetts" },
   { src: "/services/cedar-shingle-siding.jpg", alt: "Cedar shingle siding installation around window by Wolf's Siding, MA", label: "Cedar Shingles", city: "Massachusetts" },
-  { src: `${CDN}/69975e328523c5f2c4d090c0.jpg`, alt: "Hardie Plank fiber cement siding on upscale colonial home in winter, Massachusetts", label: "Hardie Plank", city: "Massachusetts" },
-  { src: "/services/clapboard-siding.jpg", alt: "Clapboard siding installation with soffit and trim detail, Massachusetts", label: "Clapboard Siding", city: "Massachusetts" },
-  { src: "/services/exterior-trim.jpg", alt: "Professional exterior window trim work on multi-family home, Massachusetts", label: "Exterior Trim", city: "Massachusetts" },
-  { src: `${CDN}/69975e3220c0353f100e2671.jpg`, alt: "Burgundy board and batten vinyl siding on barn-style home, Massachusetts", label: "Vinyl Siding", city: "Massachusetts" },
-  { src: `${CDN}/69975e328523c5721bd090c1.jpg`, alt: "Hardie Plank mixed profile detail on ranch, MA", label: "Hardie Plank", city: "Massachusetts" },
-  { src: "/services/trim-gallery.jpg", alt: "New construction with custom exterior trim and mixed siding, Massachusetts", label: "Exterior Trim", city: "Massachusetts" },
-  { src: `${CDN}/69975e323873af74c39f00be.jpg`, alt: "Subdivision vinyl siding installation by Wolf's Siding crew, MA", label: "Vinyl Siding", city: "Massachusetts" },
-  { src: `${CDN}/69975e328d5b5a152d8385ef.jpg`, alt: "Commercial multi-family sheathing installation, Massachusetts", label: "Full Siding Replacement", city: "Massachusetts" },
-  { src: `${CDN}/69975e328d5b5ade738385b5.jpg`, alt: "A-frame chalet exterior sheathing preparation, Massachusetts", label: "Full Siding Replacement", city: "Massachusetts" },
+  { src: "/services/clapboard-siding.jpg", alt: "Clapboard siding installation with soffit and trim detail, MA", label: "Clapboard Siding", city: "Massachusetts" },
+  { src: "/services/exterior-trim.jpg", alt: "Professional exterior window trim work on multi-family home, MA", label: "Exterior Trim", city: "Massachusetts" },
+  { src: "/services/trim-gallery.jpg", alt: "New construction with custom exterior trim and mixed siding, MA", label: "Exterior Trim", city: "Massachusetts" },
+  { src: "/services/gutter-installation.jpg", alt: "Gutter guard system installation by Wolf's Siding, MA", label: "Gutter Installation", city: "Massachusetts" },
+  { src: "/services/roofing-installation.jpg", alt: "Roofing installation on residential home by Wolf's Siding, MA", label: "Roofing", city: "Massachusetts" },
 ];
 
-const GALLERY_FILTERS = ["All", "Vinyl Siding", "Hardie Plank", "Clapboard Siding", "Cedar Shingles", "Exterior Trim", "Full Siding Replacement"];
+const GALLERY_FILTERS = ["All", "Vinyl Siding", "Hardie Plank", "Cedar Shingles", "Clapboard Siding", "Exterior Trim", "Gutter Installation", "Roofing"];
 
 const FAQS = [
   { q: "How much does siding installation cost in Massachusetts?", a: "Siding installation costs in Massachusetts typically range from $5,000 to $25,000+ depending on the size of your home, material chosen, and project complexity. We provide free on-site assessments with transparent, itemized estimates — no hidden fees or surprises." },
