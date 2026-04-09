@@ -224,7 +224,7 @@ export const SERVICES: ServiceData[] = [
     shortName: "Exterior Trim",
     material: "exterior trim and finish carpentry",
     description: "Professional trim work frames your home's exterior with clean lines and polished details — from window and door casings to corner boards, fascia, and decorative elements.",
-    heroImage: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3ee0f09220206bdb36.png",
+    heroImage: "/services/exterior-trim.jpg",
     priceRange: "$2,500 – $12,000",
     lifespan: "30–50 years",
     idealFor: "completing any siding project or refreshing your home's architectural details",
