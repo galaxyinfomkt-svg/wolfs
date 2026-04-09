@@ -312,7 +312,7 @@ export const SERVICES: ServiceData[] = [
     shortName: "Siding Replacement",
     material: "complete siding replacement",
     description: "Transform your home's entire exterior with a full siding replacement — removing old, worn materials and installing premium new siding for decades of protection and beauty.",
-    heroImage: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e0b0f9d2be96c92ab.png",
+    heroImage: "/services/siding-replacement-3.jpg",
     priceRange: "$10,000 – $35,000",
     lifespan: "30–50+ years",
     idealFor: "homes with aging, damaged, or outdated siding that need a complete exterior transformation",

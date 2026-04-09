@@ -255,7 +255,7 @@ const SERVICES = [
     slug: "full-siding-replacement",
     description: "Ready for a complete exterior transformation? Full siding replacement removes old, worn materials and installs premium new siding for decades of protection, beauty, and increased home value.",
     cta: "Get Replacement Quote",
-    image: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e1d466e2aab7a9801.png",
+    image: "/services/siding-replacement-3.jpg",
     featured: false,
     icon: "sparkles",
   },
@@ -292,9 +292,12 @@ const PROJECT_IMAGES = [
   { src: "/services/gutter-installation-2.jpg", alt: "Seamless gutter with leaf guard on residential home, MA", label: "Gutter Installation", city: "Massachusetts" },
   { src: "/services/gutter-black.jpg", alt: "Black seamless gutters on gray siding home by Wolf's Siding, MA", label: "Gutter Installation", city: "Massachusetts" },
   { src: "/services/roofing-installation.jpg", alt: "Roofing installation on residential home by Wolf's Siding, MA", label: "Roofing", city: "Massachusetts" },
+  { src: "/services/siding-replacement-3.jpg", alt: "Complete siding replacement on residential home by Wolf's Siding, MA", label: "Full Siding Replacement", city: "Massachusetts" },
+  { src: "/services/siding-replacement-1.jpg", alt: "New siding and trim detail after full replacement, MA", label: "Full Siding Replacement", city: "Massachusetts" },
+  { src: "/services/siding-replacement-2.jpg", alt: "Window trim detail after siding replacement by Wolf's Siding, MA", label: "Full Siding Replacement", city: "Massachusetts" },
 ];
 
-const GALLERY_FILTERS = ["All", "Vinyl Siding", "Hardie Plank", "Cedar Shingles", "Clapboard Siding", "Exterior Trim", "Gutter Installation", "Roofing"];
+const GALLERY_FILTERS = ["All", "Vinyl Siding", "Hardie Plank", "Cedar Shingles", "Clapboard Siding", "Exterior Trim", "Full Siding Replacement", "Gutter Installation", "Roofing"];
 
 const FAQS = [
   { q: "How much does siding installation cost in Massachusetts?", a: "Siding installation costs in Massachusetts typically range from $5,000 to $25,000+ depending on the size of your home, material chosen, and project complexity. We provide free on-site assessments with transparent, itemized estimates — no hidden fees or surprises." },

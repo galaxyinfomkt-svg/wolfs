@@ -35,8 +35,9 @@ const SERVICE_PROJECT_PHOTOS: Record<string, { src: string; alt: string }[]> = {
     { src: "/services/roofing-installation.jpg", alt: "New roof installation on residential home, MA" },
   ],
   "full-siding-replacement": [
-    { src: "/services/vinyl-siding.jpg", alt: "Completed full siding replacement, MA" },
-    { src: "/services/hardie-plank-siding.jpg", alt: "Multi-family siding replacement project, MA" },
+    { src: "/services/siding-replacement-3.jpg", alt: "Complete siding replacement on residential home, MA" },
+    { src: "/services/siding-replacement-1.jpg", alt: "New siding and trim detail after full replacement, MA" },
+    { src: "/services/siding-replacement-2.jpg", alt: "Window trim detail after siding replacement, MA" },
   ],
   "default": [
     { src: "/services/vinyl-siding.jpg", alt: "Siding installation by Wolf's Siding, MA" },
