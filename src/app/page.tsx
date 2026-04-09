@@ -259,6 +259,24 @@ const SERVICES = [
     featured: false,
     icon: "sparkles",
   },
+  {
+    title: "Gutter Installation",
+    slug: "gutter-installation",
+    description: "Overflowing gutters damaging your foundation? We install seamless aluminum gutters with leaf guard systems — custom-fabricated on-site for a perfect fit with zero leak points.",
+    cta: "Get Gutter Estimate",
+    image: "/services/gutter-installation.jpg",
+    featured: false,
+    icon: "shield",
+  },
+  {
+    title: "Roofing Installation",
+    slug: "roofing-installation",
+    description: "Missing shingles, leaks, or a roof past its prime? We install premium architectural shingles with ice dam protection — built to handle 25+ Massachusetts winters.",
+    cta: "Get Roofing Estimate",
+    image: "/services/roofing-installation.jpg",
+    featured: false,
+    icon: "home",
+  },
 ];
 
 const CDN = "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media";

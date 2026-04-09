@@ -82,6 +82,8 @@ ${regionList}
 - [Full Siding Replacement](https://wolfs-siding.com/services/full-siding-replacement)
 - [Siding Repair vs Replacement](https://wolfs-siding.com/services/siding-repair-services)
 - [Exterior Trim Work](https://wolfs-siding.com/services/exterior-trim-work)
+- [Gutter Installation](https://wolfs-siding.com/services/gutter-installation)
+- [Roofing Installation](https://wolfs-siding.com/services/roofing-installation)
 - [Projects Gallery](https://wolfs-siding.com/projects)
 - [Blog](https://wolfs-siding.com/blog)
 

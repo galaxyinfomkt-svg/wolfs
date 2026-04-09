@@ -25,6 +25,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "full-siding-replacement": 0.9,
     "siding-repair-services": 0.6,
     "exterior-trim-work": 0.8,
+    "gutter-installation": 0.85,
+    "roofing-installation": 0.85,
   };
 
   // Service pages: /services/{service-slug}

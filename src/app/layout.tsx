@@ -83,11 +83,14 @@ const orgLd = {
     "exterior trim work",
     "siding replacement",
     "full siding replacement",
+    "gutter installation",
+    "roofing installation",
     "Massachusetts siding contractor",
+    "Massachusetts exterior contractor",
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Siding Services",
+    name: "Exterior Services",
     itemListElement: [
       { "@type": "OfferCatalog", name: "Vinyl Siding Installation", position: 1 },
       { "@type": "OfferCatalog", name: "Hardie Plank Siding Installation", position: 2 },
@@ -96,6 +99,8 @@ const orgLd = {
       { "@type": "OfferCatalog", name: "Full Siding Replacement", position: 5 },
       { "@type": "OfferCatalog", name: "Siding Assessment & Consultation", position: 6 },
       { "@type": "OfferCatalog", name: "Exterior Trim Work", position: 7 },
+      { "@type": "OfferCatalog", name: "Gutter Installation", position: 8 },
+      { "@type": "OfferCatalog", name: "Roofing Installation", position: 9 },
     ],
   },
   aggregateRating: {
