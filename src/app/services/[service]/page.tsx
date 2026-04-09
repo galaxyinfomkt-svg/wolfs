@@ -35,6 +35,9 @@ const SERVICE_PROJECT_PHOTOS: Record<string, { src: string; alt: string }[]> = {
   ],
   "roofing-installation": [
     { src: "/services/roofing-installation.jpg", alt: "New roof installation on residential home, MA" },
+    { src: "/services/roofing-2.jpg", alt: "Architectural shingle roof with dormer, MA" },
+    { src: "/services/roofing-3.jpg", alt: "Multi-dormer roof installation, MA" },
+    { src: "/services/roofing-4.jpg", alt: "Completed roof installation aerial view, MA" },
   ],
   "full-siding-replacement": [
     { src: "/services/siding-replacement-3.jpg", alt: "Complete siding replacement on residential home, MA" },
