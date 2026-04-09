@@ -25,6 +25,8 @@ const SERVICE_PROJECT_PHOTOS: Record<string, { src: string; alt: string }[]> = {
   "exterior-trim-work": [
     { src: "/services/exterior-trim.jpg", alt: "Professional window trim on multi-family home, MA" },
     { src: "/services/trim-gallery.jpg", alt: "Custom exterior trim on new construction, MA" },
+    { src: "/services/siding-replacement-1.jpg", alt: "Custom door trim and corbel detail, MA" },
+    { src: "/services/siding-replacement-2.jpg", alt: "Window trim installation with white casing, MA" },
   ],
   "gutter-installation": [
     { src: "/services/gutter-installation.jpg", alt: "Gutter guard system installation by Wolf's Siding, MA" },
@@ -36,8 +38,6 @@ const SERVICE_PROJECT_PHOTOS: Record<string, { src: string; alt: string }[]> = {
   ],
   "full-siding-replacement": [
     { src: "/services/siding-replacement-3.jpg", alt: "Complete siding replacement on residential home, MA" },
-    { src: "/services/siding-replacement-1.jpg", alt: "New siding and trim detail after full replacement, MA" },
-    { src: "/services/siding-replacement-2.jpg", alt: "Window trim detail after siding replacement, MA" },
   ],
   "default": [
     { src: "/services/vinyl-siding.jpg", alt: "Siding installation by Wolf's Siding, MA" },

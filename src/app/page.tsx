@@ -293,8 +293,8 @@ const PROJECT_IMAGES = [
   { src: "/services/gutter-black.jpg", alt: "Black seamless gutters on gray siding home by Wolf's Siding, MA", label: "Gutter Installation", city: "Massachusetts" },
   { src: "/services/roofing-installation.jpg", alt: "Roofing installation on residential home by Wolf's Siding, MA", label: "Roofing", city: "Massachusetts" },
   { src: "/services/siding-replacement-3.jpg", alt: "Complete siding replacement on residential home by Wolf's Siding, MA", label: "Full Siding Replacement", city: "Massachusetts" },
-  { src: "/services/siding-replacement-1.jpg", alt: "New siding and trim detail after full replacement, MA", label: "Full Siding Replacement", city: "Massachusetts" },
-  { src: "/services/siding-replacement-2.jpg", alt: "Window trim detail after siding replacement by Wolf's Siding, MA", label: "Full Siding Replacement", city: "Massachusetts" },
+  { src: "/services/siding-replacement-1.jpg", alt: "Custom door trim and corbel detail by Wolf's Siding, MA", label: "Exterior Trim", city: "Massachusetts" },
+  { src: "/services/siding-replacement-2.jpg", alt: "Window trim installation with white casing by Wolf's Siding, MA", label: "Exterior Trim", city: "Massachusetts" },
 ];
 
 const GALLERY_FILTERS = ["All", "Vinyl Siding", "Hardie Plank", "Cedar Shingles", "Clapboard Siding", "Exterior Trim", "Full Siding Replacement", "Gutter Installation", "Roofing"];
