@@ -287,17 +287,13 @@ const PROJECT_IMAGES = [
   { src: "/services/cedar-shingle-siding.jpg", alt: "Cedar shingle siding installation around window by Wolf's Siding, MA", label: "Cedar Shingles", city: "Massachusetts" },
   { src: "/services/clapboard-siding.jpg", alt: "Clapboard siding installation with soffit and trim detail, MA", label: "Clapboard Siding", city: "Massachusetts" },
   { src: "/services/exterior-trim.jpg", alt: "Professional exterior window trim work on multi-family home, MA", label: "Exterior Trim", city: "Massachusetts" },
-  { src: "/services/trim-gallery.jpg", alt: "New construction with custom exterior trim and mixed siding, MA", label: "Exterior Trim", city: "Massachusetts" },
+  { src: "/services/siding-replacement-1.jpg", alt: "Custom door trim and corbel detail by Wolf's Siding, MA", label: "Exterior Trim", city: "Massachusetts" },
   { src: "/services/gutter-installation.jpg", alt: "Gutter guard system installation by Wolf's Siding, MA", label: "Gutter Installation", city: "Massachusetts" },
-  { src: "/services/gutter-installation-2.jpg", alt: "Seamless gutter with leaf guard on residential home, MA", label: "Gutter Installation", city: "Massachusetts" },
   { src: "/services/gutter-black.jpg", alt: "Black seamless gutters on gray siding home by Wolf's Siding, MA", label: "Gutter Installation", city: "Massachusetts" },
   { src: "/services/roofing-installation.jpg", alt: "Roofing installation on residential home by Wolf's Siding, MA", label: "Roofing", city: "Massachusetts" },
-  { src: "/services/roofing-2.jpg", alt: "Architectural shingle roof with dormer on new construction, MA", label: "Roofing", city: "Massachusetts" },
-  { src: "/services/roofing-3.jpg", alt: "Multi-dormer roof installation with architectural shingles, MA", label: "Roofing", city: "Massachusetts" },
   { src: "/services/roofing-4.jpg", alt: "Completed roof installation aerial view by Wolf's Siding, MA", label: "Roofing", city: "Massachusetts" },
   { src: "/services/siding-replacement-3.jpg", alt: "Complete siding replacement on residential home by Wolf's Siding, MA", label: "Full Siding Replacement", city: "Massachusetts" },
-  { src: "/services/siding-replacement-1.jpg", alt: "Custom door trim and corbel detail by Wolf's Siding, MA", label: "Exterior Trim", city: "Massachusetts" },
-  { src: "/services/siding-replacement-2.jpg", alt: "Window trim installation with white casing by Wolf's Siding, MA", label: "Exterior Trim", city: "Massachusetts" },
+  { src: "/services/siding-replacement-2.jpg", alt: "Window trim after full siding replacement by Wolf's Siding, MA", label: "Full Siding Replacement", city: "Massachusetts" },
 ];
 
 const GALLERY_FILTERS = ["All", "Vinyl Siding", "Hardie Plank", "Cedar Shingles", "Clapboard Siding", "Exterior Trim", "Full Siding Replacement", "Gutter Installation", "Roofing"];
