@@ -7,6 +7,55 @@ import { BLOG_POSTS } from "../../data/blog";
 import LazyIframe from "../../components/LazyIframe";
 import YouTubeSection from "../../components/YouTubeSection";
 
+const CDN = "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media";
+
+const SERVICE_PROJECT_PHOTOS: Record<string, { src: string; alt: string }[]> = {
+  "vinyl-siding-installation": [
+    { src: `${CDN}/69975cfb2a2f15796c002376.jpg`, alt: "Navy blue vinyl siding on lakefront cottage, MA" },
+    { src: "/services/vinyl-siding.jpg", alt: "Vinyl siding installation on residential home, MA" },
+    { src: `${CDN}/69975e3220c0353f100e2671.jpg`, alt: "Board and batten vinyl siding on barn-style home, MA" },
+    { src: `${CDN}/69975e323873af74c39f00be.jpg`, alt: "Subdivision vinyl siding by Wolf's Siding crew, MA" },
+  ],
+  "hardie-plank-siding-installation": [
+    { src: `${CDN}/69975e32181715caeea6e9c1.jpg`, alt: "Hardie Plank on craftsman ranch home, MA" },
+    { src: "/services/hardie-plank-siding.jpg", alt: "Hardie Plank on multi-family building with Wolf's van, MA" },
+    { src: `${CDN}/69975e328523c5f2c4d090c0.jpg`, alt: "Hardie Plank fiber cement on colonial home in winter, MA" },
+    { src: `${CDN}/69975e328523c5721bd090c1.jpg`, alt: "Hardie Plank mixed profile detail on ranch, MA" },
+  ],
+  "cedar-shingle-siding": [
+    { src: "/services/cedar-shingle-siding.jpg", alt: "Cedar shingle siding installation around window, MA" },
+    { src: `${CDN}/69975e32181715caeea6e9c1.jpg`, alt: "Craftsman home with cedar shake accents, MA" },
+    { src: "/services/trim-gallery.jpg", alt: "New construction with cedar shake and trim detail, MA" },
+  ],
+  "clapboard-siding-installation": [
+    { src: "/services/clapboard-siding.jpg", alt: "Clapboard siding installation with soffit detail, MA" },
+    { src: `${CDN}/69975e3220c0353f100e2671.jpg`, alt: "Board and batten siding on barn-style home, MA" },
+    { src: "/services/exterior-trim.jpg", alt: "Clapboard siding with custom window trim, MA" },
+  ],
+  "exterior-trim-work": [
+    { src: "/services/exterior-trim.jpg", alt: "Professional window trim on multi-family home, MA" },
+    { src: "/services/trim-gallery.jpg", alt: "Custom exterior trim on new construction, MA" },
+    { src: `${CDN}/69975e328523c5f2c4d090c0.jpg`, alt: "Colonial home with detailed trim work, MA" },
+  ],
+  "gutter-installation": [
+    { src: "/services/gutter-installation.jpg", alt: "Gutter guard system installation by Wolf's Siding, MA" },
+  ],
+  "roofing-installation": [
+    { src: "/services/roofing-installation.jpg", alt: "New roof installation on residential home, MA" },
+  ],
+  "full-siding-replacement": [
+    { src: `${CDN}/69975e328d5b5a152d8385ef.jpg`, alt: "Commercial multi-family siding replacement, MA" },
+    { src: `${CDN}/69975e328d5b5ade738385b5.jpg`, alt: "A-frame chalet siding replacement in progress, MA" },
+    { src: `${CDN}/69975cfb2a2f15796c002376.jpg`, alt: "Complete siding replacement on lakefront cottage, MA" },
+    { src: "/services/vinyl-siding.jpg", alt: "Completed full siding replacement, MA" },
+  ],
+  "default": [
+    { src: `${CDN}/69975cfb2a2f15796c002376.jpg`, alt: "Siding installation by Wolf's Siding, MA" },
+    { src: `${CDN}/69975e32181715caeea6e9c1.jpg`, alt: "Professional siding project by Wolf's Siding, MA" },
+    { src: "/services/vinyl-siding.jpg", alt: "Completed exterior project, MA" },
+  ],
+};
+
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ service: s.slug }));
 }
@@ -317,20 +366,13 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 </div>
               </div>
 
-              {/* Project Photos */}
+              {/* Project Photos — dynamic per service */}
               <div>
                 <h3 className="text-2xl font-black text-black mb-6">
                   {service.shortName} Projects
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {[
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg", alt: `${service.shortName} installation by Wolf's Siding, Massachusetts` },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e32181715caeea6e9c1.jpg", alt: `Professional ${service.shortName.toLowerCase()} project, MA` },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328d5b5a3f718385bf.jpg", alt: `${service.shortName} on Cape Cod home by Wolf's Siding, MA` },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e324c2502c5f69917b6.jpg", alt: `${service.shortName} on colonial home, Massachusetts` },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328523c5f2c4d090c0.jpg", alt: `Completed ${service.shortName.toLowerCase()} project, MA` },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e3220c0353f100e2671.jpg", alt: `${service.shortName} exterior renovation by Wolf's Siding, MA` },
-                  ].map((img) => (
+                  {(SERVICE_PROJECT_PHOTOS[slug] ?? SERVICE_PROJECT_PHOTOS["default"]).map((img) => (
                     <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
                       <Image
                         src={img.src}
