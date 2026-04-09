@@ -28,6 +28,8 @@ const SERVICE_PROJECT_PHOTOS: Record<string, { src: string; alt: string }[]> = {
   ],
   "gutter-installation": [
     { src: "/services/gutter-installation.jpg", alt: "Gutter guard system installation by Wolf's Siding, MA" },
+    { src: "/services/gutter-installation-2.jpg", alt: "Seamless gutter with leaf guard on residential home, MA" },
+    { src: "/services/gutter-black.jpg", alt: "Black seamless gutters on gray siding home, MA" },
   ],
   "roofing-installation": [
     { src: "/services/roofing-installation.jpg", alt: "New roof installation on residential home, MA" },

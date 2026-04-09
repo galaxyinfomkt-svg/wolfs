@@ -289,6 +289,8 @@ const PROJECT_IMAGES = [
   { src: "/services/exterior-trim.jpg", alt: "Professional exterior window trim work on multi-family home, MA", label: "Exterior Trim", city: "Massachusetts" },
   { src: "/services/trim-gallery.jpg", alt: "New construction with custom exterior trim and mixed siding, MA", label: "Exterior Trim", city: "Massachusetts" },
   { src: "/services/gutter-installation.jpg", alt: "Gutter guard system installation by Wolf's Siding, MA", label: "Gutter Installation", city: "Massachusetts" },
+  { src: "/services/gutter-installation-2.jpg", alt: "Seamless gutter with leaf guard on residential home, MA", label: "Gutter Installation", city: "Massachusetts" },
+  { src: "/services/gutter-black.jpg", alt: "Black seamless gutters on gray siding home by Wolf's Siding, MA", label: "Gutter Installation", city: "Massachusetts" },
   { src: "/services/roofing-installation.jpg", alt: "Roofing installation on residential home by Wolf's Siding, MA", label: "Roofing", city: "Massachusetts" },
 ];
 
