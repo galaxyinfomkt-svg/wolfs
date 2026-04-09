@@ -162,7 +162,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
       <section className="relative pt-[80px]">
         <div className="absolute inset-0">
           <Image src={service.heroImage} alt={`${service.shortName} installation by Wolf's Siding Inc., Massachusetts`} fill className="object-cover object-[center_30%]" priority sizes="100vw" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/40" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-start">

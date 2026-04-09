@@ -140,7 +140,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
             priority
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/40" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">

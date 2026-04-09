@@ -126,7 +126,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             quality={40}
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/75 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/40" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
