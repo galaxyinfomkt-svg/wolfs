@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: { params: Promise<{ service: 
   if (!service) return {};
 
   const title = `${service.shortName} MA | ${service.name} Contractor Massachusetts | Wolf's Siding Inc.`;
-  const fullDesc = `${service.shortName} contractor serving Massachusetts. Expert ${service.material} installation, repair & replacement across ${CITIES.length}+ MA cities. ${service.priceRange}. ${service.lifespan} lifespan. Free estimates. (774) 484-1895`;
+  const fullDesc = `${service.shortName} contractor serving Massachusetts. Expert ${service.material} installation & replacement across ${CITIES.length}+ MA cities. ${service.lifespan} lifespan. Free estimates. (774) 484-1895`;
   const description = fullDesc.length > 160 ? fullDesc.slice(0, 157) + "..." : fullDesc;
 
   return {
@@ -116,7 +116,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     },
     areaServed: { "@type": "State", name: "Massachusetts" },
     aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
-    offers: { "@type": "Offer", priceCurrency: "USD", priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", price: service.priceRange } },
+    offers: { "@type": "Offer", priceCurrency: "USD", availability: "https://schema.org/InStock", description: "Free estimates available" },
   };
 
   const faqLd = {
@@ -145,7 +145,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     name: `How We Install ${service.shortName} in Massachusetts`,
     description: `Professional ${service.shortName.toLowerCase()} installation process by Wolf's Siding Inc.`,
     totalTime: "P7D",
-    estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: service.priceRange },
+    estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "Contact for free estimate" },
     step: service.processSteps.map((step, i) => ({
       "@type": "HowToStep",
       position: i + 1,

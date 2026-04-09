@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!city || !service) return {};
 
   const title = `${service.shortName} ${city.name}, ${STATE_ABBR} | ${service.material.charAt(0).toUpperCase() + service.material.slice(1)} Contractor | Wolf's Siding Inc.`;
-  const description = `${service.shortName} contractor in ${city.name}, Massachusetts. Expert ${service.material} installation & repair in ${city.name}, ${STATE_ABBR}. ${service.priceRange}. ${service.lifespan} lifespan. Free estimates. (774) 484-1895`;
+  const description = `${service.shortName} contractor in ${city.name}, Massachusetts. Expert ${service.material} installation & replacement in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. Free estimates. (774) 484-1895`;
 
   return {
     title,
@@ -86,7 +86,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
     },
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
     aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
-    offers: { "@type": "Offer", priceCurrency: "USD", priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", price: service.priceRange } },
+    offers: { "@type": "Offer", priceCurrency: "USD", availability: "https://schema.org/InStock", description: "Free estimates available" },
   };
 
   const faqLd = {

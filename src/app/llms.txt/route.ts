@@ -5,7 +5,7 @@ export function GET() {
   const regions = [...new Set(CITIES.map((c) => c.region))];
 
   const serviceList = SERVICES.map(
-    (s) => `- **${s.shortName}**: ${s.description} (${s.lifespan} lifespan, ${s.priceRange}). [Learn more](https://wolfs-siding.com/services/${s.slug})`
+    (s) => `- **${s.shortName}**: ${s.description} (${s.lifespan} lifespan). [Learn more](https://wolfs-siding.com/services/${s.slug})`
   ).join("\n");
 
   const blogList = BLOG_POSTS.map(
@@ -44,7 +44,7 @@ ${serviceList}
 ## Frequently Asked Questions
 
 ### How much does siding installation cost in Massachusetts?
-Siding installation costs $5,000-$25,000+ depending on home size, material, and project complexity. Vinyl siding is the most affordable at $4,500-$15,000. Hardie Plank costs $8,000-$25,000+. Cedar shingles range $10,000-$30,000+. Wolf's Siding provides free on-site assessments with transparent, itemized estimates.
+Siding installation costs depend on home size, material chosen, and project complexity. Every project is unique. Wolf's Siding provides free on-site assessments with transparent, itemized estimates. Call (774) 484-1895 for a free quote.
 
 ### What is the best siding material for New England weather?
 Hardie Plank and vinyl siding are the top choices for Massachusetts homes. Hardie Plank (fiber cement) offers superior impact resistance, fire protection, and lasts 30-50 years. Vinyl is budget-friendly, virtually maintenance-free, and lasts 20-40 years. Cedar shingles provide natural beauty and insulation but require more maintenance.
@@ -106,12 +106,12 @@ ${blogList}
 
 ## Siding Material Comparison
 
-| Material | Lifespan | Price Range | Best For |
-|----------|----------|-------------|----------|
-| Vinyl Siding | 20-40 years | $4,500-$15,000 | Budget-friendly, low maintenance |
-| Hardie Plank | 30-50 years | $8,000-$25,000+ | Durability, fire resistance |
-| Cedar Shingles | 20-40+ years | $10,000-$30,000+ | Natural beauty, insulation |
-| Clapboard | 20-40 years | $6,000-$20,000 | Traditional New England look |
+| Material | Lifespan | Best For |
+|----------|----------|----------|
+| Vinyl Siding | 20-40 years | Low maintenance, versatile styles |
+| Hardie Plank | 30-50 years | Durability, fire resistance |
+| Cedar Shingles | 20-40+ years | Natural beauty, insulation |
+| Clapboard | 20-40 years | Traditional New England look |
 
 ## Contact
 
