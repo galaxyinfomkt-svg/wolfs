@@ -6,13 +6,19 @@ export default function LazyIframe(
   props: React.IframeHTMLAttributes<HTMLIFrameElement> & {
     src: string;
     clickOnly?: boolean;
+    eager?: boolean;
   }
 ) {
-  const { src, clickOnly, ...rest } = props;
-  const [loaded, setLoaded] = useState(false);
+  const { src, clickOnly, eager, ...rest } = props;
+  const [loaded, setLoaded] = useState(eager === true);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // eager: load immediately on mount (used for above-the-fold forms)
+    if (eager) {
+      setLoaded(true);
+      return;
+    }
     // clickOnly: only load when user clicks the container (handled by onClick)
     if (clickOnly) return;
 
@@ -23,21 +29,25 @@ export default function LazyIframe(
       setLoaded(true);
     };
 
-    // IntersectionObserver only — no timers, no global event listeners
+    // IntersectionObserver with larger rootMargin to start loading earlier
     const el = containerRef.current;
     const observer = el
       ? new IntersectionObserver(
           ([entry]) => { if (entry.isIntersecting) activate(); },
-          { rootMargin: "100px" }
+          { rootMargin: "400px" }
         )
       : null;
     if (el && observer) observer.observe(el);
 
+    // Fallback: load after 1 second even if not visible
+    const fallback = setTimeout(activate, 1000);
+
     return () => {
       cancelled = true;
+      clearTimeout(fallback);
       if (observer) observer.disconnect();
     };
-  }, [clickOnly]);
+  }, [clickOnly, eager]);
 
   const handleClick = () => {
     if (!loaded) setLoaded(true);

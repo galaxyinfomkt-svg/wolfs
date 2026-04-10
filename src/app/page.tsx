@@ -709,6 +709,7 @@ export default function HomePage() {
                   data-form-name="FORMULARIO WEBSITE"
                   data-height="558"
                   title="Wolf's Siding Free Quote Form"
+                  eager
                 />
               </div>
             </div>

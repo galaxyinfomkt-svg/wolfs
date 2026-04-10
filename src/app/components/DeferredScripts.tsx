@@ -34,9 +34,9 @@ export default function DeferredScripts() {
     <>
       {/* Chat widget */}
       <script
-        src="https://widgets.leadconnectorhq.com/loader.js"
-        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
-        data-widget-id="66999080b120684ccf0d5c5f"
+        src="https://beta.leadconnectorhq.com/loader.js"
+        data-resources-url="https://beta.leadconnectorhq.com/chat-widget/loader.js"
+        data-widget-id="69d820a0d69ee846629b99ba"
         async
       />
       {/* Reviews widget */}
