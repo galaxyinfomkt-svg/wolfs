@@ -9,6 +9,8 @@ export interface CityData {
   region: string;
 }
 
+import { MATERIAL_LIFESPAN } from "../../config/business";
+
 export interface ServiceData {
   name: string;
   slug: string;
@@ -19,7 +21,8 @@ export interface ServiceData {
   painPoints: string[];
   benefits: string[];
   priceRange: string;
-  lifespan: string;
+  lifespan: string; // value only, e.g. "20–40 years" — feeds "expected lifespan of {lifespan}"
+  lifespanNote?: string; // optional descriptive note, used separately (never in the value slot)
   idealFor: string;
   processSteps: { title: string; desc: string }[];
   faqs: { q: string; a: string }[];
@@ -28,17 +31,71 @@ export interface ServiceData {
 
 export const STATE = "Massachusetts";
 export const STATE_ABBR = "MA";
-export const REVIEW_COUNT = "22";
-export const REVIEW_RATING = "5.0";
+// Single source of truth lives in src/config/business.ts — re-exported here so
+// existing imports from the data layer keep working.
+export { REVIEW_COUNT, REVIEW_RATING } from "../../config/business";
 
-/* ─── REGION CLIMATE DESCRIPTIONS ─── */
-export const REGION_CLIMATE: Record<string, string> = {
-  "Metro West": "harsh New England winters with heavy snowfall, ice storms, and hot humid summers that test every exterior surface",
-  "Greater Boston": "coastal weather patterns including nor'easters, salt air exposure, and extreme temperature swings year-round",
-  "South Shore": "coastal winds, salt spray, and severe winter storms that batter home exteriors along the South Shore",
-  "North Shore": "intense coastal weather, salt air corrosion, and the full force of Atlantic nor'easters throughout the year",
-  "Worcester Area": "some of the harshest winters in Massachusetts with heavy snow loads, bitter cold, and significant freeze-thaw cycles",
+/* ─── REGION CLIMATE DESCRIPTIONS ───
+   Three distinct variants per region so the same climate point is not repeated
+   word-for-word in the hero, the opening paragraph, and the FAQ on one page.
+   `hero` is a short noun phrase; `body` and `faq` are fuller, differently-worded. */
+export interface RegionClimate {
+  hero: string; // short noun phrase for the hero line
+  body: string; // fuller sentence-fragment for the opening paragraph
+  faq: string; // differently-worded phrase for the FAQ answer
+}
+
+export const REGION_CLIMATE: Record<string, RegionClimate> = {
+  "Metro West": {
+    hero: "heavy snow, ice storms, and humid summers",
+    body: "punishing winters that pile on snow and swing through repeated freeze-thaw cycles, followed by hot, humid summers that work every seam and fastener loose",
+    faq: "the deep-freeze winters and muggy summers that define inland Massachusetts weather",
+  },
+  "Greater Boston": {
+    hero: "nor'easters, salt air, and sharp temperature swings",
+    body: "nor'easters that drive rain sideways, salt-laden air off the harbor, and temperature swings that expand and contract siding all year long",
+    faq: "coastal storms and the wide temperature swings common across the Boston metro",
+  },
+  "South Shore": {
+    hero: "coastal winds, salt spray, and winter storms",
+    body: "relentless coastal wind, salt spray that corrodes lesser materials, and the winter storms that roll up the bay onto exposed South Shore homes",
+    faq: "the wind-driven rain and salt exposure that come with living near the coast",
+  },
+  "North Shore": {
+    hero: "Atlantic nor'easters and salt-air corrosion",
+    body: "the full force of Atlantic nor'easters, near-constant salt-air corrosion, and freeze-thaw cycles that find every unsealed gap",
+    faq: "heavy coastal storms and the salt air that wears down exteriors over time",
+  },
+  "Worcester Area": {
+    hero: "heavy snow loads and deep winter cold",
+    body: "some of the heaviest snow loads in the state, bitter cold snaps, and dramatic freeze-thaw cycles that crack and warp aging siding",
+    faq: "the heavy snow and hard freezes that hit central Massachusetts each winter",
+  },
 };
+
+const DEFAULT_CLIMATE: RegionClimate = {
+  hero: "tough New England weather",
+  body: "the tough, changeable New England weather that tests every exterior surface",
+  faq: "the demanding New England weather your home faces year-round",
+};
+
+export function getClimate(region: string): RegionClimate {
+  return REGION_CLIMATE[region] ?? DEFAULT_CLIMATE;
+}
+
+/* Natural prose label for a region — avoids the awkward "Worcester Area region".
+   Used as "Located in Massachusetts's {label}, ...". */
+export const REGION_LABEL: Record<string, string> = {
+  "Metro West": "Metro West region",
+  "Greater Boston": "Greater Boston area",
+  "South Shore": "South Shore",
+  "North Shore": "North Shore",
+  "Worcester Area": "Worcester County",
+};
+
+export function getRegionLabel(region: string): string {
+  return REGION_LABEL[region] ?? `${region} region`;
+}
 
 /* ─── 7 SIDING SERVICES ─── */
 export const SERVICES: ServiceData[] = [
@@ -50,7 +107,7 @@ export const SERVICES: ServiceData[] = [
     description: "Premium vinyl siding delivers unbeatable value with low maintenance, superior durability, and a wide range of colors and styles to match any home.",
     heroImage: "/services/vinyl-siding.jpg",
     priceRange: "$6,000 – $16,000",
-    lifespan: "30–50 years",
+    lifespan: MATERIAL_LIFESPAN.vinyl,
     idealFor: "homeowners seeking low-maintenance, cost-effective exterior protection",
     painPoints: [
       "Faded, chalky siding that makes your home look dated and reduces curb appeal — a common issue after years of UV exposure in Massachusetts",
@@ -94,7 +151,7 @@ export const SERVICES: ServiceData[] = [
     description: "Classic New England clapboard siding brings timeless charm and proven durability to your home, with horizontal overlapping boards that have protected homes for centuries.",
     heroImage: "/services/clapboard-siding.jpg",
     priceRange: "$8,000 – $20,000",
-    lifespan: "40–60 years",
+    lifespan: MATERIAL_LIFESPAN.clapboard,
     idealFor: "historic homes and homeowners who want authentic New England character",
     painPoints: [
       "Peeling, cracking paint on existing clapboards that requires constant scraping, priming, and repainting every few years at significant cost",
@@ -138,7 +195,7 @@ export const SERVICES: ServiceData[] = [
     description: "James Hardie fiber cement siding is the premium choice for Massachusetts homes — fireproof, rot-proof, and engineered to withstand the harshest New England conditions.",
     heroImage: "/services/hardie-plank-siding.jpg",
     priceRange: "$12,000 – $30,000",
-    lifespan: "50+ years",
+    lifespan: MATERIAL_LIFESPAN.hardie,
     idealFor: "homeowners seeking premium, low-maintenance siding with the look of real wood",
     painPoints: [
       "Wood siding that requires constant upkeep — scraping, sanding, priming, and painting every few years costs thousands and never seems to end",
@@ -182,7 +239,7 @@ export const SERVICES: ServiceData[] = [
     description: "Natural cedar shingles deliver unmatched warmth and character, with a rich texture that weathers beautifully over time and provides excellent natural insulation.",
     heroImage: "/services/cedar-shingle-siding.jpg",
     priceRange: "$14,000 – $35,000",
-    lifespan: "40–60 years",
+    lifespan: MATERIAL_LIFESPAN.cedar,
     idealFor: "Cape Cod, Colonial, and Craftsman-style homes seeking natural beauty",
     painPoints: [
       "Existing cedar shingles that have split, curled, or blown off during storms, leaving exposed areas vulnerable to water infiltration and damage",
@@ -270,7 +327,8 @@ export const SERVICES: ServiceData[] = [
     description: "Wondering if repair is the right choice? In most cases, a full siding replacement delivers better long-term value. We offer honest assessments to help you decide — and when a targeted repair makes sense, we do it right.",
     heroImage: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e8da9674305aa2a4d.png",
     priceRange: "$500 – $5,000",
-    lifespan: "Extends existing siding 10–20 years",
+    lifespan: "10–20 years",
+    lifespanNote: "Extends the life of your existing siding",
     idealFor: "targeted repairs, storm damage, and extending the life of your current siding",
     painPoints: [
       "Storm-damaged siding panels (cracks, holes, missing pieces) leaving your home's sheathing and insulation exposed to the elements",
