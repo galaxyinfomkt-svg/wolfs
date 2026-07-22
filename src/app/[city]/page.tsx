@@ -2,8 +2,10 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, REGION_CLIMATE, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
+import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, getClimate, getRegionLabel, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
 import { BLOG_POSTS } from "../data/blog";
+import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../config/business";
+import { cappedTitle, cappedDescription, assertMeta } from "../../config/meta";
 import LazyIframe from "../components/LazyIframe";
 import YouTubeSection from "../components/YouTubeSection";
 
@@ -16,8 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const city = getCityBySlug(slug);
   if (!city) return {};
 
-  const title = `Siding Contractor ${city.name}, ${STATE_ABBR} | Vinyl, Hardie Plank, Cedar & Clapboard | Wolf's Siding Inc.`;
-  const description = `Siding contractor in ${city.name}, Massachusetts. Vinyl siding, Hardie Plank, cedar shingles, clapboard & exterior trim installation, repair & replacement. Serving ${city.name}, ${STATE_ABBR} and the ${city.region} region. Free estimates. (774) 484-1895`;
+  const title = cappedTitle("Siding Contractor", city.name);
+  const description = cappedDescription(
+    `Siding installation, repair & replacement in ${city.name}, ${STATE_ABBR} — vinyl, Hardie Plank, cedar & clapboard by Wolf's Siding. Free estimates.`
+  );
+  assertMeta(title, description, `/${slug}`);
 
   return {
     title,
@@ -46,7 +51,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const city = getCityBySlug(slug);
   if (!city) notFound();
 
-  const climate = REGION_CLIMATE[city.region] ?? "challenging New England weather conditions";
+  const climate = getClimate(city.region);
+  const regionLabel = getRegionLabel(city.region);
   const nearby = getNearbyCities(city, 6);
 
   const jsonLd = {
@@ -54,7 +60,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     "@type": "HomeAndConstructionBusiness",
     name: "Wolf's Siding Inc.",
     alternateName: ["Wolf's Siding", "Wolfs Siding"],
-    description: `Professional siding contractor serving ${city.name}, ${STATE_ABBR}. Specializing in vinyl siding, Hardie Plank, cedar shingles, clapboard, and exterior trim work. 18+ years experience.`,
+    description: `Professional siding contractor serving ${city.name}, ${STATE_ABBR}. Specializing in vinyl siding, Hardie Plank, cedar shingles, clapboard, and exterior trim work. Established ${SINCE}.`,
     url: `https://wolfs-siding.com/${slug}`,
     telephone: "+17744841895",
     image: "https://wolfs-siding.com/logo.png",
@@ -62,7 +68,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
     geo: { "@type": "GeoCoordinates", latitude: 42.3195, longitude: -71.6412 },
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
-    aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
+    identifier: { "@type": "PropertyValue", name: "MA HIC License", value: BUSINESS.hicLicense },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Siding Services",
@@ -91,11 +97,11 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
   const cityFaqs = [
     { q: `How much does siding installation cost in ${city.name}, MA?`, a: `Siding installation costs depend on your home size, material chosen, and project scope. Every project is unique, which is why Wolf's Siding Inc. offers free on-site assessments with transparent pricing — no hidden fees. Call (774) 484-1895 for your free estimate.` },
-    { q: `What is the best siding material for homes in ${city.name}?`, a: `For ${city.name} homes in the ${city.region} region, we recommend Hardie Plank for maximum durability against ${climate}, or vinyl siding for a budget-friendly, low-maintenance option. Cedar shingles are ideal for historic New England-style homes. Our 18+ years of local experience means we know what works best.` },
+    { q: `What is the best siding material for homes in ${city.name}?`, a: `For ${city.name} homes in ${regionLabel}, we recommend Hardie Plank for maximum durability against ${climate.faq}, or vinyl siding for a budget-friendly, low-maintenance option. Cedar shingles are ideal for historic New England-style homes. Our local experience ${SINCE} means we know what works best.` },
     { q: `How long does a siding installation take in ${city.name}?`, a: `Most residential siding projects in ${city.name} are completed in 1–3 weeks depending on the size of your home and the type of siding. Wolf's Siding Inc. works efficiently to minimize disruption while maintaining our high quality standards.` },
     { q: `Do you offer free estimates for ${city.name} homeowners?`, a: `Yes! Wolf's Siding Inc. provides completely free, no-obligation on-site assessments for homeowners in ${city.name} and all surrounding ${city.region} communities. We'll inspect your current siding, discuss your options, and provide a detailed written estimate.` },
-    { q: `Is Wolf's Siding Inc. licensed and insured to work in ${city.name}?`, a: `Absolutely. Wolf's Siding Inc. is fully licensed and insured with comprehensive liability and workers' compensation coverage. We've been serving ${city.name} and 110+ Massachusetts cities for over 18 years with a perfect 5.0 Google rating.` },
-    { q: `Why should I choose Wolf's Siding over other contractors in ${city.name}?`, a: `Wolf's Siding stands out with 18+ years of experience, a perfect ${REVIEW_RATING} Google rating (${REVIEW_COUNT}+ reviews), hands-on oversight by owner Ezequias Lobo on every project, and deep knowledge of ${city.region} climate challenges. We use premium materials and provide a written warranty on all work.` },
+    { q: `Is Wolf's Siding Inc. licensed and insured to work in ${city.name}?`, a: `Absolutely. Wolf's Siding Inc. is fully licensed (MA HIC #${BUSINESS.hicLicense}) and insured with comprehensive liability and workers' compensation coverage. We've been serving ${city.name} and ${CITIES_SERVED} Massachusetts cities ${SINCE} with a perfect ${REVIEW_RATING} Google rating.` },
+    { q: `Why should I choose Wolf's Siding over other contractors in ${city.name}?`, a: `Wolf's Siding stands out with ${YEARS_IN_BUSINESS}+ years of experience (${SINCE}), a perfect ${REVIEW_RATING} Google rating (${REVIEW_COUNT} reviews), hands-on oversight by owner ${BUSINESS.owner} on every project, and deep knowledge of ${regionLabel} climate challenges. We use premium materials and provide a written warranty on all work.` },
   ];
 
   const faqLd = {
@@ -151,8 +157,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
               <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
                 Wolf&apos;s Siding Inc. provides expert siding installation, replacement, and repair services to homeowners in{" "}
-                <strong className="text-white">{city.name}, Massachusetts</strong>. With {climate}, your home&apos;s exterior needs professional-grade protection from a contractor with{" "}
-                <strong className="text-white">18+ years of experience</strong>.
+                <strong className="text-white">{city.name}, Massachusetts</strong>. With {climate.hero}, your home&apos;s exterior needs professional-grade protection from a contractor trusted{" "}
+                <strong className="text-white">{SINCE}</strong>.
               </p>
 
               {/* Trust badges */}
@@ -216,8 +222,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
                 <div className="space-y-4 text-[#333] text-base leading-relaxed">
                   <p>
-                    {city.name} homeowners face unique exterior challenges. Located in the <strong>{city.region}</strong> region of Massachusetts,
-                    homes here endure {climate}. These conditions put tremendous stress on siding materials, leading to cracking,
+                    {city.name} homeowners face unique exterior challenges. Located in <strong>Massachusetts&apos;s {regionLabel}</strong>,
+                    homes here endure {climate.body}. These conditions put tremendous stress on siding materials, leading to cracking,
                     warping, moisture infiltration, and energy loss if your exterior isn&apos;t properly protected.
                   </p>
                   <p>
@@ -226,7 +232,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                     <Link href={`/${slug}/vinyl-siding-installation`} className="text-[#E00000] font-semibold hover:underline">vinyl siding</Link> to premium{" "}
                     <Link href={`/${slug}/hardie-plank-siding-installation`} className="text-[#E00000] font-semibold hover:underline">Hardie Plank</Link> and{" "}
                     <Link href={`/${slug}/cedar-shingle-siding`} className="text-[#E00000] font-semibold hover:underline">cedar shingles</Link> — each selected for superior performance in New England conditions.
-                    Our <strong>18+ years of experience</strong> means we know exactly which materials and installation techniques work best for {city.name} homes.
+                    Our <strong>experience {SINCE}</strong> means we know exactly which materials and installation techniques work best for {city.name} homes.
                   </p>
                   <p>
                     Whether you need{" "}
@@ -308,7 +314,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 <div className="grid sm:grid-cols-2 gap-5">
                   {[
                     { icon: "shield", title: "Licensed & Insured", desc: "Fully licensed and insured for your complete peace of mind. We carry comprehensive liability and workers' compensation coverage." },
-                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} rating on Google with ${REVIEW_COUNT}+ reviews from satisfied homeowners across Massachusetts. Our reputation speaks for itself.` },
+                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} rating on Google from ${REVIEW_COUNT} reviews by satisfied homeowners across Massachusetts. Our reputation speaks for itself.` },
                     { icon: "clock", title: "On-Time Completion", desc: "We respect your schedule. Projects are completed on time, within budget, and with minimal disruption to your daily life." },
                     { icon: "dollar", title: "Free Estimates", desc: "No-obligation on-site assessments with transparent, itemized pricing. No hidden fees, no pressure — just honest expertise." },
                   ].map((item) => (
@@ -347,7 +353,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                     <p className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Owner — Wolf&apos;s Siding Inc.</p>
                     <div className="space-y-4 text-white/80 text-sm leading-relaxed">
                       <p>
-                        With <strong className="text-white">18+ years of hands-on experience</strong> in siding
+                        With <strong className="text-white">hands-on experience {SINCE}</strong> in siding
                         installation and exterior remodeling, Ezequias founded Wolf&apos;s Siding Inc. with a
                         simple mission: deliver honest, high-quality craftsmanship to every homeowner he serves.
                       </p>
@@ -365,9 +371,9 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                     </div>
                     <div className="grid grid-cols-3 gap-3 mt-6">
                       {[
-                        { number: "18+", label: "Years Exp." },
-                        { number: "5.0", label: "Google Rating" },
-                        { number: "110+", label: "Cities Served" },
+                        { number: `${YEARS_IN_BUSINESS}+`, label: "Years Exp." },
+                        { number: REVIEW_RATING, label: "Google Rating" },
+                        { number: `${CITIES_SERVED}+`, label: "Cities Served" },
                       ].map((stat) => (
                         <div key={stat.label} className="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
                           <div className="text-xl font-black text-[#E00000]">{stat.number}</div>

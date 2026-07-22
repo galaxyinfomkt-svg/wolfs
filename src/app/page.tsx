@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
+import { BUSINESS, SINCE, REVIEW_COUNT, CITIES_SERVED } from "../config/business";
 import LazyIframe from "./components/LazyIframe";
 import YouTubeSection from "./components/YouTubeSection";
 
@@ -408,19 +409,21 @@ export default function HomePage() {
     "@type": ["HomeAndConstructionBusiness", "GeneralContractor"],
     name: "Wolf's Siding Inc.",
     alternateName: "Wolf's Siding",
-    description: "Expert siding installation and replacement company serving Massachusetts since 2007. Specializing in Vinyl, Hardie Plank, Cedar, Clapboard siding and exterior trim work. 18+ years of industry experience. 5.0 Google rating with 22+ verified reviews.",
-    url: "https://wolfs-siding.com",
-    telephone: "+17744841895",
-    image: "https://wolfs-siding.com/logo.png",
-    logo: "https://wolfs-siding.com/logo.png",
+    description: `Expert siding installation and replacement company serving Massachusetts ${SINCE}. Specializing in Vinyl, Hardie Plank, Cedar, Clapboard siding and exterior trim work.`,
+    url: BUSINESS.url,
+    telephone: BUSINESS.phoneE164,
+    email: BUSINESS.email,
+    image: BUSINESS.logo,
+    logo: BUSINESS.logo,
+    identifier: { "@type": "PropertyValue", name: "MA HIC License", value: BUSINESS.hicLicense },
     founder: {
       "@type": "Person",
-      name: "Ezequias Lobo",
+      name: BUSINESS.owner,
       jobTitle: "Owner",
-      description: "Founder of Wolf's Siding Inc. with 18+ years of experience in siding installation and exterior remodeling across Massachusetts.",
+      description: `Founder of Wolf's Siding Inc. with hands-on experience ${SINCE} in siding installation and exterior remodeling across Massachusetts.`,
       image: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68e581d6416ab711d774e6cf.jpeg",
     },
-    address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
+    address: { "@type": "PostalAddress", streetAddress: BUSINESS.address.street, addressLocality: BUSINESS.address.city, addressRegion: BUSINESS.address.state, postalCode: BUSINESS.address.zip, addressCountry: "US" },
     geo: { "@type": "GeoCoordinates", latitude: 42.3195, longitude: -71.6412 },
     areaServed: [
       { "@type": "State", name: "Massachusetts" },
@@ -441,7 +444,9 @@ export default function HomePage() {
         itemOffered: { "@type": "Service", name: s.title, url: `https://wolfs-siding.com/services/${s.slug}` },
       })),
     },
-    aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", bestRating: "5", worstRating: "1", ratingCount: "22", reviewCount: "22" },
+    // No self-declared aggregateRating (Google ignores a business rating itself
+    // and it can trigger a Search Console warning). Real Review items are
+    // rendered from src/data/reviews.json once RHAI pastes the live GBP reviews.
     priceRange: "$$",
     openingHoursSpecification: [
       { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:00", closes: "18:00" },
@@ -651,7 +656,7 @@ export default function HomePage() {
                 {/* Badges row (RS pattern) */}
                 <div className="mb-6">
                   <span className="inline-flex items-center gap-2 bg-[#E00000] text-white text-xs font-bold px-5 py-2 rounded-full tracking-wide uppercase">
-                    Serving 110+ MA Cities &bull; 5-Star Rated &bull; HIC #218835
+                    Serving {SERVICE_AREAS_ALL.length}+ MA Cities &bull; 5-Star Rated &bull; HIC #218835
                   </span>
                 </div>
 
@@ -665,7 +670,7 @@ export default function HomePage() {
                   Ready to transform your home&apos;s exterior for the next <strong className="text-white">30 years</strong>?
                   Massachusetts homeowners choose Wolf&apos;s Siding for <strong className="text-white">complete installations</strong> that
                   add value, beauty, and <strong className="text-white">lasting protection</strong> — backed by{" "}
-                  <strong className="text-white">18+ years of expert craftsmanship</strong>.
+                  <strong className="text-white">expert craftsmanship since 2007</strong>.
                 </p>
 
                 {/* CTAs (RS pattern: primary + outline) */}
@@ -741,7 +746,7 @@ export default function HomePage() {
                 ))}
               </div>
               <span className="text-white font-bold text-sm">5.0</span>
-              <span className="text-white/70 text-sm">(22 reviews)</span>
+              <span className="text-white/70 text-sm">({REVIEW_COUNT} reviews)</span>
               <span className="text-[#FF4444] text-sm font-semibold group-hover:underline flex items-center gap-1">
                 See Our Reviews <ExternalLinkIcon className="w-3.5 h-3.5" />
               </span>
@@ -841,7 +846,7 @@ export default function HomePage() {
                     <strong className="text-white">exterior remodeling</strong> services.
                   </p>
                   <p>
-                    With <strong className="text-white">18+ years of industry experience</strong>,
+                    With <strong className="text-white">industry experience since 2007</strong>,
                     Ezequias personally oversees every project — from the initial assessment to the
                     final walkthrough. He believes that great work starts with listening to the
                     homeowner and delivering solutions that exceed expectations.
@@ -858,7 +863,7 @@ export default function HomePage() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
                   {[
                     { number: "20+", label: "MA Cities Served" },
-                    { number: "22+", label: "5-Star Reviews" },
+                    { number: `+`, label: "5-Star Reviews" },
                     { number: "100%", label: "Licensed & Insured" },
                     { number: "24hr", label: "Response Time" },
                   ].map((stat) => (
@@ -875,7 +880,7 @@ export default function HomePage() {
                 <div className="rounded-2xl overflow-hidden shadow-2xl">
                   <Image
                     src="https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68e581d6416ab711d774e6cf.jpeg"
-                    alt="Ezequias Lobo — Owner of Wolf's Siding Inc., Massachusetts siding contractor with 18+ years experience"
+                    alt="Ezequias Lobo — Owner of Wolf's Siding Inc., Massachusetts siding contractor serving since 2007"
                     width={600}
                     height={750}
                     className="w-full h-auto object-cover"
@@ -888,7 +893,7 @@ export default function HomePage() {
                     <ShieldCheckIcon className="w-8 h-8" />
                     <div>
                       <p className="font-bold text-sm">Trusted Contractor</p>
-                      <p className="text-xs text-white/80">18+ Years Experience</p>
+                      <p className="text-xs text-white/80">Serving Since 2007</p>
                     </div>
                   </div>
                 </div>
@@ -974,7 +979,7 @@ export default function HomePage() {
                     </p>
                     <p className="text-[#333333] text-sm leading-relaxed">
                       Wolf&apos;s Siding Inc. delivers customized solutions with <strong>premium materials</strong> engineered
-                      to withstand the toughest conditions, backed by <strong>18+ years of expert craftsmanship</strong>.
+                      to withstand the toughest conditions, backed by <strong>expert craftsmanship since 2007</strong>.
                     </p>
                   </div>
                 </div>
@@ -983,7 +988,7 @@ export default function HomePage() {
               {/* Why Choose grid (RS pattern: stacked cards) */}
               <div className="lg:col-span-2 grid gap-4 scroll-animate">
                 {[
-                  { icon: <ClockIcon className="w-6 h-6" />, title: "18+ Years Experience", desc: "Nearly two decades of siding expertise across Massachusetts." },
+                  { icon: <ClockIcon className="w-6 h-6" />, title: "Serving Since 2007", desc: "Nearly two decades of siding expertise across Massachusetts." },
                   { icon: <SparklesIcon className="w-6 h-6" />, title: "Premium Materials", desc: "Weather-tested materials from trusted manufacturers." },
                   { icon: <HandThumbUpIcon className="w-6 h-6" />, title: "Free On-Site Assessment", desc: "No-pressure evaluation and honest estimate." },
                   { icon: <UsersIcon className="w-6 h-6" />, title: "Clean Jobsite Guarantee", desc: "We respect your property — spotless when done." },
@@ -1455,7 +1460,7 @@ export default function HomePage() {
               />
               <p className="text-white/70 text-sm leading-relaxed mb-5">
                 Quality, Durability, and Impeccable Craftsmanship for Your Home&apos;s Exterior.
-                Proudly serving Massachusetts homeowners with 18+ years of experience.
+                Proudly serving Massachusetts homeowners with experience since 2007.
               </p>
               {/* Social */}
               <div className="flex gap-3">
