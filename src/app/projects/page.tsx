@@ -9,7 +9,7 @@ import YouTubeSection from "../components/YouTubeSection";
 export const metadata: Metadata = {
   title: "Siding Projects MA | Installation Gallery & Photos | Wolf's Siding Inc.",
   description:
-    "Real siding installation projects by Wolf's Siding Inc. across Massachusetts. Vinyl siding, Hardie Plank, cedar shingles & clapboard gallery. Serving 110+ MA cities. 18+ years.",
+    "Real siding installation projects by Wolf's Siding Inc. across Massachusetts — vinyl, Hardie Plank, cedar & clapboard. Serving MA since 2007. (774) 484-1895",
   keywords: "siding projects Massachusetts, siding gallery, siding installation photos, siding before after, vinyl siding projects MA, Hardie Plank projects",
   openGraph: {
     title: "Siding Projects MA | Installation Gallery & Photos | Wolf's Siding Inc.",
@@ -107,7 +107,7 @@ export default function ProjectsPage() {
             </h1>
             <p className="text-lg text-white/80 leading-relaxed max-w-2xl">
               Browse real siding installations by Wolf&apos;s Siding Inc. across Massachusetts.
-              Every photo is from an actual project — no stock images, just 18+ years of expert craftsmanship.
+              Every photo is from an actual project — no stock images, just expert craftsmanship since 2007.
             </p>
           </div>
 

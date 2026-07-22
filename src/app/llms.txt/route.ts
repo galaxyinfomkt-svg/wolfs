@@ -1,5 +1,6 @@
 import { SERVICES, CITIES } from "../data/cities";
 import { BLOG_POSTS } from "../data/blog";
+import { REVIEW_RATING, REVIEW_COUNT } from "../../config/business";
 
 export function GET() {
   const regions = [...new Set(CITIES.map((c) => c.region))];
@@ -21,7 +22,7 @@ export function GET() {
 
   const body = `# Wolf's Siding Inc.
 
-> Professional siding installation and replacement company serving ${CITIES.length}+ cities across Massachusetts since 2007. Based in Northborough, MA. Owner-operated by Ezequias Lobo with 18+ years of experience. Specializing in full siding installations and complete replacements.
+> Professional siding installation and replacement company serving ${CITIES.length}+ cities across Massachusetts since 2007. Based in Northborough, MA. Owner-operated by Ezequias Lobo with experience since 2007. Specializing in full siding installations and complete replacements.
 
 ## Company Information
 
@@ -30,10 +31,10 @@ export function GET() {
 - **Phone**: (774) 484-1895
 - **Address**: 156 Washburn St, Northborough, MA 01532
 - **Website**: https://wolfs-siding.com
-- **Google Rating**: 5.0 stars (22+ verified reviews)
+- **Google Rating**: ${REVIEW_RATING} stars (${REVIEW_COUNT} verified reviews)
 - **Licensed & Insured**: Yes
 - **Free Estimates**: Yes
-- **Experience**: 18+ years in the siding industry
+- **Experience**: in the siding industry since 2007
 - **Hours**: Monday-Friday 7AM-6PM, Saturday 8AM-2PM
 - **Service Radius**: All of Massachusetts, parts of Rhode Island and New Hampshire
 
@@ -93,7 +94,7 @@ ${blogList}
 
 ## Why Choose Wolf's Siding Inc.
 
-1. **18+ years of experience** in Massachusetts siding installation
+1. **experience since 2007** in Massachusetts siding installation
 2. **Perfect 5.0 Google rating** with 22+ verified reviews
 3. **Owner-operated** — Ezequias Lobo personally oversees every project
 4. **Full-service** — installation, replacement, and trim work

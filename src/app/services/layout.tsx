@@ -62,7 +62,7 @@ export default function ServicesLayout({ children }: { children: React.ReactNode
                   className="h-10 w-auto mb-4"
                 />
                 <p className="text-white/60 text-sm leading-relaxed">
-                  Professional siding contractor serving 110+ cities across Massachusetts. 18+ years of experience in vinyl, Hardie Plank, cedar, and clapboard siding.
+                  Professional siding contractor serving cities across Massachusetts. experience since 2007 in vinyl, Hardie Plank, cedar, and clapboard siding.
                 </p>
               </div>
 
