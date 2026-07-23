@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
-import { BUSINESS, SINCE, REVIEW_COUNT, CITIES_SERVED } from "../config/business";
+import { BUSINESS, SINCE, REVIEW_COUNT, REVIEW_RATING, CITIES_SERVED } from "../config/business";
+import CustomerReviews from "./components/CustomerReviews";
 import LazyIframe from "./components/LazyIframe";
+import CallCtaBlock from "./components/CallCtaBlock";
 import YouTubeSection from "./components/YouTubeSection";
 
 /* ════════════════════════════════════════════════════════════
@@ -705,8 +707,8 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Right — GHL form iframe only, no wrapper */}
-              <div>
+              {/* Right — the single GHL form embed on the home page */}
+              <div id="contact-form" className="scroll-mt-28">
                 <LazyIframe
                   src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                   className="form-iframe"
@@ -1161,10 +1163,13 @@ export default function HomePage() {
                     <StarIcon key={i} className="w-5 h-5 text-yellow-400" />
                   ))}
                 </div>
-                <span className="text-white font-bold">5.0</span>
+                <span className="text-white font-bold">{REVIEW_RATING}</span>
                 <span className="text-white/50 text-sm">on Google</span>
               </div>
             </div>
+
+            {/* Server-rendered reviews (crawler-visible) above the live widget */}
+            <CustomerReviews />
 
             {/* Real Google Reviews Widget */}
             <div className="scroll-animate">
@@ -1297,16 +1302,9 @@ export default function HomePage() {
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8">
-              {/* Left — Form with red bg (RS pattern: gold bg form) */}
+              {/* Left — static CTA (single GHL embed lives in the hero at #contact-form) */}
               <div className="scroll-animate">
-                <LazyIframe
-                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                  className="form-iframe"
-                  id="inline-altG7jV8Jt79wwRd8WbH-2"
-                  data-form-name="FORMULARIO WEBSITE"
-                  data-height="558"
-                  title="Wolf's Siding Contact Form"
-                />
+                <CallCtaBlock />
               </div>
 
               {/* Right — Contact info blocks (RS pattern: stacked boxes) */}

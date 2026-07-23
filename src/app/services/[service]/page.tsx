@@ -6,7 +6,8 @@ import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE, REVIEW_
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../../config/business";
 import { cappedDescription, assertMeta } from "../../../config/meta";
 import { BLOG_POSTS } from "../../data/blog";
-import LazyIframe from "../../components/LazyIframe";
+import FormEmbed from "../../components/FormEmbed";
+import CallCtaBlock from "../../components/CallCtaBlock";
 import YouTubeSection from "../../components/YouTubeSection";
 
 const CDN = "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media";
@@ -218,14 +219,8 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
               </div>
             </div>
 
-            {/* Form */}
-            <div id="contact-form">
-              <LazyIframe
-                src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                className="form-iframe-hero"
-                title="Contact form"
-              />
-            </div>
+            {/* The single GHL form embed (primary conversion slot) */}
+            <FormEmbed id="contact-form" className="form-iframe-hero" />
           </div>
         </div>
       </section>
@@ -485,20 +480,8 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
             {/* ─── RIGHT: Sticky Sidebar ─── */}
             <div className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
-                {/* Form CTA */}
-                <LazyIframe
-                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                  className="form-iframe-sidebar"
-                  title="Contact form"
-                />
-
-                {/* Call CTA */}
-                <div className="bg-black rounded-2xl p-6 text-center">
-                  <p className="text-white/60 text-sm mb-2">Call Us Now</p>
-                  <a href="tel:+17744841895" className="text-[#E00000] text-2xl font-black hover:text-white transition-colors">
-                    (774) 484-1895
-                  </a>
-                </div>
+                {/* Static CTA (no second form iframe) — points to #contact-form */}
+                <CallCtaBlock />
 
                 {/* Other services */}
                 <div className="bg-[#F5F5F5] rounded-2xl p-6">

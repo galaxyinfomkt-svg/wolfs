@@ -3,10 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, getClimate, getRegionLabel, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
+import { getCoords } from "../data/cityCoords";
 import { BLOG_POSTS } from "../data/blog";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../config/meta";
 import LazyIframe from "../components/LazyIframe";
+import FormEmbed from "../components/FormEmbed";
+import CallCtaBlock from "../components/CallCtaBlock";
 import YouTubeSection from "../components/YouTubeSection";
 
 export function generateStaticParams() {
@@ -18,6 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const city = getCityBySlug(slug);
   if (!city) return {};
 
+  const coords = getCoords(slug);
   const title = cappedTitle("Siding Contractor", city.name);
   const description = cappedDescription(
     `Siding installation, repair & replacement in ${city.name}, ${STATE_ABBR} — vinyl, Hardie Plank, cedar & clapboard by Wolf's Siding. Free estimates.`
@@ -43,6 +47,17 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
       images: ["https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png"],
     },
     alternates: { canonical: `https://wolfs-siding.com/${slug}` },
+    // Per-city geo tags only when this city has verified coordinates — never a
+    // hardcoded fallback to another city (see data/cityCoords.ts).
+    ...(coords
+      ? {
+          other: {
+            "geo.placename": `${city.name}, ${STATE_ABBR}`,
+            "geo.position": `${coords[0]};${coords[1]}`,
+            ICBM: `${coords[0]}, ${coords[1]}`,
+          },
+        }
+      : {}),
   };
 }
 
@@ -182,14 +197,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
               </div>
             </div>
 
-            {/* Right: Form */}
-            <div id="contact-form">
-              <LazyIframe
-                src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                className="form-iframe-hero"
-                title="Contact form"
-              />
-            </div>
+            {/* Right: the single GHL form embed (primary conversion slot) */}
+            <FormEmbed id="contact-form" className="form-iframe-hero" />
           </div>
         </div>
       </section>
@@ -440,6 +449,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                   src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(city.name + ", MA")}&zoom=12`}
                   className="w-full h-[300px] rounded-xl border-0"
                   title={`Map of ${city.name}`}
+                  placeholderLabel="Loading map..."
                 />
                 <p className="text-sm text-[#333]/60 mt-3 flex items-center gap-2">
                   <svg className="w-4 h-4 text-[#E00000]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" /></svg>
@@ -451,20 +461,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             {/* ─── RIGHT: Sticky Sidebar ─── */}
             <div className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
-                {/* Form CTA */}
-                <LazyIframe
-                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                  className="form-iframe-sidebar"
-                  title="Contact form"
-                />
-
-                {/* Call CTA */}
-                <div className="bg-black rounded-2xl p-6 text-center">
-                  <p className="text-white/60 text-sm mb-2">Call Us Now</p>
-                  <a href="tel:+17744841895" className="text-[#E00000] text-2xl font-black hover:text-white">
-                    (774) 484-1895
-                  </a>
-                </div>
+                {/* Static CTA (no second form iframe) — points to #contact-form */}
+                <CallCtaBlock />
 
                 {/* Services links */}
                 <div className="bg-[#F5F5F5] rounded-2xl p-6">

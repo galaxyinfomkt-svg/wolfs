@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getCityBySlug, SERVICES, CITIES, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
 import CityNav from "./CityNav";
+import CustomerReviews from "../components/CustomerReviews";
 
 export default async function CityLayout({
   children,
@@ -27,6 +28,8 @@ export default async function CityLayout({
           <h2 className="text-3xl font-black text-black text-center mb-8">
             What Our Customers Say
           </h2>
+          {/* Server-rendered reviews (crawler-visible) above the live widget */}
+          <CustomerReviews city={cityName} />
           <iframe
             className="lc_reviews_widget reviews-widget"
             src="https://reputationhub.site/reputation/widgets/review_widget/BCczy6muFwhd63dPhKCC"

@@ -3,10 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getCityBySlug, getServiceBySlug, getNearbyCities, generateAllParams, SERVICES, getClimate, getRegionLabel, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../../data/cities";
+import { getCoords } from "../../data/cityCoords";
 import { BLOG_POSTS } from "../../data/blog";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS } from "../../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../../config/meta";
 import LazyIframe from "../../components/LazyIframe";
+import FormEmbed from "../../components/FormEmbed";
+import CallCtaBlock from "../../components/CallCtaBlock";
 import YouTubeSection from "../../components/YouTubeSection";
 
 type Params = { city: string; service: string };
@@ -21,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const service = getServiceBySlug(serviceSlug);
   if (!city || !service) return {};
 
+  const coords = getCoords(citySlug);
   const title = cappedTitle(service.shortName, city.name);
   const description = cappedDescription(
     `${service.shortName} in ${city.name}, ${STATE_ABBR} by Wolf's Siding — expert installation, repair & replacement built for New England weather. Free written estimates.`
@@ -39,6 +43,15 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       images: [service.heroImage.startsWith("/") ? `https://wolfs-siding.com${service.heroImage}` : service.heroImage],
     },
     alternates: { canonical: `https://wolfs-siding.com/${citySlug}/${serviceSlug}` },
+    ...(coords
+      ? {
+          other: {
+            "geo.placename": `${city.name}, ${STATE_ABBR}`,
+            "geo.position": `${coords[0]};${coords[1]}`,
+            ICBM: `${coords[0]}, ${coords[1]}`,
+          },
+        }
+      : {}),
   };
 }
 
@@ -197,14 +210,8 @@ export default async function CityServicePage({ params }: { params: Promise<Para
               </div>
             </div>
 
-            {/* Right: Form */}
-            <div id="contact-form">
-              <LazyIframe
-                src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                className="form-iframe-hero"
-                title="Contact form"
-              />
-            </div>
+            {/* Right: the single GHL form embed (primary conversion slot) */}
+            <FormEmbed id="contact-form" className="form-iframe-hero" />
           </div>
         </div>
       </section>
@@ -386,6 +393,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(city.name + ", MA")}&zoom=12`}
                   className="w-full h-[300px] rounded-xl border-0"
                   title={`Map of ${city.name}`}
+                  placeholderLabel="Loading map..."
                 />
               </div>
 
@@ -439,20 +447,8 @@ export default async function CityServicePage({ params }: { params: Promise<Para
             {/* ─── RIGHT: Sticky Sidebar ─── */}
             <div className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
-                {/* Form CTA */}
-                <LazyIframe
-                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                  className="form-iframe-sidebar"
-                  title="Contact form"
-                />
-
-                {/* Call CTA */}
-                <div className="bg-black rounded-2xl p-6 text-center">
-                  <p className="text-white/60 text-sm mb-2">Call Us Now</p>
-                  <a href="tel:+17744841895" className="text-[#E00000] text-2xl font-black hover:text-white transition-colors">
-                    (774) 484-1895
-                  </a>
-                </div>
+                {/* Static CTA (no second form iframe) — points to #contact-form */}
+                <CallCtaBlock />
 
                 {/* View statewide service page */}
                 <div className="bg-[#F5F5F5] rounded-2xl p-6">
