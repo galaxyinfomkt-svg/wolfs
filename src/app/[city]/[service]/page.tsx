@@ -2,9 +2,14 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getCityBySlug, getServiceBySlug, getNearbyCities, generateAllParams, SERVICES, REGION_CLIMATE, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../../data/cities";
+import { getCityBySlug, getServiceBySlug, getNearbyCities, generateAllParams, SERVICES, getClimate, getRegionLabel, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../../data/cities";
+import { getCoords } from "../../data/cityCoords";
 import { BLOG_POSTS } from "../../data/blog";
+import { BUSINESS, SINCE, YEARS_IN_BUSINESS } from "../../../config/business";
+import { cappedTitle, cappedDescription, assertMeta } from "../../../config/meta";
 import LazyIframe from "../../components/LazyIframe";
+import FormEmbed from "../../components/FormEmbed";
+import CallCtaBlock from "../../components/CallCtaBlock";
 import YouTubeSection from "../../components/YouTubeSection";
 
 type Params = { city: string; service: string };
@@ -19,8 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const service = getServiceBySlug(serviceSlug);
   if (!city || !service) return {};
 
-  const title = `${service.shortName} ${city.name}, ${STATE_ABBR} | ${service.material.charAt(0).toUpperCase() + service.material.slice(1)} Contractor | Wolf's Siding Inc.`;
-  const description = `${service.shortName} contractor in ${city.name}, Massachusetts. Expert ${service.material} installation & replacement in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. Free estimates. (774) 484-1895`;
+  const coords = getCoords(citySlug);
+  const title = cappedTitle(service.shortName, city.name);
+  const description = cappedDescription(
+    `${service.shortName} in ${city.name}, ${STATE_ABBR} by Wolf's Siding — expert installation, repair & replacement built for New England weather. Free written estimates.`
+  );
+  assertMeta(title, description, `/${citySlug}/${serviceSlug}`);
 
   return {
     title,
@@ -34,6 +43,15 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       images: [service.heroImage.startsWith("/") ? `https://wolfs-siding.com${service.heroImage}` : service.heroImage],
     },
     alternates: { canonical: `https://wolfs-siding.com/${citySlug}/${serviceSlug}` },
+    ...(coords
+      ? {
+          other: {
+            "geo.placename": `${city.name}, ${STATE_ABBR}`,
+            "geo.position": `${coords[0]};${coords[1]}`,
+            ICBM: `${coords[0]}, ${coords[1]}`,
+          },
+        }
+      : {}),
   };
 }
 
@@ -43,7 +61,8 @@ export default async function CityServicePage({ params }: { params: Promise<Para
   const service = getServiceBySlug(serviceSlug);
   if (!city || !service) notFound();
 
-  const climate = REGION_CLIMATE[city.region] ?? "challenging New England weather conditions";
+  const climate = getClimate(city.region);
+  const regionLabel = getRegionLabel(city.region);
   const otherServices = SERVICES.filter((s) => s.slug !== serviceSlug);
   const nearby = getNearbyCities(city, 6);
   const relatedPosts = BLOG_POSTS.filter((p) => p.relatedService === serviceSlug).slice(0, 2);
@@ -54,7 +73,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
 
   const cityFaq = {
     q: `Why choose Wolf's Siding for ${service.shortName.toLowerCase()} in ${city.name}?`,
-    a: `Wolf's Siding Inc. has served ${city.name} and the ${city.region} region for over 18 years. We understand ${climate} and select the best ${service.material} materials for your area. With a perfect ${REVIEW_RATING} Google rating, free estimates, and owner Ezequias Lobo personally overseeing every project, we deliver the quality ${city.name} homeowners expect.`,
+    a: `Wolf's Siding Inc. has served ${city.name} and ${regionLabel} ${SINCE} (${YEARS_IN_BUSINESS}+ years). We understand ${climate.faq} and select the best ${service.material} for your area. With a perfect ${REVIEW_RATING} Google rating, free estimates, and owner ${BUSINESS.owner} personally overseeing every project, we deliver the quality ${city.name} homeowners expect.`,
   };
   const allFaqs = [...service.faqs, cityFaq];
 
@@ -80,12 +99,11 @@ export default async function CityServicePage({ params }: { params: Promise<Para
       name: "Wolf's Siding Inc.",
       telephone: "+17744841895",
       image: "https://wolfs-siding.com/logo.png",
-      address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
-      aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
+      address: { "@type": "PostalAddress", streetAddress: BUSINESS.address.street, addressLocality: BUSINESS.address.city, addressRegion: BUSINESS.address.state, postalCode: BUSINESS.address.zip, addressCountry: "US" },
+      identifier: { "@type": "PropertyValue", name: "MA HIC License", value: BUSINESS.hicLicense },
       priceRange: "$$",
     },
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
-    aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
     offers: { "@type": "Offer", priceCurrency: "USD", availability: "https://schema.org/InStock", description: "Free estimates available" },
   };
 
@@ -166,9 +184,9 @@ export default async function CityServicePage({ params }: { params: Promise<Para
               </h1>
 
               <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
-                {service.description} Our skilled crew provides precision {service.material} for homes across {city.name}.
-                We bring <strong className="text-white">18+ years of experience</strong> and a{" "}
-                <strong className="text-white">perfect 5.0 Google rating</strong> to every project.
+                {service.description} Our skilled crew provides precision {service.shortName.toLowerCase()} for homes across {city.name}.
+                We bring <strong className="text-white">craftsmanship {SINCE}</strong> and a{" "}
+                <strong className="text-white">perfect {REVIEW_RATING} Google rating</strong> to every project.
               </p>
 
               {/* Trust badges */}
@@ -192,14 +210,8 @@ export default async function CityServicePage({ params }: { params: Promise<Para
               </div>
             </div>
 
-            {/* Right: Form */}
-            <div id="contact-form">
-              <LazyIframe
-                src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                className="form-iframe-hero"
-                title="Contact form"
-              />
-            </div>
+            {/* Right: the single GHL form embed (primary conversion slot) */}
+            <FormEmbed id="contact-form" className="form-iframe-hero" />
           </div>
         </div>
       </section>
@@ -233,21 +245,21 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
                 <div className="space-y-4 text-[#333] text-base leading-relaxed">
                   <p>
-                    When it comes to <strong>{service.material}</strong> in{" "}
+                    When it comes to <strong>{service.shortName.toLowerCase()}</strong> in{" "}
                     <Link href={`/${citySlug}`} className="text-[#E00000] font-semibold hover:underline">{city.name}, {STATE_ABBR}</Link>,
-                    Wolf&apos;s Siding Inc. is the contractor homeowners trust. Located in the {city.region} region of Massachusetts,
-                    {city.name} experiences {climate} — making the right siding choice critical for protecting your investment
+                    Wolf&apos;s Siding Inc. is the contractor homeowners trust. Located in Massachusetts&apos;s {regionLabel},{" "}
+                    {city.name} experiences {climate.body} — making the right siding choice critical for protecting your investment
                     and maintaining your home&apos;s beauty.
                   </p>
                   <p>
-                    Our team specializes in {service.material} that&apos;s specifically selected to handle the demanding conditions
+                    Our team specializes in {service.shortName.toLowerCase()} specifically suited to handle the demanding conditions{" "}
                     {city.name} throws at your home. With an expected lifespan of{" "}
-                    <strong>{service.lifespan}</strong>, {service.material} delivers exceptional long-term value for {city.name} homeowners
+                    <strong>{service.lifespan}</strong>, {service.shortName.toLowerCase()} delivers exceptional long-term value for {city.name} homeowners
                     — ideal for {service.idealFor}.
                   </p>
                   <p>
-                    Led by owner <strong>Ezequias Lobo</strong>, our crew has been serving {city.region} communities like{" "}
-                    {city.name} for over 18 years. Learn more about our{" "}
+                    Led by owner <strong>{BUSINESS.owner}</strong>, our crew has been serving {regionLabel} communities like{" "}
+                    {city.name} {SINCE}. Learn more about our{" "}
                     <Link href={`/services/${serviceSlug}`} className="text-[#E00000] font-semibold hover:underline">{service.shortName.toLowerCase()} services across Massachusetts</Link>.
                     We also offer{" "}
                     <Link href={`/${citySlug}/${otherServices[0].slug}`} className="text-[#E00000] font-semibold hover:underline">{otherServices[0].shortName.toLowerCase()}</Link>{" "}
@@ -283,7 +295,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   <div className="flex items-start gap-3">
                     <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     <p className="text-green-800 text-sm leading-relaxed">
-                      <strong>The Solution:</strong> Wolf&apos;s Siding Inc. addresses all of these challenges with professional {service.material} tailored specifically for {city.name}&apos;s conditions. Our 18+ years of local experience means we know exactly what works and what doesn&apos;t.
+                      <strong>The Solution:</strong> Wolf&apos;s Siding Inc. addresses all of these challenges with professional {service.shortName.toLowerCase()} tailored specifically for {city.name}&apos;s conditions. Our local experience {SINCE} means we know exactly what works and what doesn&apos;t.
                     </p>
                   </div>
                 </div>
@@ -328,16 +340,23 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   {service.shortName} Projects Near {city.name}
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg", alt: `${service.shortName} project by Wolf's Siding near ${city.name}, MA` },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e32181715caeea6e9c1.jpg", alt: `${service.shortName} installation detail near ${city.name}, MA` },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e324c2502c5f69917b6.jpg", alt: `Completed siding project by Wolf's Siding near ${city.name}, MA` },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328523c5f2c4d090c0.jpg", alt: `Siding installation by Wolf's Siding near ${city.name}, MA` },
-                  ].map((img) => (
+                  {(() => {
+                    // The stock photos show finished siding installations. For the
+                    // repair service we describe what the image actually shows
+                    // rather than claiming it is a repair project.
+                    const isRepair = service.slug === "siding-repair-services";
+                    const subject = isRepair ? "Siding installation" : service.shortName;
+                    return [
+                      { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg", alt: `${subject} by Wolf's Siding in ${city.name}, MA` },
+                      { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e32181715caeea6e9c1.jpg", alt: `${subject} detail by Wolf's Siding in ${city.name}, MA` },
+                      { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e324c2502c5f69917b6.jpg", alt: `Completed siding project by Wolf's Siding in ${city.name}, MA` },
+                      { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328523c5f2c4d090c0.jpg", alt: `New siding by Wolf's Siding in ${city.name}, MA` },
+                    ];
+                  })().map((img) => (
                     <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
                       <Image
                         src={img.src}
-                        alt={`${img.alt} near ${city.name}`}
+                        alt={img.alt}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 640px) 50vw, 25vw"
@@ -374,6 +393,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(city.name + ", MA")}&zoom=12`}
                   className="w-full h-[300px] rounded-xl border-0"
                   title={`Map of ${city.name}`}
+                  placeholderLabel="Loading map..."
                 />
               </div>
 
@@ -403,7 +423,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 <div className="grid sm:grid-cols-2 gap-5">
                   {[
                     { icon: "shield", title: "Licensed & Insured", desc: "Fully licensed and insured for your complete peace of mind on every project." },
-                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} Google rating with ${REVIEW_COUNT}+ reviews from satisfied Massachusetts homeowners.` },
+                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} Google rating from ${REVIEW_COUNT} reviews by satisfied Massachusetts homeowners.` },
                     { icon: "clock", title: "On-Time Completion", desc: "Projects completed on time, within budget, with minimal disruption to your life." },
                     { icon: "dollar", title: "Free Estimates", desc: "No-obligation on-site assessments with transparent, itemized pricing — no hidden fees." },
                   ].map((item) => (
@@ -427,20 +447,8 @@ export default async function CityServicePage({ params }: { params: Promise<Para
             {/* ─── RIGHT: Sticky Sidebar ─── */}
             <div className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
-                {/* Form CTA */}
-                <LazyIframe
-                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                  className="form-iframe-sidebar"
-                  title="Contact form"
-                />
-
-                {/* Call CTA */}
-                <div className="bg-black rounded-2xl p-6 text-center">
-                  <p className="text-white/60 text-sm mb-2">Call Us Now</p>
-                  <a href="tel:+17744841895" className="text-[#E00000] text-2xl font-black hover:text-white transition-colors">
-                    (774) 484-1895
-                  </a>
-                </div>
+                {/* Static CTA (no second form iframe) — points to #contact-form */}
+                <CallCtaBlock />
 
                 {/* View statewide service page */}
                 <div className="bg-[#F5F5F5] rounded-2xl p-6">

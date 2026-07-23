@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import FloatingPhone from "./components/FloatingPhone";
 import DeferredScripts from "./components/DeferredScripts";
+import { BUSINESS, CITIES_SERVED, SINCE } from "../config/business";
 import "./globals.css";
+
+const META_DESC = `Expert siding installation & replacement across Massachusetts — vinyl, Hardie Plank, cedar & clapboard by Wolf's Siding. Serving ${SINCE}. Free estimates. ${BUSINESS.phone}`;
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,14 +16,14 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Siding Contractor MA | Vinyl, Hardie Plank, Cedar & Clapboard Siding | Wolf's Siding Inc.",
   description:
-    "Expert siding installation & replacement in Massachusetts. Vinyl, Hardie Plank, Cedar & more. 18+ years experience. Free estimates. (774) 484-1895",
+    META_DESC,
   keywords:
     "siding contractor Massachusetts, siding installation MA, vinyl siding contractor MA, Hardie Plank siding Massachusetts, cedar shingles MA, clapboard siding MA, siding contractor Hudson MA, siding Northborough MA, siding Marlborough MA, exterior trim Massachusetts, siding replacement Worcester MA, siding company near me",
   authors: [{ name: "Wolf's Siding Inc." }],
   openGraph: {
     title: "Siding Contractor MA | Vinyl, Hardie Plank, Cedar & Clapboard Siding | Wolf's Siding Inc.",
     description:
-      "Expert siding installation & replacement in Massachusetts. Vinyl, Hardie Plank, Cedar & more. 18+ years experience. Free estimates. (774) 484-1895",
+      META_DESC,
     url: "https://wolfs-siding.com",
     siteName: "Wolf's Siding Inc.",
     images: [
@@ -38,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Siding Contractor MA | Vinyl, Hardie Plank, Cedar & Clapboard Siding | Wolf's Siding Inc.",
     description:
-      "Premium siding installation & replacement across Massachusetts. 18+ years experience. Call (774) 484-1895 for a free estimate!",
+      META_DESC,
     images: [
       "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png",
     ],
@@ -60,19 +63,20 @@ const orgLd = {
   url: "https://wolfs-siding.com",
   logo: "https://wolfs-siding.com/logo.png",
   image: "https://wolfs-siding.com/logo.png",
-  description:
-    "#1 siding contractor in Massachusetts. Vinyl siding, Hardie Plank, cedar shingles, clapboard installation & replacement. Serving 110+ MA cities. 18+ years experience. 5.0 Google rating.",
-  telephone: "+17744841895",
+  description: `Siding contractor in Massachusetts. Vinyl siding, Hardie Plank, cedar shingles, clapboard installation & replacement. Serving ${CITIES_SERVED}+ MA cities ${SINCE}.`,
+  telephone: BUSINESS.phoneE164,
+  email: BUSINESS.email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "156 Washburn St",
-    addressLocality: "Northborough",
-    addressRegion: "MA",
-    postalCode: "01532",
+    streetAddress: BUSINESS.address.street,
+    addressLocality: BUSINESS.address.city,
+    addressRegion: BUSINESS.address.state,
+    postalCode: BUSINESS.address.zip,
     addressCountry: "US",
   },
-  founder: { "@type": "Person", name: "Ezequias Lobo", jobTitle: "Owner" },
-  foundingDate: "2007",
+  identifier: { "@type": "PropertyValue", name: "MA HIC License", value: BUSINESS.hicLicense },
+  founder: { "@type": "Person", name: BUSINESS.owner, jobTitle: "Owner" },
+  foundingDate: String(BUSINESS.foundedYear),
   knowsAbout: [
     "siding installation",
     "vinyl siding",
@@ -103,14 +107,10 @@ const orgLd = {
       { "@type": "OfferCatalog", name: "Roofing Installation", position: 9 },
     ],
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5.0",
-    bestRating: "5",
-    worstRating: "1",
-    ratingCount: "22",
-    reviewCount: "22",
-  },
+  // No self-declared aggregateRating on the business node — Google does not
+  // generate rich results for a business rating itself and it can trigger a
+  // Search Console warning. Individual Review items (with real author +
+  // datePublished) are emitted on the home/city/service pages instead.
   sameAs: [
     "https://www.instagram.com/wolfs_siding_inc/",
     "https://www.facebook.com/wolfsiding",
@@ -132,10 +132,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://api.leadconnectorhq.com" />
         <link rel="preconnect" href="https://beta.leadconnectorhq.com" />
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Information" />
+        {/* State-level geo only. Per-city geo.placename/position/ICBM are emitted
+            per page (city templates) when that city has coordinates — never a
+            single hardcoded location shipped on every page. */}
         <meta name="geo.region" content="US-MA" />
-        <meta name="geo.placename" content="Northborough, MA" />
-        <meta name="geo.position" content="42.3195;-71.6412" />
-        <meta name="ICBM" content="42.3195, -71.6412" />
 
         <script
           type="application/ld+json"

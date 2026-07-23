@@ -3,8 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE, REVIEW_COUNT, REVIEW_RATING } from "../../data/cities";
+import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../../config/business";
+import { cappedDescription, assertMeta } from "../../../config/meta";
 import { BLOG_POSTS } from "../../data/blog";
-import LazyIframe from "../../components/LazyIframe";
+import FormEmbed from "../../components/FormEmbed";
+import CallCtaBlock from "../../components/CallCtaBlock";
 import YouTubeSection from "../../components/YouTubeSection";
 
 const CDN = "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media";
@@ -57,9 +60,11 @@ export async function generateMetadata({ params }: { params: Promise<{ service: 
   const service = getServiceBySlug(slug);
   if (!service) return {};
 
-  const title = `${service.shortName} MA | ${service.name} Contractor Massachusetts | Wolf's Siding Inc.`;
-  const fullDesc = `${service.shortName} contractor serving Massachusetts. Expert ${service.material} installation & replacement across ${CITIES.length}+ MA cities. ${service.lifespan} lifespan. Free estimates. (774) 484-1895`;
-  const description = fullDesc.length > 160 ? fullDesc.slice(0, 157) + "..." : fullDesc;
+  const title = `${service.shortName} in Massachusetts | Wolf's Siding`;
+  const description = cappedDescription(
+    `${service.shortName} across Massachusetts by Wolf's Siding — expert installation, repair & replacement in ${CITIES_SERVED}+ cities. Free written estimates.`
+  );
+  assertMeta(title, description, `/services/${slug}`);
 
   return {
     title,
@@ -189,7 +194,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
               </h1>
 
               <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
-                {service.description} With <strong className="text-white">18+ years of experience</strong> serving{" "}
+                {service.description} With <strong className="text-white">craftsmanship {SINCE}</strong> serving{" "}
                 {CITIES.length}+ cities across Massachusetts, Wolf&apos;s Siding Inc. is your trusted{" "}
                 {service.shortName.toLowerCase()} contractor.
               </p>
@@ -214,14 +219,8 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
               </div>
             </div>
 
-            {/* Form */}
-            <div id="contact-form">
-              <LazyIframe
-                src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                className="form-iframe-hero"
-                title="Contact form"
-              />
-            </div>
+            {/* The single GHL form embed (primary conversion slot) */}
+            <FormEmbed id="contact-form" className="form-iframe-hero" />
           </div>
         </div>
       </section>
@@ -277,20 +276,20 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
                 <div className="space-y-4 text-[#333] text-base leading-relaxed">
                   <p>
-                    {service.description} At Wolf&apos;s Siding Inc., we bring <strong>18+ years of hands-on experience</strong> in{" "}
-                    {service.material} to every project across Massachusetts. Whether your home is in Metro West, Greater Boston,
-                    the South Shore, North Shore, or Worcester Area, our team has the expertise to deliver exceptional results.
+                    {service.description} At Wolf&apos;s Siding Inc., we bring <strong>hands-on experience {SINCE}</strong> in{" "}
+                    {service.shortName.toLowerCase()} to every project across Massachusetts. Whether your home is in Metro West, Greater Boston,
+                    the South Shore, North Shore, or Worcester County, our team has the expertise to deliver exceptional results.
                   </p>
                   <p>
                     With an expected lifespan of{" "}
-                    <strong>{service.lifespan}</strong>, {service.material} is {service.idealFor}. Led by owner{" "}
-                    <strong>Ezequias Lobo</strong>, our crew understands the unique challenges Massachusetts weather presents
+                    <strong>{service.lifespan}</strong>, {service.shortName.toLowerCase()} is {service.idealFor}. Led by owner{" "}
+                    <strong>{BUSINESS.owner}</strong>, our crew understands the unique challenges Massachusetts weather presents
                     and selects materials and techniques proven to perform in our demanding climate.
                   </p>
                   <p>
                     Every project begins with a <strong>free on-site assessment</strong> where we evaluate your specific needs,
                     discuss your options, and provide a transparent, itemized estimate. No surprises, no pressure — just honest
-                    expertise from a contractor with a <strong>perfect {REVIEW_RATING} Google rating</strong> and {REVIEW_COUNT}+ verified reviews.
+                    expertise from a contractor with a <strong>perfect {REVIEW_RATING} Google rating</strong> and {REVIEW_COUNT} verified reviews.
                   </p>
                 </div>
               </div>
@@ -318,7 +317,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                     <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     <p className="text-green-800 text-sm leading-relaxed">
                       <strong>The Solution:</strong> Wolf&apos;s Siding Inc. addresses all of these challenges with professional{" "}
-                      {service.material} tailored specifically for Massachusetts conditions. Our 18+ years of local experience
+                      {service.shortName.toLowerCase()} tailored specifically for Massachusetts conditions. Our local experience {SINCE}
                       means we know exactly what works and what doesn&apos;t.
                     </p>
                   </div>
@@ -457,7 +456,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 <div className="grid sm:grid-cols-2 gap-5">
                   {[
                     { icon: "shield", title: "Licensed & Insured", desc: "Fully licensed and insured for your complete peace of mind on every project." },
-                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} Google rating with ${REVIEW_COUNT}+ reviews from satisfied Massachusetts homeowners.` },
+                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} Google rating from ${REVIEW_COUNT} reviews by satisfied Massachusetts homeowners.` },
                     { icon: "clock", title: "On-Time Completion", desc: "Projects completed on time, within budget, with minimal disruption to your life." },
                     { icon: "dollar", title: "Free Estimates", desc: "No-obligation on-site assessments with transparent, itemized pricing — no hidden fees." },
                   ].map((item) => (
@@ -481,20 +480,8 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
             {/* ─── RIGHT: Sticky Sidebar ─── */}
             <div className="hidden lg:block">
               <div className="sticky top-[90px] space-y-6">
-                {/* Form CTA */}
-                <LazyIframe
-                  src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
-                  className="form-iframe-sidebar"
-                  title="Contact form"
-                />
-
-                {/* Call CTA */}
-                <div className="bg-black rounded-2xl p-6 text-center">
-                  <p className="text-white/60 text-sm mb-2">Call Us Now</p>
-                  <a href="tel:+17744841895" className="text-[#E00000] text-2xl font-black hover:text-white transition-colors">
-                    (774) 484-1895
-                  </a>
-                </div>
+                {/* Static CTA (no second form iframe) — points to #contact-form */}
+                <CallCtaBlock />
 
                 {/* Other services */}
                 <div className="bg-[#F5F5F5] rounded-2xl p-6">

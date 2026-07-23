@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SERVICES, CITIES, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
 import ServiceNav from "./ServiceNav";
+import CustomerReviews from "../components/CustomerReviews";
 
 export default function ServicesLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,6 +17,7 @@ export default function ServicesLayout({ children }: { children: React.ReactNode
           <h2 className="text-3xl font-black text-black text-center mb-8">
             What Our Customers Say
           </h2>
+          <CustomerReviews />
           <iframe
             className="lc_reviews_widget reviews-widget"
             src="https://reputationhub.site/reputation/widgets/review_widget/BCczy6muFwhd63dPhKCC"
@@ -62,7 +64,7 @@ export default function ServicesLayout({ children }: { children: React.ReactNode
                   className="h-10 w-auto mb-4"
                 />
                 <p className="text-white/60 text-sm leading-relaxed">
-                  Professional siding contractor serving 110+ cities across Massachusetts. 18+ years of experience in vinyl, Hardie Plank, cedar, and clapboard siding.
+                  Professional siding contractor serving cities across Massachusetts. experience since 2007 in vinyl, Hardie Plank, cedar, and clapboard siding.
                 </p>
               </div>
 
