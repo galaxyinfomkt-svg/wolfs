@@ -10,6 +10,7 @@ import CustomerReviews from "./components/CustomerReviews";
 import LazyIframe from "./components/LazyIframe";
 import CallCtaBlock from "./components/CallCtaBlock";
 import YouTubeSection from "./components/YouTubeSection";
+import LazyVideo from "./components/LazyVideo";
 
 /* ════════════════════════════════════════════════════════════
    INLINE SVG ICON COMPONENTS
@@ -522,14 +523,15 @@ export default function HomePage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[70px]">
-            {/* Logo */}
-            <a href="#home" className="flex-shrink-0" title="Wolf's Siding Inc. - Home">
+            {/* Logo — top-left, prominent */}
+            <a href="#home" className="flex-shrink-0 mr-auto" title="Wolf's Siding Inc. - Home">
               <Image
                 src="/logo.png"
                 alt="Wolf's Siding Inc. Logo — Siding Contractor Massachusetts"
-                width={160}
-                height={50}
-                className="h-12 w-auto"
+                width={200}
+                height={64}
+                priority
+                className="h-14 w-auto"
               />
             </a>
 
@@ -568,13 +570,22 @@ export default function HomePage() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
-              <a
-                href="tel:+17744841895"
-                className="flex items-center gap-2 text-sm font-semibold text-[#333333] hover:text-[#E00000] transition-colors"
-              >
-                <PhoneIcon className="w-4 h-4 text-[#E00000]" />
-                (774) 484-1895
-              </a>
+              <div className="flex flex-col items-end leading-tight">
+                <a
+                  href="tel:+17744841895"
+                  className="flex items-center gap-2 text-sm font-bold text-[#333333] hover:text-[#E00000] transition-colors"
+                >
+                  <PhoneIcon className="w-4 h-4 text-[#E00000]" />
+                  (774) 484-1895
+                </a>
+                <a
+                  href="mailto:info@wolfs-siding.com"
+                  className="flex items-center gap-2 text-xs font-medium text-[#666666] hover:text-[#E00000] transition-colors mt-0.5"
+                >
+                  <EnvelopeIcon className="w-3 h-3 text-[#E00000]" />
+                  info@wolfs-siding.com
+                </a>
+              </div>
               <a
                 href="#contact"
                 className="bg-[#E00000] hover:bg-[#CC0000] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-red-900/30"
@@ -1054,6 +1065,60 @@ export default function HomePage() {
                   />
                 </a>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
+            7.5 VIDEO — Real project transformation reel
+            ═══════════════════════════════════════════════════════ */}
+        <section id="video" className="py-20 lg:py-28 bg-[#111111]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Text */}
+              <div className="scroll-animate">
+                <span className="inline-block text-[#E00000] text-sm font-bold tracking-[0.2em] uppercase mb-4">
+                  See The Transformation
+                </span>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-5 leading-tight">
+                  From Bare Wood to <span className="text-[#E00000]">Beautiful</span>
+                </h2>
+                <div className="w-20 h-1 bg-[#E00000] mb-6 rounded-full" />
+                <p className="text-white/70 text-lg mb-8 leading-relaxed">
+                  Watch a real Wolf&apos;s Siding project go from bare sheathing to a
+                  finished home — every board measured, cut, and installed by hand.
+                  No shortcuts. No subcontractors. Just our crew.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {["18+ years of experience", "Licensed & insured", "Free estimates, done right"].map((item) => (
+                    <li key={item} className="flex items-center gap-3 text-white/90">
+                      <CheckCircleIcon className="w-5 h-5 text-[#E00000] flex-shrink-0" />
+                      <span className="font-medium">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 bg-[#E00000] hover:bg-[#CC0000] text-white px-8 py-3.5 rounded-lg text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-red-900/30"
+                >
+                  Get Your Free Estimate
+                  <ArrowRightIcon className="w-4 h-4" />
+                </a>
+              </div>
+              {/* Video (vertical reel) */}
+              <div className="scroll-animate">
+                <div className="mx-auto max-w-[340px] sm:max-w-[380px]">
+                  <LazyVideo
+                    src="/videos/wolfs-reel.mp4"
+                    poster="/videos/wolfs-reel-poster.jpg"
+                    title="Watch the transformation"
+                    className="aspect-[9/16] shadow-2xl ring-1 ring-white/10"
+                  />
+                  <p className="text-center text-white/40 text-xs mt-4 font-medium">
+                    A real Wolf&apos;s Siding project in Massachusetts
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
