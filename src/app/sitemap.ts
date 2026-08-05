@@ -4,7 +4,7 @@ import { BLOG_POSTS } from "./data/blog";
 import { getPortfolioProjects } from "./data/projects";
 
 const BASE_URL = "https://wolfs-siding.com";
-const SITE_UPDATED = "2026-04-04";
+const SITE_UPDATED = "2026-08-05";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Homepage
