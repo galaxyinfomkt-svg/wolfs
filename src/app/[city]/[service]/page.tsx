@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getCityBySlug, getServiceBySlug, getNearbyCities, generateAllParams, SERVICES, getClimate, getRegionLabel, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../../data/cities";
 import { getCoords } from "../../data/cityCoords";
+import { getLocalContent } from "../../data/localContent";
 import { BLOG_POSTS } from "../../data/blog";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS } from "../../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../../config/meta";
@@ -25,9 +26,10 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!city || !service) return {};
 
   const coords = getCoords(citySlug);
+  const local = getLocalContent(city, service);
   const title = cappedTitle(service.shortName, city.name);
   const description = cappedDescription(
-    `${service.shortName} in ${city.name}, ${STATE_ABBR} by Wolf's Siding — expert installation, repair & replacement built for New England weather. Free written estimates.`
+    `${service.shortName} in ${city.name}, ${STATE_ABBR} — ${local.metaHook}. Installed by Wolf's Siding's own crew, ${local.driveLabel} from our Northborough shop. Free written estimates.`
   );
   assertMeta(title, description, `/${citySlug}/${serviceSlug}`);
 
@@ -63,6 +65,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
 
   const climate = getClimate(city.region);
   const regionLabel = getRegionLabel(city.region);
+  const local = getLocalContent(city, service);
   const otherServices = SERVICES.filter((s) => s.slug !== serviceSlug);
   const nearby = getNearbyCities(city, 6);
   const relatedPosts = BLOG_POSTS.filter((p) => p.relatedService === serviceSlug).slice(0, 2);
@@ -75,7 +78,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
     q: `Why choose Wolf's Siding for ${service.shortName.toLowerCase()} in ${city.name}?`,
     a: `Wolf's Siding Inc. has served ${city.name} and ${regionLabel} ${SINCE} (${YEARS_IN_BUSINESS}+ years). We understand ${climate.faq} and select the best ${service.material} for your area. With a perfect ${REVIEW_RATING} Google rating, free estimates, and owner ${BUSINESS.owner} personally overseeing every project, we deliver the quality ${city.name} homeowners expect.`,
   };
-  const allFaqs = [...service.faqs, cityFaq];
+  const allFaqs = [...service.faqs, local.faq, cityFaq];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -244,30 +247,23 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 </h2>
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
                 <div className="space-y-4 text-[#333] text-base leading-relaxed">
+                  <p>{local.intro}</p>
                   <p>
-                    When it comes to <strong>{service.shortName.toLowerCase()}</strong> in{" "}
-                    <Link href={`/${citySlug}`} className="text-[#E00000] font-semibold hover:underline">{city.name}, {STATE_ABBR}</Link>,
-                    Wolf&apos;s Siding Inc. is the contractor homeowners trust. Located in Massachusetts&apos;s {regionLabel},{" "}
-                    {city.name} experiences {climate.body} — making the right siding choice critical for protecting your investment
-                    and maintaining your home&apos;s beauty.
+                    {local.climate} That is exactly why we help{" "}
+                    <Link href={`/${citySlug}`} className="text-[#E00000] font-semibold hover:underline">{city.name}, {STATE_ABBR}</Link>{" "}
+                    homeowners choose {service.material} that stands up to it.
                   </p>
+                  <p>{local.architecture}</p>
                   <p>
-                    Our team specializes in {service.shortName.toLowerCase()} specifically suited to handle the demanding conditions{" "}
-                    {city.name} throws at your home. With an expected lifespan of{" "}
-                    <strong>{service.lifespan}</strong>, {service.shortName.toLowerCase()} delivers exceptional long-term value for {city.name} homeowners
-                    — ideal for {service.idealFor}.
-                  </p>
-                  <p>
-                    Led by owner <strong>{BUSINESS.owner}</strong>, our crew has been serving {regionLabel} communities like{" "}
-                    {city.name} {SINCE}. Learn more about our{" "}
-                    <Link href={`/services/${serviceSlug}`} className="text-[#E00000] font-semibold hover:underline">{service.shortName.toLowerCase()} services across Massachusetts</Link>.
-                    We also offer{" "}
+                    With an expected lifespan of <strong>{service.lifespan}</strong>, {service.shortName.toLowerCase()} is a
+                    long-term investment for {city.name} homeowners — ideal for {service.idealFor}. Owner{" "}
+                    <strong>{BUSINESS.owner}</strong> personally oversees every job {SINCE}. Explore our{" "}
+                    <Link href={`/services/${serviceSlug}`} className="text-[#E00000] font-semibold hover:underline">{service.shortName.toLowerCase()} across Massachusetts</Link>,
+                    or pair it with{" "}
                     <Link href={`/${citySlug}/${otherServices[0].slug}`} className="text-[#E00000] font-semibold hover:underline">{otherServices[0].shortName.toLowerCase()}</Link>{" "}
                     and{" "}
-                    <Link href={`/${citySlug}/${otherServices[1].slug}`} className="text-[#E00000] font-semibold hover:underline">{otherServices[1].shortName.toLowerCase()}</Link>{" "}
-                    to complement your project. Every job starts with a{" "}
-                    <strong>free on-site assessment</strong> where we evaluate your specific needs and provide a transparent,
-                    itemized estimate — no surprises, no pressure.
+                    <Link href={`/${citySlug}/${otherServices[1].slug}`} className="text-[#E00000] font-semibold hover:underline">{otherServices[1].shortName.toLowerCase()}</Link>.
+                    Every job starts with a <strong>free on-site assessment</strong> — no surprises, no pressure.
                   </p>
                 </div>
               </div>
