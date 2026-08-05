@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { CITIES, SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
+import { getPortfolioProjects } from "./data/projects";
 
 const BASE_URL = "https://wolfs-siding.com";
 const SITE_UPDATED = "2026-04-04";
@@ -65,6 +66,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Individual project pages: /projects/{slug}
+  const projectDetailPages: MetadataRoute.Sitemap = getPortfolioProjects().map((p) => ({
+    url: `${BASE_URL}/projects/${p.id}`,
+    lastModified: SITE_UPDATED,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   // Blog index: /blog
   const blogIndex: MetadataRoute.Sitemap = [
     {
@@ -97,6 +106,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...homepage,
     ...servicePages,
     ...projectsPage,
+    ...projectDetailPages,
     ...cityPages,
     ...cityServicePages,
     ...blogIndex,

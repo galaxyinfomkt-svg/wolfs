@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import ImageLightbox from "../components/ImageLightbox";
 import type { Project, ProjectImage } from "../data/projects";
 import { REVIEW_RATING, REVIEW_COUNT } from "../../config/business";
@@ -133,7 +134,16 @@ export default function ProjectsGallery({ projects, vanImage, crewProject }: Pro
                         </svg>
                       </button>
                     </div>
-                    <p className="text-[#333]/70 text-sm mb-6">{project.description}</p>
+                    <p className="text-[#333]/70 text-sm mb-5">{project.description}</p>
+
+                    <Link
+                      href={`/projects/${project.id}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-2 bg-[#E00000] hover:bg-[#CC0000] text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 mb-6"
+                    >
+                      Open full project page
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                    </Link>
 
                     {/* Photo grid */}
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">

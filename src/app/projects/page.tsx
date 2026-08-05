@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { PROJECTS, COMPANY_VAN_IMAGE } from "../data/projects";
-import ServiceNav from "../services/ServiceNav";
 import ProjectsGallery from "./ProjectsGallery";
 import YouTubeSection from "../components/YouTubeSection";
 
@@ -64,8 +63,6 @@ export default function ProjectsPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(galleryLd) }} />
-
-      <ServiceNav />
 
       {/* Hero Banner */}
       <section className="relative pt-[110px] pb-16 lg:pb-24 overflow-hidden">

@@ -5,6 +5,11 @@ export interface ProjectImage {
   alt: string;
 }
 
+export interface ProjectPhase {
+  label: string;
+  images: ProjectImage[];
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -15,10 +20,46 @@ export interface Project {
   description: string;
   images: ProjectImage[];
   videos?: string[];
+  heroVideo?: string;
+  phases?: ProjectPhase[];
   featured?: boolean;
 }
 
 export const PROJECTS: Project[] = [
+  {
+    id: "navy-colonial-transformation",
+    title: "Navy Colonial — Full Transformation",
+    city: "Massachusetts",
+    state: "MA",
+    serviceType: "Full Siding Replacement",
+    serviceSlug: "full-siding-replacement",
+    description:
+      "A brand-new colonial taken from bare ZIP System sheathing to a finished navy-blue exterior with crisp white trim — every board measured, cut, and installed by hand by the Wolf's Siding crew. Watch the full before-during-after transformation below.",
+    featured: true,
+    heroVideo: "/videos/wolfs-reel.mp4",
+    phases: [
+      { label: "Before", images: [
+        { src: "/projects/navy-transformation/before-1.jpg", alt: "Home wrapped in green ZIP System sheathing before siding, Massachusetts" },
+        { src: "/projects/navy-transformation/before-2.jpg", alt: "Bare sheathing on new colonial before Wolf's Siding installation, MA" },
+      ] },
+      { label: "During", images: [
+        { src: "/projects/navy-transformation/during-1.jpg", alt: "Wolf's Siding crew cutting siding boards on site with a miter saw, Massachusetts" },
+        { src: "/projects/navy-transformation/during-2.jpg", alt: "Navy siding going up during installation by Wolf's Siding, MA" },
+      ] },
+      { label: "After", images: [
+        { src: "/projects/navy-transformation/after-1.jpg", alt: "Finished navy-blue siding on colonial front with white trim, Massachusetts" },
+        { src: "/projects/navy-transformation/after-2.jpg", alt: "Completed navy siding side view with white trim by Wolf's Siding, MA" },
+      ] },
+    ],
+    images: [
+      { src: "/projects/navy-transformation/after-1.jpg", alt: "Finished navy-blue siding on colonial front with white trim, Massachusetts" },
+      { src: "/projects/navy-transformation/before-1.jpg", alt: "Home wrapped in green ZIP System sheathing before siding, MA" },
+      { src: "/projects/navy-transformation/during-1.jpg", alt: "Wolf's Siding crew cutting siding boards on site, MA" },
+      { src: "/projects/navy-transformation/during-2.jpg", alt: "Navy siding going up during installation, MA" },
+      { src: "/projects/navy-transformation/after-2.jpg", alt: "Completed navy siding side view with white trim, MA" },
+      { src: "/projects/navy-transformation/before-2.jpg", alt: "Bare sheathing on new colonial before installation, MA" },
+    ],
+  },
   {
     id: "lakefront-cottage",
     title: "Lakefront Cottage Complete Siding",
@@ -213,4 +254,26 @@ export function getAllProjectImages(): { src: string; alt: string; label: string
       project: p.title,
     }))
   );
+}
+
+export function getProjectBySlug(slug: string): Project | undefined {
+  return PROJECTS.find((p) => p.id === slug);
+}
+
+export function getPortfolioProjects(): Project[] {
+  return PROJECTS.filter((p) => p.serviceType !== "Team");
+}
+
+export function generateProjectParams() {
+  return getPortfolioProjects().map((p) => ({ slug: p.id }));
+}
+
+export function getRelatedProjects(project: Project, limit = 3): Project[] {
+  const same = PROJECTS.filter(
+    (p) => p.id !== project.id && p.serviceType !== "Team" && p.serviceType === project.serviceType
+  );
+  const rest = PROJECTS.filter(
+    (p) => p.id !== project.id && p.serviceType !== "Team" && p.serviceType !== project.serviceType
+  );
+  return [...same, ...rest].slice(0, limit);
 }
