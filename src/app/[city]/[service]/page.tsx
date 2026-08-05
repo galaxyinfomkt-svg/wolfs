@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const local = getLocalContent(city, service);
   const title = cappedTitle(service.shortName, city.name);
   const description = cappedDescription(
-    `${service.shortName} in ${city.name}, ${STATE_ABBR} — ${local.metaHook}. Installed by Wolf's Siding's own crew, ${local.driveLabel} from our Northborough shop. Free written estimates.`
+    `${service.shortName} in ${city.name}, ${STATE_ABBR} — ${local.metaHook}. Wolf's Siding installs it with our own crew. Free written estimates.`
   );
   assertMeta(title, description, `/${citySlug}/${serviceSlug}`);
 

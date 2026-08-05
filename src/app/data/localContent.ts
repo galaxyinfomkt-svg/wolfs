@@ -152,7 +152,7 @@ interface Ctx { name: string; drive: string; character: string; climate: Climate
 const INTRO: ((c: Ctx) => string)[] = [
   (c) => `In ${c.name}${c.note ? `, ${c.note},` : ""} homeowners call Wolf’s Siding when they want the exterior done once and done right — ${c.drive} from our shop.`,
   (c) => `${c.name} is ${c.drive} from our Northborough headquarters — close enough that our own crew, never a subcontractor, is the one on your home.`,
-  (c) => `We’ve built our name in ${c.name} one exterior at a time${c.note ? `, in ${c.note.replace(/^the /, "")}` : ""}, and we’re ${c.drive} away when you need us.`,
+  (c) => `We’ve built our name in ${c.name} one exterior at a time${c.note ? `, ${c.note},` : ""} and we’re ${c.drive} away when you need us.`,
   (c) => `Homeowners across ${c.name} trust Wolf’s Siding for exteriors built to last — our licensed crew works ${c.drive} from home base in Northborough.`,
   (c) => `From our shop in Northborough, ${c.name} is ${c.drive} away — and every ${c.name} project is run by our own crew and overseen by the owner personally.`,
 ];
