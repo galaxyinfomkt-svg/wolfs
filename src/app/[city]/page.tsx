@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, getClimate, getRegionLabel, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
 import { getCoords } from "../data/cityCoords";
+import { getCityLocal } from "../data/localContent";
 import { BLOG_POSTS } from "../data/blog";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../config/meta";
@@ -22,9 +23,11 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   if (!city) return {};
 
   const coords = getCoords(slug);
+  const cityLocalMeta = getCityLocal(city);
+  const hook = cityLocalMeta.metaHook.replace(/^siding /, "");
   const title = cappedTitle("Siding Contractor", city.name);
   const description = cappedDescription(
-    `Siding installation, repair & replacement in ${city.name}, ${STATE_ABBR} — vinyl, Hardie Plank, cedar & clapboard by Wolf's Siding. Free estimates.`
+    `Siding in ${city.name}, ${STATE_ABBR} — ${hook}. Vinyl, Hardie, cedar & clapboard by Wolf's Siding. Free estimates.`
   );
   assertMeta(title, description, `/${slug}`);
 
@@ -68,6 +71,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
   const climate = getClimate(city.region);
   const regionLabel = getRegionLabel(city.region);
+  const cityLocal = getCityLocal(city);
   const nearby = getNearbyCities(city, 6);
 
   const jsonLd = {
@@ -230,11 +234,12 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 </h2>
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
                 <div className="space-y-4 text-[#333] text-base leading-relaxed">
+                  <p>{cityLocal.intro}</p>
                   <p>
-                    {city.name} homeowners face unique exterior challenges. Located in <strong>Massachusetts&apos;s {regionLabel}</strong>,
-                    homes here endure {climate.body}. These conditions put tremendous stress on siding materials, leading to cracking,
-                    warping, moisture infiltration, and energy loss if your exterior isn&apos;t properly protected.
+                    {cityLocal.climate} These conditions put real stress on an exterior — cracking, warping,
+                    moisture infiltration, and energy loss when the siding isn&apos;t right for the home.
                   </p>
+                  <p>{cityLocal.architecture}</p>
                   <p>
                     At Wolf&apos;s Siding Inc., we understand the specific demands that {city.name}&apos;s climate places on your home.
                     That&apos;s why we offer a full range of siding solutions — from cost-effective{" "}

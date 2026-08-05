@@ -208,3 +208,29 @@ export function getLocalContent(city: CityData, service: ServiceData): LocalCont
 
   return { intro, climate: climateCopy, architecture, faq, driveLabel: drive, metaHook };
 }
+
+/* ── City-level (service-agnostic) unique content for the /{city} landing pages ── */
+export interface CityLocal { intro: string; climate: string; architecture: string; driveLabel: string; metaHook: string; }
+
+export function getCityLocal(city: CityData): CityLocal {
+  const reg = REGION[city.region] ?? REGION["Metro West"];
+  const ov = CITY[city.slug] ?? {};
+  const s = seed(city.slug + "|city");
+  const character = ov.character ?? pick(reg.characters, seed(city.slug) >> 2);
+  const drive = ov.drive ?? reg.drive;
+  const climate = resolveClimate(city);
+  const ctx: Ctx = { name: city.name, drive, character, climate, note: ov.note };
+
+  const intro = city.slug === "northborough" ? INTRO_HOMETOWN(ctx) : pick(INTRO, s)(ctx);
+  const climateCopy = pick(CLIMATE[climate], s >> 5);
+  const architecture =
+    `Homes across ${city.name} tend to be ${character} — and every exterior we install here is matched to the home’s age, style, and exposure, never a one-size template.`;
+
+  const hookByClimate: Record<Climate, string> = {
+    "inland": `siding built for ${city.name}’s freeze-thaw winters`,
+    "inland-cold": `siding built for central-MA snow and ice`,
+    "coastal": `siding built to beat ${city.name}’s coastal salt air`,
+  };
+
+  return { intro, climate: climateCopy, architecture, driveLabel: drive, metaHook: hookByClimate[climate] };
+}
