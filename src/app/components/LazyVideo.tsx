@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 
 interface LazyVideoProps {
   src: string;
@@ -57,6 +58,7 @@ export default function LazyVideo({ src, poster, className = "", title }: LazyVi
         <video
           ref={videoRef}
           src={src}
+          poster={poster}
           playsInline
           muted
           loop
@@ -64,6 +66,14 @@ export default function LazyVideo({ src, poster, className = "", title }: LazyVi
           className="w-full h-full object-cover"
           onEnded={() => setPlaying(false)}
           onError={() => setError(true)}
+        />
+      ) : poster ? (
+        <Image
+          src={poster}
+          alt={title || "Wolf's Siding — real Massachusetts project"}
+          fill
+          sizes="(max-width: 640px) 340px, 380px"
+          className="object-cover"
         />
       ) : (
         <div className="w-full h-full bg-gradient-to-br from-[#1A1A1A] to-[#111] flex items-center justify-center min-h-[300px]">
