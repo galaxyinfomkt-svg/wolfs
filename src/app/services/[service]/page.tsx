@@ -7,6 +7,7 @@ import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../../conf
 import { cappedDescription, assertMeta } from "../../../config/meta";
 import { BLOG_POSTS } from "../../data/blog";
 import FormEmbed from "../../components/FormEmbed";
+import SectionCta from "../../components/SectionCta";
 import CallCtaBlock from "../../components/CallCtaBlock";
 import YouTubeSection from "../../components/YouTubeSection";
 
@@ -175,6 +176,14 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
+              <Image
+                src="/logo-white.png"
+                alt="Wolf's Siding Inc. Logo — Siding Contractor Massachusetts"
+                width={300}
+                height={210}
+                priority
+                className="h-16 sm:h-20 w-auto mb-6 drop-shadow-[0_4px_18px_rgba(0,0,0,0.5)]"
+              />
               <nav className="text-sm text-white/50 mb-6" aria-label="Breadcrumb">
                 <Link href="/" className="hover:text-[#E00000] transition-colors">Home</Link>
                 <span className="mx-2">/</span>
@@ -236,6 +245,12 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
           </div>
           <span className="text-white text-sm font-semibold">{REVIEW_RATING}</span>
           <span className="text-white/50 text-sm">({REVIEW_COUNT} Reviews)</span>
+        </div>
+      </div>
+
+      <div className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-6">
+          <SectionCta label={`Get your free ${service.shortName.toLowerCase()} estimate in Massachusetts.`} />
         </div>
       </div>
 

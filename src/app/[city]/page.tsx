@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, getClimate, getRegionLabel, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
 import { getCoords } from "../data/cityCoords";
 import { getCityLocal } from "../data/localContent";
+import SectionCta from "../components/SectionCta";
 import { BLOG_POSTS } from "../data/blog";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../config/meta";
@@ -158,6 +159,14 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Content */}
             <div>
+              <Image
+                src="/logo-white.png"
+                alt="Wolf's Siding Inc. Logo — Siding Contractor Massachusetts"
+                width={300}
+                height={210}
+                priority
+                className="h-16 sm:h-20 w-auto mb-6 drop-shadow-[0_4px_18px_rgba(0,0,0,0.5)]"
+              />
               <nav className="text-sm text-white/50 mb-6" aria-label="Breadcrumb">
                 <Link href="/" className="hover:text-[#E00000]">Home</Link>
                 <span className="mx-2">/</span>
@@ -259,6 +268,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                   </p>
                 </div>
               </div>
+
+              <SectionCta label={`Ready to upgrade your ${city.name} home's exterior? Get a free estimate.`} />
 
               {/* Services grid */}
               <div>
