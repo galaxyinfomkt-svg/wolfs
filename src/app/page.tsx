@@ -570,22 +570,13 @@ export default function HomePage() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
-              <div className="flex flex-col items-end leading-tight">
-                <a
-                  href="tel:+17744841895"
-                  className="flex items-center gap-2 text-sm font-bold text-[#333333] hover:text-[#E00000] transition-colors"
-                >
-                  <PhoneIcon className="w-4 h-4 text-[#E00000]" />
-                  (774) 484-1895
-                </a>
-                <a
-                  href="mailto:info@wolfs-siding.com"
-                  className="flex items-center gap-2 text-xs font-medium text-[#666666] hover:text-[#E00000] transition-colors mt-0.5"
-                >
-                  <EnvelopeIcon className="w-3 h-3 text-[#E00000]" />
-                  info@wolfs-siding.com
-                </a>
-              </div>
+              <a
+                href="tel:+17744841895"
+                className="flex items-center gap-2 text-sm font-semibold text-[#333333] hover:text-[#E00000] transition-colors"
+              >
+                <PhoneIcon className="w-4 h-4 text-[#E00000]" />
+                (774) 484-1895
+              </a>
               <a
                 href="#contact"
                 className="bg-[#E00000] hover:bg-[#CC0000] text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-red-900/30"
@@ -666,6 +657,18 @@ export default function HomePage() {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Left — Content */}
               <div>
+                {/* Brand logo mark on the hero (client request — top-left) */}
+                <div className="inline-flex bg-white rounded-2xl px-5 py-3 shadow-2xl mb-7">
+                  <Image
+                    src="/logo.png"
+                    alt="Wolf's Siding Inc. Logo — Siding Contractor Massachusetts"
+                    width={300}
+                    height={96}
+                    priority
+                    className="h-16 sm:h-20 w-auto"
+                  />
+                </div>
+
                 {/* Badges row (RS pattern) */}
                 <div className="mb-6">
                   <span className="inline-flex items-center gap-2 bg-[#E00000] text-white text-xs font-bold px-5 py-2 rounded-full tracking-wide uppercase">
@@ -1559,6 +1562,12 @@ export default function HomePage() {
                     <PhoneIcon className="w-4 h-4 text-white" />
                   </div>
                   <span className="text-sm font-semibold">(774) 484-1895</span>
+                </a>
+                <a href="mailto:info@wolfs-siding.com" className="flex items-center gap-3 text-white/80 hover:text-[#E00000] transition-colors">
+                  <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0">
+                    <EnvelopeIcon className="w-4 h-4 text-white" />
+                  </div>
+                  <span className="text-sm font-semibold">info@wolfs-siding.com</span>
                 </a>
                 <div className="flex items-start gap-3 text-white/70">
                   <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">

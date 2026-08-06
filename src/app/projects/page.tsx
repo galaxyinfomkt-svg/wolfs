@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { PROJECTS, COMPANY_VAN_IMAGE } from "../data/projects";
 import ProjectsGallery from "./ProjectsGallery";
+import ProjectsHero from "./ProjectsHero";
 import YouTubeSection from "../components/YouTubeSection";
 
 export const metadata: Metadata = {
@@ -64,63 +64,31 @@ export default function ProjectsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(galleryLd) }} />
 
-      {/* Hero Banner */}
-      <section className="relative pt-[110px] pb-16 lg:pb-24 overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src={PROJECTS[0]?.images[0]?.src ?? ""}
-            alt="Wolf's Siding Inc. project gallery background"
-            fill
-            className="object-cover object-[center_30%]"
-            priority
-            sizes="100vw"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />
+      {/* Full-width project carousel (Cleiton-style) */}
+      <ProjectsHero projects={workProjects} />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-          <nav className="text-sm text-white/50 mb-8" aria-label="Breadcrumb">
+      {/* Intro band */}
+      <section className="py-12 lg:py-16 bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="text-sm text-[#333]/50 mb-6" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-[#E00000] transition-colors">Home</Link>
             <span className="mx-2">/</span>
-            <span className="text-white font-medium">Projects</span>
+            <span className="text-[#333] font-medium">Projects</span>
           </nav>
-
-          <div className="max-w-3xl">
-            <div className="flex flex-wrap items-center gap-3 mb-6">
-              <span className="inline-flex items-center gap-2 bg-[#E00000] text-white text-xs font-bold px-4 py-2 rounded-full">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z" />
-                </svg>
-                {totalPhotos} Photos
-              </span>
-              <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm text-white text-xs font-semibold px-4 py-2 rounded-full border border-white/20">
-                <svg className="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
-                5.0 (22 Reviews)
-              </span>
+          <div className="grid lg:grid-cols-[1fr_auto] gap-8 lg:items-end">
+            <div>
+              <h1 className="text-4xl sm:text-5xl font-black text-black leading-tight mb-4">
+                Our <span className="text-[#E00000]">Projects</span>
+              </h1>
+              <p className="text-lg text-[#333]/70 leading-relaxed max-w-2xl">
+                Real siding installations by Wolf&apos;s Siding Inc. across Massachusetts — every photo from an
+                actual jobsite, no stock images. Expert craftsmanship since 2007.
+              </p>
             </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight mb-6">
-              Our <span className="text-[#E00000]">Projects</span>
-            </h1>
-            <p className="text-lg text-white/80 leading-relaxed max-w-2xl">
-              Browse real siding installations by Wolf&apos;s Siding Inc. across Massachusetts.
-              Every photo is from an actual project — no stock images, just expert craftsmanship since 2007.
-            </p>
-          </div>
-
-          {/* Stats row */}
-          <div className="grid grid-cols-3 gap-4 mt-10 max-w-lg">
-            <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl p-4 text-center">
-              <p className="text-3xl font-black text-[#E00000]">{workProjects.length}</p>
-              <p className="text-xs text-white/60 font-medium mt-1">Projects</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl p-4 text-center">
-              <p className="text-3xl font-black text-[#E00000]">{totalPhotos}</p>
-              <p className="text-xs text-white/60 font-medium mt-1">Photos</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl p-4 text-center">
-              <p className="text-3xl font-black text-[#E00000]">18+</p>
-              <p className="text-xs text-white/60 font-medium mt-1">Years</p>
+            <div className="flex gap-10">
+              <div><p className="text-4xl font-black text-[#E00000]">{workProjects.length}</p><p className="text-xs text-[#333]/50 font-semibold mt-1 uppercase tracking-wider">Projects</p></div>
+              <div><p className="text-4xl font-black text-[#E00000]">{totalPhotos}</p><p className="text-xs text-[#333]/50 font-semibold mt-1 uppercase tracking-wider">Photos</p></div>
+              <div><p className="text-4xl font-black text-[#E00000]">18+</p><p className="text-xs text-[#333]/50 font-semibold mt-1 uppercase tracking-wider">Years</p></div>
             </div>
           </div>
         </div>
