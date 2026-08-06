@@ -29,7 +29,7 @@ export const BUSINESS = {
   // TODO: wire to the Google Business Profile API so this updates automatically.
   // Until then this is the ONE place the review count/rating is edited — the GHL
   // reputation widget keeps showing live reviews independently of this constant.
-  reviews: { rating: 5.0, count: 22 },
+  reviews: { rating: 5.0, count: 31 },
   social: {
     instagram: "https://www.instagram.com/wolfs_siding_inc/",
     facebook: "https://www.facebook.com/wolfsiding",

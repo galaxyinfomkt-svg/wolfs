@@ -113,6 +113,8 @@ body {
 .reviews-widget {
   min-width: 100%;
   width: 100%;
+  min-height: 760px;
+  border: 0;
 }
 
 /* Content visibility for below-fold sections */

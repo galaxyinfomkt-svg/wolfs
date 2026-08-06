@@ -95,7 +95,7 @@ ${blogList}
 ## Why Choose Wolf's Siding Inc.
 
 1. **experience since 2007** in Massachusetts siding installation
-2. **Perfect 5.0 Google rating** with 22+ verified reviews
+2. **Perfect 5.0 Google rating** with 31+ verified reviews
 3. **Owner-operated** — Ezequias Lobo personally oversees every project
 4. **Full-service** — installation, replacement, and trim work
 5. **All major materials** — vinyl, Hardie Plank, cedar, clapboard, and more

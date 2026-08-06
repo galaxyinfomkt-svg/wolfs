@@ -29,7 +29,7 @@ export default async function CityLayout({
             What Our Customers Say
           </h2>
           {/* Server-rendered reviews (crawler-visible) above the live widget */}
-          <CustomerReviews city={cityName} />
+          <CustomerReviews city={cityName} schemaOnly />
           <iframe
             className="lc_reviews_widget reviews-widget"
             src="https://reputationhub.site/reputation/widgets/review_widget/BCczy6muFwhd63dPhKCC"

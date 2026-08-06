@@ -8,7 +8,7 @@ import { BLOG_POSTS } from "./data/blog";
 import { BUSINESS, SINCE, REVIEW_COUNT, REVIEW_RATING, CITIES_SERVED } from "../config/business";
 import CustomerReviews from "./components/CustomerReviews";
 import LazyIframe from "./components/LazyIframe";
-import CallCtaBlock from "./components/CallCtaBlock";
+import SectionCta from "./components/SectionCta";
 import YouTubeSection from "./components/YouTubeSection";
 import LazyVideo from "./components/LazyVideo";
 
@@ -835,6 +835,7 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+            <SectionCta label="See a service that fits? Get a free, no-pressure estimate." />
           </div>
         </section>
 
@@ -913,6 +914,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+            <SectionCta variant="dark" label="18+ years, one owner, one crew. Let's talk about your project." />
           </div>
         </section>
 
@@ -1234,8 +1236,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Server-rendered reviews (crawler-visible) above the live widget */}
-            <CustomerReviews />
+            {/* Review schema only (crawler/AI SEO) — the live GHL widget shows the cards */}
+            <CustomerReviews schemaOnly />
 
             {/* Real Google Reviews Widget */}
             <div className="scroll-animate">
@@ -1368,9 +1370,23 @@ export default function HomePage() {
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8">
-              {/* Left — static CTA (single GHL embed lives in the hero at #contact-form) */}
+              {/* Left — GHL estimate form (2nd instance) + phone fallback */}
               <div className="scroll-animate">
-                <CallCtaBlock />
+                <div className="form-fallback mb-3 rounded-lg bg-[#F5F5F5] px-4 py-2.5 text-sm text-[#333]">
+                  Prefer to talk? Call{" "}
+                  <a href="tel:+17744841895" className="font-bold text-[#E00000] hover:underline">(774) 484-1895</a>{" "}
+                  — Mon–Fri 7–6, Sat 8–2.
+                </div>
+                <div id="contact-form-2" className="scroll-mt-28 bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden p-2 sm:p-3">
+                  <LazyIframe
+                    src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
+                    className="form-iframe"
+                    id="inline-altG7jV8Jt79wwRd8WbH-2"
+                    data-form-name="FORMULARIO WEBSITE"
+                    data-height="558"
+                    title="Wolf's Siding Free Quote Form"
+                  />
+                </div>
               </div>
 
               {/* Right — Contact info blocks (RS pattern: stacked boxes) */}
@@ -1387,6 +1403,16 @@ export default function HomePage() {
                       <div>
                         <p className="text-white/60 text-xs">Phone</p>
                         <p className="text-white font-bold text-lg">(774) 484-1895</p>
+                      </div>
+                    </a>
+                    {/* Email */}
+                    <a href="mailto:info@wolfs-siding.com" className="flex items-center gap-4 group">
+                      <div className="w-12 h-12 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <EnvelopeIcon className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-white/60 text-xs">Email</p>
+                        <p className="text-white font-bold text-lg break-all">info@wolfs-siding.com</p>
                       </div>
                     </a>
                     {/* Address */}

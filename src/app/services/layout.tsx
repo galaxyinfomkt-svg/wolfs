@@ -17,7 +17,7 @@ export default function ServicesLayout({ children }: { children: React.ReactNode
           <h2 className="text-3xl font-black text-black text-center mb-8">
             What Our Customers Say
           </h2>
-          <CustomerReviews />
+          <CustomerReviews schemaOnly />
           <iframe
             className="lc_reviews_widget reviews-widget"
             src="https://reputationhub.site/reputation/widgets/review_widget/BCczy6muFwhd63dPhKCC"

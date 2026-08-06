@@ -17,7 +17,7 @@ interface Review {
   city?: string;
 }
 
-export default function CustomerReviews({ city }: { city?: string }) {
+export default function CustomerReviews({ city, schemaOnly = false }: { city?: string; schemaOnly?: boolean }) {
   const all = reviewsData as Review[];
   if (!all.length) return null;
 
@@ -43,9 +43,17 @@ export default function CustomerReviews({ city }: { city?: string }) {
     })),
   };
 
+  const schemaScript = (
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+  );
+
+  // Keep the Review schema (crawler/AI SEO) but hide the visual cards — the live
+  // GHL reputation widget already shows the reviews to users.
+  if (schemaOnly) return schemaScript;
+
   return (
     <div className="mb-10">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      {schemaScript}
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((r, i) => (
           <div key={i} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
