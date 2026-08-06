@@ -278,7 +278,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 </h2>
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-8" />
                 <div className="grid sm:grid-cols-2 gap-5">
-                  {SERVICES.map((s) => (
+                  {SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
                     <Link
                       key={s.slug}
                       href={`/${slug}/${s.slug}`}
@@ -484,7 +484,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 <div className="bg-[#F5F5F5] rounded-2xl p-6">
                   <h3 className="font-bold text-black mb-4">Our Services</h3>
                   <ul className="space-y-2">
-                    {SERVICES.map((s) => (
+                    {SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
                       <li key={s.slug}>
                         <Link
                           href={`/${slug}/${s.slug}`}

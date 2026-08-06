@@ -85,7 +85,7 @@ export default async function CityLayout({
               <div>
                 <h3 className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Services</h3>
                 <ul className="space-y-2">
-                  {SERVICES.map((s) => (
+                  {SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
                     <li key={s.slug}>
                       <Link href={`/${slug}/${s.slug}`} className="text-white/60 hover:text-[#E00000] text-sm">
                         {s.shortName}

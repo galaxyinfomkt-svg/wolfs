@@ -67,7 +67,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
   const climate = getClimate(city.region);
   const regionLabel = getRegionLabel(city.region);
   const local = getLocalContent(city, service);
-  const otherServices = SERVICES.filter((s) => s.slug !== serviceSlug);
+  const otherServices = SERVICES.filter((s) => s.slug !== serviceSlug && s.slug !== "siding-repair-services");
   const nearby = getNearbyCities(city, 6);
   const relatedPosts = BLOG_POSTS.filter((p) => p.relatedService === serviceSlug).slice(0, 2);
   if (relatedPosts.length < 2) {

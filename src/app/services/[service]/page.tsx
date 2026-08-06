@@ -87,7 +87,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
   const service = getServiceBySlug(slug);
   if (!service) notFound();
 
-  const otherServices = SERVICES.filter((s) => s.slug !== slug);
+  const otherServices = SERVICES.filter((s) => s.slug !== slug && s.slug !== "siding-repair-services");
   const regions = Object.keys(REGION_CLIMATE);
   const relatedPosts = BLOG_POSTS.filter((p) => p.relatedService === slug).slice(0, 3);
   if (relatedPosts.length < 3) {
