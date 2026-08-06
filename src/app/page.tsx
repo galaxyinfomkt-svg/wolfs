@@ -657,17 +657,15 @@ export default function HomePage() {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Left — Content */}
               <div>
-                {/* Brand logo mark on the hero (client request — top-left) */}
-                <div className="inline-flex bg-white rounded-2xl px-5 py-3 shadow-2xl mb-7">
-                  <Image
-                    src="/logo.png"
-                    alt="Wolf's Siding Inc. Logo — Siding Contractor Massachusetts"
-                    width={300}
-                    height={96}
-                    priority
-                    className="h-16 sm:h-20 w-auto"
-                  />
-                </div>
+                {/* Brand logo mark on the hero (top-left, no background — white version) */}
+                <Image
+                  src="/logo-white.png"
+                  alt="Wolf's Siding Inc. Logo — Siding Contractor Massachusetts"
+                  width={340}
+                  height={240}
+                  priority
+                  className="h-24 sm:h-28 w-auto mb-6 drop-shadow-[0_4px_22px_rgba(0,0,0,0.55)]"
+                />
 
                 {/* Badges row (RS pattern) */}
                 <div className="mb-6">
