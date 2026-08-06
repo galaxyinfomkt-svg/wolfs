@@ -496,10 +496,10 @@ export default function HomePage() {
                 <MapPinIcon className="w-3.5 h-3.5" />
                 Serving Northborough, Massachusetts
               </span>
-              <span className="hidden md:flex items-center gap-1.5">
+              <a href="mailto:info@wolfs-siding.com" className="hidden md:flex items-center gap-1.5 hover:text-white/90 transition-colors">
                 <EnvelopeIcon className="w-3.5 h-3.5" />
                 info@wolfs-siding.com
-              </span>
+              </a>
             </div>
             {/* Mobile left — compact */}
             <span className="flex sm:hidden items-center gap-1.5 text-xs font-medium">
@@ -523,17 +523,8 @@ export default function HomePage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[70px]">
-            {/* Logo — top-left, prominent */}
-            <a href="#home" className="flex-shrink-0 mr-auto" title="Wolf's Siding Inc. - Home">
-              <Image
-                src="/logo.png"
-                alt="Wolf's Siding Inc. Logo — Siding Contractor Massachusetts"
-                width={200}
-                height={64}
-                priority
-                className="h-14 w-auto"
-              />
-            </a>
+            {/* Logo removed from nav — brand shown on the hero instead */}
+            <div className="flex-shrink-0 mr-auto" aria-hidden="true" />
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-6">

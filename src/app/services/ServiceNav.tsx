@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { SERVICES } from "../data/cities";
 
 export default function ServiceNav() {
@@ -40,15 +39,8 @@ export default function ServiceNav() {
       <header className="fixed top-10 left-0 right-0 z-50 bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[70px]">
-            <Link href="/" className="flex-shrink-0" title="Wolf's Siding Inc. - Home">
-              <Image
-                src="/logo.png"
-                alt="Wolf's Siding Inc. Logo"
-                width={160}
-                height={50}
-                className="h-12 w-auto"
-              />
-            </Link>
+            {/* Logo removed from nav — brand shown on the hero instead */}
+            <div className="flex-shrink-0" aria-hidden="true" />
 
             <nav className="hidden md:flex items-center gap-6">
               <Link href="/" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Home</Link>
