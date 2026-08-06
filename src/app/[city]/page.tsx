@@ -260,8 +260,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                   <p>
                     Whether you need{" "}
                     <Link href={`/${slug}/clapboard-siding-installation`} className="text-[#E00000] font-semibold hover:underline">clapboard siding</Link>,{" "}
-                    <Link href={`/${slug}/exterior-trim-work`} className="text-[#E00000] font-semibold hover:underline">exterior trim work</Link>,{" "}
-                    <Link href={`/${slug}/siding-repair-services`} className="text-[#E00000] font-semibold hover:underline">siding repair</Link>, or a{" "}
+                    <Link href={`/${slug}/exterior-trim-work`} className="text-[#E00000] font-semibold hover:underline">exterior trim work</Link>, or a{" "}
                     <Link href={`/${slug}/full-siding-replacement`} className="text-[#E00000] font-semibold hover:underline">full siding replacement</Link>,
                     Wolf&apos;s Siding delivers the craftsmanship and reliability that {city.name} families deserve. Every project
                     starts with a free on-site assessment and ends with a home that&apos;s beautiful, protected, and built to last.
