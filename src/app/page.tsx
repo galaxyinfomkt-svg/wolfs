@@ -496,16 +496,19 @@ export default function HomePage() {
                 <MapPinIcon className="w-3.5 h-3.5" />
                 Serving Northborough, Massachusetts
               </span>
-              <a href="mailto:info@wolfs-siding.com" className="hidden md:flex items-center gap-1.5 hover:text-white/90 transition-colors">
-                <EnvelopeIcon className="w-3.5 h-3.5" />
-                info@wolfs-siding.com
+              <a href={`mailto:${BUSINESS.email}`} className="flex items-center gap-1.5 whitespace-nowrap hover:text-white/90 transition-colors">
+                <EnvelopeIcon className="w-3.5 h-3.5 shrink-0" />
+                {BUSINESS.email}
               </a>
             </div>
-            {/* Mobile left — compact */}
-            <span className="flex sm:hidden items-center gap-1.5 text-xs font-medium">
-              <MapPinIcon className="w-3 h-3" />
-              Northborough, MA
-            </span>
+            {/* Mobile left — email (the city still shows in the hero badge, H1 and footer) */}
+            <a
+              href={`mailto:${BUSINESS.email}`}
+              className="flex sm:hidden items-center gap-1.5 text-[11px] font-medium whitespace-nowrap"
+            >
+              <EnvelopeIcon className="w-3 h-3 shrink-0" />
+              {BUSINESS.email}
+            </a>
             {/* Right — phone */}
             <a href="tel:+17744841895" className="flex items-center gap-1.5 font-bold hover:text-white/90 transition-colors">
               <PhoneIcon className="w-3.5 h-3.5" />
