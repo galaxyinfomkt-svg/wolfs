@@ -4,7 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getCityBySlug, getServiceBySlug, getNearbyCities, generateAllParams, SERVICES, getClimate, getRegionLabel, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../../data/cities";
 import { getCoords } from "../../data/cityCoords";
-import { getLocalContent } from "../../data/localContent";
+import { getLocalContent, prioritiseByExposure, localPainPoint } from "../../data/localContent";
 import { BLOG_POSTS } from "../../data/blog";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS } from "../../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../../config/meta";
@@ -305,7 +305,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   Common {service.shortName} Challenges in {city.name}
                 </h3>
                 <div className="space-y-4">
-                  {service.painPoints.map((pain, i) => (
+                  {[...prioritiseByExposure(service.painPoints, citySlug), ...(localPainPoint(citySlug) ? [localPainPoint(citySlug)!] : [])].map((pain, i) => (
                     <div key={i} className="bg-red-50 rounded-xl p-5 border border-red-100">
                       <div className="flex items-start gap-4">
                         <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center text-white flex-shrink-0 text-sm font-bold mt-0.5">
@@ -400,7 +400,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 </h3>
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
                 <div className="space-y-4">
-                  {service.benefits.map((benefit, i) => (
+                  {prioritiseByExposure(service.benefits, citySlug).map((benefit, i) => (
                     <div key={i} className="flex items-start gap-4 bg-green-50 rounded-xl p-5 border border-green-100">
                       <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                       <p className="text-[#333] text-sm leading-relaxed">{benefit}</p>

@@ -57,15 +57,27 @@ function titleCase(slug: string): string {
 
 /* ── The housing character of each county, in the terms a siding crew
       actually thinks in. True of the county, and different per county. ── */
-const COUNTY_CHARACTER: Record<string, string> = {
-  Worcester:
+const COUNTY_CHARACTER: Record<string, string[]> = {
+  Worcester: [
     "three-deckers and turn-of-the-century two-families in the older village centres, with post-war capes and ranches on the roads out of town",
-  Middlesex:
+    "mill-era two- and three-families close to the centre, giving way to capes, ranches and split-levels along the routes built up after the war",
+    "dense older housing around the former mill villages and a looser mix of mid-century single-families beyond it",
+  ],
+  Middlesex: [
     "centre-entrance colonials, garrisons and expanded capes on established suburban streets, with antique farmhouses still standing on the older routes",
-  Norfolk:
+    "colonials and garrisons on mature suburban lots, interleaved with capes that have been extended once or twice and the occasional pre-1900 farmhouse",
+    "a suburban spread of colonials, split-levels and enlarged capes, with older centre-village housing nearer the town commons",
+  ],
+  Norfolk: [
     "well-kept colonials and garrison-style homes on mature lots, with a good share of mid-century ranches and split-levels",
-  Essex:
+    "colonials and garrisons on settled streets, mixed with ranches and raised ranches from the post-war building years",
+    "traditional colonials on generous lots alongside mid-century single-families, most of them now on their second or third exterior",
+  ],
+  Essex: [
     "close-set older housing near the harbours — gambrels, Victorians and two-families — mixed with post-war neighbourhoods further inland",
+    "harbour-side Victorians and two-families packed tight to the street, with later single-family neighbourhoods spreading inland",
+    "older coastal housing stock — gambrels, mansards and two-families — beside twentieth-century streets built further from the water",
+  ],
 };
 
 /* ── What the weather actually does to an exterior, by exposure band.
@@ -83,10 +95,14 @@ const EXPOSURE_STORY: Record<Exposure, string[]> = {
   inland: [
     "Freeze-thaw is what takes an exterior apart here. Water finds a seam, freezes, expands, and levers the joint a little wider — then does it again on the next cold night. Over a winter that is hundreds of cycles, and it is why a tight, correctly lapped install outlasts a fast one by years.",
     "The damage pattern inland is patient rather than dramatic: moisture works into a seam, freezes overnight, expands, and prises the joint open a fraction at a time. Do that from November through March and a poorly detailed wall starts letting water behind the cladding.",
+    "Inland walls fail at the joints, not in the middle of a panel. Every wet night that drops below freezing turns trapped moisture into a small wedge, and a season of those wedges is what separates a wall that lasts thirty years from one that needs attention in eight.",
+    "Nothing dramatic happens to an exterior here in any single week — the wear is cumulative. Water sits in a lap, the temperature crosses freezing, the ice takes up more room than the water did, and the joint gives a fraction. Repeat that all winter and the wall loses its seal from the seams outward.",
   ],
   upland: [
     "Up in the higher interior the winter is simply longer and heavier. More snow sits against the lower courses, the freeze-thaw season runs weeks longer at both ends, and drifting piles hold meltwater against the wall — so the bottom two feet of an exterior take punishment the rest of the wall never sees.",
     "Elevation buys you a colder, snowier winter than the coastal towns get. Snow banks against the lower courses and stays there, meltwater soaks the base of the wall by day and refreezes at night, and any weakness in the starter course shows up fast.",
+    "The higher ground west of Worcester keeps its snow. Where a coastal town sheds a storm in two days, a wall up here can carry a drift against its base for a fortnight, and that standing snow is what finds a weak starter course or an under-flashed sill.",
+    "Winter arrives earlier and leaves later at this elevation, which means more crossings of the freezing point, not merely colder ones. Each crossing is another chance for water held in a lap to expand — so up here the detailing at the bottom of the wall matters more than anywhere else on it.",
   ],
 };
 
@@ -148,7 +164,7 @@ export function getLocalContent(
     };
   }
 
-  const character = COUNTY_CHARACTER[g.county];
+  const character = pick(COUNTY_CHARACTER[g.county], seed(city.slug + "|county"));
   const nearby = g.neighbours.map((n) => ({
     slug: n,
     name: CITY_FACTS[n] ? titleCase(n) : titleCase(n),
@@ -197,6 +213,56 @@ export function getLocalContent(
   };
 }
 
+
+/* ── Exposure-led prioritisation ──────────────────────────────────────────
+   A homeowner in Quincy and one in Princeton do not have the same first
+   problem. Salt reaches the fixings on the coast; snow sits against the
+   starter course up-country. Both pain points are true of the material
+   everywhere — what differs is which one you lead with.
+
+   So the shared service copy is REORDERED, not rewritten: the item that
+   matches this town's measured exposure moves to the top, and the rest keep
+   their order. Nothing is invented and nothing is contradicted; the page
+   simply opens on the failure this town actually sees first. ────────────── */
+
+const EXPOSURE_KEYWORDS: Record<Exposure, string[]> = {
+  coastal: ["mold", "mildew", "algae", "moisture", "corros"],
+  "near-coastal": ["moisture", "mold", "wind"],
+  inland: ["freeze", "crack", "warp", "moisture"],
+  upland: ["freeze", "crack", "energy", "insulat", "cold"],
+};
+
+/** Move the items that match this town's exposure to the front, stably. */
+export function prioritiseByExposure(items: string[], slug: string): string[] {
+  const g = cityGeo(slug);
+  if (!g || items.length < 2) return items;
+  const keys = EXPOSURE_KEYWORDS[g.exposure];
+  const hit: string[] = [];
+  const rest: string[] = [];
+  for (const it of items) {
+    const low = it.toLowerCase();
+    (keys.some((k) => low.includes(k)) ? hit : rest).push(it);
+  }
+  return [...hit, ...rest];
+}
+
+/** One extra pain point that is true of this exposure band specifically. */
+export function localPainPoint(slug: string): string | null {
+  const g = cityGeo(slug);
+  if (!g) return null;
+  const byExposure: Record<Exposure, string> = {
+    coastal:
+      "Rust bleeding from fasteners and stained streaks below trim — the signature of salt air working on fixings that were never specified for a coastal wall",
+    "near-coastal":
+      "Fixings that corrode faster than the panels weather, because the wall catches salt on an onshore wind but was detailed as if it were inland",
+    inland:
+      "Seams that have crept open over successive winters, letting water behind the cladding where freeze-thaw keeps prising them a little wider",
+    upland:
+      "Damage concentrated in the bottom courses, where snow banks against the wall for weeks and meltwater soaks the base by day and refreezes at night",
+  };
+  return byExposure[g.exposure];
+}
+
 /* ── City-level (service-agnostic) copy for the /{city} landing pages ── */
 export interface CityLocal {
   intro: string;
@@ -231,7 +297,7 @@ export function getCityLocal(city: CityData): CityLocal {
       ? `${city.name} is home — our shop, our crew, and a fair number of the walls we have re-clad over the years.`
       : `${placement} We work across ${nearby.slice(0, 3).map((n) => n.name).join(", ")} and the rest of ${g.county} County from that shop, with our own crew on every job.`,
     climate: pick(EXPOSURE_STORY[g.exposure], s >> 5),
-    architecture: `Homes here sit among ${COUNTY_CHARACTER[g.county]}, and the exterior that suits one of those is not automatically the one that suits the next.`,
+    architecture: `Homes here sit among ${pick(COUNTY_CHARACTER[g.county], seed(city.slug + "|county"))}, and the exterior that suits one of those is not automatically the one that suits the next.`,
     driveLabel: g.drive,
     metaHook: EXPOSURE_HOOK[g.exposure],
     nearby,
