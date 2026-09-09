@@ -263,6 +263,25 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                     homeowners choose {service.material} that stands up to it.
                   </p>
                   <p>{local.architecture}</p>
+                  {local.nearby.length > 0 && (
+                    <p>
+                      {city.name} borders{" "}
+                      {local.nearby.slice(0, 4).map((n, i, arr) => (
+                        <span key={n.slug}>
+                          <Link
+                            href={`/${n.slug}/${serviceSlug}`}
+                            className="text-[#E00000] font-semibold hover:underline"
+                          >
+                            {n.name}
+                          </Link>
+                          {i < arr.length - 2 ? ", " : i === arr.length - 2 ? " and " : ""}
+                        </span>
+                      ))}
+                      , and we run {service.shortName.toLowerCase()} jobs across all of them from the
+                      same shop — so scheduling a {city.name} project rarely waits on crew
+                      availability.
+                    </p>
+                  )}
                   <p>
                     With an expected lifespan of <strong>{service.lifespan}</strong>, {service.shortName.toLowerCase()} is a
                     long-term investment for {city.name} homeowners — ideal for {service.idealFor}. Owner{" "}

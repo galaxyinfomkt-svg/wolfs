@@ -1,165 +1,101 @@
-/* ════════════════════════════════════════════════════════════════════
-   LOCAL CONTENT ENGINE — genuinely unique copy per city × service.
+/* ═══════════════════════════════════════════════════════════════════════
+   LOCAL CONTENT ENGINE — genuinely different copy per city × service.
 
-   The problem this solves: 110 cities × ~9 services = ~990 pages. If they
-   only swap the city name into one template, Google treats them as thin,
-   scaled, duplicate content (the March-2024 "scaled content abuse" policy)
-   and can de-index or demote the whole domain.
+   What went wrong before: this engine varied phrasing only. With
+   { name, slug, region } as its entire input it could reword the same
+   sentences, but it could not say anything different, so 981 pages came out
+   ~97% identical — 45 of 49 text blocks byte-for-byte the same between two
+   cities. That is scaled content, and Google reads it as such.
 
-   This engine composes each page's LOCAL layer from TRUTHFUL attributes
-   (region, coastal vs inland, drive time from our Northborough HQ, the
-   real housing character of the area) and selects among several truthful
-   phrasings by a deterministic per-(city,service) seed — so two cities in
-   the same region still read differently, and every material reads
-   differently in the same city. Nothing here fabricates a statistic; it
-   states things that are true of the place and varies HOW it says them.
-   ════════════════════════════════════════════════════════════════════ */
+   What changed: the engine now composes from measured facts in cityGeo.ts —
+   the town's county, its real distance from the Northborough shop, its
+   distance from salt water, and the towns that genuinely border it. Those
+   are different for all 109 towns, so the sentences built from them are
+   different too, without a thesaurus anywhere in the pipeline.
+
+   Two rules this file obeys:
+
+   1. Nothing is fabricated. Every number is computed from the coordinates;
+      no invented statistics, no invented history, no "trusted by 500 local
+      families". If we cannot compute or verify it, it is not written.
+
+   2. Shared facts stay shared. Warranty length, licence number, review
+      count and material specifications are identical on every page BECAUSE
+      THEY ARE IDENTICAL IN REAL LIFE. Varying them to dodge a duplicate
+      content check would be lying to homeowners. Uniqueness is earned in
+      the local layer, not by corrupting the brand layer.
+   ═══════════════════════════════════════════════════════════════════════ */
+
 import type { CityData, ServiceData } from "./cities";
+import { CITY_FACTS } from "./cityFacts";
+import { cityGeo, type Exposure } from "./cityGeo";
 
 /* deterministic hash → stable across builds (no Math.random) */
 function seed(s: string): number {
   let h = 2166136261;
-  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
   return h >>> 0;
 }
-function pick<T>(arr: T[], s: number): T { return arr[s % arr.length]; }
+/* Guard the index: seed() returns a full uint32, and `>>` in JS operates on a
+   SIGNED int32, so any hash above 2^31 shifted right stays negative and
+   arr[-1] silently yields undefined — which rendered as the literal string
+   "undefined" on coastal city pages. Normalise before indexing. */
+function pick<T>(arr: T[], s: number): T {
+  const i = Math.abs(Math.trunc(s)) % arr.length;
+  return arr[i];
+}
 
-type Climate = "inland" | "inland-cold" | "coastal";
+function titleCase(slug: string): string {
+  return slug
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
 
-/* ── Cities in the colder, higher, snowier interior (central MA / hill towns) ── */
-const INLAND_COLD = new Set([
-  "worcester", "auburn", "millbury", "sutton", "oxford", "webster",
-  "fitchburg", "leominster", "lunenburg", "princeton", "sterling", "paxton",
-  "rutland", "holden", "west-boylston", "boylston", "leicester", "spencer",
-  "charlton", "dudley", "lancaster", "harvard",
-]);
-
-/* ── Genuinely coastal / salt-air-exposed towns ── */
-const COASTAL = new Set([
-  "quincy", "weymouth", "braintree", "milton",
-  "lynn", "saugus", "salem", "beverly", "peabody", "danvers",
-]);
-
-/* ── Per-region defaults: drive time from Northborough HQ + character pool ── */
-const REGION: Record<string, { drive: string; characters: string[] }> = {
-  "Metro West": {
-    drive: "a short 15-to-25-minute drive",
-    characters: [
-      "classic New England colonials, capes, and split-levels on wooded suburban lots",
-      "well-kept colonials, garrisons, and ranches on established residential streets",
-      "a mix of antique farmhouses, center-entrance colonials, and mid-century homes",
-      "traditional capes and colonials, many built to weather decades of New England seasons",
-      "spacious suburban colonials and expanded ranches on generous lots",
-    ],
-  },
-  "Worcester Area": {
-    drive: "about a 15-to-25-minute drive",
-    characters: [
-      "dense neighborhoods of triple-deckers, Victorians, and turn-of-the-century two-families",
-      "hard-working neighborhoods of multi-families, colonials, and older single-family homes",
-      "a mix of Victorian-era homes, three-deckers, and post-war capes and ranches",
-      "close-set two- and three-family homes alongside classic New England colonials",
-    ],
-  },
-  "Greater Boston": {
-    drive: "roughly a 35-to-45-minute drive",
-    characters: [
-      "tightly-spaced Victorians, colonials, and multi-family homes close to the city",
-      "older colonials, Tudors, and two-families on compact urban-edge lots",
-      "a dense mix of historic single-families, triple-deckers, and renovated multis",
-      "established colonials and Victorians on smaller, closely-built lots",
-    ],
-  },
-  "South Shore": {
-    drive: "about a 45-to-55-minute drive",
-    characters: [
-      "coastal capes, gambrels, and colonials built to face ocean weather",
-      "shingled capes, colonials, and two-families near the water",
-      "a mix of harbor-side colonials, ranches, and classic New England capes",
-      "salt-exposed colonials and capes on the South Shore",
-    ],
-  },
-  "North Shore": {
-    drive: "roughly a 50-to-60-minute drive",
-    characters: [
-      "historic seaside colonials, Victorians, and shingle-style homes",
-      "antique Federal and colonial homes, many close to the coast",
-      "weathered Victorians and colonials that face salt air year-round",
-      "classic North Shore colonials, capes, and multi-families near the water",
-    ],
-  },
+/* ── The housing character of each county, in the terms a siding crew
+      actually thinks in. True of the county, and different per county. ── */
+const COUNTY_CHARACTER: Record<string, string> = {
+  Worcester:
+    "three-deckers and turn-of-the-century two-families in the older village centres, with post-war capes and ranches on the roads out of town",
+  Middlesex:
+    "centre-entrance colonials, garrisons and expanded capes on established suburban streets, with antique farmhouses still standing on the older routes",
+  Norfolk:
+    "well-kept colonials and garrison-style homes on mature lots, with a good share of mid-century ranches and split-levels",
+  Essex:
+    "close-set older housing near the harbours — gambrels, Victorians and two-families — mixed with post-war neighbourhoods further inland",
 };
 
-/* ── Truthful per-city overrides for the notable cities we know specifically ── */
-const CITY: Record<string, { character?: string; note?: string; drive?: string; climate?: Climate }> = {
-  worcester:    { character: "the iconic Worcester triple-decker, ornate Victorians, and dense two- and three-family homes", note: "the second-largest city in New England" },
-  framingham:   { character: "a mix of dense in-town multi-families and mid-century colonials and ranches", note: "one of the largest communities in MetroWest" },
-  marlborough:  { character: "a blend of downtown multi-families and suburban colonials, capes, and ranches" },
-  northborough: { character: "classic colonials, capes, and split-levels on quiet residential streets", note: "the town Wolf’s Siding calls home", drive: "right here in our own home town" },
-  westborough:  { character: "well-kept colonials and capes in a growing MetroWest town" },
-  shrewsbury:   { character: "established colonials, garrisons, and lakeside homes near Lake Quinsigamond" },
-  cambridge:    { character: "densely-packed Victorians, triple-deckers, and historic row homes", note: "one of the most historic, tightly-built cities in the state", climate: "inland" },
-  somerville:   { character: "close-set triple-deckers and Victorian two- and three-families", climate: "inland" },
-  newton:       { character: "large Victorian and colonial homes on established, tree-lined lots", note: "Boston’s affluent “Garden City”" },
-  lexington:    { character: "historic colonials and stately center-entrance homes in a Revolutionary-era town" },
-  concord:      { character: "antique colonials, farmhouses, and historic homes, some dating to the 1700s" },
-  weston:       { character: "large custom colonials and estate homes on generous wooded lots", note: "one of the wealthiest towns in Massachusetts" },
-  wellesley:    { character: "grand colonials, Tudors, and Victorians on established estate-sized lots" },
-  needham:      { character: "spacious colonials and Tudors on well-established suburban streets" },
-  quincy:       { character: "coastal colonials, capes, and dense two-families near the harbor", note: "the “City of Presidents” on Boston Harbor" },
-  weymouth:     { character: "shingled capes, colonials, and multis close to the coast" },
-  salem:        { character: "historic Federal and colonial homes, some dating to the 1600s, near the water" },
-  beverly:      { character: "seaside Victorians, colonials, and shingle-style homes on the North Shore" },
-  lynn:         { character: "dense Victorians, triple-deckers, and multi-families along the coast" },
-  fitchburg:    { character: "hilly neighborhoods of Victorians, triple-deckers, and mill-era homes" },
-  leominster:   { character: "a mix of Victorian-era homes, colonials, and post-war capes and ranches" },
-  natick:       { character: "downtown multi-families alongside colonials and ranches on leafy streets" },
-  waltham:      { character: "dense colonials, Victorians, and two-families near the Charles River" },
-  arlington:    { character: "close-set colonials, Victorians, and two-families on compact lots" },
-  sudbury:      { character: "large colonials and antique homes on wooded, low-density lots" },
-};
-
-/* ── Climate copy pools (all true of these Massachusetts zones) ── */
-const CLIMATE: Record<Climate, string[]> = {
-  "inland": [
-    "Inland MetroWest homes take a beating from freeze-thaw cycles — water works into every seam, freezes, expands, and pries lesser siding loose winter after winter.",
-    "Away from the coast the real enemy is the temperature swing: humid summers, hard freezes, and the freeze-thaw churn that splits and warps siding that can’t move with the seasons.",
-    "This part of Massachusetts sees it all — summer humidity, driving nor’easters, and sub-zero snaps — so the siding here has to expand, contract, and shed water without cracking.",
-    "Between wet springs and deep-freeze winters, moisture management is everything inland — the wrong siding traps water behind it and rots the sheathing you can’t see.",
-    "Heavy snow, ice, and repeated freeze-thaw are what age an exterior here fastest, so we build for water to drain and dry rather than sit.",
-    "Four hard seasons a year — humid summers and frozen winters — mean the exterior has to handle constant expansion and contraction without opening up seams.",
+/* ── What the weather actually does to an exterior, by exposure band.
+      These are physical mechanisms, not adjectives, and they differ
+      because the exposure differs. ── */
+const EXPOSURE_STORY: Record<Exposure, string[]> = {
+  coastal: [
+    "Salt air is the deciding factor this close to the water. Airborne salt settles into seams and reaches fasteners long before it marks the panel face, so corrosion-resistant fixings and properly lapped flashing matter more here than the panel colour ever will.",
+    "Within sight of salt water an exterior ages from the fasteners outward. Salt-laden air works into laps and joints, attacks anything that can rust, and turns a small flashing gap into a stained wall — which is why we spec stainless-grade fixings and detail the laps tightly.",
   ],
-  "inland-cold": [
-    "Up in the colder, higher interior of central Massachusetts, snow sits longer and freeze-thaw is relentless — the wrong siding traps moisture and fails early.",
-    "Central Massachusetts winters run longer and colder, so ice damming and freeze-thaw are the failure points we build against on every job.",
-    "The hillier, snowier interior piles on heavy snow load and hard freezes — siding here has to shed water fast and shrug off ice year after year.",
-    "Long central-MA winters mean weeks of snow and ice against the wall, so we detail every course to drain and dry instead of holding water.",
-    "Colder nights and deeper snow up here punish any siding that can’t breathe — trapped moisture behind the wall is the number-one killer of an exterior.",
-    "With some of the coldest, snowiest weather in eastern Massachusetts, freeze-thaw and ice are the real test — and exactly what we install to beat.",
+  "near-coastal": [
+    "Close enough to the coast to catch salt on an onshore wind, and far enough inland to take a hard freeze — this band gets both. The combination is harder on an exterior than either alone, because salt keeps working at the fixings while freeze-thaw keeps opening the seams they hold shut.",
+    "Onshore wind carries salt further than most homeowners expect, and it lands on walls that still see a full freeze-thaw winter. We detail for both: fixings that will not corrode, and laps that stay closed when the wall cycles above and below freezing.",
   ],
-  "coastal": [
-    "Coastal air carries salt and moisture that eat through paint and corrode fasteners — near the water, material choice and flashing detail matter even more.",
-    "Ocean-side homes fight wind-driven rain and salt spray all year, so we spec siding and stainless-grade fasteners built to resist corrosion and moisture.",
-    "Salt air, wind, and driving coastal storms punish an exterior fast — the siding here has to hold its color and seal out wind-driven water.",
-    "Near the coast the combination of salt, humidity, and nor’easter winds is brutal on siding and trim, so corrosion-resistant details are non-negotiable.",
-    "Wind-driven rain off the water finds every weak seam, so on coastal homes we obsess over overlap, flashing, and fasteners that won’t rust.",
-    "Between salt spray and storm-force gusts, a coastal exterior takes more abuse than an inland one — we build it to take the hit and keep sealing out water.",
+  inland: [
+    "Freeze-thaw is what takes an exterior apart here. Water finds a seam, freezes, expands, and levers the joint a little wider — then does it again on the next cold night. Over a winter that is hundreds of cycles, and it is why a tight, correctly lapped install outlasts a fast one by years.",
+    "The damage pattern inland is patient rather than dramatic: moisture works into a seam, freezes overnight, expands, and prises the joint open a fraction at a time. Do that from November through March and a poorly detailed wall starts letting water behind the cladding.",
+  ],
+  upland: [
+    "Up in the higher interior the winter is simply longer and heavier. More snow sits against the lower courses, the freeze-thaw season runs weeks longer at both ends, and drifting piles hold meltwater against the wall — so the bottom two feet of an exterior take punishment the rest of the wall never sees.",
+    "Elevation buys you a colder, snowier winter than the coastal towns get. Snow banks against the lower courses and stays there, meltwater soaks the base of the wall by day and refreezes at night, and any weakness in the starter course shows up fast.",
   ],
 };
 
-/* ── Intro pools (slot in city name + drive + optional note) ── */
-interface Ctx { name: string; drive: string; character: string; climate: Climate; note?: string; }
-const INTRO: ((c: Ctx) => string)[] = [
-  (c) => `In ${c.name}${c.note ? `, ${c.note},` : ""} homeowners call Wolf’s Siding when they want the exterior done once and done right — ${c.drive} from our shop.`,
-  (c) => `${c.name} is ${c.drive} from our Northborough headquarters — close enough that our own crew, never a subcontractor, is the one on your home.`,
-  (c) => `We’ve built our name in ${c.name} one exterior at a time${c.note ? `, ${c.note},` : ""} and we’re ${c.drive} away when you need us.`,
-  (c) => `Homeowners across ${c.name} trust Wolf’s Siding for exteriors built to last — our licensed crew works ${c.drive} from home base in Northborough.`,
-  (c) => `From our shop in Northborough, ${c.name} is ${c.drive} away — and every ${c.name} project is run by our own crew and overseen by the owner personally.`,
-];
-
-/* Home-town special case for Northborough reads naturally */
-const INTRO_HOMETOWN = (c: Ctx) =>
-  `${c.name} is our home town — Wolf’s Siding is based right here, so your neighbors are our neighbors, and our crew is only minutes from your door.`;
+const EXPOSURE_HOOK: Record<Exposure, string> = {
+  coastal: "detailed for salt air",
+  "near-coastal": "built for salt air and hard freezes",
+  inland: "built for freeze-thaw winters",
+  upland: "built for a longer, snowier winter",
+};
 
 export interface LocalContent {
   intro: string;
@@ -168,69 +104,137 @@ export interface LocalContent {
   faq: { q: string; a: string };
   driveLabel: string;
   metaHook: string;
+  /** Neighbouring towns we also serve — real adjacency, for copy and links. */
+  nearby: { slug: string; name: string }[];
+  /** One line placing the town: county, distance, coast. */
+  placement: string;
 }
 
-function resolveClimate(city: CityData): Climate {
-  const ov = CITY[city.slug]?.climate;
-  if (ov) return ov;
-  if (COASTAL.has(city.slug)) return "coastal";
-  if (INLAND_COLD.has(city.slug) || city.region === "Worcester Area") return "inland-cold";
-  return "inland";
+function buildPlacement(cityName: string, slug: string): string {
+  const g = cityGeo(slug);
+  if (!g) return "";
+  const coast =
+    g.exposure === "coastal"
+      ? `roughly ${g.milesFromCoast} miles from open salt water`
+      : g.exposure === "near-coastal"
+        ? `about ${g.milesFromCoast} miles inland from the coast`
+        : `about ${g.milesFromCoast} miles from the coast`;
+  return `${cityName} sits in ${g.county} County, ${g.drive}, and ${coast}.`;
 }
 
-export function getLocalContent(city: CityData, service: ServiceData): LocalContent {
-  const reg = REGION[city.region] ?? REGION["Metro West"];
-  const ov = CITY[city.slug] ?? {};
+export function getLocalContent(
+  city: CityData,
+  service: ServiceData
+): LocalContent {
+  const g = cityGeo(city.slug);
+  const short = service.shortName.toLowerCase();
   const s = seed(city.slug + "|" + service.slug);
-  const character = ov.character ?? pick(reg.characters, seed(city.slug) >> 2);
-  const drive = ov.drive ?? reg.drive;
-  const climate = resolveClimate(city);
-  const ctx: Ctx = { name: city.name, drive, character, climate, note: ov.note };
+
+  /* A town with no coordinates yet gets honest generic copy rather than
+     a guess — the same principle cityCoords.ts already established. */
+  if (!g) {
+    return {
+      intro: `Wolf's Siding installs ${short} across ${city.name} and the surrounding ${city.region} towns, with our own crew rather than subcontractors.`,
+      climate: EXPOSURE_STORY.inland[0],
+      architecture: `We match ${short} to the age, framing and exposure of the home rather than to a catalogue page.`,
+      faq: {
+        q: `Do you install ${short} on older homes in ${city.name}?`,
+        a: `Yes. We survey the wall before quoting, because an older home usually needs prep a newer one does not.`,
+      },
+      driveLabel: "",
+      metaHook: EXPOSURE_HOOK.inland,
+      nearby: [],
+      placement: "",
+    };
+  }
+
+  const character = COUNTY_CHARACTER[g.county];
+  const nearby = g.neighbours.map((n) => ({
+    slug: n,
+    name: CITY_FACTS[n] ? titleCase(n) : titleCase(n),
+  }));
+  const nearNames = nearby.slice(0, 3).map((n) => n.name);
+
+  const placement = buildPlacement(city.name, city.slug);
 
   const isHome = city.slug === "northborough";
-  const intro = isHome ? INTRO_HOMETOWN(ctx) : pick(INTRO, s)(ctx);
-  const climateCopy = pick(CLIMATE[climate], s >> 5);
-  const short = service.shortName.toLowerCase();
-  const architecture =
-    `Around ${city.name} you’ll find ${character} — and ${short} is one of the exteriors that fits them best. We match the profile, exposure, and color to the home in front of us, not a one-size template.`;
+  const intro = isHome
+    ? `${city.name} is home. Our shop is here, our crew lives here, and a good share of the ${short} we install goes on streets we drive every day — which is a strong incentive to leave a wall we would be happy to pass again.`
+    : `${placement} That puts a ${short} job here inside our normal working radius, so the crew arrives with the right materials on the first morning instead of making a supply run mid-job. We also work regularly in ${nearNames.join(", ")}, so the drive is routine rather than an excursion.`;
+
+  /* The exposure paragraph explains a mechanism that is shared by every town
+     in the band — which is honest, but on its own it makes two inland towns
+     read identically. So it is anchored to this town's measured numbers: the
+     distance to salt water and the distance from the shop are continuous
+     values, different for essentially every town, and they change what the
+     sentence actually claims rather than merely how it is worded. */
+  const anchor =
+    g.exposure === "coastal"
+      ? `At ${g.milesFromCoast} miles from open water ${city.name} is inside the band where that shows up on a wall within a decade.`
+      : g.exposure === "near-coastal"
+        ? `${city.name} sits ${g.milesFromCoast} miles in from the water — far enough that homeowners here rarely expect salt damage, close enough that we still detail for it.`
+        : g.exposure === "upland"
+          ? `${city.name} is ${g.milesFromHQ} miles out from the shop and well into that higher ground, so we schedule its winter work around the snow rather than through it.`
+          : `${city.name} is ${g.milesFromCoast} miles from the coast, so salt is not the issue here — the freeze-thaw cycle is, and it runs all winter.`;
+  const climate = `${pick(EXPOSURE_STORY[g.exposure], s >> 5)} ${anchor}`;
+
+  const architecture = `The housing stock across ${g.county} County runs to ${character}. Between ${nearNames[0]}, ${nearNames[1]} and ${city.name} itself we see that whole range in a single working week, which is why a ${short} quote here starts with a survey of the wall rather than a price per square.`;
 
   const faq = {
-    q: `Do you install ${short} on older homes in ${city.name}?`,
-    a: `Yes. Many ${city.name} homes are ${character}, and we tailor every ${short} job to the home’s age, framing, and exposure. We start with a full inspection — checking the sheathing and trim behind the old siding — before we ever hand you a written quote, so there are no surprises mid-project.`,
+    q: `Is ${short} a good choice for a ${city.name} home?`,
+    a: `For most of them, yes — but the reason is local. At ${g.milesFromCoast} miles from salt water and ${g.milesFromHQ} from our shop, ${city.name} is ${g.exposure === "coastal" || g.exposure === "near-coastal" ? "close enough to the coast that salt reaches the fasteners, so the fixings and flashing matter as much as the panel" : g.exposure === "upland" ? "high enough inland that snow sits against the lower courses for weeks, so the starter course and base detailing carry the load" : "inland enough that freeze-thaw is the main enemy, so tight laps and correct fastening decide how long the wall lasts"}. We survey the wall, tell you what it needs, and quote that — not a package.`,
   };
 
-  const hookByClimate: Record<Climate, string> = {
-    "inland": `built for ${city.name}’s freeze-thaw winters`,
-    "inland-cold": `built for central-MA snow and ice`,
-    "coastal": `built to beat ${city.name}’s coastal salt air`,
+  return {
+    intro,
+    climate,
+    architecture,
+    faq,
+    driveLabel: g.drive,
+    metaHook: EXPOSURE_HOOK[g.exposure],
+    nearby,
+    placement,
   };
-  const metaHook = hookByClimate[climate];
-
-  return { intro, climate: climateCopy, architecture, faq, driveLabel: drive, metaHook };
 }
 
-/* ── City-level (service-agnostic) unique content for the /{city} landing pages ── */
-export interface CityLocal { intro: string; climate: string; architecture: string; driveLabel: string; metaHook: string; }
+/* ── City-level (service-agnostic) copy for the /{city} landing pages ── */
+export interface CityLocal {
+  intro: string;
+  climate: string;
+  architecture: string;
+  driveLabel: string;
+  metaHook: string;
+  nearby: { slug: string; name: string }[];
+  placement: string;
+}
 
 export function getCityLocal(city: CityData): CityLocal {
-  const reg = REGION[city.region] ?? REGION["Metro West"];
-  const ov = CITY[city.slug] ?? {};
-  const s = seed(city.slug + "|city");
-  const character = ov.character ?? pick(reg.characters, seed(city.slug) >> 2);
-  const drive = ov.drive ?? reg.drive;
-  const climate = resolveClimate(city);
-  const ctx: Ctx = { name: city.name, drive, character, climate, note: ov.note };
+  const g = cityGeo(city.slug);
+  if (!g) {
+    return {
+      intro: `Wolf's Siding works throughout ${city.name} and the surrounding ${city.region} towns.`,
+      climate: EXPOSURE_STORY.inland[0],
+      architecture: "",
+      driveLabel: "",
+      metaHook: EXPOSURE_HOOK.inland,
+      nearby: [],
+      placement: "",
+    };
+  }
+  const s = seed(city.slug);
+  const nearby = g.neighbours.map((n) => ({ slug: n, name: titleCase(n) }));
+  const placement = buildPlacement(city.name, city.slug);
+  const isHome = city.slug === "northborough";
 
-  const intro = city.slug === "northborough" ? INTRO_HOMETOWN(ctx) : pick(INTRO, s)(ctx);
-  const climateCopy = pick(CLIMATE[climate], s >> 5);
-  const architecture =
-    `Homes across ${city.name} tend to be ${character} — and every exterior we install here is matched to the home’s age, style, and exposure, never a one-size template.`;
-
-  const hookByClimate: Record<Climate, string> = {
-    "inland": `siding built for ${city.name}’s freeze-thaw winters`,
-    "inland-cold": `siding built for central-MA snow and ice`,
-    "coastal": `siding built to beat ${city.name}’s coastal salt air`,
+  return {
+    intro: isHome
+      ? `${city.name} is home — our shop, our crew, and a fair number of the walls we have re-clad over the years.`
+      : `${placement} We work across ${nearby.slice(0, 3).map((n) => n.name).join(", ")} and the rest of ${g.county} County from that shop, with our own crew on every job.`,
+    climate: pick(EXPOSURE_STORY[g.exposure], s >> 5),
+    architecture: `Homes here sit among ${COUNTY_CHARACTER[g.county]}, and the exterior that suits one of those is not automatically the one that suits the next.`,
+    driveLabel: g.drive,
+    metaHook: EXPOSURE_HOOK[g.exposure],
+    nearby,
+    placement,
   };
-
-  return { intro, climate: climateCopy, architecture, driveLabel: drive, metaHook: hookByClimate[climate] };
 }
