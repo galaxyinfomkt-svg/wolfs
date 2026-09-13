@@ -13,6 +13,7 @@ import LazyIframe from "../components/LazyIframe";
 import FormEmbed from "../components/FormEmbed";
 import CallCtaBlock from "../components/CallCtaBlock";
 import YouTubeSection from "../components/YouTubeSection";
+import CityServiceBrief from "../components/CityServiceBrief";
 
 export function generateStaticParams() {
   return generateCityParams();
@@ -270,6 +271,11 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
 
               <SectionCta label={`Ready to upgrade your ${city.name} home's exterior? Get a free estimate.`} />
 
+              {/* Fatos calculados desta cidade - condado, exposicao, distancia
+                  da oficina e as vizinhas reais de neighbours(). Ver
+                  CityServiceBrief.tsx. */}
+              <CityServiceBrief city={city} />
+
               {/* Services grid */}
               <div>
                 <h2 className="text-3xl font-black text-black mb-3">
@@ -358,57 +364,16 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 </div>
               </div>
 
-              {/* About Us */}
-              <div className="bg-[#111111] rounded-2xl overflow-hidden">
-                <div className="grid sm:grid-cols-2 gap-0">
-                  <div className="relative aspect-[4/5] sm:aspect-auto">
-                    <Image
-                      src="https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68e581d6416ab711d774e6cf.jpeg"
-                      alt={`Ezequias Lobo — Owner of Wolf's Siding Inc., siding contractor serving ${city.name}, Massachusetts`}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, 33vw"
-                    />
-                  </div>
-                  <div className="p-8 flex flex-col justify-center">
-                    <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
-                      Meet <span className="text-[#E00000]">Ezequias Lobo</span>
-                    </h2>
-                    <p className="text-[#E00000] font-bold text-sm uppercase tracking-wider mb-5">Owner — Wolf&apos;s Siding Inc.</p>
-                    <div className="space-y-4 text-white/80 text-sm leading-relaxed">
-                      <p>
-                        With <strong className="text-white">hands-on experience {SINCE}</strong> in siding
-                        installation and exterior remodeling, Ezequias founded Wolf&apos;s Siding Inc. with a
-                        simple mission: deliver honest, high-quality craftsmanship to every homeowner he serves.
-                      </p>
-                      <p>
-                        As your siding contractor in <strong className="text-white">{city.name}</strong>,
-                        Ezequias personally oversees every project — from the initial assessment through the
-                        final walkthrough. He believes that great results start with listening to the homeowner
-                        and delivering solutions that exceed expectations.
-                      </p>
-                      <p>
-                        Based in <strong className="text-white">Northborough, MA</strong>, our team serves {city.name} and
-                        the entire {city.region} region with the same dedication, transparency, and attention
-                        to detail on every job.
-                      </p>
-                    </div>
-                    <div className="grid grid-cols-3 gap-3 mt-6">
-                      {[
-                        { number: `${YEARS_IN_BUSINESS}+`, label: "Years Exp." },
-                        { number: REVIEW_RATING, label: "Google Rating" },
-                        { number: `${CITIES_SERVED}+`, label: "Cities Served" },
-                      ].map((stat) => (
-                        <div key={stat.label} className="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
-                          <div className="text-xl font-black text-[#E00000]">{stat.number}</div>
-                          <div className="text-[10px] text-white/60 font-medium mt-0.5">{stat.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/*
+                O bloco "About Us" saiu daqui: era texto institucional identico
+                nas 109 paginas de cidade. Medido mascarando o nome da cidade -
+                que e como o Google le - ele nao acrescentava nada que
+                distinguisse uma cidade da outra.
 
+                O bloco "Why choose" logo acima FICOU: ele carrega o nome da
+                cidade no titulo e um corte ali estava desbalanceado no JSX.
+                Cortar as cegas quebraria a pagina, entao nao cortei.
+              */}
               {/* FAQ Section */}
               <div>
                 <h2 className="text-3xl font-black text-black mb-3">
