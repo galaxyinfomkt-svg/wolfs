@@ -39,8 +39,11 @@ export default function CityServiceBrief({
   service,
 }: {
   city: CityData;
-  service: ServiceData;
+  /** Ausente na pagina de cidade; obrigatorio nas 981 cidade x servico. */
+  service?: ServiceData;
 }) {
+  const trade = service ? service.shortName.toLowerCase() : "siding work";
+  const tradeTitle = service ? service.shortName : "Siding";
   const near = neighbours(city.slug, 5)
     .map((s) => getCityBySlug(s))
     .filter(Boolean) as CityData[];
@@ -52,16 +55,16 @@ export default function CityServiceBrief({
     xs.length <= 1 ? xs[0] ?? "" : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
 
   const expLine: Record<string, string> = {
-    coastal: `${city.name} takes salt air directly, and on ${service.shortName.toLowerCase()} that shows up at the fasteners and the cut ends long before it shows on the face of the panel.`,
-    "near-coastal": `${city.name} sits close enough to the shoreline that salt reaches it on an east wind, which is why ${service.shortName.toLowerCase()} here is specified for fastener corrosion, not just for looks.`,
-    upland: `${city.name} is upland, where the wind loading and the freeze-thaw cycle are harder than the coast — ${service.shortName.toLowerCase()} here lives or dies on how the joints were sealed.`,
-    inland: `${city.name} is inland, so the driver on ${service.shortName.toLowerCase()} is freeze-thaw: water that gets behind the material in the autumn and lifts it by spring.`,
+    coastal: `${city.name} takes salt air directly, and on ${trade} that shows up at the fasteners and the cut ends long before it shows on the face of the panel.`,
+    "near-coastal": `${city.name} sits close enough to the shoreline that salt reaches it on an east wind, which is why ${trade} here is specified for fastener corrosion, not just for looks.`,
+    upland: `${city.name} is upland, where the wind loading and the freeze-thaw cycle are harder than the coast — ${trade} here lives or dies on how the joints were sealed.`,
+    inland: `${city.name} is inland, so the driver on ${trade} is freeze-thaw: water that gets behind the material in the autumn and lifts it by spring.`,
   };
 
   return (
     <div className="my-10 rounded-xl border border-gray-200 bg-[#FAFAFA] p-6 md:p-8">
       <h2 className="text-xl md:text-2xl font-bold text-black mb-4">
-        {service.shortName} in {city.name}: what the job actually looks like here
+        {tradeTitle} in {city.name}: what the job actually looks like here
       </h2>
 
       <div className="space-y-4 text-[#333] leading-relaxed max-w-[68ch]">
@@ -70,14 +73,14 @@ export default function CityServiceBrief({
         {drive && (
           <p>
             {city.name} is {drive}
-            {cty ? `, in ${cty} County` : ""}, so a {service.shortName.toLowerCase()} job
+            {cty ? `, in ${cty} County` : ""}, so a {trade} job
             here is scheduled as a full crew day rather than split across sites.
           </p>
         )}
 
         {near.length > 0 && (
           <p>
-            The same crew that runs {service.shortName.toLowerCase()} in {city.name} also
+            The same crew that runs {trade} in {city.name} also
             covers{" "}
             {near.map((c, i) => (
               <span key={c.slug}>
