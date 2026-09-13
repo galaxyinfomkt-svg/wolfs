@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import FloatingPhone from "./components/FloatingPhone";
 import DeferredScripts from "./components/DeferredScripts";
+import { Analytics } from "@vercel/analytics/next";
 import { BUSINESS, CITIES_SERVED, SINCE } from "../config/business";
 import "./globals.css";
 
@@ -146,7 +147,19 @@ export default function RootLayout({
         {children}
         <FloatingPhone />
         <DeferredScripts />
+        {/*
+          Vercel Web Analytics. O projeto nao tinha NENHUMA medicao de trafego:
+          a API respondia "Web Analytics not found" porque o pacote nunca foi
+          instalado. Nao existe historico, e o log de runtime da Vercel guarda
+          so 24 horas - entao ate agora nao havia como responder "o trafego
+          caiu?" com dado, so com opiniao.
 
+          E first-party (/_vercel/insights/script.js, do proprio dominio), por
+          isso passa na CSP com `script-src 'self'` e nao entra no
+          DeferredScripts: adiar significaria perder justamente a visita de quem
+          abre a pagina, le e sai sem interagir.
+        */}
+        <Analytics />
       </body>
     </html>
   );

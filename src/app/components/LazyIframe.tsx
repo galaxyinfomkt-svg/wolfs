@@ -58,18 +58,46 @@ export default function LazyIframe(
     <div ref={containerRef} className="relative" onClick={clickOnly ? handleClick : undefined}>
       {!loaded && (
         clickOnly ? (
-          /* Form facade — looks like a real form, loads iframe on click */
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-white rounded-xl z-10 cursor-pointer border border-gray-200 shadow-sm">
-            <div className="w-full max-w-xs px-4 space-y-2.5">
-              <p className="text-sm font-bold text-black text-center mb-3">Get Your Free Estimate</p>
-              <div className="h-9 bg-[#F5F5F5] rounded-lg border border-gray-200 flex items-center px-3"><span className="text-xs text-gray-400">Full Name</span></div>
-              <div className="h-9 bg-[#F5F5F5] rounded-lg border border-gray-200 flex items-center px-3"><span className="text-xs text-gray-400">Email Address</span></div>
-              <div className="h-9 bg-[#F5F5F5] rounded-lg border border-gray-200 flex items-center px-3"><span className="text-xs text-gray-400">Phone Number</span></div>
-              <div className="h-10 bg-[#E00000] rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                Click to Start
-              </div>
+          /*
+           * Botao honesto, nao fachada de formulario.
+           *
+           * O QUE ESTAVA AQUI: tres <div> desenhados para parecer campos de
+           * texto, rotulados "Full Name", "Email Address" e "Phone Number". O
+           * proprio comentario do codigo dizia "looks like a real form". Nao
+           * eram campos: clicar em qualquer lugar so carregava o iframe.
+           *
+           * DOIS MOTIVOS PARA SAIR, e o segundo e o que pesa:
+           *
+           * 1. Quebrava para quem usa. A pessoa clicava em "Full Name" e
+           *    comecava a digitar - as teclas nao iam para lugar nenhum,
+           *    porque o campo era um <div> e o iframe ainda estava montando.
+           *
+           * 2. E o padrao que classificador de conteudo enganoso procura.
+           *    Campo de formulario falso numa pagina que captura dado pessoal
+           *    e exatamente o tipo de coisa que a politica de engenharia social
+           *    do Google descreve. NAO estou dizendo que foi isto que sinalizou
+           *    o site - a JH foi sinalizada e nao tem esta fachada, entao a
+           *    causa comum e outra. Mas num dominio que JA esta sob suspeita,
+           *    nao se mantem de proposito algo que imita interface.
+           *
+           * Agora e um botao que se anuncia como botao: diz o que vai
+           * acontecer, e nao finge ser aquilo que ainda nao carregou.
+           */
+          <div
+            role="button"
+            tabIndex={0}
+            aria-label="Load the free estimate form"
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleClick(); } }}
+            className="absolute inset-0 flex flex-col items-center justify-center bg-white rounded-xl z-10 cursor-pointer border border-gray-200 shadow-sm"
+          >
+            <div className="w-full max-w-xs px-4 flex flex-col items-center">
+              <p className="text-sm font-bold text-black text-center">Get Your Free Estimate</p>
+              <p className="mt-1 text-xs text-gray-500 text-center">Takes about a minute</p>
+              <span className="mt-4 h-10 w-full bg-[#E00000] rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                Open the form
+              </span>
             </div>
-            <a href="tel:+17744841895" onClick={(e) => e.stopPropagation()} className="mt-3 text-[#E00000] text-xs font-bold hover:underline">(774) 484-1895</a>
+            <a href="tel:+17744841895" onClick={(e) => e.stopPropagation()} className="mt-3 text-[#E00000] text-xs font-bold hover:underline">or call (774) 484-1895</a>
           </div>
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#F5F5F5] rounded-xl animate-pulse z-10">
