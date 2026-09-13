@@ -116,9 +116,26 @@ const nextConfig: NextConfig = {
         ],
       },
       /*
-       * O site inteiro tambem responde por wolfs-siding-galaxy-mkts-projects
-       * .vercel.app e wolfs-siding-git-main-....vercel.app, sem protecao de
-       * deploy nenhuma. Sao copias abertas e indexaveis do site.
+       * CORRECAO DE UM ERRO MEU, do commit anterior.
+       *
+       * Eu escrevi ali que o site estava "sem protecao de deploy nenhuma" e que
+       * os enderecos .vercel.app eram "copias abertas e indexaveis". ERRADO.
+       * Fui conferir na API depois de ja ter subido:
+       *
+       *   ssoProtection: { enabled: true, deploymentType: "all_except_custom_domains" }
+       *
+       * Ou seja: wolfs-siding-galaxy-mkts-projects.vercel.app exige login da
+       * Vercel. Medido - uma requisicao a /robots.txt naquele host responde 302
+       * para vercel.com/sso-api, nao a pagina. Nunca houve copia aberta aqui.
+       *
+       * Eu tinha verificado essa configuracao no OUTRO site da carteira (a JH,
+       * onde a protecao esta mesmo toda desligada) e ASSUMI que valia para
+       * este. Nao vale. Assumir em vez de medir e exatamente o erro que o resto
+       * deste levantamento evitou.
+       *
+       * A regra FICA, mesmo assim, e por um motivo so: ela nao depende da
+       * configuracao do painel. Se alguem desligar o SSO amanha - um clique -
+       * o noindex continua valendo. Cabecalho no codigo nao regride sozinho.
        *
        * A condicao casa SO host terminado em .vercel.app, de proposito: uma
        * lista de permitidos deixaria o dominio de verdade a um Host inesperado
