@@ -298,6 +298,25 @@ export default async function CityServicePage({ params }: { params: Promise<Para
 
               <SectionCta label={`Get your free ${service.shortName.toLowerCase()} estimate in ${city.name}.`} />
 
+              {/*
+                TRES BLOCOS GENERICOS SAIRAM DAQUI: Process steps, Benefits e
+                "Why <cidade> Chooses Wolf's".
+
+                MOTIVO, MEDIDO. As 981 paginas cidade x servico foram medidas
+                mascarando o nome da cidade e do servico - que e como o Google
+                as le. Mediana de conteudo proprio: 3,5%, com 702 delas abaixo
+                de 5% numa pagina de 10.883 caracteres.
+
+                Os tres blocos eram prosa de SERVICO, identica nas 109 cidades
+                daquele servico, ou prosa institucional identica em todas as
+                981. Frase repetida em 109 URLs nao e conteudo proprio.
+
+                O QUE FICOU: hero com formulario, avaliacoes, intro do
+                especialista, o bloco CityServiceBrief (cidade x servico), os
+                desafios locais, What we offer, as fotos de obra, o mapa, o FAQ,
+                a barra lateral com CTA e o CTA final. O caminho de conversao
+                inteiro continua na pagina.
+              */}
               {/* Common challenges */}
               <div>
                 <h3 className="text-2xl font-black text-black mb-3 flex items-center gap-2">
@@ -324,24 +343,6 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                       <strong>The Solution:</strong> Wolf&apos;s Siding Inc. addresses all of these challenges with professional {service.shortName.toLowerCase()} tailored specifically for {city.name}&apos;s conditions. Our local experience {SINCE} means we know exactly what works and what doesn&apos;t.
                     </p>
                   </div>
-                </div>
-              </div>
-
-              {/* Process steps */}
-              <div>
-                <h3 className="text-2xl font-black text-black mb-6">
-                  Our {service.shortName} Process in {city.name}
-                </h3>
-                <div className="grid sm:grid-cols-2 gap-5">
-                  {service.processSteps.map((step, i) => (
-                    <div key={i} className="bg-[#F5F5F5] rounded-xl p-6 border border-gray-100 relative">
-                      <div className="w-10 h-10 bg-[#E00000] rounded-full flex items-center justify-center text-white font-bold text-sm mb-4">
-                        {i + 1}
-                      </div>
-                      <h4 className="font-bold text-black mb-2">{step.title}</h4>
-                      <p className="text-sm text-[#333] leading-relaxed">{step.desc}</p>
-                    </div>
-                  ))}
                 </div>
               </div>
 
@@ -393,22 +394,6 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 </div>
               </div>
 
-              {/* Benefits */}
-              <div>
-                <h3 className="text-2xl font-black text-black mb-3">
-                  Why Choose {service.shortName} for Your {city.name} Home?
-                </h3>
-                <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
-                <div className="space-y-4">
-                  {prioritiseByExposure(service.benefits, citySlug).map((benefit, i) => (
-                    <div key={i} className="flex items-start gap-4 bg-green-50 rounded-xl p-5 border border-green-100">
-                      <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                      <p className="text-[#333] text-sm leading-relaxed">{benefit}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
               {/* Map */}
               <div>
                 <h3 className="text-2xl font-black text-black mb-3 flex items-center gap-2">
@@ -441,33 +426,6 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 </div>
               </div>
 
-              {/* Why choose Wolf's */}
-              <div>
-                <h3 className="text-2xl font-black text-black mb-6">
-                  Why {city.name} Chooses Wolf&apos;s Siding
-                </h3>
-                <div className="grid sm:grid-cols-2 gap-5">
-                  {[
-                    { icon: "shield", title: "Licensed & Insured", desc: "Fully licensed and insured for your complete peace of mind on every project." },
-                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} Google rating from ${REVIEW_COUNT} reviews by satisfied Massachusetts homeowners.` },
-                    { icon: "clock", title: "On-Time Completion", desc: "Projects completed on time, within budget, with minimal disruption to your life." },
-                    { icon: "dollar", title: "Free Estimates", desc: "No-obligation on-site assessments with transparent, itemized pricing — no hidden fees." },
-                  ].map((item) => (
-                    <div key={item.title} className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-                      <div className="w-10 h-10 bg-[#E00000]/10 rounded-lg flex items-center justify-center mb-4">
-                        <svg className="w-5 h-5 text-[#E00000]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                          {item.icon === "shield" && <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />}
-                          {item.icon === "star" && <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />}
-                          {item.icon === "clock" && <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />}
-                          {item.icon === "dollar" && <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />}
-                        </svg>
-                      </div>
-                      <h4 className="font-bold text-black mb-2">{item.title}</h4>
-                      <p className="text-sm text-[#333] leading-relaxed">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* ─── RIGHT: Sticky Sidebar ─── */}
