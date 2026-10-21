@@ -9,6 +9,7 @@ import { BUSINESS, SINCE, YEARS_IN_BUSINESS } from "../../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../../config/meta";
 import LazyIframe from "../../components/LazyIframe";
 import FormEmbed from "../../components/FormEmbed";
+import HeroPhoto, { heroFor } from "../../components/HeroPhoto";
 import CallCtaBlock from "../../components/CallCtaBlock";
 import ReviewsSection from "../../components/ReviewsSection";
 import { HeroStars, HeroCtas } from "../../components/HeroBits";
@@ -121,20 +122,10 @@ export default async function CityServicePage({ params }: { params: Promise<Para
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       {/* ═══ HERO — job-site photo, big headline, estimate form as a card ═══ */}
-      <section className="relative flex items-center pt-[110px] lg:min-h-[820px]">
-        <div className="absolute inset-0">
-          <Image
-            src={service.heroImage}
-            alt={`${service.shortName} installation by Wolf's Siding in ${city.name}, MA`}
-            fill
-            className="object-cover object-[center_35%]"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,.55),rgba(10,10,10,.85)_60%)] lg:bg-[linear-gradient(90deg,rgba(10,10,10,.88)_0%,rgba(10,10,10,.7)_38%,rgba(10,10,10,.15)_70%,rgba(10,10,10,.05)_100%)]" />
-        </div>
+      <section className="relative bg-[#111] pt-[110px] lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent">
+        <HeroPhoto image={heroFor(`${citySlug}/${serviceSlug}`)} />
 
-        <div className="relative mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+        <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 pt-7 sm:px-6 lg:px-8 lg:py-16">
           <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:gap-14">
             <div>
               <nav className="mb-4 text-sm text-white/70" aria-label="Breadcrumb">
@@ -149,11 +140,11 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 Serving {city.name}, {STATE_ABBR} · HIC #{BUSINESS.hicLicense}
               </span>
 
-              <h1 className="mb-5 mt-5 text-[2.3rem] font-extrabold leading-[1.04] tracking-[-0.025em] text-white sm:text-5xl lg:text-[3.9rem]">
+              <h1 className="mb-5 mt-5 text-[2.3rem] font-extrabold leading-[1.04] tracking-[-0.025em] text-white sm:text-5xl lg:text-[3.9rem] [text-shadow:0_2px_14px_rgba(0,0,0,.35)]">
                 Professional <span className="text-[#E00000]">{service.shortName}</span> Contractor in {city.name}, {STATE_ABBR}
               </h1>
 
-              <p className="mb-6 max-w-xl text-lg leading-relaxed text-white/90 lg:text-xl">
+              <p className="mb-6 max-w-xl text-lg leading-relaxed text-white/90 lg:text-xl [text-shadow:0_2px_14px_rgba(0,0,0,.35)]">
                 {service.shortName} for {city.name} homes, installed by our own crew. Owner-run {SINCE}, licensed and insured.
               </p>
 

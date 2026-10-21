@@ -7,6 +7,8 @@ import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../../conf
 import { cappedDescription, assertMeta } from "../../../config/meta";
 import { BLOG_POSTS } from "../../data/blog";
 import FormEmbed from "../../components/FormEmbed";
+import HeroPhoto, { heroFor } from "../../components/HeroPhoto";
+import { HeroStars, HeroCtas } from "../../components/HeroBits";
 import SectionCta from "../../components/SectionCta";
 import CallCtaBlock from "../../components/CallCtaBlock";
 import YouTubeSection from "../../components/YouTubeSection";
@@ -138,57 +140,35 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
-      {/* ═══ HERO ═══ */}
-      <section className="relative pt-[80px]">
-        <div className="absolute inset-0">
-          <Image src={service.heroImage} alt={`${service.shortName} installation by Wolf's Siding Inc., Massachusetts`} fill className="object-cover object-[center_30%]" priority sizes="100vw" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/40" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+      {/* ═══ HERO — real job photo, big headline, estimate form as a card ═══ */}
+      <section className="relative bg-[#111] pt-[110px] lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent">
+        <HeroPhoto image={heroFor(`service/${slug}`)} />
+
+        <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 pt-7 sm:px-6 lg:px-8 lg:py-16">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:gap-14">
             <div>
-              <nav className="text-sm text-white/50 mb-6" aria-label="Breadcrumb">
-                <Link href="/" className="hover:text-[#E00000] transition-colors">Home</Link>
+              <nav className="mb-4 text-sm text-white/75" aria-label="Breadcrumb">
+                <Link href="/" className="hover:text-white">Home</Link>
                 <span className="mx-2">/</span>
-                <span className="hover:text-[#E00000] transition-colors">Services</span>
+                <span>Services</span>
                 <span className="mx-2">/</span>
                 <span className="text-white">{service.shortName}</span>
               </nav>
 
-              <div className="mb-6">
-                <span className="inline-flex items-center gap-2 bg-[#E00000] text-white text-xs font-bold px-5 py-2 rounded-full tracking-wide uppercase">
-                  Serving {CITIES.length}+ MA Cities &bull; 5-Star Rated &bull; HIC #218835
-                </span>
-              </div>
+              <span className="inline-block rounded-full bg-[#E00000] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.06em] text-white">
+                Serving {CITIES.length}+ MA Cities · HIC #{BUSINESS.hicLicense}
+              </span>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+              <h1 className="mb-5 mt-5 text-[2.3rem] font-extrabold leading-[1.04] tracking-[-0.025em] text-white sm:text-5xl lg:text-[3.9rem] [text-shadow:0_2px_14px_rgba(0,0,0,.35)]">
                 Professional <span className="text-[#E00000]">{service.shortName}</span> in Massachusetts
               </h1>
 
-              <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
-                {service.description} With <strong className="text-white">craftsmanship {SINCE}</strong> serving{" "}
-                {CITIES.length}+ cities across Massachusetts, Wolf&apos;s Siding Inc. is your trusted{" "}
-                {service.shortName.toLowerCase()} contractor.
+              <p className="mb-6 max-w-xl text-lg leading-relaxed text-white/90 lg:text-xl [text-shadow:0_2px_14px_rgba(0,0,0,.35)]">
+                {service.shortName} installed by our own crew across Massachusetts. Owner-run {SINCE}, licensed and insured.
               </p>
 
-              <div className="flex flex-wrap gap-4">
-                {[
-                  { icon: "shield", text: "Licensed & Insured" },
-                  { icon: "clock", text: "Same Day Response" },
-                  { icon: "dollar", text: "Free Estimates" },
-                ].map((b) => (
-                  <div key={b.text} className="flex items-center gap-2 text-white/70 text-sm">
-                    <div className="w-7 h-7 bg-[#E00000]/20 border border-[#E00000]/30 rounded-full flex items-center justify-center">
-                      <svg className="w-3.5 h-3.5 text-[#E00000]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                        {b.icon === "shield" && <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />}
-                        {b.icon === "clock" && <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />}
-                        {b.icon === "dollar" && <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />}
-                      </svg>
-                    </div>
-                    <span className="font-medium">{b.text}</span>
-                  </div>
-                ))}
-              </div>
+              <HeroStars />
+              <HeroCtas />
             </div>
 
             {/* The single GHL form embed (primary conversion slot) */}
