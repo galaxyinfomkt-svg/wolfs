@@ -4,12 +4,13 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
-import { BLOG_POSTS } from "./data/blog";
 import { BUSINESS, SINCE, REVIEW_RATING, CITIES_SERVED, YEARS_IN_BUSINESS } from "../config/business";
 import CustomerReviews from "./components/CustomerReviews";
 import LazyIframe from "./components/LazyIframe";
 import SectionCta from "./components/SectionCta";
-import YouTubeSection from "./components/YouTubeSection";
+import ServiceTiles from "./components/ServiceTiles";
+import ProjectBento from "./components/ProjectBento";
+import { HeroStars, HeroCtas } from "./components/HeroBits";
 import LazyVideo from "./components/LazyVideo";
 
 /* ════════════════════════════════════════════════════════════
@@ -620,83 +621,46 @@ export default function HomePage() {
 
       <main>
         {/* ═══════════════════════════════════════════════════════
-            2. HERO — Full-screen, 2 columns (RS model)
+            2. HERO — job-site photo, big headline, estimate form as a card
             ═══════════════════════════════════════════════════════ */}
-        <section id="home" className="relative min-h-[70vh] lg:min-h-screen flex items-center pt-[110px]">
-          {/* BG image + overlay */}
+        <section id="home" className="relative flex items-center pt-[110px] lg:min-h-[860px]">
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png"
-              alt="Professional siding installation on Massachusetts home by Wolf's Siding Inc."
+              src="/projects/obras/craftsman-triple-garage-hero.jpg"
+              alt="Craftsman home with a triple garage, re-sided by Wolf's Siding Inc."
               fill
-              className="object-cover object-[center_30%]"
+              className="object-cover object-[center_60%]"
               priority
               sizes="100vw"
-              quality={40}
+              quality={60}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/40" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,.55),rgba(10,10,10,.85)_60%)] lg:bg-[linear-gradient(90deg,rgba(10,10,10,.88)_0%,rgba(10,10,10,.7)_38%,rgba(10,10,10,.15)_70%,rgba(10,10,10,.05)_100%)]" />
           </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 w-full">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Left — Content */}
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+            <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:gap-14">
               <div>
-                {/* Brand logo mark on the hero (top-left, no background — white version) */}
+                <span className="inline-block rounded-full bg-[#E00000] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.06em] text-white">
+                  Serving {SERVICE_AREAS_ALL.length}+ MA Cities · HIC #{BUSINESS.hicLicense}
+                </span>
 
-                {/* Badges row (RS pattern) */}
-                <div className="mb-6">
-                  <span className="inline-flex items-center gap-2 bg-[#E00000] text-white text-xs font-bold px-5 py-2 rounded-full tracking-wide uppercase">
-                    Serving {SERVICE_AREAS_ALL.length}+ MA Cities &bull; 5-Star Rated &bull; HIC #218835
-                  </span>
-                </div>
-
-                <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.1] tracking-tight mb-6">
-                  Professional{" "}
-                  <span className="text-[#E00000]">Siding Installation</span>{" "}
-                  &amp; Exterior Contractor in Massachusetts
+                <h1 className="mb-5 mt-5 max-w-[15ch] text-[2.3rem] font-extrabold leading-[1.03] tracking-[-0.025em] text-white sm:text-5xl lg:text-[4.3rem]">
+                  Professional <span className="text-[#E00000]">Siding Installation</span> &amp; Exterior Contractor in Massachusetts
                 </h1>
 
-                <p className="text-lg text-[#F5F5F5]/85 mb-8 leading-relaxed max-w-xl">
-                  Ready to transform your home&apos;s exterior for the next <strong className="text-white">30 years</strong>?
-                  Massachusetts homeowners choose Wolf&apos;s Siding for <strong className="text-white">complete installations</strong> that
-                  add value, beauty, and <strong className="text-white">lasting protection</strong> — backed by{" "}
-                  <strong className="text-white">expert craftsmanship since 2007</strong>.
+                <p className="mb-6 max-w-xl text-lg leading-relaxed text-white/90 lg:text-xl">
+                  Siding, trim, gutters and roofing for Massachusetts homes. Owner-run {SINCE}, licensed and insured.
                 </p>
 
-                {/* CTAs (RS pattern: primary + outline) */}
-                <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                  <a
-                    href="tel:+17744841895"
-                    className="inline-flex items-center justify-center gap-2 bg-[#E00000] hover:bg-[#CC0000] text-white px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-red-900/40"
-                  >
-                    <PhoneIcon className="w-5 h-5" />
-                    (774) 484-1895
-                  </a>
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white hover:bg-white hover:text-black px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300"
-                  >
-                    Get Your Free Estimate
-                  </a>
-                </div>
-
-                {/* Trust badges row (RS pattern) */}
-                <div className="flex flex-wrap gap-6">
-                  {[
-                    { icon: <ShieldCheckIcon className="w-5 h-5" />, text: "Licensed & Insured" },
-                    { icon: <ClockIcon className="w-5 h-5" />, text: "Same Day Response" },
-                    { icon: <CurrencyIcon className="w-5 h-5" />, text: "Free Estimates" },
-                  ].map((badge) => (
-                    <div key={badge.text} className="flex items-center gap-2 text-white/80 text-sm">
-                      <span className="text-[#E00000]">{badge.icon}</span>
-                      <span className="font-medium">{badge.text}</span>
-                    </div>
-                  ))}
-                </div>
+                <HeroStars />
+                <HeroCtas />
               </div>
 
-              {/* Right — the single GHL form embed on the home page */}
-              <div id="contact-form" className="scroll-mt-28">
+              {/* The GHL form embed on the home page, as a card */}
+              <div
+                id="contact-form"
+                className="scroll-mt-28 overflow-hidden rounded-2xl border-t-[6px] border-[#E00000] bg-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.45)]"
+              >
                 <LazyIframe
                   src="https://api.leadconnectorhq.com/widget/form/altG7jV8Jt79wwRd8WbH"
                   className="form-iframe"
@@ -706,6 +670,12 @@ export default function HomePage() {
                   title="Wolf's Siding Free Quote Form"
                   eager
                 />
+                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 border-t border-gray-100 px-5 py-3.5 text-sm text-[#333]">
+                  <span>Prefer to talk?</span>
+                  <a href={`tel:${BUSINESS.phoneE164}`} className="font-bold text-black hover:text-[#E00000]">{BUSINESS.phone}</a>
+                  <a href={`mailto:${BUSINESS.email}`} className="font-bold text-[#E00000] hover:underline">{BUSINESS.email}</a>
+                  <span className="basis-full text-center text-xs text-[#777]">Mon–Fri 7–6 · Sat 8–2</span>
+                </div>
               </div>
             </div>
           </div>
@@ -744,73 +714,74 @@ export default function HomePage() {
         </div>
 
         {/* ═══════════════════════════════════════════════════════
-            4. SERVICES SECTION (RS model: image cards + featured)
+            3b. NUMBERS — real, checkable facts only
             ═══════════════════════════════════════════════════════ */}
-        <section id="services" className="py-20 lg:py-28 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Section header */}
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
+        <section className="bg-[#111111] text-white" aria-label="Wolf's Siding in numbers">
+          <div className="mx-auto grid max-w-7xl grid-cols-2 px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
+            {[
+              { n: String(BUSINESS.foundedYear), label: "Owner-run since" },
+              { n: `${YEARS_IN_BUSINESS}+`, label: "Years of experience" },
+              { n: String(SERVICE_AREAS_ALL.length), label: "Cities served in MA" },
+              { n: String(SERVICES.length), label: "Exterior services" },
+            ].map((x, i) => (
+              <div key={x.label} className={`border-[#2a2a2a] px-3 py-6 lg:px-6 lg:py-8 ${i > 1 ? "border-t lg:border-t-0" : ""} ${i % 2 === 1 ? "lg:border-l" : ""} ${i === 2 ? "lg:border-l" : ""}`}>
+                <p className="text-[2rem] font-extrabold leading-none tracking-[-0.03em] lg:text-[2.75rem]">{x.n}</p>
+                <p className="mt-2 text-[0.95rem] text-[#bbb]">{x.label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
+            3c. RECENT WORK — real job-site photos (Drive), no stock
+            ═══════════════════════════════════════════════════════ */}
+        <section id="recent-work" className="bg-white pb-6 pt-16 lg:pt-28">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 flex flex-col items-start justify-between gap-4 lg:mb-10 lg:flex-row lg:items-end">
+              <div>
+                <h2 className="text-[2.2rem] font-extrabold leading-[1.05] tracking-[-0.02em] text-black lg:text-[3.4rem]">
+                  Homes we <span className="text-[#E00000]">re-sided</span>
+                </h2>
+                <p className="mt-3 max-w-xl text-lg text-[#555]">Every photo is from our own job sites. No stock images.</p>
+              </div>
+              <Link href="/projects" className="whitespace-nowrap font-bold text-[#E00000] hover:underline">
+                See all projects →
+              </Link>
+            </div>
+            <ProjectBento
+              photos={[
+                { src: "/projects/obras/craftsman-rear-porch.jpg", caption: "Craftsman with triple garage" },
+                { src: "/projects/obras/charcoal-board-and-batten.jpg", caption: "Charcoal board & batten" },
+                { src: "/projects/obras/navy-vinyl-lakeside.jpg", caption: "Navy vinyl, lakeside" },
+                { src: "/projects/obras/white-modern-farmhouse.jpg", caption: "White modern farmhouse" },
+                { src: "/projects/obras/two-family-gray-vinyl.jpg", caption: "Two-family, gray vinyl" },
+              ]}
+            />
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
+            4. SERVICES — one real photo per service
+            ═══════════════════════════════════════════════════════ */}
+        <section id="services" className="scroll-mt-28 bg-white pb-16 pt-12 lg:pb-28 lg:pt-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 lg:mb-10">
+              <h2 className="text-[2.2rem] font-extrabold leading-[1.05] tracking-[-0.02em] text-black lg:text-[3.4rem]">
                 Our <span className="text-[#E00000]">Services</span>
               </h2>
-              <div className="w-20 h-1 bg-[#E00000] mx-auto mb-6 rounded-full" />
-              <p className="text-[#333333] text-lg max-w-2xl mx-auto">
+              <p className="mt-3 max-w-2xl text-lg text-[#555]">
                 From vinyl siding to premium cedar shingles, we deliver expert installation
                 tailored to your home, budget, and the demanding Massachusetts climate.
               </p>
             </div>
-
-            {/* Service cards grid (RS model: 3 cols with image, overlay, icon circle) */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {SERVICES.map((service) => (
-                <div
-                  key={service.slug}
-                  className={`service-card group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 scroll-animate ${
-                    service.featured ? "ring-2 ring-[#E00000]" : ""
-                  } ${SERVICES.indexOf(service) === 6 ? "md:col-span-2 lg:col-span-1" : ""}`}
-                >
-                  {/* Featured badge */}
-                  {service.featured && (
-                    <div className="absolute top-4 right-4 z-10 bg-[#E00000] text-white text-xs font-bold px-3 py-1 rounded-full">
-                      Featured Service
-                    </div>
-                  )}
-
-                  {/* Image with gradient overlay */}
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={service.image}
-                      alt={`${service.title} in Massachusetts — Wolf's Siding Inc.`}
-                      fill
-                      className="object-cover service-img transition-transform duration-500"
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                  </div>
-
-                  {/* Icon circle (overlapping image boundary — RS pattern) */}
-                  <div className="relative px-6 pb-6">
-                    <div className="w-14 h-14 bg-[#E00000] rounded-full flex items-center justify-center text-white shadow-lg -mt-7 mb-4 relative z-10">
-                      <ServiceIcon name={service.icon} />
-                    </div>
-                    <h3 className={`text-xl font-bold mb-3 ${service.featured ? "text-[#E00000]" : "text-black"}`}>
-                      {service.title}
-                    </h3>
-                    <p className="text-[#333333] text-sm leading-relaxed mb-5">
-                      {service.description}
-                    </p>
-                    <Link
-                      href={`/services/${service.slug}`}
-                      className="inline-flex items-center gap-2 text-[#E00000] font-semibold text-sm group/link"
-                    >
-                      {service.cta}
-                      <ArrowRightIcon className="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <SectionCta label="See a service that fits? Get a free, no-pressure estimate." />
+            <ServiceTiles
+              items={SERVICES.map((sv) => ({
+                href: `/services/${sv.slug}`,
+                title: sv.title,
+                image: sv.image,
+                blurb: sv.description.split(/(?<=[.?!])\s/).slice(1).join(" "),
+              }))}
+            />
           </div>
         </section>
 
@@ -852,8 +823,8 @@ export default function HomePage() {
                 {/* Stats grid (RS pattern: 2x2) */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10">
                   {[
-                    { number: "20+", label: "MA Cities Served" },
-                    { number: `+`, label: "5-Star Reviews" },
+                    { number: String(SERVICE_AREAS_ALL.length), label: "MA Cities Served" },
+                    { number: String(BUSINESS.foundedYear), label: "Owner-run since" },
                     { number: "100%", label: "Licensed & Insured" },
                     { number: "24hr", label: "Response Time" },
                   ].map((stat) => (
@@ -894,126 +865,34 @@ export default function HomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            6. OUR PROCESS (RS model: 4 numbered steps)
+            6. OUR PROCESS — four steps on a red band
             ═══════════════════════════════════════════════════════ */}
-        <section className="py-20 lg:py-28 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-animate">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
-                Our <span className="text-[#E00000]">Process</span>
-              </h2>
-              <div className="w-20 h-1 bg-[#E00000] mx-auto mb-6 rounded-full" />
-              <p className="text-[#333333] text-lg max-w-2xl mx-auto">
-                From your first call to the final walkthrough, here&apos;s how we deliver a seamless siding experience.
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section className="bg-[#E00000] py-16 text-white lg:py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <h2 className="mb-10 text-center text-[2.2rem] font-extrabold tracking-[-0.02em] lg:mb-14 lg:text-[3.2rem]">
+              How your project works
+            </h2>
+            <ol className="relative grid gap-7 lg:grid-cols-4 lg:gap-7 lg:before:absolute lg:before:left-[12%] lg:before:right-[12%] lg:before:top-8 lg:before:h-0.5 lg:before:bg-white/45 lg:before:content-['']">
               {PROCESS_STEPS.map((step, i) => (
-                <div
-                  key={step.num}
-                  className={`relative bg-[#F5F5F5] rounded-2xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 scroll-animate delay-${(i + 1) * 100}`}
-                >
-                  {/* Watermark number (RS pattern) */}
-                  <span className="process-number">{step.num}</span>
-
-                  {/* Icon circle */}
-                  <div className="w-14 h-14 bg-[#E00000] rounded-full flex items-center justify-center text-white mb-5 relative z-10">
-                    {step.icon}
-                  </div>
-
-                  <h3 className="text-lg font-bold text-black mb-3">{step.title}</h3>
-                  <p className="text-[#333333] text-sm leading-relaxed">{step.desc}</p>
-                </div>
+                <li key={step.num} className="relative grid grid-cols-[52px_1fr] gap-x-4 gap-y-1 lg:block lg:text-center">
+                  <span className="row-span-2 flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white text-xl font-extrabold text-[#E00000] lg:mx-auto lg:mb-5 lg:h-16 lg:w-16 lg:text-2xl">
+                    {i + 1}
+                  </span>
+                  <h3 className="text-lg font-extrabold lg:mb-2 lg:text-xl">{step.title}</h3>
+                  <p className="leading-relaxed text-[#ffe3e3]">{step.desc}</p>
+                </li>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════════════════
-            7. SIDING IN MASSACHUSETTS — SEO content + Why Choose
-            ═══════════════════════════════════════════════════════ */}
-        <section className="py-20 lg:py-28 bg-[#F5F5F5]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-animate">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
-                Expert <span className="text-[#E00000]">Siding</span> in Massachusetts
-              </h2>
-              <div className="w-20 h-1 bg-[#E00000] mx-auto mb-6 rounded-full" />
-            </div>
-
-            {/* SEO content (RS pattern: featured block + grid) */}
-            <div className="grid lg:grid-cols-5 gap-8 mb-16">
-              {/* Featured block */}
-              <div className="lg:col-span-3 bg-white rounded-2xl shadow-lg overflow-hidden scroll-animate">
-                <div className="grid md:grid-cols-2">
-                  <div className="relative h-64 md:h-auto">
-                    <Image
-                      src="/services/specialty-section.jpg"
-                      alt="Wolf's Siding crew working on residential siding project in Massachusetts"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 50vw, 33vw"
-                    />
-                  </div>
-                  <div className="p-8">
-                    <span className="inline-block bg-[#E00000]/10 text-[#E00000] text-xs font-bold px-3 py-1 rounded-full mb-4">
-                      Our Specialty
-                    </span>
-                    <h3 className="text-xl font-bold text-black mb-4">
-                      Why Massachusetts Homes Need Quality Siding
-                    </h3>
-                    <p className="text-[#333333] text-sm leading-relaxed mb-4">
-                      New England&apos;s brutal winters, driving rain, and intense summer heat can wreak
-                      havoc on unprotected exteriors — leading to water infiltration, mold growth,
-                      energy loss, and plummeting property values.
-                    </p>
-                    <p className="text-[#333333] text-sm leading-relaxed">
-                      Wolf&apos;s Siding Inc. delivers customized solutions with <strong>premium materials</strong> engineered
-                      to withstand the toughest conditions, backed by <strong>expert craftsmanship since 2007</strong>.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Why Choose grid (RS pattern: stacked cards) */}
-              <div className="lg:col-span-2 grid gap-4 scroll-animate">
-                {[
-                  { icon: <ClockIcon className="w-6 h-6" />, title: "Serving Since 2007", desc: "Nearly two decades of siding expertise across Massachusetts." },
-                  { icon: <SparklesIcon className="w-6 h-6" />, title: "Premium Materials", desc: "Weather-tested materials from trusted manufacturers." },
-                  { icon: <HandThumbUpIcon className="w-6 h-6" />, title: "Free On-Site Assessment", desc: "No-pressure evaluation and honest estimate." },
-                  { icon: <UsersIcon className="w-6 h-6" />, title: "Clean Jobsite Guarantee", desc: "We respect your property — spotless when done." },
-                ].map((card) => (
-                  <div key={card.title} className="bg-white rounded-xl p-5 flex items-start gap-4 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
-                    <div className="w-12 h-12 bg-[#E00000] rounded-full flex items-center justify-center text-white flex-shrink-0">
-                      {card.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-black text-sm mb-1">{card.title}</h4>
-                      <p className="text-[#333333] text-xs leading-relaxed">{card.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            </ol>
           </div>
         </section>
 
         {/* ═══════════════════════════════════════════════════════
             7b. TRUSTED BRANDS
             ═══════════════════════════════════════════════════════ */}
-        <section className="py-16 lg:py-20 bg-white border-t border-gray-100">
+        <section className="border-t border-gray-100 bg-white py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12 scroll-animate">
-              <h2 className="text-2xl sm:text-3xl font-black text-black mb-3 leading-tight">
-                Trusted <span className="text-[#E00000]">Brands</span> We Work With
-              </h2>
-              <div className="w-16 h-1 bg-[#E00000] mx-auto mb-4 rounded-full" />
-              <p className="text-[#333]/70 text-sm max-w-xl mx-auto">
-                We install and service products from the industry&apos;s leading manufacturers.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 items-center scroll-animate">
+            <p className="mb-5 text-center text-sm font-semibold text-[#555]">Brands we install</p>
+            <div className="grid grid-cols-5 items-center gap-x-2 gap-y-1 scroll-animate">
               {[
                 { src: `${CDN}/689a45c288c2d695b1b12618.webp`, alt: "James Hardie siding products", href: "https://www.jameshardie.com/" },
                 { src: `${CDN}/689a45c288c2d63dfcb125e1.webp`, alt: "CertainTeed siding by Saint-Gobain", href: "https://www.certainteed.com/" },
@@ -1032,14 +911,14 @@ export default function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   title={brand.alt}
-                  className="flex items-center justify-center p-6 sm:p-8 bg-white rounded-2xl border border-gray-100 hover:border-[#E00000]/30 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-28 sm:h-32 group"
+                  className="group flex h-20 items-center justify-center p-2"
                 >
                   <Image
                     src={brand.src}
                     alt={brand.alt}
                     width={200}
                     height={80}
-                    className="max-h-16 sm:max-h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
+                    className="max-h-14 w-auto object-contain"
                   />
                 </a>
               ))}
@@ -1097,87 +976,6 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════════════════
-            8. PROJECTS GALLERY (RS model: filter tabs)
-            ═══════════════════════════════════════════════════════ */}
-        <section id="projects" className="py-20 lg:py-28 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12 scroll-animate">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
-                Our Work <span className="text-[#E00000]">Gallery</span>
-              </h2>
-              <div className="w-20 h-1 bg-[#E00000] mx-auto mb-6 rounded-full" />
-              <p className="text-[#333333] text-lg max-w-2xl mx-auto">
-                Browse our recent siding installations and exterior transformations across Massachusetts.
-              </p>
-            </div>
-
-            {/* Filter buttons (RS pattern) */}
-            <div className="flex flex-wrap justify-center gap-2 mb-10 scroll-animate">
-              {GALLERY_FILTERS.map((filter) => (
-                <button
-                  type="button"
-                  key={filter}
-                  onClick={() => setGalleryFilter(filter)}
-                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
-                    galleryFilter === filter
-                      ? "bg-[#E00000] text-white shadow-lg shadow-red-900/20"
-                      : "bg-[#F5F5F5] text-[#333333] hover:bg-[#E00000]/10 hover:text-[#E00000]"
-                  }`}
-                >
-                  {filter}
-                </button>
-              ))}
-            </div>
-
-            {/* Gallery grid */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredImages.map((img) => (
-                <div
-                  key={img.src}
-                  className="gallery-item group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 scroll-animate"
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={600}
-                    height={450}
-                    className="w-full h-64 sm:h-72 object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                  />
-                  {/* Gradient overlay (RS pattern) */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                  {/* Bottom label */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <p className="text-white font-bold text-base">{img.label}</p>
-                    <p className="text-white/70 text-sm">{img.city}</p>
-                  </div>
-                  {/* Hover full overlay */}
-                  <div className="gallery-overlay absolute inset-0 bg-[#E00000]/85 flex items-center justify-center opacity-0 transition-opacity duration-300">
-                    <div className="text-center text-white px-4">
-                      <p className="text-xl font-bold">{img.label}</p>
-                      <p className="text-sm mt-1 text-white/80">{img.city}</p>
-                      <div className="w-10 h-0.5 bg-white mx-auto mt-3 mb-2 rounded-full" />
-                      <p className="text-xs text-white/70">Wolf&apos;s Siding Inc.</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* View All Projects button */}
-            <div className="text-center mt-10 scroll-animate">
-              <a
-                href="/projects"
-                className="inline-flex items-center gap-2 bg-[#E00000] hover:bg-[#CC0000] text-white px-8 py-3.5 rounded-lg text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-red-900/30"
-              >
-                View All Projects
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-              </a>
             </div>
           </div>
         </section>
@@ -1241,11 +1039,6 @@ export default function HomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            9b. YOUTUBE VIDEOS
-            ═══════════════════════════════════════════════════════ */}
-        <YouTubeSection />
-
-        {/* ═══════════════════════════════════════════════════════
             10. FAQ ACCORDION
             ═══════════════════════════════════════════════════════ */}
         <section id="faq" className="py-20 lg:py-28 bg-white">
@@ -1282,52 +1075,6 @@ export default function HomePage() {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════════════════
-            11. BLOG / SIDING TIPS
-            ═══════════════════════════════════════════════════════ */}
-        <section className="py-20 lg:py-28 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-animate">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-black mb-4 leading-tight">
-                Siding Tips & <span className="text-[#E00000]">Guides</span>
-              </h2>
-              <div className="w-20 h-1 bg-[#E00000] mx-auto mb-6 rounded-full" />
-              <p className="text-[#333]/70 max-w-2xl mx-auto">
-                Expert advice to help Massachusetts homeowners make informed decisions about their home&apos;s exterior.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {BLOG_POSTS.slice(0, 6).map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}`} className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 scroll-animate">
-                  <div className="relative aspect-[16/9]">
-                    <Image src={post.heroImage} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 33vw" />
-                    <div className="absolute top-3 left-3">
-                      <span className="bg-[#E00000] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">{post.category}</span>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-black text-sm mb-2 group-hover:text-[#E00000] transition-colors line-clamp-2">{post.title}</h3>
-                    <p className="text-xs text-[#333]/70 line-clamp-2 mb-3">{post.excerpt}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] text-[#333]/50 font-medium">{post.readTime}</span>
-                      <span className="inline-flex items-center gap-1 text-[#E00000] text-xs font-semibold">
-                        Read More
-                        <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-            <div className="text-center mt-10 scroll-animate">
-              <Link href="/blog" className="inline-flex items-center gap-2 bg-black hover:bg-[#1A1A1A] text-white px-8 py-4 rounded-xl font-bold transition-all hover:scale-105">
-                View All Articles
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-              </Link>
             </div>
           </div>
         </section>
@@ -1476,32 +1223,6 @@ export default function HomePage() {
                 title="Wolf's Siding Inc. Location — Northborough, Massachusetts"
                 className="map-iframe"
               />
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════════════════
-            13. CTA BANNER (RS model: accent bg full-width)
-            ═══════════════════════════════════════════════════════ */}
-        <section className="bg-[#E00000] py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-              <div>
-                <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">
-                  Ready to Transform Your Home&apos;s Exterior?
-                </h2>
-                <p className="text-white text-lg max-w-xl">
-                  Get a free on-site assessment and transparent estimate from Massachusetts&apos; trusted
-                  siding professionals. No pressure, no hidden fees.
-                </p>
-              </div>
-              <a
-                href="tel:+17744841895"
-                className="inline-flex items-center gap-3 bg-black hover:bg-[#1A1A1A] text-white px-10 py-5 rounded-xl text-xl font-black transition-all duration-300 hover:scale-105 hover:shadow-2xl flex-shrink-0"
-              >
-                <PhoneIcon className="w-6 h-6" />
-                (774) 484-1895
-              </a>
             </div>
           </div>
         </section>

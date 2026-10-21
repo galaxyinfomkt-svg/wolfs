@@ -29,7 +29,7 @@ export default function ServiceTiles({ items, columns = 4 }: { items: ServiceTil
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-3.5 pb-4 pt-16 sm:px-5 sm:pb-5">
             <h3 className="text-[1.02rem] font-extrabold leading-tight sm:text-xl">{s.title}</h3>
             {s.blurb ? (
-              <p className="mt-2 hidden text-sm leading-snug text-white/85 line-clamp-3 lg:block">{s.blurb}</p>
+              <p className="mt-2 text-sm leading-snug text-white/85 line-clamp-3 max-lg:hidden">{s.blurb}</p>
             ) : null}
             <span className="mt-3 inline-block border-b-2 border-[#E00000] pb-0.5 text-sm font-bold">
               Learn more →
