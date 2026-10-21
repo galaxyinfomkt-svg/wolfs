@@ -61,26 +61,6 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    id: "lakefront-cottage",
-    title: "Lakefront Cottage Complete Siding",
-    city: "Massachusetts",
-    state: "MA",
-    serviceType: "Vinyl Siding",
-    serviceSlug: "vinyl-siding-installation",
-    description:
-      "Full vinyl siding installation on a lakefront property — navy blue horizontal panels with white trim across the main cottage, ranch building, and outbuildings.",
-    featured: true,
-    images: [
-      { src: `${CDN}/69975cfb2a2f15796c002376.jpg`, alt: "Navy blue vinyl siding installation on lakefront cottage front view, Massachusetts" },
-      { src: `${CDN}/69975cfb3873af15f39e9465.jpg`, alt: "Vinyl siding installation deck and side view on lakefront cottage, MA" },
-      { src: `${CDN}/69975cfb4c25023cb798a266.jpg`, alt: "Completed vinyl siding back view lakefront property, Massachusetts" },
-      { src: `${CDN}/69975cfbdf9bdf3fea129568.jpg`, alt: "Navy blue siding side angle on lakefront cottage by Wolf's Siding, MA" },
-      { src: `${CDN}/69975cfb8d5b5a00c0830e92.jpg`, alt: "Vinyl siding on lakefront outbuilding, Massachusetts" },
-      { src: `${CDN}/69975cfb8d5b5aa2ca830e93.jpg`, alt: "Ranch cottage vinyl siding installation lakefront property, MA" },
-      { src: `${CDN}/69975cfb8523c556b1d00e93.jpg`, alt: "Outbuilding siding installation at lakefront property, Massachusetts" },
-    ],
-  },
-  {
     id: "commercial-multi-family",
     title: "Commercial Multi-Family Sheathing",
     city: "Massachusetts",
