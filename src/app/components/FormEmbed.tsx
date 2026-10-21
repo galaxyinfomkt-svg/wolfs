@@ -1,10 +1,12 @@
 import LazyIframe from "./LazyIframe";
 import { BUSINESS } from "../../config/business";
 
-/* The one GHL estimate form embed per page. The embed itself is untouched — this
-   wraps it with:
-   - a server-rendered phone fallback that is ALWAYS in the HTML (the conversion
-     path when the third-party script is slow, blocked, or down),
+/* The one GHL estimate form embed per page, shown as a white card with a red
+   top edge (the hero card of the approved "Modelo A"). The embed itself is
+   untouched — this wraps it with:
+   - a server-rendered phone + e-mail line under the form that is ALWAYS in the
+     HTML (the conversion path when the third-party script is slow, blocked,
+     or down — and the client wants the e-mail wherever there is contact),
    - reserved height so the layout doesn't shift when the iframe loads,
    - a <noscript> phone CTA. */
 
@@ -18,19 +20,23 @@ export default function FormEmbed({
   className?: string;
 }) {
   return (
-    <div id={id} className="scroll-mt-28">
-      <div className="form-fallback mb-3 rounded-lg bg-white/95 px-4 py-2.5 text-sm text-[#333] shadow-sm">
-        <p>
-          Prefer to talk? Call{" "}
-          <a href={`tel:${BUSINESS.phoneE164}`} className="font-bold text-[#E00000] hover:underline">
-            {BUSINESS.phone}
-          </a>{" "}
-          — Mon–Fri 7–6, Sat 8–2.
-        </p>
-      </div>
+    <div
+      id={id}
+      className="scroll-mt-28 overflow-hidden rounded-2xl border-t-[6px] border-[#E00000] bg-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.45)]"
+    >
       <LazyIframe src={FORM_SRC} className={className} title="Free estimate form" placeholderLabel="Loading form..." />
+      <div className="form-fallback flex flex-wrap items-center justify-center gap-x-4 gap-y-1 border-t border-gray-100 px-5 py-3.5 text-sm text-[#333]">
+        <span>Prefer to talk?</span>
+        <a href={`tel:${BUSINESS.phoneE164}`} className="font-bold text-black hover:text-[#E00000]">
+          {BUSINESS.phone}
+        </a>
+        <a href={`mailto:${BUSINESS.email}`} className="font-bold text-[#E00000] hover:underline">
+          {BUSINESS.email}
+        </a>
+        <span className="basis-full text-center text-xs text-[#777]">Mon–Fri 7–6 · Sat 8–2</span>
+      </div>
       <noscript>
-        <p className="mt-3 rounded-lg bg-white px-4 py-3 text-sm text-[#333]">
+        <p className="px-5 py-3 text-sm text-[#333]">
           Call{" "}
           <a href={`tel:${BUSINESS.phoneE164}`} className="font-bold text-[#E00000]">
             {BUSINESS.phone}

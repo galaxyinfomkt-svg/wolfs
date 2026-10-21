@@ -5,14 +5,15 @@ import { notFound } from "next/navigation";
 import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, getClimate, getRegionLabel, STATE_ABBR, REVIEW_RATING } from "../data/cities";
 import { getCoords } from "../data/cityCoords";
 import { getCityLocal } from "../data/localContent";
-import SectionCta from "../components/SectionCta";
-import { BLOG_POSTS } from "../data/blog";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../config/meta";
 import LazyIframe from "../components/LazyIframe";
 import FormEmbed from "../components/FormEmbed";
 import CallCtaBlock from "../components/CallCtaBlock";
-import YouTubeSection from "../components/YouTubeSection";
+import ServiceTiles from "../components/ServiceTiles";
+import ProjectBento, { LOCAL_WORK_PHOTOS } from "../components/ProjectBento";
+import ReviewsSection from "../components/ReviewsSection";
+import { HeroStars, HeroCtas } from "../components/HeroBits";
 import CityServiceBrief from "../components/CityServiceBrief";
 
 export function generateStaticParams() {
@@ -116,83 +117,53 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     ],
   };
 
-  const cityFaqs = [
-    { q: `How much does siding installation cost in ${city.name}, MA?`, a: `Siding installation costs depend on your home size, material chosen, and project scope. Every project is unique, which is why Wolf's Siding Inc. offers free on-site assessments with transparent pricing — no hidden fees. Call (774) 484-1895 for your free estimate.` },
-    { q: `What is the best siding material for homes in ${city.name}?`, a: `For ${city.name} homes in ${regionLabel}, we recommend Hardie Plank for maximum durability against ${climate.faq}, or vinyl siding for a budget-friendly, low-maintenance option. Cedar shingles are ideal for historic New England-style homes. Our local experience ${SINCE} means we know what works best.` },
-    { q: `How long does a siding installation take in ${city.name}?`, a: `Most residential siding projects in ${city.name} are completed in 1–3 weeks depending on the size of your home and the type of siding. Wolf's Siding Inc. works efficiently to minimize disruption while maintaining our high quality standards.` },
-    { q: `Do you offer free estimates for ${city.name} homeowners?`, a: `Yes! Wolf's Siding Inc. provides completely free, no-obligation on-site assessments for homeowners in ${city.name} and all surrounding ${city.region} communities. We'll inspect your current siding, discuss your options, and provide a detailed written estimate.` },
-    { q: `Is Wolf's Siding Inc. licensed and insured to work in ${city.name}?`, a: `Absolutely. Wolf's Siding Inc. is fully licensed (MA HIC #${BUSINESS.hicLicense}) and insured with comprehensive liability and workers' compensation coverage. We've been serving ${city.name} and ${CITIES_SERVED} Massachusetts cities ${SINCE} with a perfect ${REVIEW_RATING} Google rating.` },
-    { q: `Why should I choose Wolf's Siding over other contractors in ${city.name}?`, a: `Wolf's Siding stands out with ${YEARS_IN_BUSINESS}+ years of experience (${SINCE}), a perfect ${REVIEW_RATING} Google rating, hands-on oversight by owner ${BUSINESS.owner} on every project, and deep knowledge of ${regionLabel} climate challenges. We use premium materials and provide a written warranty on all work.` },
-  ];
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
-      {/* ═══ HERO with background image + form ═══ */}
-      <section className="relative pt-[80px]">
+      {/* ═══ HERO — job-site photo, big headline, estimate form as a card ═══ */}
+      <section className="relative flex items-center pt-[110px] lg:min-h-[820px]">
         <div className="absolute inset-0">
           <Image
             src="https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg"
             alt={`Siding installation project by Wolf's Siding in ${city.name}, MA`}
             fill
-            className="object-cover object-[center_30%]"
+            className="object-cover object-[center_40%]"
             priority
-            quality={40}
+            quality={60}
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/40" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,.55),rgba(10,10,10,.85)_60%)] lg:bg-[linear-gradient(90deg,rgba(10,10,10,.88)_0%,rgba(10,10,10,.7)_38%,rgba(10,10,10,.15)_70%,rgba(10,10,10,.05)_100%)]" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Left: Content */}
+        <div className="relative mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:gap-14">
             <div>
-              <nav className="text-sm text-white/50 mb-6" aria-label="Breadcrumb">
-                <Link href="/" className="hover:text-[#E00000]">Home</Link>
+              <nav className="mb-4 text-sm text-white/70" aria-label="Breadcrumb">
+                <Link href="/" className="hover:text-white">Home</Link>
                 <span className="mx-2">/</span>
                 <span className="text-white">{city.name}, {STATE_ABBR}</span>
               </nav>
 
-              <div className="mb-6">
-                <span className="inline-flex items-center gap-2 bg-[#E00000] text-white text-xs font-bold px-5 py-2 rounded-full tracking-wide uppercase">
-                  Serving {city.name}, {STATE_ABBR} &bull; 5-Star Rated &bull; HIC #218835
-                </span>
-              </div>
+              <span className="inline-block rounded-full bg-[#E00000] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.06em] text-white">
+                Serving {city.name}, {STATE_ABBR} · HIC #{BUSINESS.hicLicense}
+              </span>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+              <h1 className="mb-5 mt-5 text-[2.4rem] font-extrabold leading-[1.03] tracking-[-0.025em] text-white sm:text-5xl lg:text-[4.3rem]">
                 Professional <span className="text-[#E00000]">Siding Contractor</span> in {city.name}, {STATE_ABBR}
               </h1>
 
-              <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
-                Wolf&apos;s Siding Inc. provides expert siding installation, replacement, and repair services to homeowners in{" "}
-                <strong className="text-white">{city.name}, Massachusetts</strong>. With {climate.hero}, your home&apos;s exterior needs professional-grade protection from a contractor trusted{" "}
-                <strong className="text-white">{SINCE}</strong>.
+              <p className="mb-6 max-w-xl text-lg leading-relaxed text-white/90 lg:text-xl">
+                Siding, trim, gutters and roofing for {city.name} homes. Owner-run {SINCE}, licensed and insured.
               </p>
 
-              {/* Trust badges */}
-              <div className="flex flex-wrap gap-4">
-                {[
-                  { icon: "shield", text: "Licensed & Insured" },
-                  { icon: "clock", text: "Same Day Response" },
-                  { icon: "dollar", text: "Free Estimates" },
-                ].map((b) => (
-                  <div key={b.text} className="flex items-center gap-2 text-white/70 text-sm">
-                    <div className="w-7 h-7 bg-[#E00000]/20 border border-[#E00000]/30 rounded-full flex items-center justify-center">
-                      <svg className="w-3.5 h-3.5 text-[#E00000]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                        {b.icon === "shield" && <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />}
-                        {b.icon === "clock" && <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />}
-                        {b.icon === "dollar" && <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />}
-                      </svg>
-                    </div>
-                    <span className="font-medium">{b.text}</span>
-                  </div>
-                ))}
-              </div>
+              <HeroStars />
+              <HeroCtas />
             </div>
 
-            {/* Right: the single GHL form embed (primary conversion slot) */}
+            {/* The single GHL form embed (primary conversion slot) */}
             <FormEmbed id="contact-form" className="form-iframe-hero" />
           </div>
         </div>
@@ -249,154 +220,31 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 </div>
               </div>
 
-              <SectionCta label={`Ready to upgrade your ${city.name} home's exterior? Get a free estimate.`} />
-
               {/* Fatos calculados desta cidade - condado, exposicao, distancia
                   da oficina e as vizinhas reais de neighbours(). Ver
                   CityServiceBrief.tsx. */}
               <CityServiceBrief city={city} />
 
-              {/* Services grid */}
+              {/* Services as photo tiles */}
               <div>
-                <h2 className="text-3xl font-black text-black mb-3">
+                <h2 className="mb-6 text-3xl font-extrabold tracking-[-0.02em] text-black sm:text-4xl">
                   Siding Services in <span className="text-[#E00000]">{city.name}</span>
                 </h2>
-                <div className="w-20 h-1 bg-[#E00000] rounded-full mb-8" />
-                <div className="grid sm:grid-cols-2 gap-5">
-                  {SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
-                    <Link
-                      key={s.slug}
-                      href={`/${slug}/${s.slug}`}
-                      className="group bg-[#F5F5F5] rounded-xl p-6 hover:shadow-lg hover:-translate-y-0.5 transition-[transform,box-shadow] duration-300 border border-transparent"
-                    >
-                      <div className="w-10 h-10 bg-[#E00000] rounded-lg flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
-                      </div>
-                      <h3 className="text-base font-bold text-black mb-2 group-hover:text-[#E00000]">{s.shortName}</h3>
-                      <p className="text-[#333] text-sm leading-relaxed mb-3 line-clamp-2">{s.description}</p>
-                      <span className="inline-flex items-center gap-1 text-[#E00000] font-semibold text-sm">
-                        Learn More
-                        <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-                      </span>
-                    </Link>
-                  ))}
-                </div>
+                <ServiceTiles
+                  items={SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => ({
+                    href: `/${slug}/${s.slug}`,
+                    title: s.shortName,
+                    image: s.heroImage,
+                  }))}
+                />
               </div>
 
-              {/* Project Photos */}
+              {/* Real job-site photos */}
               <div>
-                <h2 className="text-3xl font-black text-black mb-3">
+                <h2 className="mb-6 text-3xl font-extrabold tracking-[-0.02em] text-black sm:text-4xl">
                   Our Work in <span className="text-[#E00000]">{city.region}</span>
                 </h2>
-                <div className="w-20 h-1 bg-[#E00000] rounded-full mb-8" />
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {[
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg", alt: "Vinyl siding installation by Wolf's Siding" },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e32181715caeea6e9c1.jpg", alt: "Hardie Plank siding project" },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328d5b5a3f718385bf.jpg", alt: "Gray vinyl siding on Cape Cod home" },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e324c2502c5f69917b6.jpg", alt: "Navy blue colonial siding" },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328523c5f2c4d090c0.jpg", alt: "Upscale gray colonial siding" },
-                    { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e3220c0353f100e2671.jpg", alt: "Board and batten siding" },
-                  ].map((img) => (
-                    <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
-                      <Image
-                        src={img.src}
-                        alt={`${img.alt} near ${city.name}`}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 640px) 50vw, 33vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                        <span className="text-white text-xs font-semibold">{img.alt}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Why choose */}
-              <div>
-                <h2 className="text-3xl font-black text-black mb-3">
-                  Why {city.name} Chooses <span className="text-[#E00000]">Wolf&apos;s Siding</span>
-                </h2>
-                <div className="w-20 h-1 bg-[#E00000] rounded-full mb-8" />
-                <div className="grid sm:grid-cols-2 gap-5">
-                  {[
-                    { icon: "shield", title: "Licensed & Insured", desc: "Fully licensed and insured for your complete peace of mind. We carry comprehensive liability and workers' compensation coverage." },
-                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} rating on Google from satisfied homeowners across Massachusetts. Our reputation speaks for itself.` },
-                    { icon: "clock", title: "On-Time Completion", desc: "We respect your schedule. Projects are completed on time, within budget, and with minimal disruption to your daily life." },
-                    { icon: "dollar", title: "Free Estimates", desc: "No-obligation on-site assessments with transparent, itemized pricing. No hidden fees, no pressure — just honest expertise." },
-                  ].map((item) => (
-                    <div key={item.title} className="bg-[#F5F5F5] rounded-xl p-6 border border-gray-100">
-                      <div className="w-10 h-10 bg-[#E00000]/10 rounded-lg flex items-center justify-center mb-4">
-                        <svg className="w-5 h-5 text-[#E00000]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                          {item.icon === "shield" && <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />}
-                          {item.icon === "star" && <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />}
-                          {item.icon === "clock" && <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />}
-                          {item.icon === "dollar" && <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />}
-                        </svg>
-                      </div>
-                      <h3 className="font-bold text-black mb-2">{item.title}</h3>
-                      <p className="text-sm text-[#333] leading-relaxed">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/*
-                O bloco "About Us" saiu daqui: era texto institucional identico
-                nas 109 paginas de cidade. Medido mascarando o nome da cidade -
-                que e como o Google le - ele nao acrescentava nada que
-                distinguisse uma cidade da outra.
-
-                O bloco "Why choose" logo acima FICOU: ele carrega o nome da
-                cidade no titulo e um corte ali estava desbalanceado no JSX.
-                Cortar as cegas quebraria a pagina, entao nao cortei.
-              */}
-              {/* FAQ Section */}
-              <div>
-                <h2 className="text-3xl font-black text-black mb-3">
-                  Siding FAQ — <span className="text-[#E00000]">{city.name}, {STATE_ABBR}</span>
-                </h2>
-                <div className="w-20 h-1 bg-[#E00000] rounded-full mb-8" />
-                <div className="space-y-3">
-                  {cityFaqs.map((faq, i) => (
-                    <details key={i} className="group bg-[#F5F5F5] rounded-xl border border-gray-100">
-                      <summary className="flex items-center justify-between p-5 cursor-pointer list-none font-bold text-black text-sm hover:text-[#E00000]">
-                        {faq.q}
-                        <svg className="w-5 h-5 text-[#E00000] flex-shrink-0 ml-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
-                      </summary>
-                      <div className="px-5 pb-5 text-sm text-[#333] leading-relaxed border-t border-gray-200 pt-4">
-                        {faq.a}
-                      </div>
-                    </details>
-                  ))}
-                </div>
-              </div>
-
-              {/* Siding Contractor Near Me */}
-              <div className="bg-gradient-to-br from-[#E00000] to-[#CC0000] rounded-2xl p-8 text-white">
-                <h2 className="text-2xl sm:text-3xl font-black mb-4">
-                  Looking for a Siding Contractor Near {city.name}?
-                </h2>
-                <p className="text-white/90 leading-relaxed mb-6">
-                  Wolf&apos;s Siding Inc. is the top-rated siding contractor near {city.name}, MA. Whether you&apos;re searching for
-                  &ldquo;siding contractor near me&rdquo; or &ldquo;siding installation {city.name}&rdquo;, our team is ready to help.
-                  We serve {city.name} and all nearby {city.region} communities with the same 5-star quality and attention to detail.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {nearby.slice(0, 4).map((c) => (
-                    <Link key={c.slug} href={`/${c.slug}`} className="inline-flex items-center gap-1 bg-white/20 hover:bg-white/30 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
-                      {c.name}, MA
-                    </Link>
-                  ))}
-                </div>
-                <a href="tel:+17744841895" className="inline-flex items-center gap-2 bg-black hover:bg-[#1A1A1A] text-white px-6 py-3 rounded-xl font-bold hover:scale-105 transition-transform">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
-                  Call (774) 484-1895
-                </a>
+                <ProjectBento photos={LOCAL_WORK_PHOTOS} />
               </div>
 
               {/* Map */}
@@ -469,46 +317,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         </div>
       </section>
 
-      {/* ═══ Siding Tips Blog ═══ */}
-      <section className="py-16 bg-[#F5F5F5] content-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-black text-black mb-3">
-            Siding Tips & <span className="text-[#E00000]">Guides</span>
-          </h2>
-          <div className="w-20 h-1 bg-[#E00000] rounded-full mb-8" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {BLOG_POSTS.slice(0, 3).map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-[transform,box-shadow] duration-300">
-                <div className="relative aspect-[16/9]">
-                  <Image src={post.heroImage} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 33vw" />
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-[#E00000] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">{post.category}</span>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <h3 className="font-bold text-black text-sm mb-2 group-hover:text-[#E00000] line-clamp-2">{post.title}</h3>
-                  <p className="text-xs text-[#333]/70 line-clamp-2">{post.excerpt}</p>
-                  <span className="inline-flex items-center gap-1 text-[#E00000] text-xs font-semibold mt-3">
-                    Read Article
-                    <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <Link href="/blog" className="inline-flex items-center gap-2 bg-black hover:bg-[#1A1A1A] text-white px-6 py-3 rounded-xl font-bold hover:scale-105 transition-transform text-sm">
-              View All Articles
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ YOUTUBE VIDEOS ═══ */}
-      <div className="content-auto">
-        <YouTubeSection />
-      </div>
+      <ReviewsSection />
 
       {/* ═══ CTA ═══ */}
       <section className="bg-gradient-to-r from-[#E00000] to-[#CC0000] py-16 content-auto">
