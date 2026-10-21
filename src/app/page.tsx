@@ -515,8 +515,9 @@ export default function HomePage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[70px]">
-            {/* Logo removed from nav — brand shown on the hero instead */}
-            <div className="flex-shrink-0 mr-auto" aria-hidden="true" />
+            <Link href="/" className="flex-shrink-0 mr-auto" aria-label="Wolf's Siding Inc. — home">
+              <Image src="/logo.png" alt="Wolf's Siding Inc." width={594} height={420} priority className="h-11 lg:h-14 w-auto" />
+            </Link>
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-6">
@@ -641,14 +642,6 @@ export default function HomePage() {
               {/* Left — Content */}
               <div>
                 {/* Brand logo mark on the hero (top-left, no background — white version) */}
-                <Image
-                  src="/logo-white.png"
-                  alt="Wolf's Siding Inc. Logo — Siding Contractor Massachusetts"
-                  width={340}
-                  height={240}
-                  priority
-                  className="h-24 sm:h-28 w-auto mb-6 drop-shadow-[0_4px_22px_rgba(0,0,0,0.55)]"
-                />
 
                 {/* Badges row (RS pattern) */}
                 <div className="mb-6">

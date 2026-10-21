@@ -149,14 +149,6 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Content */}
             <div>
-              <Image
-                src="/logo-white.png"
-                alt="Wolf's Siding Inc. Logo — Siding Contractor Massachusetts"
-                width={300}
-                height={210}
-                priority
-                className="h-16 sm:h-20 w-auto mb-6 drop-shadow-[0_4px_18px_rgba(0,0,0,0.5)]"
-              />
               <nav className="text-sm text-white/50 mb-6" aria-label="Breadcrumb">
                 <Link href="/" className="hover:text-[#E00000]">Home</Link>
                 <span className="mx-2">/</span>

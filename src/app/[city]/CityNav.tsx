@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { SERVICES } from "../data/cities";
 import { BUSINESS } from "../../config/business";
@@ -36,8 +37,9 @@ export default function CityNav({ citySlug, cityName }: { citySlug: string; city
       <header className="fixed top-10 left-0 right-0 z-50 bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[70px]">
-            {/* Logo removed from nav — brand shown on the hero instead */}
-            <div className="flex-shrink-0" aria-hidden="true" />
+            <Link href="/" className="flex-shrink-0 mr-auto" aria-label="Wolf's Siding Inc. — home">
+              <Image src="/logo.png" alt="Wolf's Siding Inc." width={594} height={420} priority className="h-11 lg:h-14 w-auto" />
+            </Link>
 
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-6">
