@@ -10,6 +10,7 @@ import LazyIframe from "./components/LazyIframe";
 import SectionCta from "./components/SectionCta";
 import ServiceTiles from "./components/ServiceTiles";
 import ProjectBento from "./components/ProjectBento";
+import HeroPhoto, { HERO_PHOTOS } from "./components/HeroPhoto";
 import { HeroStars, HeroCtas } from "./components/HeroBits";
 import LazyVideo from "./components/LazyVideo";
 
@@ -623,32 +624,21 @@ export default function HomePage() {
         {/* ═══════════════════════════════════════════════════════
             2. HERO — job-site photo, big headline, estimate form as a card
             ═══════════════════════════════════════════════════════ */}
-        <section id="home" className="relative flex items-center pt-[110px] lg:min-h-[860px]">
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/projects/obras/grafton-ma-craftsman-triple-garage-hero.jpg"
-              alt="Craftsman home with a triple garage, re-sided by Wolf's Siding Inc."
-              fill
-              className="object-cover object-[center_60%]"
-              priority
-              sizes="100vw"
-              quality={60}
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,.55),rgba(10,10,10,.85)_60%)] lg:bg-[linear-gradient(90deg,rgba(10,10,10,.88)_0%,rgba(10,10,10,.7)_38%,rgba(10,10,10,.15)_70%,rgba(10,10,10,.05)_100%)]" />
-          </div>
+        <section id="home" className="relative bg-[#111] pt-[calc(110px+64vw)] sm:pt-[calc(110px+34vw)] lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
+          <HeroPhoto image={HERO_PHOTOS[0]} />
 
-          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+          <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6 lg:px-8 lg:py-16">
             <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:gap-14">
               <div>
                 <span className="inline-block rounded-full bg-[#E00000] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.06em] text-white">
                   Serving {SERVICE_AREAS_ALL.length}+ MA Cities · HIC #{BUSINESS.hicLicense}
                 </span>
 
-                <h1 className="mb-5 mt-5 max-w-[15ch] text-[2.3rem] font-extrabold leading-[1.03] tracking-[-0.025em] text-white sm:text-5xl lg:text-[4.3rem]">
+                <h1 className="mb-5 mt-5 max-w-[15ch] text-[clamp(1.85rem,8.4vw,2.5rem)] font-extrabold leading-[1.03] tracking-[-0.025em] text-white sm:text-5xl lg:text-[4.3rem] [text-shadow:0_2px_14px_rgba(0,0,0,.35)]">
                   Professional <span className="text-[#E00000]">Siding Installation</span> &amp; Exterior Contractor in Massachusetts
                 </h1>
 
-                <p className="mb-6 max-w-xl text-lg leading-relaxed text-white/90 lg:text-xl">
+                <p className="mb-6 max-w-xl text-lg leading-relaxed text-white/90 lg:text-xl [text-shadow:0_2px_14px_rgba(0,0,0,.35)]">
                   Siding, trim, gutters and roofing for Massachusetts homes. Owner-run {SINCE}, licensed and insured.
                 </p>
 
