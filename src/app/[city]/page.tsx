@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, getClimate, getRegionLabel, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
+import { CITIES, SERVICES, getCityBySlug, getNearbyCities, generateCityParams, getClimate, getRegionLabel, STATE_ABBR, REVIEW_RATING } from "../data/cities";
 import { getCoords } from "../data/cityCoords";
 import { getCityLocal } from "../data/localContent";
 import SectionCta from "../components/SectionCta";
@@ -122,7 +122,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     { q: `How long does a siding installation take in ${city.name}?`, a: `Most residential siding projects in ${city.name} are completed in 1–3 weeks depending on the size of your home and the type of siding. Wolf's Siding Inc. works efficiently to minimize disruption while maintaining our high quality standards.` },
     { q: `Do you offer free estimates for ${city.name} homeowners?`, a: `Yes! Wolf's Siding Inc. provides completely free, no-obligation on-site assessments for homeowners in ${city.name} and all surrounding ${city.region} communities. We'll inspect your current siding, discuss your options, and provide a detailed written estimate.` },
     { q: `Is Wolf's Siding Inc. licensed and insured to work in ${city.name}?`, a: `Absolutely. Wolf's Siding Inc. is fully licensed (MA HIC #${BUSINESS.hicLicense}) and insured with comprehensive liability and workers' compensation coverage. We've been serving ${city.name} and ${CITIES_SERVED} Massachusetts cities ${SINCE} with a perfect ${REVIEW_RATING} Google rating.` },
-    { q: `Why should I choose Wolf's Siding over other contractors in ${city.name}?`, a: `Wolf's Siding stands out with ${YEARS_IN_BUSINESS}+ years of experience (${SINCE}), a perfect ${REVIEW_RATING} Google rating (${REVIEW_COUNT} reviews), hands-on oversight by owner ${BUSINESS.owner} on every project, and deep knowledge of ${regionLabel} climate challenges. We use premium materials and provide a written warranty on all work.` },
+    { q: `Why should I choose Wolf's Siding over other contractors in ${city.name}?`, a: `Wolf's Siding stands out with ${YEARS_IN_BUSINESS}+ years of experience (${SINCE}), a perfect ${REVIEW_RATING} Google rating, hands-on oversight by owner ${BUSINESS.owner} on every project, and deep knowledge of ${regionLabel} climate challenges. We use premium materials and provide a written warranty on all work.` },
   ];
 
   return (
@@ -216,7 +216,6 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
             ))}
           </div>
           <span className="text-white text-sm font-semibold">{REVIEW_RATING}</span>
-          <span className="text-white/50 text-sm">({REVIEW_COUNT} Reviews)</span>
         </div>
       </div>
 
@@ -333,7 +332,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                 <div className="grid sm:grid-cols-2 gap-5">
                   {[
                     { icon: "shield", title: "Licensed & Insured", desc: "Fully licensed and insured for your complete peace of mind. We carry comprehensive liability and workers' compensation coverage." },
-                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} rating on Google from ${REVIEW_COUNT} reviews by satisfied homeowners across Massachusetts. Our reputation speaks for itself.` },
+                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} rating on Google from satisfied homeowners across Massachusetts. Our reputation speaks for itself.` },
                     { icon: "clock", title: "On-Time Completion", desc: "We respect your schedule. Projects are completed on time, within budget, and with minimal disruption to your daily life." },
                     { icon: "dollar", title: "Free Estimates", desc: "No-obligation on-site assessments with transparent, itemized pricing. No hidden fees, no pressure — just honest expertise." },
                   ].map((item) => (

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE, REVIEW_COUNT, REVIEW_RATING } from "../../data/cities";
+import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE, REVIEW_RATING } from "../../data/cities";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../../config/business";
 import { cappedDescription, assertMeta } from "../../../config/meta";
 import { BLOG_POSTS } from "../../data/blog";
@@ -215,7 +215,6 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
             ))}
           </div>
           <span className="text-white text-sm font-semibold">{REVIEW_RATING}</span>
-          <span className="text-white/50 text-sm">({REVIEW_COUNT} Reviews)</span>
         </div>
       </div>
 
@@ -275,7 +274,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                   <p>
                     Every project begins with a <strong>free on-site assessment</strong> where we evaluate your specific needs,
                     discuss your options, and provide a transparent, itemized estimate. No surprises, no pressure — just honest
-                    expertise from a contractor with a <strong>perfect {REVIEW_RATING} Google rating</strong> and {REVIEW_COUNT} verified reviews.
+                    expertise from a contractor with a <strong>perfect {REVIEW_RATING} Google rating</strong>.
                   </p>
                 </div>
               </div>
@@ -442,7 +441,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 <div className="grid sm:grid-cols-2 gap-5">
                   {[
                     { icon: "shield", title: "Licensed & Insured", desc: "Fully licensed and insured for your complete peace of mind on every project." },
-                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} Google rating from ${REVIEW_COUNT} reviews by satisfied Massachusetts homeowners.` },
+                    { icon: "star", title: "5-Star Rated", desc: `Perfect ${REVIEW_RATING} Google rating from satisfied Massachusetts homeowners.` },
                     { icon: "clock", title: "On-Time Completion", desc: "Projects completed on time, within budget, with minimal disruption to your life." },
                     { icon: "dollar", title: "Free Estimates", desc: "No-obligation on-site assessments with transparent, itemized pricing — no hidden fees." },
                   ].map((item) => (

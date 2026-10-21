@@ -4,6 +4,7 @@ import { PROJECTS, COMPANY_VAN_IMAGE } from "../data/projects";
 import ProjectsGallery from "./ProjectsGallery";
 import ProjectsHero from "./ProjectsHero";
 import YouTubeSection from "../components/YouTubeSection";
+import { YEARS_IN_BUSINESS } from "../../config/business";
 
 export const metadata: Metadata = {
   title: "Siding Projects MA | Installation Gallery & Photos | Wolf's Siding Inc.",
@@ -88,7 +89,7 @@ export default function ProjectsPage() {
             <div className="flex gap-10">
               <div><p className="text-4xl font-black text-[#E00000]">{workProjects.length}</p><p className="text-xs text-[#333]/50 font-semibold mt-1 uppercase tracking-wider">Projects</p></div>
               <div><p className="text-4xl font-black text-[#E00000]">{totalPhotos}</p><p className="text-xs text-[#333]/50 font-semibold mt-1 uppercase tracking-wider">Photos</p></div>
-              <div><p className="text-4xl font-black text-[#E00000]">18+</p><p className="text-xs text-[#333]/50 font-semibold mt-1 uppercase tracking-wider">Years</p></div>
+              <div><p className="text-4xl font-black text-[#E00000]">{YEARS_IN_BUSINESS}+</p><p className="text-xs text-[#333]/50 font-semibold mt-1 uppercase tracking-wider">Years</p></div>
             </div>
           </div>
         </div>

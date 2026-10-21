@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
-import { BUSINESS, SINCE, REVIEW_COUNT, REVIEW_RATING, CITIES_SERVED } from "../config/business";
+import { BUSINESS, SINCE, REVIEW_RATING, CITIES_SERVED, YEARS_IN_BUSINESS } from "../config/business";
 import CustomerReviews from "./components/CustomerReviews";
 import LazyIframe from "./components/LazyIframe";
 import SectionCta from "./components/SectionCta";
@@ -743,7 +743,6 @@ export default function HomePage() {
                 ))}
               </div>
               <span className="text-white font-bold text-sm">5.0</span>
-              <span className="text-white/70 text-sm">({REVIEW_COUNT} reviews)</span>
               <span className="text-[#FF4444] text-sm font-semibold group-hover:underline flex items-center gap-1">
                 See Our Reviews <ExternalLinkIcon className="w-3.5 h-3.5" />
               </span>
@@ -897,7 +896,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-            <SectionCta variant="dark" label="18+ years, one owner, one crew. Let's talk about your project." />
+            <SectionCta variant="dark" label={`${YEARS_IN_BUSINESS}+ years, one owner, one crew. Let's talk about your project.`} />
           </div>
         </section>
 
@@ -1076,7 +1075,7 @@ export default function HomePage() {
                   No shortcuts. No subcontractors. Just our crew.
                 </p>
                 <ul className="space-y-3 mb-8">
-                  {["18+ years of experience", "Licensed & insured", "Free estimates, done right"].map((item) => (
+                  {[`${YEARS_IN_BUSINESS}+ years of experience`, "Licensed & insured", "Free estimates, done right"].map((item) => (
                     <li key={item} className="flex items-center gap-3 text-white/90">
                       <CheckCircleIcon className="w-5 h-5 text-[#E00000] flex-shrink-0" />
                       <span className="font-medium">{item}</span>

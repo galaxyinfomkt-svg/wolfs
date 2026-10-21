@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getCityBySlug, getServiceBySlug, getNearbyCities, generateAllParams, SERVICES, getClimate, getRegionLabel, STATE_ABBR, REVIEW_COUNT, REVIEW_RATING } from "../../data/cities";
+import { getCityBySlug, getServiceBySlug, getNearbyCities, generateAllParams, SERVICES, getClimate, getRegionLabel, STATE_ABBR, REVIEW_RATING } from "../../data/cities";
 import { getCoords } from "../../data/cityCoords";
 import { getLocalContent, prioritiseByExposure, localPainPoint } from "../../data/localContent";
 import { BLOG_POSTS } from "../../data/blog";
@@ -213,7 +213,6 @@ export default async function CityServicePage({ params }: { params: Promise<Para
             ))}
           </div>
           <span className="text-white text-sm font-semibold">{REVIEW_RATING}</span>
-          <span className="text-white/50 text-sm">({REVIEW_COUNT} Reviews)</span>
         </div>
       </div>
 
