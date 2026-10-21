@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { CITIES, SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
 import { getPortfolioProjects } from "./data/projects";
+import { PORTFOLIO } from "./data/portfolio";
 
 const BASE_URL = "https://wolfs-siding.com";
 const SITE_UPDATED = "2026-08-05";
@@ -67,12 +68,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Individual project pages: /projects/{slug}
-  const projectDetailPages: MetadataRoute.Sitemap = getPortfolioProjects().map((p) => ({
-    url: `${BASE_URL}/projects/${p.id}`,
-    lastModified: SITE_UPDATED,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  const caseSlugs = new Set(PORTFOLIO.map((c) => c.slug));
+  const projectDetailPages: MetadataRoute.Sitemap = [
+    // One page per real job, with every job-site photo listed for Google Images.
+    ...PORTFOLIO.map((c) => ({
+      url: `${BASE_URL}/projects/${c.slug}`,
+      lastModified: SITE_UPDATED,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      images: c.photos.map((ph) => `${BASE_URL}${ph.src}`),
+    })),
+    ...getPortfolioProjects()
+      .filter((p) => !caseSlugs.has(p.id))
+      .map((p) => ({
+        url: `${BASE_URL}/projects/${p.id}`,
+        lastModified: SITE_UPDATED,
+        changeFrequency: "monthly" as const,
+        priority: 0.5,
+      })),
+  ];
 
   // Blog index: /blog
   const blogIndex: MetadataRoute.Sitemap = [

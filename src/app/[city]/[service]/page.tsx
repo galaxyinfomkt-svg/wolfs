@@ -305,16 +305,13 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {(() => {
-                    // The stock photos show finished siding installations. For the
-                    // repair service we describe what the image actually shows
-                    // rather than claiming it is a repair project.
-                    const isRepair = service.slug === "siding-repair-services";
-                    const subject = isRepair ? "Siding installation" : service.shortName;
+                    // Real Wolf's jobs, each captioned with the town it is actually
+                    // in — never presented as a job in the page's own city.
                     return [
-                      { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg", alt: `${subject} by Wolf's Siding in ${city.name}, MA` },
-                      { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e32181715caeea6e9c1.jpg", alt: `${subject} detail by Wolf's Siding in ${city.name}, MA` },
-                      { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e324c2502c5f69917b6.jpg", alt: `Completed siding project by Wolf's Siding in ${city.name}, MA` },
-                      { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328523c5f2c4d090c0.jpg", alt: `New siding by Wolf's Siding in ${city.name}, MA` },
+                      { src: "/projects/navy-lakeside-cottage-stoddard-nh/stoddard-nh-navy-lakeside-cottage-siding-01.jpg", alt: "Navy lakeside cottage by Wolf's Siding in Stoddard, NH" },
+                      { src: "/projects/craftsman-ranch/lancaster-ma-craftsman-ranch-fiber-cement-siding-01.jpg", alt: "Craftsman ranch with fiber cement siding by Wolf's Siding in Lancaster, MA" },
+                      { src: "/projects/navy-blue-colonial/grafton-ma-navy-blue-colonial-vinyl-siding-01.jpg", alt: "Navy blue vinyl colonial by Wolf's Siding in Grafton, MA" },
+                      { src: "/projects/upscale-gray-colonial/milton-ma-gray-colonial-siding-01.jpg", alt: "Gray colonial with new siding by Wolf's Siding in Milton, MA" },
                     ];
                   })().map((img) => (
                     <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">

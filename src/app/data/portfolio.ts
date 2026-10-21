@@ -29,7 +29,7 @@ export interface PortfolioCase {
   /** one-line thesis under the title */
   thesis: string;
   city: string;
-  state: "MA" | "NH" | "RI";
+  state: "MA" | "NH" | "RI" | "CT";
   /** slug of the matching /[city] page, when we have one */
   citySlug?: string;
   style: string;
@@ -40,14 +40,46 @@ export interface PortfolioCase {
   photos: CasePhoto[];
 }
 
-const p = (slug: string, n: number, alt: string): CasePhoto => ({
-  src: `/projects/${slug}/${String(n).padStart(2, "0")}.jpg`,
+/* File names carry the town and what the photo shows; every file is
+   geotagged (EXIF GPS) to the TOWN CENTRE — never the client's house — and
+   signed with author and copyright. */
+const FILE: Record<string, string> = {
+  "craftsman-home-grafton-ma": "grafton-ma-craftsman-light-gray-lap-siding",
+  "board-and-batten-cabin-washington-nh": "washington-nh-charcoal-board-and-batten-cabin",
+  "sage-colonial-new-durham-nh": "new-durham-nh-sage-green-colonial-siding",
+  "navy-lakeside-cottage-stoddard-nh": "stoddard-nh-navy-lakeside-cottage-siding",
+  "modern-farmhouse-pelham-nh": "pelham-nh-white-modern-farmhouse-siding",
+  "white-gambrel-laconia-nh": "laconia-nh-white-gambrel-vertical-siding",
+  "two-family-seabrook-nh": "seabrook-nh-gray-two-family-siding",
+  "raised-ranch-stoughton-ma": "stoughton-ma-cream-raised-ranch-siding",
+  "craftsman-ranch": "lancaster-ma-craftsman-ranch-fiber-cement-siding",
+  "gray-cape-cod": "boston-ma-gray-cape-cod-vinyl-siding",
+  "navy-blue-colonial": "grafton-ma-navy-blue-colonial-vinyl-siding",
+  "upscale-gray-colonial": "milton-ma-gray-colonial-siding",
+  "burgundy-barn": "grafton-ma-burgundy-board-and-batten-barn",
+  "ranch-with-brick": "medford-ma-ranch-vinyl-siding-brick-front",
+  "new-construction-subdivision": "stoughton-ma-new-construction-blue-gray-vinyl",
+  "commercial-multi-family": "newington-ct-multi-family-sheathing-wrap",
+};
+
+const p = (slug: string, n: number, alt: string, width = 1800, height = 1350): CasePhoto => ({
+  src: `/projects/${slug}/${FILE[slug]}-${String(n).padStart(2, "0")}.jpg`,
   alt,
-  width: 1800,
-  height: 1350,
+  width,
+  height,
 });
 
-export const STATE_NAME = { MA: "Massachusetts", NH: "New Hampshire", RI: "Rhode Island" } as const;
+export const STATE_NAME = { MA: "Massachusetts", NH: "New Hampshire", RI: "Rhode Island", CT: "Connecticut" } as const;
+
+/** Town-centre coordinates (approximate) — the same point written into the photos' GPS. */
+export const TOWN_GEO: Record<string, [number, number]> = {
+  "Grafton, MA": [42.207, -71.6856], "Stoughton, MA": [42.1251, -71.1023], "Lancaster, MA": [42.4559, -71.6731],
+  "Medford, MA": [42.4184, -71.1062], "Milton, MA": [42.2495, -71.0662], "Boston, MA": [42.3601, -71.0589],
+  "Woburn, MA": [42.4793, -71.1523], "Edgartown, MA": [41.389, -70.5134], "Norwood, MA": [42.1945, -71.1995],
+  "Newington, CT": [41.6979, -72.7237], "Washington, NH": [43.1748, -72.0995], "New Durham, NH": [43.4373, -71.172],
+  "Stoddard, NH": [43.0786, -72.1145], "Pelham, NH": [42.7345, -71.3245], "Laconia, NH": [43.5279, -71.4704],
+  "Seabrook, NH": [42.8948, -70.8712], "Sandown, NH": [42.9287, -71.187],
+};
 
 export const PORTFOLIO: PortfolioCase[] = [
   {
@@ -302,6 +334,168 @@ export const PORTFOLIO: PortfolioCase[] = [
       p("raised-ranch-stoughton-ma", 3, "Front corner of the Stoughton raised ranch"),
     ],
   },
+  /* ── Earlier projects already on the site (same URLs). Their photos used to
+        be served from the GHL CDN with the exact GPS of the client's house;
+        they are now local, cleaned, and geotagged to the town centre. The
+        town comes from that original GPS. ── */
+  {
+    slug: "craftsman-ranch",
+    title: "Craftsman Ranch in Fiber Cement",
+    thesis: "Hardie Plank fiber cement with lap siding and shake accents on a craftsman-style ranch in Lancaster.",
+    city: "Lancaster",
+    state: "MA",
+    citySlug: "lancaster",
+    style: "Craftsman ranch",
+    look: "Fiber cement lap siding · shake accents",
+    facts: [
+      { label: "Location", value: "Lancaster, MA" },
+      { label: "Home", value: "Craftsman-style ranch" },
+      { label: "Siding", value: "Hardie Plank fiber cement" },
+      { label: "Profiles", value: "Lap siding + shake accents" },
+    ],
+    story: [
+      "Hardie Plank fiber cement siding with mixed profiles on a craftsman-style ranch — lap siding on the walls and shake accents in the gables.",
+    ],
+    highlights: ["Fiber cement lap siding on the main walls", "Shake profile in the gables", "Craftsman gable trim"],
+    photos: [
+      p("craftsman-ranch", 1, "Craftsman-style ranch with fiber cement lap siding and shake gables in Lancaster, MA"),
+      p("craftsman-ranch", 2, "Gable detail with shake accents on the Lancaster ranch"),
+    ],
+  },
+  {
+    slug: "navy-blue-colonial",
+    title: "Navy Blue Colonial",
+    thesis: "Navy blue vinyl siding with crisp white trim on a new colonial in Grafton.",
+    city: "Grafton",
+    state: "MA",
+    citySlug: "grafton",
+    style: "Colonial",
+    look: "Navy blue vinyl · white trim",
+    facts: [
+      { label: "Location", value: "Grafton, MA" },
+      { label: "Home", value: "New colonial" },
+      { label: "Siding", value: "Navy blue vinyl" },
+      { label: "Trim", value: "White" },
+    ],
+    story: ["New construction navy blue vinyl siding on a colonial-style home with crisp white trim details."],
+    highlights: ["Navy blue vinyl siding", "White trim details"],
+    photos: [p("navy-blue-colonial", 1, "Navy blue vinyl siding with white trim on a colonial in Grafton, MA")],
+  },
+  {
+    slug: "burgundy-barn",
+    title: "Burgundy Board & Batten Barn",
+    thesis: "Board and batten siding in a rich burgundy on a barn-style building in Grafton.",
+    city: "Grafton",
+    state: "MA",
+    citySlug: "grafton",
+    style: "Barn",
+    look: "Burgundy board & batten",
+    facts: [
+      { label: "Location", value: "Grafton, MA" },
+      { label: "Building", value: "Barn-style structure" },
+      { label: "Siding", value: "Burgundy board & batten" },
+      { label: "Trim", value: "White" },
+    ],
+    story: ["Board and batten siding in a rich burgundy tone on a barn-style structure — traditional style with modern materials."],
+    highlights: ["Vertical board & batten in burgundy", "Barn-style gables and trim"],
+    photos: [p("burgundy-barn", 1, "Burgundy board and batten siding on a barn-style building in Grafton, MA")],
+  },
+  {
+    slug: "new-construction-subdivision",
+    title: "New Construction in a Subdivision",
+    thesis: "Blue-gray vinyl on a new home in a Stoughton subdivision.",
+    city: "Stoughton",
+    state: "MA",
+    citySlug: "stoughton",
+    style: "New construction",
+    look: "Blue-gray vinyl siding",
+    facts: [
+      { label: "Location", value: "Stoughton, MA" },
+      { label: "Home", value: "New construction" },
+      { label: "Siding", value: "Blue-gray vinyl" },
+      { label: "Setting", value: "Residential subdivision" },
+    ],
+    story: ["New construction siding installation in a residential subdivision — blue-gray vinyl panels."],
+    highlights: ["Blue-gray vinyl siding", "New-construction install"],
+    photos: [p("new-construction-subdivision", 1, "New home with blue-gray vinyl siding in a Stoughton, MA subdivision")],
+  },
+  {
+    slug: "upscale-gray-colonial",
+    title: "Gray Colonial in Winter",
+    thesis: "Gray siding on a colonial in Milton, finished and photographed in winter.",
+    city: "Milton",
+    state: "MA",
+    citySlug: "milton",
+    style: "Colonial",
+    look: "Gray siding · white trim",
+    facts: [
+      { label: "Location", value: "Milton, MA" },
+      { label: "Home", value: "Colonial" },
+      { label: "Siding", value: "Gray" },
+      { label: "Season", value: "Finished in winter" },
+    ],
+    story: ["Gray siding installation on a colonial home in Milton, finished in the winter."],
+    highlights: ["Gray siding on a colonial", "Winter installation"],
+    photos: [p("upscale-gray-colonial", 1, "Gray colonial with new siding in winter in Milton, MA")],
+  },
+  {
+    slug: "gray-cape-cod",
+    title: "Gray Cape Cod",
+    thesis: "Gray vinyl siding on a classic Cape Cod in Boston.",
+    city: "Boston",
+    state: "MA",
+    style: "Cape Cod",
+    look: "Gray vinyl siding",
+    facts: [
+      { label: "Location", value: "Boston, MA" },
+      { label: "Home", value: "Cape Cod" },
+      { label: "Siding", value: "Gray vinyl" },
+      { label: "Trim", value: "White" },
+    ],
+    story: ["Completed gray vinyl siding on a classic Cape Cod home in Boston."],
+    highlights: ["Gray vinyl siding", "Cape Cod roofline and dormers"],
+    photos: [p("gray-cape-cod", 1, "Gray vinyl siding on a Cape Cod home in Boston, MA")],
+  },
+  {
+    slug: "ranch-with-brick",
+    title: "Ranch with a Brick Front",
+    thesis: "Vinyl siding blended with a brick front on a ranch in Medford.",
+    city: "Medford",
+    state: "MA",
+    citySlug: "medford",
+    style: "Ranch",
+    look: "Vinyl siding · brick front",
+    facts: [
+      { label: "Location", value: "Medford, MA" },
+      { label: "Home", value: "Ranch with brick front" },
+      { label: "Siding", value: "Vinyl" },
+      { label: "Scope", value: "Siding meets the brick front" },
+    ],
+    story: ["Vinyl siding installation on a ranch home with a brick front accent — partial siding that blends the two materials."],
+    highlights: ["Vinyl siding on the sides and gables", "Clean transition to the brick front"],
+    photos: [p("ranch-with-brick", 1, "Ranch home in Medford, MA with vinyl siding and a brick front")],
+  },
+  {
+    slug: "commercial-multi-family",
+    title: "Multi-Family Building, Sheathing & Wrap",
+    thesis: "Sheathing and house wrap on a multi-family building in Newington, CT, ready for siding.",
+    city: "Newington",
+    state: "CT",
+    style: "Multi-family",
+    look: "Sheathing · house wrap",
+    facts: [
+      { label: "Location", value: "Newington, CT" },
+      { label: "Building", value: "Multi-family" },
+      { label: "Stage", value: "Sheathing & wrap" },
+      { label: "Next", value: "Siding installation" },
+    ],
+    story: ["Large-scale sheathing and insulation wrap on a multi-family building — the preparation stage before the siding goes on."],
+    highlights: ["Sheathing on a multi-story building", "Weather-resistant wrap before siding"],
+    photos: [
+      p("commercial-multi-family", 1, "Multi-family building with sheathing and house wrap in Newington, CT"),
+      p("commercial-multi-family", 2, "Close-up of sheathing and wrap on the Newington building", 1800, 2400),
+    ],
+  },
 ];
 
 /* Jobs with one or two good photos, or a city not yet confirmed: shown as
@@ -313,20 +507,22 @@ export interface RecentWork {
 }
 
 export const RECENT_WORK: RecentWork[] = [
-  { src: "/projects/obras-recentes/projeto-07.jpg", caption: "Four-story apartment building", place: "Boston, MA" },
-  { src: "/projects/obras-recentes/projeto-18.jpg", caption: "Three-story home, gray and blue", place: "Norwood, MA" },
-  { src: "/projects/obras-recentes/projeto-24.jpg", caption: "Blue-gray siding with stone accents", place: "Rhode Island" },
-  { src: "/projects/obras-recentes/projeto-26.jpg", caption: "Modern home with black windows", place: "Sandown, NH" },
-  { src: "/projects/obras-recentes/projeto-21.jpg", caption: "White Cape with dormers" },
-  { src: "/projects/obras-recentes/projeto-23.jpg", caption: "Craftsman bungalow with front porch" },
-  { src: "/projects/obras-recentes/projeto-22.jpg", caption: "Gray colonial with cupola" },
-  { src: "/projects/obras-recentes/projeto-34.jpg", caption: "Light gray colonial with garage" },
-  { src: "/projects/obras-recentes/projeto-08.jpg", caption: "Two-family home with new porch" },
-  { src: "/projects/obras-recentes/projeto-16.jpg", caption: "Gray three-story home" },
-  { src: "/projects/obras-recentes/projeto-10.jpg", caption: "Gray building with exterior stairs" },
-  { src: "/projects/obras-recentes/projeto-36.jpg", caption: "White home with exterior stairs" },
-  { src: "/projects/obras-recentes/projeto-13.jpg", caption: "Crew at work on a three-story build" },
-  { src: "/projects/obras-recentes/projeto-31.jpg", caption: "Crew finishing a gable on site" },
+  { src: "/projects/obras-recentes/boston-ma-four-story-apartment-siding.jpg", caption: "Four-story apartment building", place: "Boston, MA" },
+  { src: "/projects/obras-recentes/norwood-ma-three-story-gray-blue-siding.jpg", caption: "Three-story home, gray and blue", place: "Norwood, MA" },
+  { src: "/projects/obras-recentes/woburn-ma-multi-family-house-wrap.jpg", caption: "Multi-family house wrap", place: "Woburn, MA" },
+  { src: "/projects/obras-recentes/edgartown-ma-new-construction-crew.jpg", caption: "Crew on a new build", place: "Edgartown, MA" },
+  { src: "/projects/obras-recentes/sandown-nh-modern-home-siding.jpg", caption: "Modern home with black windows", place: "Sandown, NH" },
+  { src: "/projects/obras-recentes/rhode-island-blue-gray-siding-stone.jpg", caption: "Blue-gray siding with stone accents", place: "Rhode Island" },
+  { src: "/projects/obras-recentes/white-cape-dormers-siding.jpg", caption: "White Cape with dormers" },
+  { src: "/projects/obras-recentes/craftsman-bungalow-porch-siding.jpg", caption: "Craftsman bungalow with front porch" },
+  { src: "/projects/obras-recentes/gray-colonial-cupola-siding.jpg", caption: "Gray colonial with cupola" },
+  { src: "/projects/obras-recentes/light-gray-colonial-garage-siding.jpg", caption: "Light gray colonial with garage" },
+  { src: "/projects/obras-recentes/two-family-new-porch-siding.jpg", caption: "Two-family home with new porch" },
+  { src: "/projects/obras-recentes/gray-three-story-home-siding.jpg", caption: "Gray three-story home" },
+  { src: "/projects/obras-recentes/gray-building-exterior-stairs-siding.jpg", caption: "Gray building with exterior stairs" },
+  { src: "/projects/obras-recentes/white-home-exterior-stairs-siding.jpg", caption: "White home with exterior stairs" },
+  { src: "/projects/obras-recentes/crew-three-story-build-house-wrap.jpg", caption: "Crew at work on a three-story build" },
+  { src: "/projects/obras-recentes/crew-finishing-gable-siding.jpg", caption: "Crew finishing a gable on site" },
 ];
 
 export function getCase(slug: string): PortfolioCase | undefined {

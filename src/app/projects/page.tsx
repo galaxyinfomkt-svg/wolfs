@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { PROJECTS } from "../data/projects";
-import { PORTFOLIO, RECENT_WORK } from "../data/portfolio";
+import { PORTFOLIO, RECENT_WORK, TOWN_GEO } from "../data/portfolio";
 import CaseGrid from "./CaseGrid";
 import ReviewsSection from "../components/ReviewsSection";
 import { BUSINESS } from "../../config/business";
@@ -56,6 +56,20 @@ export default function ProjectsPage() {
         name: `${c.title} — ${c.city}, ${c.state}`,
       })),
     },
+    image: RECENT_WORK.filter((w) => w.place).map((w) => {
+      const g = TOWN_GEO[w.place!];
+      return {
+        "@type": "ImageObject",
+        contentUrl: `https://wolfs-siding.com${w.src}`,
+        caption: `${w.caption}, ${w.place}`,
+        contentLocation: {
+          "@type": "Place",
+          name: w.place,
+          ...(g ? { geo: { "@type": "GeoCoordinates", latitude: g[0], longitude: g[1] } } : {}),
+        },
+        creator: { "@type": "Organization", name: "Wolf's Siding Inc." },
+      };
+    }),
   };
 
   return (
@@ -77,7 +91,7 @@ export default function ProjectsPage() {
                 Homes we <span className="text-[#E00000]">sided</span>
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[#444] lg:text-xl">
-                Real projects by our own crew across Massachusetts, New Hampshire and Rhode Island. Every photo is from the job site — no stock images.
+                Real projects by our own crew across Massachusetts, New Hampshire, Rhode Island and Connecticut. Every photo is from the job site — no stock images.
               </p>
             </div>
             <dl className="grid grid-cols-3 gap-4 border-t border-black/10 pt-6 lg:border-0 lg:pt-0">

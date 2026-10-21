@@ -61,21 +61,6 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    id: "commercial-multi-family",
-    title: "Commercial Multi-Family Sheathing",
-    city: "Massachusetts",
-    state: "MA",
-    serviceType: "Full Siding Replacement",
-    serviceSlug: "full-siding-replacement",
-    description:
-      "Large-scale commercial sheathing and insulation wrap on a multi-family building — preparation stage before siding installation.",
-    images: [
-      { src: `${CDN}/69975e328d5b5a152d8385ef.jpg`, alt: "Commercial multi-family building sheathing installation by Wolf's Siding, MA" },
-      { src: `${CDN}/69975e328d5b5a70138385be.jpg`, alt: "Insulation wrap on multi-family building exterior, Massachusetts" },
-      { src: `${CDN}/69975e323ff516f398546699.jpg`, alt: "Close-up sheathing detail on commercial building by Wolf's Siding, MA" },
-    ],
-  },
-  {
     id: "a-frame-chalet",
     title: "A-Frame Chalet Preparation",
     city: "Massachusetts",
@@ -87,102 +72,6 @@ export const PROJECTS: Project[] = [
     images: [
       { src: `${CDN}/69975e328d5b5ade738385b5.jpg`, alt: "A-frame chalet sheathing preparation by Wolf's Siding, Massachusetts" },
       { src: `${CDN}/69975e3218171550c0a6e9c2.jpg`, alt: "A-frame chalet front view exterior preparation, MA" },
-    ],
-  },
-  {
-    id: "craftsman-ranch",
-    title: "Craftsman Ranch Hardie Plank",
-    city: "Massachusetts",
-    state: "MA",
-    serviceType: "Hardie Plank",
-    serviceSlug: "hardie-plank-siding-installation",
-    description:
-      "Hardie Plank fiber cement siding with mixed profiles on a craftsman-style ranch home — combining lap siding and shake accents.",
-    featured: true,
-    images: [
-      { src: `${CDN}/69975e32181715caeea6e9c1.jpg`, alt: "Hardie Plank siding installation on craftsman ranch home, Massachusetts" },
-      { src: `${CDN}/69975e328523c5721bd090c1.jpg`, alt: "Close-up Hardie Plank mixed profile detail on ranch home, MA" },
-    ],
-  },
-  {
-    id: "gray-cape-cod",
-    title: "Gray Cape Cod Showcase",
-    city: "Massachusetts",
-    state: "MA",
-    serviceType: "Vinyl Siding",
-    serviceSlug: "vinyl-siding-installation",
-    description:
-      "Completed gray vinyl siding on a classic Cape Cod home — showcased with Wolf's Siding yard sign.",
-    featured: true,
-    images: [
-      { src: `${CDN}/69975e328d5b5a3f718385bf.jpg`, alt: "Gray vinyl siding on Cape Cod home with Wolf's Siding sign, Massachusetts" },
-    ],
-  },
-  {
-    id: "new-construction-subdivision",
-    title: "New Construction Subdivision",
-    city: "Massachusetts",
-    state: "MA",
-    serviceType: "Vinyl Siding",
-    serviceSlug: "vinyl-siding-installation",
-    description:
-      "New construction siding installation in a residential subdivision — blue-gray vinyl panels with professional crew on site.",
-    images: [
-      { src: `${CDN}/69975e324c2502ee8b9917b7.jpg`, alt: "New construction siding installation with Wolf's Siding crew, Massachusetts" },
-      { src: `${CDN}/69975e323873af74c39f00be.jpg`, alt: "Subdivision home blue-gray vinyl siding installation, MA" },
-    ],
-  },
-  {
-    id: "navy-blue-colonial",
-    title: "Navy Blue Colonial",
-    city: "Massachusetts",
-    state: "MA",
-    serviceType: "Vinyl Siding",
-    serviceSlug: "vinyl-siding-installation",
-    description:
-      "New construction navy blue vinyl siding on a colonial-style home with crisp white trim details.",
-    featured: true,
-    images: [
-      { src: `${CDN}/69975e324c2502c5f69917b6.jpg`, alt: "Navy blue vinyl siding on colonial home, Massachusetts" },
-    ],
-  },
-  {
-    id: "upscale-gray-colonial",
-    title: "Upscale Gray Colonial",
-    city: "Massachusetts",
-    state: "MA",
-    serviceType: "Vinyl Siding",
-    serviceSlug: "vinyl-siding-installation",
-    description:
-      "Premium gray siding installation on an upscale colonial home — winter showcase demonstrating year-round quality.",
-    images: [
-      { src: `${CDN}/69975e328523c5f2c4d090c0.jpg`, alt: "Upscale gray colonial siding installation winter showcase, Massachusetts" },
-    ],
-  },
-  {
-    id: "burgundy-barn",
-    title: "Burgundy Barn Board & Batten",
-    city: "Massachusetts",
-    state: "MA",
-    serviceType: "Clapboard Siding",
-    serviceSlug: "clapboard-siding-installation",
-    description:
-      "Board and batten siding in a rich burgundy tone on a barn-style structure — combining traditional style with modern materials.",
-    images: [
-      { src: `${CDN}/69975e3220c0353f100e2671.jpg`, alt: "Burgundy board and batten siding on barn structure, Massachusetts" },
-    ],
-  },
-  {
-    id: "ranch-with-brick",
-    title: "Ranch with Brick Accent",
-    city: "Massachusetts",
-    state: "MA",
-    serviceType: "Vinyl Siding",
-    serviceSlug: "vinyl-siding-installation",
-    description:
-      "Vinyl siding installation on a ranch home with brick front accent — partial siding blending materials seamlessly.",
-    images: [
-      { src: `${CDN}/69975e323873af3bda9f00d3.jpg`, alt: "Vinyl siding on ranch home with brick accent, Massachusetts" },
     ],
   },
   {

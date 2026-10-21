@@ -2,9 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import CaseGallery from "./CaseGallery";
 import FormEmbed from "../components/FormEmbed";
+import LazyIframe from "../components/LazyIframe";
 import ReviewsSection from "../components/ReviewsSection";
 import { BUSINESS } from "../../config/business";
-import { STATE_NAME, relatedCases, type PortfolioCase } from "../data/portfolio";
+import { STATE_NAME, TOWN_GEO, relatedCases, type PortfolioCase } from "../data/portfolio";
 
 const SITE = "https://wolfs-siding.com";
 
@@ -17,6 +18,13 @@ export default function CaseStudy({ c }: { c: PortfolioCase }) {
   const place = `${c.city}, ${c.state}`;
   const related = relatedCases(c, 3);
   const cover = c.photos[0];
+  const geo = TOWN_GEO[place];
+  const placeLd = {
+    "@type": "Place",
+    name: place,
+    address: { "@type": "PostalAddress", addressLocality: c.city, addressRegion: c.state, addressCountry: "US" },
+    ...(geo ? { geo: { "@type": "GeoCoordinates", latitude: geo[0], longitude: geo[1] } } : {}),
+  };
 
   const pageLd = {
     "@context": "https://schema.org",
@@ -26,17 +34,14 @@ export default function CaseStudy({ c }: { c: PortfolioCase }) {
     name: `${c.title} in ${place}`,
     description: c.thesis,
     primaryImageOfPage: { "@id": `${SITE}${cover.src}#image` },
-    contentLocation: {
-      "@type": "Place",
-      name: place,
-      address: { "@type": "PostalAddress", addressLocality: c.city, addressRegion: c.state, addressCountry: "US" },
-    },
+    contentLocation: placeLd,
     about: { "@type": "Service", name: "Siding installation", provider: { "@type": "HomeAndConstructionBusiness", name: BUSINESS.legalName, url: SITE } },
     image: c.photos.map((ph) => ({
       "@type": "ImageObject",
       "@id": `${SITE}${ph.src}#image`,
       contentUrl: `${SITE}${ph.src}`,
       caption: ph.alt,
+      contentLocation: placeLd,
       creator: { "@type": "Organization", name: BUSINESS.legalName },
       copyrightHolder: { "@type": "Organization", name: BUSINESS.legalName },
     })),
@@ -137,6 +142,15 @@ export default function CaseStudy({ c }: { c: PortfolioCase }) {
                 Siding in {c.city}, {c.state} →
               </Link>
             ) : null}
+            <div className="mt-6 overflow-hidden rounded-xl">
+              <LazyIframe
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(`${c.city}, ${STATE_NAME[c.state]}`)}&zoom=11`}
+                className="h-[220px] w-full border-0"
+                title={`Map of ${place}`}
+                placeholderLabel="Loading map..."
+              />
+            </div>
+            <p className="mt-2 text-xs text-[#777]">Map shows the town, not the home — we never publish a client&apos;s address.</p>
           </aside>
         </div>
       </section>

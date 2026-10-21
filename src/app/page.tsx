@@ -626,7 +626,7 @@ export default function HomePage() {
         <section id="home" className="relative flex items-center pt-[110px] lg:min-h-[860px]">
           <div className="absolute inset-0 z-0">
             <Image
-              src="/projects/obras/craftsman-triple-garage-hero.jpg"
+              src="/projects/obras/grafton-ma-craftsman-triple-garage-hero.jpg"
               alt="Craftsman home with a triple garage, re-sided by Wolf's Siding Inc."
               fill
               className="object-cover object-[center_60%]"
@@ -750,11 +750,11 @@ export default function HomePage() {
             </div>
             <ProjectBento
               photos={[
-                { src: "/projects/obras/craftsman-rear-porch.jpg", caption: "Craftsman with triple garage" },
-                { src: "/projects/obras/charcoal-board-and-batten.jpg", caption: "Charcoal board & batten" },
-                { src: "/projects/obras/navy-vinyl-lakeside.jpg", caption: "Navy vinyl, lakeside" },
-                { src: "/projects/obras/white-modern-farmhouse.jpg", caption: "White modern farmhouse" },
-                { src: "/projects/obras/two-family-gray-vinyl.jpg", caption: "Two-family, gray vinyl" },
+                { src: "/projects/obras/grafton-ma-craftsman-rear-porch.jpg", caption: "Craftsman with triple garage", place: "Grafton, MA", href: "/projects/craftsman-home-grafton-ma" },
+                { src: "/projects/obras/washington-nh-charcoal-board-and-batten.jpg", caption: "Charcoal board & batten", place: "Washington, NH", href: "/projects/board-and-batten-cabin-washington-nh" },
+                { src: "/projects/obras/stoddard-nh-navy-lakeside-cottage.jpg", caption: "Navy lakeside cottage", place: "Stoddard, NH", href: "/projects/navy-lakeside-cottage-stoddard-nh" },
+                { src: "/projects/obras/pelham-nh-white-modern-farmhouse.jpg", caption: "White modern farmhouse", place: "Pelham, NH", href: "/projects/modern-farmhouse-pelham-nh" },
+                { src: "/projects/obras/seabrook-nh-gray-two-family.jpg", caption: "Gray two-family home", place: "Seabrook, NH", href: "/projects/two-family-seabrook-nh" },
               ]}
             />
           </div>

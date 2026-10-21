@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 /* Real job-site photos in a bento: one large photo and four smaller ones
    ("Modelo A"). Captions describe the work only — no city is claimed for a
@@ -7,15 +8,16 @@ export interface BentoPhoto {
   src: string;
   caption: string;
   place?: string;
+  href?: string;
 }
 
-/* Job-site photos already published on the site (GHL media library). */
+/* Job-site photos (cleaned of the original house GPS, geotagged to the town centre). */
 export const LOCAL_WORK_PHOTOS: BentoPhoto[] = [
-  { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e32181715caeea6e9c1.jpg", caption: "Hardie Plank siding project" },
-  { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328d5b5a3f718385bf.jpg", caption: "Gray vinyl siding on a Cape" },
-  { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e324c2502c5f69917b6.jpg", caption: "Navy blue colonial" },
-  { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e328523c5f2c4d090c0.jpg", caption: "Gray colonial re-side" },
-  { src: "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975e3220c0353f100e2671.jpg", caption: "Board and batten siding" },
+  { src: "/projects/craftsman-ranch/lancaster-ma-craftsman-ranch-fiber-cement-siding-01.jpg", caption: "Fiber cement craftsman ranch", place: "Lancaster, MA", href: "/projects/craftsman-ranch" },
+  { src: "/projects/gray-cape-cod/boston-ma-gray-cape-cod-vinyl-siding-01.jpg", caption: "Gray vinyl Cape Cod", place: "Boston, MA", href: "/projects/gray-cape-cod" },
+  { src: "/projects/navy-blue-colonial/grafton-ma-navy-blue-colonial-vinyl-siding-01.jpg", caption: "Navy blue colonial", place: "Grafton, MA", href: "/projects/navy-blue-colonial" },
+  { src: "/projects/upscale-gray-colonial/milton-ma-gray-colonial-siding-01.jpg", caption: "Gray colonial", place: "Milton, MA", href: "/projects/upscale-gray-colonial" },
+  { src: "/projects/burgundy-barn/grafton-ma-burgundy-board-and-batten-barn-01.jpg", caption: "Burgundy board & batten", place: "Grafton, MA", href: "/projects/burgundy-barn" },
 ];
 
 export default function ProjectBento({ photos }: { photos: BentoPhoto[] }) {
@@ -28,9 +30,10 @@ export default function ProjectBento({ photos }: { photos: BentoPhoto[] }) {
             i === 0 ? "col-span-2 aspect-[4/3] lg:col-span-1 lg:row-span-2 lg:aspect-auto" : "aspect-square lg:aspect-auto"
           }`}
         >
+          {p.href ? <Link href={p.href} className="absolute inset-0 z-10" aria-label={`${p.caption}${p.place ? `, ${p.place}` : ""} — see the project`} /> : null}
           <Image
             src={p.src}
-            alt={p.caption}
+            alt={p.place ? `${p.caption}, ${p.place}` : p.caption}
             fill
             sizes={i === 0 ? "(max-width: 1024px) 100vw, 50vw" : "(max-width: 1024px) 50vw, 25vw"}
             className="object-cover"
