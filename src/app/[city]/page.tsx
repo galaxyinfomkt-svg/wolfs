@@ -127,8 +127,8 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       <section className="relative flex items-center pt-[110px] lg:min-h-[820px]">
         <div className="absolute inset-0">
           <Image
-            src="https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media/69975cfb2a2f15796c002376.jpg"
-            alt={`Siding installation project by Wolf's Siding in ${city.name}, MA`}
+            src="/projects/navy-lakeside-cottage-stoddard-nh/stoddard-nh-navy-lakeside-cottage-siding-01.jpg"
+            alt="Navy lakeside cottage sided by Wolf's Siding in Stoddard, NH"
             fill
             className="object-cover object-[center_40%]"
             priority

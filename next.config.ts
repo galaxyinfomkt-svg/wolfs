@@ -176,6 +176,9 @@ const nextConfig: NextConfig = {
       svc("full-siding", "full-siding-replacement"),
       svc("gutter", "gutter-installation"),
       svc("roofing", "roofing-installation"),
+      // The "Lakefront Cottage" project is the Stoddard, NH job from the
+      // owner's Drive; it now lives on its own page with the full photo set.
+      { source: "/projects/lakefront-cottage", destination: "/projects/navy-lakeside-cottage-stoddard-nh", permanent: true },
       // Catch-all safety net: any other legacy /service/* URL → home (no 404).
       { source: "/service/:slug*", destination: "/", permanent: true },
     ];

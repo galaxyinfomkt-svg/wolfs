@@ -6,17 +6,33 @@ import { getProjectBySlug, generateProjectParams, getRelatedProjects } from "../
 import ProjectGallery from "../ProjectGallery";
 import LazyVideo from "../../components/LazyVideo";
 import { cappedDescription } from "../../../config/meta";
+import { PORTFOLIO, getCase } from "../../data/portfolio";
+import CaseStudy from "../CaseStudy";
 
 type Params = { slug: string };
 
 const abs = (src: string) => (src.startsWith("/") ? `https://wolfs-siding.com${src}` : src);
 
 export function generateStaticParams() {
-  return generateProjectParams();
+  return [...PORTFOLIO.map((c) => ({ slug: c.slug })), ...generateProjectParams()];
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
+  const c = getCase(slug);
+  if (c) {
+    const title = `${c.title} in ${c.city}, ${c.state} | Siding Project | Wolf's Siding`;
+    const description = cappedDescription(`${c.thesis} Real job-site photos from Wolf's Siding Inc. Free estimates: ${"(774) 484-1895"}.`);
+    const url = `https://wolfs-siding.com/projects/${c.slug}`;
+    const image = abs(c.photos[0].src);
+    return {
+      title: { absolute: title },
+      description,
+      alternates: { canonical: url },
+      openGraph: { title, description, url, siteName: "Wolf's Siding Inc.", type: "article", images: [{ url: image, width: 1800, height: 1350, alt: c.photos[0].alt }] },
+      twitter: { card: "summary_large_image", title, description, images: [image] },
+    };
+  }
   const p = getProjectBySlug(slug);
   if (!p) return {};
   const title = `${p.title} — ${p.serviceType} Project | Wolf's Siding Inc.`;
@@ -43,6 +59,8 @@ const PHASE_STYLE: Record<string, string> = {
 
 export default async function ProjectDetailPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
+  const c = getCase(slug);
+  if (c) return <CaseStudy c={c} />;
   const project = getProjectBySlug(slug);
   if (!project) notFound();
 
