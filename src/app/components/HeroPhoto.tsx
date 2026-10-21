@@ -63,7 +63,7 @@ export default function HeroPhoto({ image }: { image: HeroImage }) {
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
         <img {...rest} className="object-cover" style={{ ...rest.style, objectPosition: image.position ?? "50% 50%" }} />
       </picture>
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,17,17,0)_0%,rgba(17,17,17,0)_42%,rgba(17,17,17,.6)_64%,rgba(17,17,17,.92)_84%,#111_100%)] lg:hidden" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,17,17,0)_0%,rgba(17,17,17,.12)_20%,rgba(17,17,17,.5)_38%,rgba(17,17,17,.72)_62%,rgba(17,17,17,.92)_85%,#111_100%)] sm:bg-[linear-gradient(180deg,rgba(17,17,17,0)_0%,rgba(17,17,17,0)_42%,rgba(17,17,17,.6)_64%,rgba(17,17,17,.92)_84%,#111_100%)] lg:hidden" />
       <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(10,10,10,.8)_0%,rgba(10,10,10,.55)_27%,rgba(10,10,10,.1)_45%,rgba(10,10,10,0)_56%)] lg:block" />
     </div>
   );

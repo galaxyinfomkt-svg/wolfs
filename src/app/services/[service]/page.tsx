@@ -141,7 +141,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       {/* ═══ HERO — real job photo, big headline, estimate form as a card ═══ */}
-      <section className="relative bg-[#111] pt-[calc(110px+46vw)] sm:pt-[calc(110px+34vw)] lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
+      <section className="relative bg-[#111] pt-[calc(110px+30vw)] sm:pt-[calc(110px+34vw)] lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
         <HeroPhoto image={heroFor(`service/${slug}`)} />
 
         <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6 lg:px-8 lg:py-16">
