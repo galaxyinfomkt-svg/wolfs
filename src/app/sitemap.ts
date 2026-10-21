@@ -92,16 +92,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // LLMs.txt for AI Engine Optimization
-  const llmsTxt: MetadataRoute.Sitemap = [
-    {
-      url: `${BASE_URL}/llms.txt`,
-      lastModified: SITE_UPDATED,
-      changeFrequency: "monthly",
-      priority: 0.3,
-    },
-  ];
-
   return [
     ...homepage,
     ...servicePages,
@@ -111,6 +101,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...cityServicePages,
     ...blogIndex,
     ...blogPostPages,
-    ...llmsTxt,
   ];
 }

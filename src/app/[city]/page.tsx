@@ -125,21 +125,10 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     { q: `Why should I choose Wolf's Siding over other contractors in ${city.name}?`, a: `Wolf's Siding stands out with ${YEARS_IN_BUSINESS}+ years of experience (${SINCE}), a perfect ${REVIEW_RATING} Google rating (${REVIEW_COUNT} reviews), hands-on oversight by owner ${BUSINESS.owner} on every project, and deep knowledge of ${regionLabel} climate challenges. We use premium materials and provide a written warranty on all work.` },
   ];
 
-  const faqLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: cityFaqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
       {/* ═══ HERO with background image + form ═══ */}
       <section className="relative pt-[80px]">

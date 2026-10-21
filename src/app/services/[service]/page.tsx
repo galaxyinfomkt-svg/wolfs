@@ -118,21 +118,9 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
       name: "Wolf's Siding Inc.",
       telephone: "+17744841895",
       address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
-      aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
     },
     areaServed: { "@type": "State", name: "Massachusetts" },
-    aggregateRating: { "@type": "AggregateRating", ratingValue: REVIEW_RATING, bestRating: "5", worstRating: "1", ratingCount: REVIEW_COUNT, reviewCount: REVIEW_COUNT },
     offers: { "@type": "Offer", priceCurrency: "USD", availability: "https://schema.org/InStock", description: "Free estimates available" },
-  };
-
-  const faqLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: service.faqs.map((faq: { q: string; a: string }) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: { "@type": "Answer", text: faq.a },
-    })),
   };
 
   const breadcrumbLd = {
@@ -145,27 +133,10 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     ],
   };
 
-  const howToLd = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: `How We Install ${service.shortName} in Massachusetts`,
-    description: `Professional ${service.shortName.toLowerCase()} installation process by Wolf's Siding Inc.`,
-    totalTime: "P7D",
-    estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "Contact for free estimate" },
-    step: service.processSteps.map((step, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      name: step.title,
-      text: step.desc,
-    })),
-  };
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }} />
 
       {/* ═══ HERO ═══ */}
       <section className="relative pt-[80px]">

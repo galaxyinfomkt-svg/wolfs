@@ -111,16 +111,6 @@ export default async function CityServicePage({ params }: { params: Promise<Para
     offers: { "@type": "Offer", priceCurrency: "USD", availability: "https://schema.org/InStock", description: "Free estimates available" },
   };
 
-  const faqLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: allFaqs.map((faq: { q: string; a: string }) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: { "@type": "Answer", text: faq.a },
-    })),
-  };
-
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -131,25 +121,10 @@ export default async function CityServicePage({ params }: { params: Promise<Para
     ],
   };
 
-  const howToLd = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: `How We Install ${service.shortName} in ${city.name}, ${STATE_ABBR}`,
-    description: `Professional ${service.shortName.toLowerCase()} installation process in ${city.name} by Wolf's Siding Inc.`,
-    step: service.processSteps.map((step, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      name: step.title,
-      text: step.desc,
-    })),
-  };
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }} />
 
       {/* ═══ HERO with background image + form ═══ */}
       <section className="relative pt-[80px]">
