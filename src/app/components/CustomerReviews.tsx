@@ -1,9 +1,8 @@
 import reviewsData from "../../data/reviews.json";
-import { BUSINESS } from "../../config/business";
 
 /* Server-rendered Google reviews shown ABOVE the GHL reputation widget, so the
  * strongest trust asset is visible to Google and AI crawlers (the widget is an
- * iframe they can't read). Also emits Review schema for each one.
+ * iframe they can't read). No Review schema (see note below).
  *
  * Content comes from src/data/reviews.json — real GBP reviews pasted verbatim by
  * RHAI. While that file is empty this renders nothing (no fabricated reviews).
@@ -26,34 +25,15 @@ export default function CustomerReviews({ city, schemaOnly = false }: { city?: s
     : all;
   const shown = sorted.slice(0, 8);
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    itemListElement: shown.map((r, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      item: {
-        "@type": "Review",
-        author: { "@type": "Person", name: r.author },
-        datePublished: r.date,
-        reviewRating: { "@type": "Rating", ratingValue: String(r.rating), bestRating: "5", worstRating: "1" },
-        reviewBody: r.text,
-        itemReviewed: { "@type": "HomeAndConstructionBusiness", name: BUSINESS.legalName },
-      },
-    })),
-  };
-
-  const schemaScript = (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-  );
-
-  // Keep the Review schema (crawler/AI SEO) but hide the visual cards — the live
-  // GHL reputation widget already shows the reviews to users.
-  if (schemaOnly) return schemaScript;
+  // No Review schema: these are reviews of Wolf's about itself, which Google
+  // treats as "self-serving" (never shown as stars, and a manual-action risk
+  // when the text isn't visible on the page). See
+  // developers.google.com/search/docs/appearance/structured-data/review-snippet
+  // — so the schema-only mode now renders nothing.
+  if (schemaOnly) return null;
 
   return (
     <div className="mb-10">
-      {schemaScript}
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((r, i) => (
           <div key={i} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">

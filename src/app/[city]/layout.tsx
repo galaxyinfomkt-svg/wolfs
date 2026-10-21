@@ -1,8 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getCityBySlug, SERVICES, CITIES, REVIEW_COUNT, REVIEW_RATING } from "../data/cities";
+import { getCityBySlug, SERVICES, CITIES, REVIEW_RATING } from "../data/cities";
 import CityNav from "./CityNav";
-import CustomerReviews from "../components/CustomerReviews";
 
 export default async function CityLayout({
   children,
@@ -21,25 +20,6 @@ export default async function CityLayout({
 
       {/* Page content */}
       {children}
-
-      {/* Reviews Widget */}
-      <section className="py-16 bg-[#F5F5F5] content-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-black text-black text-center mb-8">
-            What Our Customers Say
-          </h2>
-          {/* Server-rendered reviews (crawler-visible) above the live widget */}
-          <CustomerReviews city={cityName} schemaOnly />
-          <iframe
-            className="lc_reviews_widget reviews-widget"
-            src="https://reputationhub.site/reputation/widgets/review_widget/BCczy6muFwhd63dPhKCC"
-            frameBorder="0"
-            scrolling="no"
-            title="Customer Reviews"
-            loading="lazy"
-          />
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="bg-black">
@@ -145,7 +125,7 @@ export default async function CityLayout({
                     </div>
                     <span className="text-white font-bold text-sm">5.0</span>
                   </div>
-                  <span className="text-white/50 text-xs">{REVIEW_COUNT} reviews on Google</span>
+                  <span className="text-white/50 text-xs">on Google</span>
                 </div>
               </div>
             </div>

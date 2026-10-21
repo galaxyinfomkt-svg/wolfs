@@ -18,7 +18,10 @@ html {
 }
 
 body {
-  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  /* var(--font-inter), not var(--font-sans): with `@theme inline` Tailwind inlines
+     --font-sans into its utilities and never declares it on :root, so
+     var(--font-sans) here was invalid and each device fell back to its own font. */
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   color: #333333;
   background: #ffffff;
   -webkit-font-smoothing: antialiased;

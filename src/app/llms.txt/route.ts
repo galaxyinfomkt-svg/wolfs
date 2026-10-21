@@ -1,6 +1,6 @@
 import { SERVICES, CITIES } from "../data/cities";
 import { BLOG_POSTS } from "../data/blog";
-import { REVIEW_RATING, REVIEW_COUNT } from "../../config/business";
+import { REVIEW_RATING } from "../../config/business";
 
 export function GET() {
   const regions = [...new Set(CITIES.map((c) => c.region))];
@@ -31,7 +31,7 @@ export function GET() {
 - **Phone**: (774) 484-1895
 - **Address**: 156 Washburn St, Northborough, MA 01532
 - **Website**: https://wolfs-siding.com
-- **Google Rating**: ${REVIEW_RATING} stars (${REVIEW_COUNT} verified reviews)
+- **Google Rating**: ${REVIEW_RATING} stars
 - **Licensed & Insured**: Yes
 - **Free Estimates**: Yes
 - **Experience**: in the siding industry since 2007

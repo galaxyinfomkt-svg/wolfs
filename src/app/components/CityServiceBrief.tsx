@@ -95,10 +95,6 @@ export default function CityServiceBrief({
           </p>
         )}
 
-        <p className="text-sm text-gray-500 border-l-[3px] border-[#E00000] pl-4">
-          Distance, county, exposure and the neighbouring towns above are calculated from our
-          own service-area coordinates — not copied from a directory.
-        </p>
       </div>
     </div>
   );

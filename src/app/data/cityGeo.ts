@@ -48,6 +48,27 @@ export function milesFromHQ(slug: string): number | null {
   return Math.round(haversineMiles(hq.coords, c.coords));
 }
 
+/* Initial compass bearing from a to b, in degrees clockwise from north. */
+function bearingDeg(a: [number, number], b: [number, number]): number {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLng = toRad(b[1] - a[1]);
+  const y = Math.sin(dLng) * Math.cos(toRad(b[0]));
+  const x =
+    Math.cos(toRad(a[0])) * Math.sin(toRad(b[0])) -
+    Math.sin(toRad(a[0])) * Math.cos(toRad(b[0])) * Math.cos(dLng);
+  return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
+}
+
+const COMPASS = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"] as const;
+
+/** Which way the town lies from the Northborough shop, on an 8-point compass. */
+export function directionFromHQ(slug: string): (typeof COMPASS)[number] | null {
+  const c = CITY_FACTS[slug];
+  const hq = CITY_FACTS[HQ_SLUG];
+  if (!c || !hq) return null;
+  return COMPASS[Math.round(bearingDeg(hq.coords, c.coords) / 45) % 8];
+}
+
 /** Miles to the nearest stretch of coast, rounded. */
 export function milesFromCoast(slug: string): number | null {
   const c = CITY_FACTS[slug];
@@ -96,7 +117,7 @@ export function driveDescription(slug: string): string | null {
   if (mi === null) return null;
   if (mi <= 6) return "practically next door to our Northborough shop";
   if (mi <= 15) return `about ${mi} miles from our Northborough shop`;
-  if (mi <= 30) return `roughly ${mi} miles east of our Northborough shop`;
+  if (mi <= 30) return `roughly ${mi} miles ${directionFromHQ(slug)} of our Northborough shop`;
   return `about ${mi} miles from the shop — a drive our crews make regularly`;
 }
 
