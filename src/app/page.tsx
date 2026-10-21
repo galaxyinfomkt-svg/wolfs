@@ -624,7 +624,7 @@ export default function HomePage() {
         {/* ═══════════════════════════════════════════════════════
             2. HERO — job-site photo, big headline, estimate form as a card
             ═══════════════════════════════════════════════════════ */}
-        <section id="home" className="relative bg-[#111] pt-[calc(110px+64vw)] sm:pt-[calc(110px+34vw)] lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
+        <section id="home" className="relative bg-[#111] pt-[calc(110px+46vw)] sm:pt-[calc(110px+34vw)] lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
           <HeroPhoto image={HERO_PHOTOS[0]} />
 
           <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6 lg:px-8 lg:py-16">
