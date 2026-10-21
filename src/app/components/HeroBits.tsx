@@ -7,7 +7,7 @@ import { BUSINESS, REVIEW_RATING } from "../../config/business";
  *  count — it changes every week and the GHL widget already shows it. */
 export function HeroStars() {
   return (
-    <p className="-mt-1 mb-6 flex items-center gap-2 text-[0.95rem] font-bold text-white lg:hidden">
+    <p className="-mt-1 mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 whitespace-nowrap text-[clamp(0.82rem,3.6vw,0.95rem)] font-bold text-white lg:hidden">
       <svg className="h-[18px] w-[18px]" viewBox="0 0 48 48" aria-hidden="true">
         <path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z" />
         <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z" />
