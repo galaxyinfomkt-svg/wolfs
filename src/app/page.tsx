@@ -624,10 +624,10 @@ export default function HomePage() {
         {/* ═══════════════════════════════════════════════════════
             2. HERO — job-site photo, big headline, estimate form as a card
             ═══════════════════════════════════════════════════════ */}
-        <section id="home" className="relative bg-[#111] pt-[calc(110px+64vw)] sm:pt-[calc(110px+34vw)] lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
+        <section id="home" className="relative bg-[#111] min-h-[100svh] pt-[110px] sm:min-h-0 lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
           <HeroPhoto image={HERO_PHOTOS[0]} />
 
-          <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6 lg:px-8 lg:py-16">
+          <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 pt-8 sm:px-6 sm:pt-12 lg:px-8 lg:py-16">
             <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:gap-14">
               <div>
                 <span className="inline-block rounded-full bg-[#E00000] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.06em] text-white">
