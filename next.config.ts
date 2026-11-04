@@ -157,8 +157,8 @@ const nextConfig: NextConfig = {
     // leading service keyword and send them to the matching statewide service
     // page (the city tail can't be turned into /{city}/{service} in static
     // config). Anything unmatched falls through to the home page — never a 404.
-    // NOTE: there is no /services index route, so destinations must be real
-    // /services/{service} pages. Confirmed prefix: "vinyl-siding" (from the
+    // Destinations are real /services/{service} pages; /services (the hub)
+    // exists since Nov 2026 and takes the unmatched remainder. Confirmed prefix: "vinyl-siding" (from the
     // known indexed URL); the rest are inferred and can be tuned once the full
     // legacy slug list is exported from Search Console.
     const svc = (kw: string, service: string) => ({
@@ -179,8 +179,10 @@ const nextConfig: NextConfig = {
       // The "Lakefront Cottage" project is the Stoddard, NH job from the
       // owner's Drive; it now lives on its own page with the full photo set.
       { source: "/projects/lakefront-cottage", destination: "/projects/navy-lakeside-cottage-stoddard-nh", permanent: true },
-      // Catch-all safety net: any other legacy /service/* URL → home (no 404).
-      { source: "/service/:slug*", destination: "/", permanent: true },
+      // Catch-all: any other legacy /service/* URL → the /services hub (all 20
+      // services). Sending unmatched legacy URLs to the home page tends to be
+      // treated by Google as a soft 404; the hub is the closest real match.
+      { source: "/service/:slug*", destination: "/services", permanent: true },
     ];
   },
 };
