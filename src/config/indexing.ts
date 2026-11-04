@@ -24,8 +24,10 @@ export const READY_CITIES: ReadonlySet<string> = new Set(
     .map(([slug]) => slug)
 );
 
-/** Services the owner does not want promoted city by city. */
-export const LOW_KEY_SERVICES: ReadonlySet<string> = new Set(["siding-repair-services"]);
+/** Services kept out of the index city by city. Empty since Nov 2026: the
+    owner chose to keep the repair pages indexed, with a minimum-job notice
+    (components/RepairMinimumBar.tsx). Add a slug here to de-index a service. */
+export const LOW_KEY_SERVICES: ReadonlySet<string> = new Set<string>();
 
 export function isCityServiceIndexable(citySlug: string, serviceSlug: string): boolean {
   return READY_CITIES.has(citySlug) && !LOW_KEY_SERVICES.has(serviceSlug);
