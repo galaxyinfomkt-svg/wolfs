@@ -55,6 +55,7 @@ export default async function CityLayout({
                       </Link>
                     </li>
                   ))}
+                  <li><Link href="/services" className="text-white font-semibold hover:text-[#FF6B6B] text-sm">All services →</Link></li>
                 </ul>
               </div>
 

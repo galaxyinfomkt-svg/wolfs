@@ -64,7 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   // Company pages
-  const companyPages: MetadataRoute.Sitemap = ["about", "contact", "reviews", "service-areas"].map((p) => ({
+  const companyPages: MetadataRoute.Sitemap = ["about", "contact", "reviews", "service-areas", "services"].map((p) => ({
     url: `${BASE_URL}/${p}`,
     lastModified: SITE_UPDATED,
     changeFrequency: "monthly" as const,

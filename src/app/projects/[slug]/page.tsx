@@ -9,6 +9,7 @@ import LazyVideo from "../../components/LazyVideo";
 import { cappedDescription } from "../../../config/meta";
 import { PORTFOLIO, getCase } from "../../data/portfolio";
 import CaseStudy from "../CaseStudy";
+import { businessRef } from "../../../config/schema";
 
 type Params = { slug: string };
 
@@ -85,8 +86,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<Pa
     description: project.description,
     url,
     image: project.images.map((i) => abs(i.src)),
-    creator: { "@type": "Organization", name: "Wolf's Siding Inc." },
-    about: { "@type": "Service", name: `${project.serviceType} in Massachusetts`, provider: { "@type": "Organization", name: "Wolf's Siding Inc." } },
+    creator: businessRef,
+    about: { "@type": "Service", name: `${project.serviceType} in Massachusetts`, provider: businessRef },
   };
 
   return (
