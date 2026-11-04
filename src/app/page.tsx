@@ -408,70 +408,9 @@ export default function HomePage() {
       ? PROJECT_IMAGES
       : PROJECT_IMAGES.filter((img) => img.label === galleryFilter);
 
-  /* Homepage-specific LocalBusiness JSON-LD */
-  const homepageLd = {
-    "@context": "https://schema.org",
-    "@type": ["HomeAndConstructionBusiness", "GeneralContractor"],
-    name: "Wolf's Siding Inc.",
-    alternateName: "Wolf's Siding",
-    description: `Expert siding installation and replacement company serving Massachusetts ${SINCE}. Specializing in Vinyl, Hardie Plank, Cedar, Clapboard siding and exterior trim work.`,
-    url: BUSINESS.url,
-    telephone: BUSINESS.phoneE164,
-    email: BUSINESS.email,
-    image: BUSINESS.logo,
-    logo: BUSINESS.logo,
-    identifier: { "@type": "PropertyValue", name: "MA HIC License", value: BUSINESS.hicLicense },
-    founder: {
-      "@type": "Person",
-      name: BUSINESS.owner,
-      jobTitle: "Owner",
-      description: `Founder of Wolf's Siding Inc. with hands-on experience ${SINCE} in siding installation and exterior remodeling across Massachusetts.`,
-      image: "https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68e581d6416ab711d774e6cf.jpeg",
-    },
-    address: { "@type": "PostalAddress", streetAddress: BUSINESS.address.street, addressLocality: BUSINESS.address.city, addressRegion: BUSINESS.address.state, postalCode: BUSINESS.address.zip, addressCountry: "US" },
-    geo: { "@type": "GeoCoordinates", latitude: 42.3195, longitude: -71.6412 },
-    areaServed: [
-      { "@type": "State", name: "Massachusetts" },
-      { "@type": "State", name: "Rhode Island" },
-      { "@type": "State", name: "New Hampshire" },
-    ],
-    sameAs: [
-      "https://www.instagram.com/wolfs_siding_inc/",
-      "https://www.facebook.com/wolfsiding",
-      "https://www.google.com/maps/place/Wolf's+Siding+Inc./@42.3195,-71.6412,15z",
-      "https://g.page/r/CfACa1fxiHsqEAE",
-    ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Siding & Exterior Services",
-      itemListElement: SERVICES.map((s) => ({
-        "@type": "Offer",
-        itemOffered: { "@type": "Service", name: s.title, url: `https://wolfs-siding.com/services/${s.slug}` },
-      })),
-    },
-    // No self-declared aggregateRating (Google ignores a business rating itself
-    // and it can trigger a Search Console warning). Real Review items are
-    // rendered from src/data/reviews.json once RHAI pastes the live GBP reviews.
-    priceRange: "$$",
-    openingHoursSpecification: [
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:00", closes: "18:00" },
-      { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "08:00", closes: "14:00" },
-    ],
-  };
-
-  const websiteLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Wolf's Siding Inc.",
-    url: "https://wolfs-siding.com",
-    publisher: { "@type": "Organization", name: "Wolf's Siding Inc." },
-    inLanguage: "en-US",
-  };
-
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }} />
+      {/* Business + WebSite structured data come from the root layout (@graph). */}
 
       {/* ═══════════════════════════════════════════════════════
           1. HEADER — Two-tier (RS model: top bar + main nav)
@@ -518,7 +457,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[70px]">
             <Link href="/" className="flex-shrink-0 mr-auto" aria-label="Wolf's Siding Inc. — home">
-              <Image src="/logo.png" alt="Wolf's Siding Inc." width={594} height={420} priority className="h-11 lg:h-14 w-auto" />
+              <Image src="/logo.png" alt="Wolf's Siding Inc." width={594} height={420} loading="eager" className="h-11 lg:h-14 w-auto" />
             </Link>
 
             {/* Desktop nav */}
@@ -551,7 +490,9 @@ export default function HomePage() {
 
               <a href="/projects" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Projects</a>
               <Link href="/blog" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Blog</Link>
-              <a href="#contact" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Contact</a>
+              <a href="/about" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">About</a>
+              <a href="/reviews" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Reviews</a>
+              <a href="/contact" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Contact</a>
             </nav>
 
             {/* Desktop CTA */}
@@ -610,7 +551,9 @@ export default function HomePage() {
               ))}
               <a href="/projects" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</a>
               <Link href="/blog" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Blog</Link>
-              <a href="#contact" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Contact</a>
+              <a href="/about" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">About</a>
+              <a href="/reviews" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Reviews</a>
+              <a href="/contact" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Contact</a>
               <a href="tel:+17744841895" className="flex items-center justify-center gap-2 mt-3 bg-[#E00000] text-white px-6 py-3 rounded-lg text-sm font-bold">
                 <PhoneIcon className="w-4 h-4" />
                 Call (774) 484-1895
@@ -625,7 +568,8 @@ export default function HomePage() {
             2. HERO — job-site photo, big headline, estimate form as a card
             ═══════════════════════════════════════════════════════ */}
         <section id="home" className="relative bg-[#111] min-h-[100svh] pt-[110px] sm:min-h-0 lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
-          <HeroPhoto image={HERO_PHOTOS[0]} />
+          {/* Home leads with a Massachusetts job (Grafton), not the NH cabin. */}
+          <HeroPhoto image={HERO_PHOTOS.find((h) => h.src.includes("grafton-ma")) ?? HERO_PHOTOS[0]} />
 
           <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 pt-8 sm:px-6 sm:pt-12 lg:px-8 lg:py-16">
             <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:gap-14">
@@ -999,8 +943,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Review schema only (crawler/AI SEO) — the live GHL widget shows the cards */}
-            <CustomerReviews schemaOnly />
+            {/* Real Google reviews as HTML (readable by Google and AI crawlers), then the live widget */}
+            <CustomerReviews />
 
             {/* Real Google Reviews Widget */}
             <div className="scroll-animate">

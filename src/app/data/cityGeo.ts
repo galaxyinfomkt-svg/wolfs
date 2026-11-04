@@ -145,3 +145,11 @@ export function cityGeo(slug: string): CityGeo | null {
     drive: driveDescription(slug)!,
   };
 }
+
+/** Straight-line miles between two towns in CITY_FACTS (null if either is unknown). */
+export function milesBetween(a: string, b: string): number | null {
+  const ca = CITY_FACTS[a];
+  const cb = CITY_FACTS[b];
+  if (!ca || !cb) return null;
+  return Math.round(haversineMiles(ca.coords, cb.coords));
+}

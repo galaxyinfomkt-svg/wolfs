@@ -16,14 +16,23 @@ interface Review {
   city?: string;
 }
 
-export default function CustomerReviews({ city, schemaOnly = false }: { city?: string; schemaOnly?: boolean }) {
+/* When count is set, show that many reviews, starting at a position derived
+   from seedKey: each town page shows a different few instead of the same
+   eight blocks of text on every URL. */
+export default function CustomerReviews({ city, schemaOnly = false, seedKey, count }: { city?: string; schemaOnly?: boolean; seedKey?: string; count?: number }) {
   const all = reviewsData as Review[];
   if (!all.length) return null;
 
   const sorted = city
     ? [...all].sort((a, b) => (b.city === city ? 1 : 0) - (a.city === city ? 1 : 0))
     : all;
-  const shown = sorted.slice(0, 8);
+  let shown = sorted.slice(0, 8);
+  if (count && seedKey) {
+    let h = 0;
+    for (let i = 0; i < seedKey.length; i++) h = (h * 31 + seedKey.charCodeAt(i)) >>> 0;
+    const start = h % sorted.length;
+    shown = Array.from({ length: Math.min(count, sorted.length) }, (_, k) => sorted[(start + k) % sorted.length]);
+  }
 
   // No Review schema: these are reviews of Wolf's about itself, which Google
   // treats as "self-serving" (never shown as stars, and a manual-action risk

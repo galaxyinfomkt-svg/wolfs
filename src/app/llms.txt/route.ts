@@ -1,128 +1,82 @@
-import { SERVICES, CITIES } from "../data/cities";
+import { CITIES } from "../data/cities";
 import { BLOG_POSTS } from "../data/blog";
-import { REVIEW_RATING } from "../../config/business";
+import { BUSINESS, REVIEW_RATING } from "../../config/business";
+import { SERVICE_CATALOG } from "../../config/schema";
 
+/* llms.txt — a plain-text brief for AI answer engines (ChatGPT, Claude,
+   Perplexity, Gemini). Only verifiable facts: AI assistants repeat what they
+   read here, so a wrong line here becomes a wrong answer about the company. */
 export function GET() {
   const regions = [...new Set(CITIES.map((c) => c.region))];
 
-  const serviceList = SERVICES.map(
-    (s) => `- **${s.shortName}**: ${s.description} (${s.lifespan} lifespan). [Learn more](https://wolfs-siding.com/services/${s.slug})`
-  ).join("\n");
+  const serviceList = SERVICE_CATALOG.map(
+    (g) =>
+      `### ${g.group}\n` +
+      g.items.map((s) => `- ${s.path ? `[${s.name}](${BUSINESS.url}${s.path})` : s.name}`).join("\n")
+  ).join("\n\n");
 
-  const blogList = BLOG_POSTS.map(
-    (p) => `- [${p.title}](https://wolfs-siding.com/blog/${p.slug}): ${p.excerpt}`
-  ).join("\n");
+  const blogList = BLOG_POSTS.map((p) => `- [${p.title}](${BUSINESS.url}/blog/${p.slug}): ${p.excerpt}`).join("\n");
 
   const regionList = regions
     .map((region) => {
       const regionCities = CITIES.filter((c) => c.region === region);
-      return `- **${region}** (${regionCities.length} cities): ${regionCities.map((c) => c.name).join(", ")}`;
+      return `- **${region}** (${regionCities.length} towns): ${regionCities.map((c) => c.name).join(", ")}`;
     })
     .join("\n");
 
-  const body = `# Wolf's Siding Inc.
+  const body = `# ${BUSINESS.legalName}
 
-> Professional siding installation and replacement company serving ${CITIES.length}+ cities across Massachusetts since 2007. Based in Northborough, MA. Owner-operated by Ezequias Lobo with experience since 2007. Specializing in full siding installations and complete replacements.
+> Owner-run exterior contractor in ${BUSINESS.address.city}, Massachusetts, founded in ${BUSINESS.foundedYear} by ${BUSINESS.owner}. Siding, exterior trim, soffit and fascia, windows, seamless gutters and roofing for homeowners and builders across ${CITIES.length} Massachusetts towns.
 
-## Company Information
+## Company facts
 
-- **Business Name**: Wolf's Siding Inc.
-- **Owner / Founder**: Ezequias Lobo
-- **Phone**: (774) 484-1895
-- **Address**: 156 Washburn St, Northborough, MA 01532
-- **Website**: https://wolfs-siding.com
-- **Google Rating**: ${REVIEW_RATING} stars
-- **Licensed & Insured**: Yes
-- **Free Estimates**: Yes
-- **Experience**: in the siding industry since 2007
-- **Hours**: Monday-Friday 7AM-6PM, Saturday 8AM-2PM
-- **Service Radius**: All of Massachusetts, parts of Rhode Island and New Hampshire
+- Legal name: ${BUSINESS.legalName}
+- Owner / founder: ${BUSINESS.owner}
+- Founded: ${BUSINESS.foundedYear}
+- Massachusetts Home Improvement Contractor (HIC) license: #${BUSINESS.hicLicense}
+- Phone: ${BUSINESS.phone}
+- Email: ${BUSINESS.email}
+- Address: ${BUSINESS.address.street}, ${BUSINESS.address.city}, ${BUSINESS.address.state} ${BUSINESS.address.zip}
+- Hours: Monday–Friday 7am–6pm, Saturday 8am–2pm
+- Google rating: ${REVIEW_RATING}
+- Free written estimates: yes
+- Works for: homeowners, and builders / general contractors on new construction
 
-## Services & Pricing (ordered by popularity)
+## Services
 
 ${serviceList}
 
-## Frequently Asked Questions
+## How a job works
 
-### How much does siding installation cost in Massachusetts?
-Siding installation costs depend on home size, material chosen, and project complexity. Every project is unique. Wolf's Siding provides free on-site assessments with transparent, itemized estimates. Call (774) 484-1895 for a free quote.
+1. Free consultation by phone or the website form.
+2. On-site assessment: we check the existing exterior and measure.
+3. Written, itemized proposal with material options, timeline and warranty details.
+4. Installation by our own crew, with a final walkthrough.
 
-### What is the best siding material for New England weather?
-Hardie Plank and vinyl siding are the top choices for Massachusetts homes. Hardie Plank (fiber cement) offers superior impact resistance, fire protection, and lasts 30-50 years. Vinyl is budget-friendly, virtually maintenance-free, and lasts 20-40 years. Cedar shingles provide natural beauty and insulation but require more maintenance.
-
-### How long does siding installation take?
-Most residential siding projects take 1-3 weeks depending on home size and weather conditions. A typical single-family home takes about 5-10 business days. Full siding replacement on larger homes may take 2-3 weeks.
-
-### Do you offer warranties on your work?
-Yes. All installations come with manufacturer material warranties (typically 25-50 years depending on material) plus our workmanship guarantee. Wolf's Siding stands behind every project.
-
-### How do I know if it's time for a full siding replacement?
-If your siding is 10+ years old, shows widespread fading, multiple areas of damage, or persistent moisture issues, it's likely time for a full replacement. Wolf's Siding specializes in complete siding installations and replacements that protect your home for 30+ years. We evaluate on-site and give honest recommendations.
-
-### What areas do you serve?
-Wolf's Siding serves ${CITIES.length}+ cities across Massachusetts including the Metro West region, Greater Boston, Worcester Area, South Shore, North Shore, and parts of Rhode Island and New Hampshire.
-
-## Our Process
-
-1. **Free Consultation**: Contact us by phone at (774) 484-1895 or through our website for a no-obligation consultation.
-2. **On-Site Assessment**: We visit your home, evaluate the exterior condition, take precise measurements, and recommend the best materials for your needs and budget.
-3. **Detailed Proposal**: You receive a transparent, itemized estimate with material options, project timeline, and warranty details. No hidden costs.
-4. **Expert Installation**: Our skilled crew installs your new siding with precision, maintains a clean jobsite, and delivers a final walkthrough for your approval.
-
-## Service Areas by Region (${CITIES.length}+ Cities)
+## Service area (${CITIES.length} towns)
 
 ${regionList}
 
-## Key Pages
+## Key pages
 
-- [Homepage](https://wolfs-siding.com/)
-- [Vinyl Siding Installation](https://wolfs-siding.com/services/vinyl-siding-installation)
-- [Hardie Plank Siding](https://wolfs-siding.com/services/hardie-plank-siding-installation)
-- [Cedar Shingle Siding](https://wolfs-siding.com/services/cedar-shingle-siding)
-- [Clapboard Siding](https://wolfs-siding.com/services/clapboard-siding-installation)
-- [Full Siding Replacement](https://wolfs-siding.com/services/full-siding-replacement)
-- [Siding Repair vs Replacement](https://wolfs-siding.com/services/siding-repair-services)
-- [Exterior Trim Work](https://wolfs-siding.com/services/exterior-trim-work)
-- [Gutter Installation](https://wolfs-siding.com/services/gutter-installation)
-- [Roofing Installation](https://wolfs-siding.com/services/roofing-installation)
-- [Projects Gallery](https://wolfs-siding.com/projects)
-- [Blog](https://wolfs-siding.com/blog)
+- [Home](${BUSINESS.url}/)
+- [About](${BUSINESS.url}/about)
+- [Contact](${BUSINESS.url}/contact)
+- [Customer reviews](${BUSINESS.url}/reviews)
+- [Projects with photos and towns](${BUSINESS.url}/projects)
+- [Blog](${BUSINESS.url}/blog)
 
-## Blog Articles
+## Blog articles
 
 ${blogList}
 
-## Why Choose Wolf's Siding Inc.
-
-1. **experience since 2007** in Massachusetts siding installation
-2. **Perfect 5.0 Google rating** with 31+ verified reviews
-3. **Owner-operated** — Ezequias Lobo personally oversees every project
-4. **Full-service** — installation, replacement, and trim work
-5. **All major materials** — vinyl, Hardie Plank, cedar, clapboard, and more
-6. **Free estimates** with transparent, itemized pricing
-7. **Licensed & insured** with comprehensive coverage
-8. **${CITIES.length}+ cities served** across Metro West, Greater Boston, South Shore, North Shore, and Worcester Area
-9. **Clean jobsite guarantee** — we respect your property
-10. **Same-day response** — fast communication and scheduling
-
-## Siding Material Comparison
-
-| Material | Lifespan | Best For |
-|----------|----------|----------|
-| Vinyl Siding | 20-40 years | Low maintenance, versatile styles |
-| Hardie Plank | 30-50 years | Durability, fire resistance |
-| Cedar Shingles | 20-40+ years | Natural beauty, insulation |
-| Clapboard | 20-40 years | Traditional New England look |
-
 ## Contact
 
-For siding installation or replacement anywhere in Massachusetts:
-- **Call**: (774) 484-1895
-- **Website**: https://wolfs-siding.com
-- **Address**: 156 Washburn St, Northborough, MA 01532
-- **Google Reviews**: https://g.page/r/CfACa1fxiHsqEAE
-- **Instagram**: https://www.instagram.com/wolfs_siding_inc/
-- **Facebook**: https://www.facebook.com/wolfsiding
+- Call ${BUSINESS.phone}
+- ${BUSINESS.url}/contact
+- Google profile: ${BUSINESS.social.googleMaps}
+- Instagram: ${BUSINESS.social.instagram}
+- Facebook: ${BUSINESS.social.facebook}
 `;
 
   return new Response(body, {
