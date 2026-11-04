@@ -151,7 +151,7 @@ export const CITY_PROFILES: Record<string, CityProfile> = {
   "west-boylston": {
     ready: false,
     localFact: {
-      text: "About 60% of West Boylston's land was flooded for the Wachusett Reservoir; the granite Old Stone Church (1891) is the only building of the old town center still on its original site.",
+      text: "West Boylston's old town center was cleared for the Wachusett Reservoir; the granite Old Stone Church (1891) is the only building of that center still on its original site.",
       url: "https://npgallery.nps.gov/GetAsset/7295adb2-cb71-4893-8bf8-17618e1e2307",
     },
   },

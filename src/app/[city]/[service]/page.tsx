@@ -267,7 +267,9 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 a barra lateral com CTA e o CTA final. O caminho de conversao
                 inteiro continua na pagina.
               */}
-              {/* Common challenges */}
+              {/* Common challenges — generic service copy, so only on pages
+                  that do not yet have a researched note for this town. */}
+              {!researched && (
               <div>
                 <h3 className="text-2xl font-black text-black mb-3 flex items-center gap-2">
                   <svg className="w-6 h-6 text-[#E00000]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.6-5.6a8 8 0 1111.31 0l-5.6 5.6a.25.25 0 01-.36.01z" /></svg>
@@ -286,6 +288,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   ))}
                 </div>
               </div>
+              )}
 
               {/* What we offer: the full list lives on the statewide service page. */}
               <p className="text-[#333]">
@@ -421,7 +424,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
         </div>
       </section>
 
-      <ReviewsSection seedKey={`${citySlug}/${serviceSlug}`} count={3} />
+      <ReviewsSection seedKey={`${citySlug}/${serviceSlug}`} count={2} />
 
       {/* ═══ CTA ═══ */}
       <section className="bg-gradient-to-r from-[#E00000] to-[#CC0000] py-16">

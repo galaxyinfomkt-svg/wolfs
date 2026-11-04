@@ -117,9 +117,13 @@ export default function LocalProfile({ city, service, hideServiceNote = false }:
               <dd className="text-xl font-extrabold text-black">~{r(h.pctOwner)}%</dd>
             </div>
           </dl>
-          <p className="mb-2 leading-relaxed text-[#333]">
-            {serviceReading(service, h, city.name, coastal)}
-          </p>
+          {/* Template reading of the numbers — only where no researched note
+              exists; a researched page already says this in its own words. */}
+          {!hideServiceNote && (
+            <p className="mb-2 leading-relaxed text-[#333]">
+              {serviceReading(service, h, city.name, coastal)}
+            </p>
+          )}
           <p className="mb-5 text-xs text-[#666]">
             Source: {HOUSING_SOURCE}, {city.name} ({h.housingUnits.toLocaleString("en-US")} housing units, built in the {decadeOf(h.medianYearBuilt)} at the median). Figures are survey estimates, rounded.
           </p>
