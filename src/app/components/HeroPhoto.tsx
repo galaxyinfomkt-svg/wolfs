@@ -60,7 +60,7 @@ export default function HeroPhoto({ image }: { image: HeroImage }) {
         <source media="(min-width: 1024px)" srcSet={desktop} />
         <source media="(max-width: 1023px)" srcSet={mobile} />
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
-        <img {...rest} className={`object-cover object-[50%_30%] ${image.desktopPosition}`} style={{ ...rest.style }} />
+        <img {...rest} fetchPriority="high" loading="eager" decoding="async" className={`object-cover object-[50%_30%] ${image.desktopPosition}`} style={{ ...rest.style }} />
       </picture>
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,.58)_0%,rgba(10,10,10,.55)_40%,rgba(10,10,10,.72)_72%,#111_100%)] lg:hidden" />
       <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(10,10,10,.8)_0%,rgba(10,10,10,.55)_27%,rgba(10,10,10,.1)_45%,rgba(10,10,10,0)_56%)] lg:block" />

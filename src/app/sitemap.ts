@@ -3,9 +3,12 @@ import { CITIES, SERVICES } from "./data/cities";
 import { BLOG_POSTS } from "./data/blog";
 import { getPortfolioProjects } from "./data/projects";
 import { PORTFOLIO } from "./data/portfolio";
+import { isCityServiceIndexable } from "../config/indexing";
 
 const BASE_URL = "https://wolfs-siding.com";
-const SITE_UPDATED = "2026-08-05";
+// Date of the last real content change. Do not bump it without a change —
+// a lastmod Google learns to distrust is worse than none.
+const SITE_UPDATED = "2026-11-04";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Homepage
@@ -48,14 +51,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // City + Service pages: /{city-slug}/{service-slug} — primary services get higher priority
+  // Only the combinations released for indexing (config/indexing.ts). The rest
+  // are live but noindex, and a sitemap must not list noindex URLs.
   const cityServicePages: MetadataRoute.Sitemap = CITIES.flatMap((city) =>
-    SERVICES.map((service) => ({
+    SERVICES.filter((service) => isCityServiceIndexable(city.slug, service.slug)).map((service) => ({
       url: `${BASE_URL}/${city.slug}/${service.slug}`,
       lastModified: SITE_UPDATED,
       changeFrequency: "monthly" as const,
       priority: Math.max((servicePriority[service.slug] ?? 0.7) - 0.1, 0.7),
     }))
   );
+
+  // Company pages
+  const companyPages: MetadataRoute.Sitemap = ["about", "contact", "reviews"].map((p) => ({
+    url: `${BASE_URL}/${p}`,
+    lastModified: SITE_UPDATED,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
 
   // Projects page: /projects
   const projectsPage: MetadataRoute.Sitemap = [
@@ -108,6 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...homepage,
+    ...companyPages,
     ...servicePages,
     ...projectsPage,
     ...projectDetailPages,

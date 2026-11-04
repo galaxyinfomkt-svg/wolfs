@@ -2,17 +2,22 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getCityBySlug, getServiceBySlug, getNearbyCities, generateAllParams, SERVICES, getClimate, getRegionLabel, STATE_ABBR, REVIEW_RATING } from "../../data/cities";
+import { getCityBySlug, getServiceBySlug, getNearbyCities, generateAllParams, SERVICES, STATE_ABBR, REVIEW_RATING } from "../../data/cities";
 import { getCoords } from "../../data/cityCoords";
 import { getLocalContent, prioritiseByExposure, localPainPoint } from "../../data/localContent";
-import { BUSINESS, SINCE, YEARS_IN_BUSINESS } from "../../../config/business";
+import { BUSINESS, SINCE } from "../../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../../config/meta";
+import { businessRef } from "../../../config/schema";
 import LazyIframe from "../../components/LazyIframe";
 import FormEmbed from "../../components/FormEmbed";
 import HeroPhoto, { heroFor } from "../../components/HeroPhoto";
 import CallCtaBlock from "../../components/CallCtaBlock";
 import ReviewsSection from "../../components/ReviewsSection";
 import { HeroStars, HeroCtas } from "../../components/HeroBits";
+import LocalProfile from "../../components/LocalProfile";
+import { nearestWork } from "../../data/nearestWork";
+import { cityProfile } from "../../data/cityProfiles";
+import { isCityServiceIndexable } from "../../../config/indexing";
 
 type Params = { city: string; service: string };
 
@@ -46,6 +51,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       images: [service.heroImage.startsWith("/") ? `https://wolfs-siding.com${service.heroImage}` : service.heroImage],
     },
     alternates: { canonical: `https://wolfs-siding.com/${citySlug}/${serviceSlug}` },
+    // Not yet rewritten (or a low-key service): live for visitors, kept out of Google. See config/indexing.ts.
+    ...(isCityServiceIndexable(citySlug, serviceSlug) ? {} : { robots: { index: false, follow: true } }),
     ...(coords
       ? {
           other: {
@@ -64,17 +71,23 @@ export default async function CityServicePage({ params }: { params: Promise<Para
   const service = getServiceBySlug(serviceSlug);
   if (!city || !service) notFound();
 
-  const climate = getClimate(city.region);
-  const regionLabel = getRegionLabel(city.region);
   const local = getLocalContent(city, service);
   const otherServices = SERVICES.filter((s) => s.slug !== serviceSlug && s.slug !== "siding-repair-services");
   const nearby = getNearbyCities(city, 6);
 
-  const cityFaq = {
-    q: `Why choose Wolf's Siding for ${service.shortName.toLowerCase()} in ${city.name}?`,
-    a: `Wolf's Siding Inc. has served ${city.name} and ${regionLabel} ${SINCE} (${YEARS_IN_BUSINESS}+ years). We understand ${climate.faq} and select the best ${service.material} for your area. With a perfect ${REVIEW_RATING} Google rating, free estimates, and owner ${BUSINESS.owner} personally overseeing every project, we deliver the quality ${city.name} homeowners expect.`,
-  };
-  const allFaqs = [...service.faqs, local.faq, cityFaq];
+  // Only ONE of the shared service FAQs per page (rotated by city), plus the
+  // local ones. The full service FAQ lives on /services/{service}; repeating
+  // all of it on 109 town pages is what made them read as copies.
+  const profile = cityProfile(citySlug);
+  const permitFaq = profile?.buildingDept
+    ? {
+        q: `Do I need a permit for ${service.shortName.toLowerCase()} in ${city.name}?`,
+        a: `Building permits in ${city.name} are handled by the ${profile.buildingDept.name}.${profile.buildingDept.permitNote ? ` ${profile.buildingDept.permitNote.text.replace(/\.?$/, ".")}` : ""} Check the department's page for current requirements before work starts.`,
+      }
+    : null;
+  const sharedFaq = service.faqs.length ? service.faqs[(citySlug.length + citySlug.charCodeAt(0)) % service.faqs.length] : null;
+  const researched = Boolean(profile?.serviceNotes?.[serviceSlug] && profile?.story?.length);
+  const allFaqs = [...(researched ? [] : [local.faq]), ...(permitFaq ? [permitFaq] : []), ...(sharedFaq ? [sharedFaq] : [])];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -93,15 +106,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
     ],
     description: `Professional ${service.material} in ${city.name}, ${STATE_ABBR}. ${service.lifespan} lifespan. Expert installation by Wolf's Siding Inc.`,
     url: `https://wolfs-siding.com/${citySlug}/${serviceSlug}`,
-    provider: {
-      "@type": "HomeAndConstructionBusiness",
-      name: "Wolf's Siding Inc.",
-      telephone: "+17744841895",
-      image: "https://wolfs-siding.com/logo.png",
-      address: { "@type": "PostalAddress", streetAddress: BUSINESS.address.street, addressLocality: BUSINESS.address.city, addressRegion: BUSINESS.address.state, postalCode: BUSINESS.address.zip, addressCountry: "US" },
-      identifier: { "@type": "PropertyValue", name: "MA HIC License", value: BUSINESS.hicLicense },
-      priceRange: "$$",
-    },
+    provider: businessRef,
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
     offers: { "@type": "Offer", priceCurrency: "USD", availability: "https://schema.org/InStock", description: "Free estimates available" },
   };
@@ -184,6 +189,19 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   Expert {service.shortName} in <span className="text-[#E00000]">{city.name}, {STATE_ABBR}</span>
                 </h2>
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
+                {researched ? (
+                  /* Researched town: the written-for-this-town note leads, then one
+                     paragraph of the town story. Replaces the template intro. */
+                  <div className="space-y-4 text-[#333] text-base leading-relaxed">
+                    <p>{profile!.serviceNotes![serviceSlug]}</p>
+                    <p>{profile!.story![(citySlug.length + serviceSlug.length) % profile!.story!.length]}</p>
+                    <p>
+                      More on <Link href={`/${citySlug}`} className="text-[#E00000] font-semibold hover:underline">{city.name} homes</Link>, or
+                      see <Link href={`/services/${serviceSlug}`} className="text-[#E00000] font-semibold hover:underline">{service.shortName.toLowerCase()} materials and options</Link>.
+                      Every job starts with a free on-site assessment.
+                    </p>
+                  </div>
+                ) : (
                 <div className="space-y-4 text-[#333] text-base leading-relaxed">
                   <p>{local.intro}</p>
                   <p>
@@ -223,8 +241,12 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                     Every job starts with a <strong>free on-site assessment</strong> — no surprises, no pressure.
                   </p>
                 </div>
+                )}
               </div>
 
+
+              {/* Census housing numbers + sourced municipal facts for this town. */}
+              <LocalProfile city={city} service={service} hideServiceNote={researched} />
 
               {/*
                 TRES BLOCOS GENERICOS SAIRAM DAQUI: Process steps, Benefits e
@@ -245,14 +267,16 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                 a barra lateral com CTA e o CTA final. O caminho de conversao
                 inteiro continua na pagina.
               */}
-              {/* Common challenges */}
+              {/* Common challenges — generic service copy, so only on pages
+                  that do not yet have a researched note for this town. */}
+              {!researched && (
               <div>
                 <h3 className="text-2xl font-black text-black mb-3 flex items-center gap-2">
                   <svg className="w-6 h-6 text-[#E00000]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.6-5.6a8 8 0 1111.31 0l-5.6 5.6a.25.25 0 01-.36.01z" /></svg>
                   Common {service.shortName} Challenges in {city.name}
                 </h3>
                 <div className="space-y-4">
-                  {[...prioritiseByExposure(service.painPoints, citySlug), ...(localPainPoint(citySlug) ? [localPainPoint(citySlug)!] : [])].map((pain, i) => (
+                  {[...prioritiseByExposure(service.painPoints, citySlug).slice(0, 2), ...(localPainPoint(citySlug) ? [localPainPoint(citySlug)!] : [])].map((pain, i) => (
                     <div key={i} className="bg-red-50 rounded-xl p-5 border border-red-100">
                       <div className="flex items-start gap-4">
                         <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center text-white flex-shrink-0 text-sm font-bold mt-0.5">
@@ -263,57 +287,37 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                     </div>
                   ))}
                 </div>
-                {/* Solution card */}
-                <div className="bg-green-50 rounded-xl p-5 border border-green-200 mt-4">
-                  <div className="flex items-start gap-3">
-                    <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <p className="text-green-800 text-sm leading-relaxed">
-                      <strong>The Solution:</strong> Wolf&apos;s Siding Inc. addresses all of these challenges with professional {service.shortName.toLowerCase()} tailored specifically for {city.name}&apos;s conditions. Our local experience {SINCE} means we know exactly what works and what doesn&apos;t.
-                    </p>
-                  </div>
-                </div>
               </div>
+              )}
 
-              {/* What we offer */}
-              <div>
-                <h3 className="text-2xl font-black text-black mb-6">What We Offer</h3>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {service.offerings.map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 bg-[#F5F5F5] rounded-lg p-4">
-                      <div className="w-7 h-7 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0">
-                        <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-                      </div>
-                      <span className="text-sm text-[#333] font-medium">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              {/* What we offer: the full list lives on the statewide service page. */}
+              <p className="text-[#333]">
+                Materials, options, process and the full FAQ for {service.shortName.toLowerCase()} are on our{" "}
+                <Link href={`/services/${serviceSlug}`} className="font-semibold text-[#E00000] hover:underline">
+                  {service.shortName.toLowerCase()} page
+                </Link>
+                .
+              </p>
 
               {/* Project Photos */}
               <div>
                 <h3 className="text-2xl font-black text-black mb-6">
-                  {service.shortName} Projects Near {city.name}
+                  Our Nearest Jobs to {city.name}
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
-                  {(() => {
-                    // Real Wolf's jobs, each captioned with the town it is actually
-                    // in — never presented as a job in the page's own city.
-                    return [
-                      { src: "/projects/navy-lakeside-cottage-stoddard-nh/stoddard-nh-navy-lakeside-cottage-siding-01.jpg", alt: "Navy lakeside cottage by Wolf's Siding in Stoddard, NH" },
-                      { src: "/projects/craftsman-ranch/lancaster-ma-craftsman-ranch-fiber-cement-siding-01.jpg", alt: "Craftsman ranch with fiber cement siding by Wolf's Siding in Lancaster, MA" },
-                      { src: "/projects/navy-blue-colonial/grafton-ma-navy-blue-colonial-vinyl-siding-01.jpg", alt: "Navy blue vinyl colonial by Wolf's Siding in Grafton, MA" },
-                      { src: "/projects/upscale-gray-colonial/milton-ma-gray-colonial-siding-01.jpg", alt: "Gray colonial with new siding by Wolf's Siding in Milton, MA" },
-                    ];
-                  })().map((img) => (
+                  {nearestWork(citySlug, 4).map((img) => (
                     <div key={img.src} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
                       <Image
                         src={img.src}
-                        alt={img.alt}
+                        alt={`${img.caption} by Wolf's Siding, ${img.place}`}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 640px) 50vw, 25vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent p-3 text-xs font-semibold text-white">
+                        {img.caption}
+                        <span className="block font-normal text-white/80">{img.place}</span>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -420,7 +424,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
         </div>
       </section>
 
-      <ReviewsSection />
+      <ReviewsSection seedKey={`${citySlug}/${serviceSlug}`} count={2} />
 
       {/* ═══ CTA ═══ */}
       <section className="bg-gradient-to-r from-[#E00000] to-[#CC0000] py-16">

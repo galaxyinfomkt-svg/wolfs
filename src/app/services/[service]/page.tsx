@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE, REVIEW_RATING } from "../../data/cities";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../../config/business";
 import { cappedDescription, assertMeta } from "../../../config/meta";
+import { businessRef } from "../../../config/schema";
+import { EXTRA_SERVICES, getExtraService } from "../../data/extraServices";
+import ExtraServicePage from "../ExtraServicePage";
 import { BLOG_POSTS } from "../../data/blog";
 import FormEmbed from "../../components/FormEmbed";
 import HeroPhoto, { heroFor } from "../../components/HeroPhoto";
@@ -55,11 +58,22 @@ const SERVICE_PROJECT_PHOTOS: Record<string, { src: string; alt: string }[]> = {
 };
 
 export function generateStaticParams() {
-  return SERVICES.map((s) => ({ service: s.slug }));
+  return [...SERVICES, ...EXTRA_SERVICES].map((s) => ({ service: s.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ service: string }> }): Promise<Metadata> {
   const { service: slug } = await params;
+  const extra = getExtraService(slug);
+  if (extra) {
+    assertMeta(extra.title, extra.description, `/services/${slug}`);
+    const url = `https://wolfs-siding.com/services/${slug}`;
+    return {
+      title: extra.title,
+      description: extra.description,
+      alternates: { canonical: url },
+      openGraph: { title: extra.title, description: extra.description, url, siteName: "Wolf's Siding Inc.", type: "website", images: [{ url: `https://wolfs-siding.com${extra.image}`, alt: extra.imageAlt }] },
+    };
+  }
   const service = getServiceBySlug(slug);
   if (!service) return {};
 
@@ -86,6 +100,8 @@ export async function generateMetadata({ params }: { params: Promise<{ service: 
 
 export default async function ServicePage({ params }: { params: Promise<{ service: string }> }) {
   const { service: slug } = await params;
+  const extra = getExtraService(slug);
+  if (extra) return <ExtraServicePage service={extra} />;
   const service = getServiceBySlug(slug);
   if (!service) notFound();
 
@@ -115,12 +131,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     ],
     description: service.description,
     url: `https://wolfs-siding.com/services/${slug}`,
-    provider: {
-      "@type": "HomeAndConstructionBusiness",
-      name: "Wolf's Siding Inc.",
-      telephone: "+17744841895",
-      address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
-    },
+    provider: businessRef,
     areaServed: { "@type": "State", name: "Massachusetts" },
     offers: { "@type": "Offer", priceCurrency: "USD", availability: "https://schema.org/InStock", description: "Free estimates available" },
   };

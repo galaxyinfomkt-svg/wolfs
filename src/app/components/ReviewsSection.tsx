@@ -1,13 +1,18 @@
-/* GHL reputation widget (live Google reviews). Rendered by each local page
+import CustomerReviews from "./CustomerReviews";
+
+/* Real Google reviews rendered as HTML first (readable by Google and AI
+   crawlers), then the GHL reputation widget (live Google reviews, an iframe
+   crawlers cannot read). Rendered by each local page
    right before its closing CTA, so the visitor reads the reviews and the next
    thing they see is the phone number. */
-export default function ReviewsSection() {
+export default function ReviewsSection({ seedKey, count }: { seedKey?: string; count?: number } = {}) {
   return (
     <section id="reviews" className="scroll-mt-28 bg-[#F5F5F5] py-16 content-auto">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <h2 className="mb-8 text-center text-3xl font-extrabold tracking-[-0.02em] text-black sm:text-4xl">
           What Our Customers Say
         </h2>
+        <CustomerReviews seedKey={seedKey} count={count} />
         <iframe
           className="lc_reviews_widget reviews-widget"
           src="https://reputationhub.site/reputation/widgets/review_widget/BCczy6muFwhd63dPhKCC"

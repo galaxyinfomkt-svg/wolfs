@@ -7,12 +7,15 @@ import { getCoords } from "../data/cityCoords";
 import { getCityLocal } from "../data/localContent";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../config/meta";
+import { businessRef } from "../../config/schema";
 import LazyIframe from "../components/LazyIframe";
 import FormEmbed from "../components/FormEmbed";
 import HeroPhoto, { heroFor } from "../components/HeroPhoto";
 import CallCtaBlock from "../components/CallCtaBlock";
 import ServiceTiles from "../components/ServiceTiles";
-import ProjectBento, { LOCAL_WORK_PHOTOS } from "../components/ProjectBento";
+import ProjectBento from "../components/ProjectBento";
+import LocalProfile from "../components/LocalProfile";
+import { nearestWork } from "../data/nearestWork";
 import ReviewsSection from "../components/ReviewsSection";
 import { HeroStars, HeroCtas } from "../components/HeroBits";
 import CityServiceBrief from "../components/CityServiceBrief";
@@ -78,35 +81,24 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
   const cityLocal = getCityLocal(city);
   const nearby = getNearbyCities(city, 6);
 
+  // The business itself is declared once in the root layout (@id). Here we
+  // only say what it offers in this town, pointing at that entity.
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "HomeAndConstructionBusiness",
-    name: "Wolf's Siding Inc.",
-    alternateName: ["Wolf's Siding", "Wolfs Siding"],
-    description: `Professional siding contractor serving ${city.name}, ${STATE_ABBR}. Specializing in vinyl siding, Hardie Plank, cedar shingles, clapboard, and exterior trim work. Established ${SINCE}.`,
+    "@type": "Service",
+    name: `Siding & exterior services in ${city.name}, ${STATE_ABBR}`,
     url: `https://wolfs-siding.com/${slug}`,
-    telephone: "+17744841895",
-    image: "https://wolfs-siding.com/logo.png",
-    logo: "https://wolfs-siding.com/logo.png",
-    address: { "@type": "PostalAddress", streetAddress: "156 Washburn St", addressLocality: "Northborough", addressRegion: "MA", postalCode: "01532", addressCountry: "US" },
-    geo: { "@type": "GeoCoordinates", latitude: 42.3195, longitude: -71.6412 },
+    provider: businessRef,
     areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: "Massachusetts" } },
-    identifier: { "@type": "PropertyValue", name: "MA HIC License", value: BUSINESS.hicLicense },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Siding Services",
-      itemListElement: SERVICES.map((s, i) => ({
+      name: `Services in ${city.name}`,
+      itemListElement: SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s, i) => ({
         "@type": "Offer",
         itemOffered: { "@type": "Service", name: s.name, url: `https://wolfs-siding.com/${slug}/${s.slug}` },
         position: i + 1,
       })),
     },
-    sameAs: ["https://www.instagram.com/wolfs_siding_inc/", "https://www.facebook.com/wolfsiding", "https://g.page/r/CfACa1fxiHsqEAE"],
-    priceRange: "$$",
-    openingHoursSpecification: [
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "07:00", closes: "18:00" },
-      { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "08:00", closes: "14:00" },
-    ],
   };
 
   const breadcrumbLd = {
@@ -215,6 +207,9 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                   CityServiceBrief.tsx. */}
               <CityServiceBrief city={city} />
 
+              {/* Census housing numbers + sourced municipal facts. */}
+              <LocalProfile city={city} />
+
               {/* Services as photo tiles */}
               <div>
                 <h2 className="mb-6 text-3xl font-extrabold tracking-[-0.02em] text-black sm:text-4xl">
@@ -232,9 +227,9 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
               {/* Real job-site photos */}
               <div>
                 <h2 className="mb-6 text-3xl font-extrabold tracking-[-0.02em] text-black sm:text-4xl">
-                  Our Work in <span className="text-[#E00000]">{city.region}</span>
+                  Our Nearest Jobs to <span className="text-[#E00000]">{city.name}</span>
                 </h2>
-                <ProjectBento photos={LOCAL_WORK_PHOTOS} />
+                <ProjectBento photos={nearestWork(slug, 5)} />
               </div>
 
               {/* Map */}
@@ -307,7 +302,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         </div>
       </section>
 
-      <ReviewsSection />
+      <ReviewsSection seedKey={slug} count={3} />
 
       {/* ═══ CTA ═══ */}
       <section className="bg-gradient-to-r from-[#E00000] to-[#CC0000] py-16 content-auto">
