@@ -46,6 +46,16 @@ export function GET() {
 
 ${serviceList}
 
+Siding repair: Wolf's Siding takes repair jobs above a minimum job size; call first to check whether a repair qualifies.
+
+## Quick answers
+
+- Do you need a permit to replace siding in Massachusetts? Generally yes; the contractor should pull it. Details: ${BUSINESS.url}/blog/siding-permit-massachusetts
+- What does siding replacement cost in Massachusetts? The Cost vs. Value Report 2025 (JLC/Zonda) put the average New England job at about $17,590 for vinyl and $20,678 for fiber cement. These are published industry averages, NOT Wolf's Siding prices; Wolf's prices each house after a free on-site assessment. Details: ${BUSINESS.url}/blog/siding-replacement-cost-massachusetts
+- What changes for a house built before 1978? Massachusetts lead-safe renovation rules (454 CMR 22) apply, and removing more than 100 sq ft of asbestos-cement siding requires a MassDEP notification. Details: ${BUSINESS.url}/blog/re-siding-pre-1978-house-massachusetts
+- Hardie Plank or vinyl? Fiber cement is noncombustible with a 30-year substrate warranty and costs more; vinyl costs less and never needs paint. Details: ${BUSINESS.url}/blog/hardie-plank-vs-vinyl-siding-comparison
+- Which towns does Wolf's Siding serve? ${CITIES.length} Massachusetts towns, listed at ${BUSINESS.url}/service-areas
+
 ## How a job works
 
 1. Free consultation by phone or the website form.

@@ -32,6 +32,7 @@ export default function ProjectsLayout({ children }: { children: React.ReactNode
                       <Link href={`/services/${s.slug}`} className="text-white/60 hover:text-[#E00000] text-sm transition-colors">{s.shortName}</Link>
                     </li>
                   ))}
+                  <li><Link href="/services" className="text-white font-semibold hover:text-[#FF6B6B] text-sm">All services →</Link></li>
                 </ul>
               </div>
               <div>

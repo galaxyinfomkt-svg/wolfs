@@ -19,6 +19,7 @@ import { nearestWork } from "../data/nearestWork";
 import ReviewsSection from "../components/ReviewsSection";
 import { HeroStars, HeroCtas } from "../components/HeroBits";
 import CityServiceBrief from "../components/CityServiceBrief";
+import { EXTRA_SERVICES } from "../data/extraServices";
 
 export function generateStaticParams() {
   return generateCityParams();
@@ -222,6 +223,21 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
                     image: s.heroImage,
                   }))}
                 />
+              </div>
+
+              {/* Statewide-only services (no city pages): linked here so every
+                  town page leads to them. */}
+              <div>
+                <h2 className="mb-3 text-2xl font-extrabold text-black">Also available in {city.name}</h2>
+                <ul className="flex flex-wrap gap-2">
+                  {EXTRA_SERVICES.map((e) => (
+                    <li key={e.slug}>
+                      <Link href={`/services/${e.slug}`} className="inline-block rounded-full border border-gray-300 px-3.5 py-1.5 text-sm font-medium text-black hover:border-[#E00000] hover:text-[#E00000]">
+                        {e.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Real job-site photos */}

@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE, REVIEW_RATING } from "../../data/cities";
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../../config/business";
 import { cappedDescription, assertMeta } from "../../../config/meta";
-import { businessRef } from "../../../config/schema";
+import { businessRef, faqLd } from "../../../config/schema";
 import RepairMinimumBar from "../../components/RepairMinimumBar";
 import { EXTRA_SERVICES, getExtraService } from "../../data/extraServices";
 import ExtraServicePage from "../ExtraServicePage";
@@ -137,6 +137,20 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     offers: { "@type": "Offer", priceCurrency: "USD", availability: "https://schema.org/InStock", description: "Free estimates available" },
   };
 
+  // Statewide-only products related to this service (they have no city pages,
+  // so these links are how readers of the core pages find them).
+  const RELATED: Record<string, string[]> = {
+    "vinyl-siding-installation": ["everlast-siding", "cedar-impressions-siding", "board-and-batten-siding"],
+    "hardie-plank-siding-installation": ["james-hardie-panel-siding", "ceraclad-fiber-cement-siding", "board-and-batten-siding"],
+    "clapboard-siding-installation": ["lp-smartside-siding", "everlast-siding"],
+    "cedar-shingle-siding": ["cedar-impressions-siding"],
+    "full-siding-replacement": ["window-replacement", "board-and-batten-siding", "custom-exterior-work"],
+    "exterior-trim-work": ["pvc-trim-installation", "soffit-and-fascia", "window-and-door-trim"],
+    "gutter-installation": ["gutter-guards", "soffit-and-fascia"],
+    "roofing-installation": ["soffit-and-fascia", "gutter-guards"],
+  };
+  const related = (RELATED[slug] ?? []).map((r) => EXTRA_SERVICES.find((e) => e.slug === r)).filter(Boolean) as typeof EXTRA_SERVICES;
+
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -151,6 +165,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      {service.faqs.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd(service.faqs)) }} />}
 
       {slug === "siding-repair-services" && <RepairMinimumBar />}
 
@@ -401,6 +416,21 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                   })}
                 </div>
               </div>
+
+              {related.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-black text-black mb-4">Related products we install</h2>
+                  <ul className="flex flex-wrap gap-2">
+                    {related.map((r) => (
+                      <li key={r.slug}>
+                        <Link href={`/services/${r.slug}`} className="inline-block rounded-full border border-gray-300 px-4 py-2 text-sm font-semibold text-black hover:border-[#E00000] hover:text-[#E00000]">
+                          {r.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* FAQ */}
               <div>

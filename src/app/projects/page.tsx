@@ -6,6 +6,7 @@ import { PORTFOLIO, RECENT_WORK, TOWN_GEO } from "../data/portfolio";
 import CaseGrid from "./CaseGrid";
 import ReviewsSection from "../components/ReviewsSection";
 import { BUSINESS } from "../../config/business";
+import { businessRef } from "../../config/schema";
 
 const TITLE = "Siding Projects: Real Job-Site Photos | Wolf's Siding";
 const DESC =
@@ -67,7 +68,7 @@ export default function ProjectsPage() {
           name: w.place,
           ...(g ? { geo: { "@type": "GeoCoordinates", latitude: g[0], longitude: g[1] } } : {}),
         },
-        creator: { "@type": "Organization", name: "Wolf's Siding Inc." },
+        creator: businessRef,
       };
     }),
   };

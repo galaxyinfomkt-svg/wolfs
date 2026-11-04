@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { BLOG_POSTS, getBlogPostBySlug, getRelatedPosts } from "../../data/blog";
 import { getServiceBySlug } from "../../data/cities";
 import LazyIframe from "../../components/LazyIframe";
+import { OWNER_ID, businessRef } from "../../../config/schema";
 
 export function generateStaticParams() {
   return BLOG_POSTS.map((p) => ({ slug: p.slug }));
@@ -68,13 +69,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     author:
       post.author === "company"
         ? { "@type": "Organization", name: "Wolf's Siding Inc.", url: "https://wolfs-siding.com" }
-        : { "@type": "Person", name: "Ezequias Lobo", jobTitle: "Owner, Wolf's Siding Inc." },
-    publisher: {
-      "@type": "Organization",
-      name: "Wolf's Siding Inc.",
-      url: "https://wolfs-siding.com",
-      logo: { "@type": "ImageObject", url: "https://wolfs-siding.com/logo.png" },
-    },
+        : { "@type": "Person", "@id": OWNER_ID, name: "Ezequias Lobo", jobTitle: "Owner, Wolf's Siding Inc." },
+    publisher: businessRef,
     url: `https://wolfs-siding.com/blog/${slug}`,
     mainEntityOfPage: { "@type": "WebPage", "@id": `https://wolfs-siding.com/blog/${slug}` },
     articleSection: post.category,

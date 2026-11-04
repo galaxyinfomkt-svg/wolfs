@@ -18,6 +18,17 @@ import { BUSINESS, SINCE } from "./business";
 export const BUSINESS_ID = `${BUSINESS.url}/#business`;
 export const WEBSITE_ID = `${BUSINESS.url}/#website`;
 export const businessRef = { "@id": BUSINESS_ID } as const;
+export const OWNER_ID = `${BUSINESS.url}/#owner`;
+export const ownerRef = { "@id": OWNER_ID } as const;
+
+/** FAQPage for questions that are VISIBLE on the page (never schema-only). */
+export function faqLd(faqs: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  };
+}
 
 /** Everything Wolf's Siding offers, as confirmed by the owner (Nov 2026). */
 export const SERVICE_CATALOG: { group: string; items: { name: string; path?: string }[] }[] = [
@@ -94,7 +105,7 @@ export function businessNode() {
     hasMap: BUSINESS.social.googleMaps,
     areaServed: { "@type": "State", name: "Massachusetts" },
     identifier: { "@type": "PropertyValue", name: "MA HIC License", value: BUSINESS.hicLicense },
-    founder: { "@type": "Person", name: BUSINESS.owner, jobTitle: "Owner" },
+    founder: ownerRef,
     foundingDate: String(BUSINESS.foundedYear),
     priceRange: "$$",
     openingHoursSpecification: [
@@ -129,6 +140,14 @@ export function siteGraph() {
     "@context": "https://schema.org",
     "@graph": [
       businessNode(),
+      {
+        "@type": "Person",
+        "@id": OWNER_ID,
+        name: BUSINESS.owner,
+        jobTitle: "Owner",
+        worksFor: businessRef,
+        url: `${BUSINESS.url}/about`,
+      },
       {
         "@type": "WebSite",
         "@id": WEBSITE_ID,

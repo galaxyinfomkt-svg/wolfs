@@ -6,6 +6,7 @@ import LazyIframe from "../components/LazyIframe";
 import ReviewsSection from "../components/ReviewsSection";
 import { BUSINESS } from "../../config/business";
 import { STATE_NAME, TOWN_GEO, relatedCases, type PortfolioCase } from "../data/portfolio";
+import { businessRef } from "../../config/schema";
 
 const SITE = "https://wolfs-siding.com";
 
@@ -35,15 +36,15 @@ export default function CaseStudy({ c }: { c: PortfolioCase }) {
     description: c.thesis,
     primaryImageOfPage: { "@id": `${SITE}${cover.src}#image` },
     contentLocation: placeLd,
-    about: { "@type": "Service", name: "Siding installation", provider: { "@type": "HomeAndConstructionBusiness", name: BUSINESS.legalName, url: SITE } },
+    about: { "@type": "Service", name: "Siding installation", provider: businessRef },
     image: c.photos.map((ph) => ({
       "@type": "ImageObject",
       "@id": `${SITE}${ph.src}#image`,
       contentUrl: `${SITE}${ph.src}`,
       caption: ph.alt,
       contentLocation: placeLd,
-      creator: { "@type": "Organization", name: BUSINESS.legalName },
-      copyrightHolder: { "@type": "Organization", name: BUSINESS.legalName },
+      creator: businessRef,
+      copyrightHolder: businessRef,
     })),
   };
   const breadcrumbLd = {

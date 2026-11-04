@@ -7,7 +7,7 @@ import { getCoords } from "../../data/cityCoords";
 import { getLocalContent, prioritiseByExposure, localPainPoint } from "../../data/localContent";
 import { BUSINESS, SINCE } from "../../../config/business";
 import { cappedTitle, cappedDescription, assertMeta } from "../../../config/meta";
-import { businessRef } from "../../../config/schema";
+import { businessRef, faqLd } from "../../../config/schema";
 import LazyIframe from "../../components/LazyIframe";
 import FormEmbed from "../../components/FormEmbed";
 import HeroPhoto, { heroFor } from "../../components/HeroPhoto";
@@ -126,6 +126,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd(allFaqs)) }} />
 
       {serviceSlug === "siding-repair-services" && <RepairMinimumBar />}
 
