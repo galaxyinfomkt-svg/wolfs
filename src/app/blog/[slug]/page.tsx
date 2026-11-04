@@ -1,3 +1,4 @@
+import { fitTitle } from "../../../config/meta";
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return {};
 
   return {
-    title: `${post.title} | Siding Tips & Guides | Wolf's Siding Inc.`,
+    title: fitTitle(post.title),
     description: `${post.excerpt.length > 155 ? post.excerpt.slice(0, 152) + "..." : post.excerpt}`,
     keywords: `${post.category.toLowerCase()}, siding tips Massachusetts, ${post.title.split(' ').slice(0, 3).join(' ').toLowerCase()}, siding guide MA, Wolf's Siding blog, siding advice Massachusetts`,
     openGraph: {

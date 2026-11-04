@@ -4,6 +4,7 @@ import { BLOG_POSTS } from "./data/blog";
 import { getPortfolioProjects } from "./data/projects";
 import { PORTFOLIO } from "./data/portfolio";
 import { isCityServiceIndexable } from "../config/indexing";
+import { EXTRA_SERVICES } from "./data/extraServices";
 
 const BASE_URL = "https://wolfs-siding.com";
 // Date of the last real content change. Do not bump it without a change —
@@ -34,8 +35,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "roofing-installation": 0.85,
   };
 
-  // Service pages: /services/{service-slug}
-  const servicePages: MetadataRoute.Sitemap = SERVICES.map((service) => ({
+  // Service pages: /services/{service-slug} (city-level services + statewide-only ones)
+  const servicePages: MetadataRoute.Sitemap = [...SERVICES, ...EXTRA_SERVICES].map((service) => ({
     url: `${BASE_URL}/services/${service.slug}`,
     lastModified: SITE_UPDATED,
     changeFrequency: "monthly" as const,
@@ -63,7 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   // Company pages
-  const companyPages: MetadataRoute.Sitemap = ["about", "contact", "reviews"].map((p) => ({
+  const companyPages: MetadataRoute.Sitemap = ["about", "contact", "reviews", "service-areas"].map((p) => ({
     url: `${BASE_URL}/${p}`,
     lastModified: SITE_UPDATED,
     changeFrequency: "monthly" as const,

@@ -4,11 +4,11 @@ import Image from "next/image";
 import { BLOG_POSTS } from "../data/blog";
 
 export const metadata: Metadata = {
-  title: "Siding Blog MA | Tips, Guides & Expert Advice | Wolf's Siding Inc.",
-  description: "Siding tips, guides & expert advice for Massachusetts homeowners. Vinyl siding, Hardie Plank, cedar shingles, clapboard installation, repair & maintenance guides. Wolf's Siding Inc.",
+  title: "Siding Guides for Massachusetts Homes | Wolf's Siding",
+  description: "Siding guides for Massachusetts homeowners: vinyl vs Hardie Plank, cedar shingles, clapboard, replacement and what to expect, from Wolf's Siding.",
   keywords: "siding blog, siding tips Massachusetts, vinyl siding guide, Hardie Plank guide, cedar shingles guide, siding repair tips, home exterior blog",
   openGraph: {
-    title: "Siding Blog MA | Tips, Guides & Expert Advice | Wolf's Siding Inc.",
+    title: "Siding Guides for Massachusetts Homes | Wolf's Siding",
     description: "Expert siding tips, guides & advice for Massachusetts homeowners.",
     url: "https://wolfs-siding.com/blog",
     siteName: "Wolf's Siding Inc.",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Siding Blog MA | Tips, Guides & Expert Advice | Wolf's Siding Inc.",
+    title: "Siding Guides for Massachusetts Homes | Wolf's Siding",
     description: "Expert siding tips, guides & advice for Massachusetts homeowners.",
     images: ["https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/69309a3e4d01f3e2eea4a8f1.png"],
   },

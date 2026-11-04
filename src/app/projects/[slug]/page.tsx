@@ -1,3 +1,4 @@
+import { fitTitle } from "../../../config/meta";
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { slug } = await params;
   const c = getCase(slug);
   if (c) {
-    const title = `${c.title} in ${c.city}, ${c.state} | Siding Project | Wolf's Siding`;
+    const title = fitTitle(`${c.title} in ${c.city}, ${c.state}`);
     const description = cappedDescription(`${c.thesis} Real job-site photos from Wolf's Siding Inc. Free estimates: ${"(774) 484-1895"}.`);
     const url = `https://wolfs-siding.com/projects/${c.slug}`;
     const image = abs(c.photos[0].src);
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   }
   const p = getProjectBySlug(slug);
   if (!p) return {};
-  const title = `${p.title} — ${p.serviceType} Project | Wolf's Siding Inc.`;
+  const title = fitTitle(p.title);
   const description = cappedDescription(p.description);
   const url = `https://wolfs-siding.com/projects/${p.id}`;
   const image = abs(p.images[0]?.src ?? "");

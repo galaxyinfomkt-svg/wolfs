@@ -7,9 +7,9 @@ import CaseGrid from "./CaseGrid";
 import ReviewsSection from "../components/ReviewsSection";
 import { BUSINESS } from "../../config/business";
 
-const TITLE = "Siding Projects in MA & NH | Real Job-Site Photos | Wolf's Siding Inc.";
+const TITLE = "Siding Projects: Real Job-Site Photos | Wolf's Siding";
 const DESC =
-  "Real siding projects by Wolf's Siding Inc. in Grafton, Stoughton, Pelham, New Durham, Stoddard and more — every photo from our own job sites. Free estimates: (774) 484-1895.";
+  "Real siding jobs by Wolf's Siding in Grafton, Stoughton, Milton, Medford and more, every photo from our own job sites. Free estimates: (774) 484-1895.";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },

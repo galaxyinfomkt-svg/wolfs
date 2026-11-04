@@ -15,38 +15,46 @@ export default function LazyIframe(
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // eager: load immediately on mount (used for above-the-fold forms)
-    if (eager) {
-      setLoaded(true);
-      return;
-    }
-    // clickOnly: only load when user clicks the container (handled by onClick)
-    if (clickOnly) return;
+    // eager: already loaded via the initial state
+    if (eager || clickOnly) return;
 
+    /* Third-party iframes (the GHL form pulls ~2 MB, Google Maps ~0.5 MB) used
+       to start as soon as the page hydrated, competing with the hero image for
+       bandwidth and CPU (Lighthouse mobile: LCP 3.6–5.1 s, TBT 1–1.5 s). Now an
+       iframe starts only once the page has finished loading and the browser is
+       idle AND it is near the viewport — or immediately on any user interaction.
+       The phone number stays visible in the placeholder meanwhile. */
     let cancelled = false;
+    let near = false;
+    let ready = false;
     const activate = () => {
       if (cancelled) return;
       cancelled = true;
       setLoaded(true);
     };
+    const maybe = () => { if (near && ready) activate(); };
 
-    // IntersectionObserver with larger rootMargin to start loading earlier
     const el = containerRef.current;
     const observer = el
-      ? new IntersectionObserver(
-          ([entry]) => { if (entry.isIntersecting) activate(); },
-          { rootMargin: "400px" }
-        )
+      ? new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { near = true; maybe(); } }, { rootMargin: "400px" })
       : null;
     if (el && observer) observer.observe(el);
 
-    // Fallback: load after 1 second even if not visible
-    const fallback = setTimeout(activate, 1000);
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+    const idle = (cb: () => void) => (w.requestIdleCallback ? w.requestIdleCallback(cb, { timeout: 2500 }) : setTimeout(cb, 1200));
+    const onLoad = () => idle(() => { ready = true; maybe(); });
+    if (document.readyState === "complete") onLoad();
+    else window.addEventListener("load", onLoad, { once: true });
+
+    const events = ["pointerdown", "keydown", "touchstart", "scroll"] as const;
+    const onInteract = () => { ready = true; near = near || !el; maybe(); };
+    events.forEach((e) => window.addEventListener(e, onInteract, { once: true, passive: true }));
 
     return () => {
       cancelled = true;
-      clearTimeout(fallback);
       if (observer) observer.disconnect();
+      window.removeEventListener("load", onLoad);
+      events.forEach((e) => window.removeEventListener(e, onInteract));
     };
   }, [clickOnly, eager]);
 
