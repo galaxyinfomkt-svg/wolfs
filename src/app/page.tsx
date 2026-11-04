@@ -1184,7 +1184,7 @@ export default function HomePage() {
               &copy; {new Date().getFullYear()} Wolf&apos;s Siding Inc. All rights reserved. |
               Licensed Siding Contractor | HIC #218835 | Serving Massachusetts.
             </p>
-            <p className="text-white/30 text-[10px] mt-2">
+            <p className="text-white/70 text-[11px] mt-2">
               Site developed by{" "}
               <a href="https://galaxyinfo.us/" target="_blank" rel="noopener noreferrer" className="text-white/70 underline hover:text-white transition-colors">Galaxy IT MKT</a>
             </p>
