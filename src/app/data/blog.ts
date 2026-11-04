@@ -1,3 +1,5 @@
+import { AEO_POSTS, HARDIE_VS_VINYL } from "./blogAeo";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -8,9 +10,17 @@ export interface BlogPost {
   readTime: string;
   content: string[];
   relatedService: string;
+  /** Last substantive revision (ISO date); shown and used as dateModified. */
+  updated?: string;
+  /** Question-and-answer pairs rendered at the end and as FAQPage schema. */
+  faq?: { q: string; a: string }[];
+  /** Official sources the article relies on. */
+  sources?: { label: string; url: string }[];
+  /** "owner" = written/reviewed by Ezequias Lobo; "company" = staff-written, not yet owner-reviewed. */
+  author?: "owner" | "company";
 }
 
-export const BLOG_POSTS: BlogPost[] = [
+const BASE_POSTS: BlogPost[] = [
   {
     slug: "complete-guide-vinyl-siding-massachusetts",
     title: "The Complete Guide to Vinyl Siding Installation in Massachusetts",
@@ -233,6 +243,13 @@ export const BLOG_POSTS: BlogPost[] = [
       "## The Real Cost Comparison\n\nDIY sounds cheaper on paper, but factor in the real costs:\n\n- **Tools** — Brake bender, snap-lock punch, zip tool, vinyl cutting blade, scaffolding — these easily add up\n- **Time** — A professional crew of 3-4 completes in a week what a homeowner might take 3-4 weekends\n- **Mistakes** — Wasted material from bad cuts and do-overs\n- **Safety** — Working on ladders and scaffolding carries real risk. Emergency room visits are expensive.\n- **Repairs** — If water gets behind poorly installed siding, the cost to fix sheathing and framing damage can exceed the cost of the original siding project\n\nWhen you compare all these factors, professional installation often costs only 20-30% more than true DIY costs — and you get a warranty, code compliance, and peace of mind.\n\nWolf's Siding Inc. serves Massachusetts communities with professional siding installation backed by experience since 2007. Contact us for a free estimate and see why professional installation is the smart choice.",
     ],
   },
+];
+
+/* Newest first: the AEO articles, then the originals — with the Hardie vs
+   vinyl post replaced in place by its 2026 rewrite (same URL). */
+export const BLOG_POSTS: BlogPost[] = [
+  ...AEO_POSTS,
+  ...BASE_POSTS.map((p) => (p.slug === "hardie-plank-vs-vinyl-siding-comparison" ? { ...p, ...HARDIE_VS_VINYL } : p)),
 ];
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {

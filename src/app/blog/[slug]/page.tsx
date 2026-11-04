@@ -38,6 +38,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+/* Inline markdown: **bold** and [text](url). Internal links stay in-tab. */
+function inline(md: string): string {
+  return md
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, t, u) =>
+      u.startsWith("/")
+        ? `<a href="${u}" class="text-[#E00000] font-semibold underline underline-offset-2">${t}</a>`
+        : `<a href="${u}" target="_blank" rel="noopener" class="text-[#E00000] underline underline-offset-2">${t}</a>`
+    );
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
@@ -53,8 +64,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     description: post.excerpt,
     image: post.heroImage,
     datePublished: post.date,
-    dateModified: post.date,
-    author: { "@type": "Person", name: "Ezequias Lobo", jobTitle: "Owner, Wolf's Siding Inc." },
+    dateModified: post.updated ?? post.date,
+    author:
+      post.author === "company"
+        ? { "@type": "Organization", name: "Wolf's Siding Inc.", url: "https://wolfs-siding.com" }
+        : { "@type": "Person", name: "Ezequias Lobo", jobTitle: "Owner, Wolf's Siding Inc." },
     publisher: {
       "@type": "Organization",
       name: "Wolf's Siding Inc.",
@@ -66,6 +80,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     articleSection: post.category,
     inLanguage: "en-US",
   };
+
+  const faqLd = post.faq?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: post.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+      }
+    : null;
 
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -81,6 +103,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      {faqLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />}
 
       {/* Hero */}
       <section className="relative pt-[80px]">
@@ -98,7 +121,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </nav>
           <div className="flex items-center gap-3 text-white/60 text-sm mb-6">
             <span className="bg-[#E00000] text-white text-xs font-bold px-3 py-1.5 rounded-full">{post.category}</span>
-            <span>{new Date(post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
+            <span>
+              {post.updated ? "Updated " : ""}
+              {new Date(post.updated ?? post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}
+            </span>
             <span>&middot;</span>
             <span>{post.readTime}</span>
           </div>
@@ -125,7 +151,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                           return <h2 key={j} className="text-2xl font-black text-black mt-10 mb-4">{part.replace("## ", "")}</h2>;
                         }
                         if (part.startsWith("**") && part.includes("**\n")) {
-                          return <div key={j} className="text-[#333] text-base leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: part.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br />') }} />;
+                          return <div key={j} className="text-[#333] text-base leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: inline(part).replace(/\n/g, '<br />') }} />;
                         }
                         if (part.startsWith("- ") || part.startsWith("1. ")) {
                           const items = part.split("\n").filter(Boolean);
@@ -134,17 +160,45 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                           return (
                             <Tag key={j} className={`${isOrdered ? "list-decimal" : "list-disc"} pl-6 space-y-2 text-[#333] text-base leading-relaxed mb-4`}>
                               {items.map((item, k) => (
-                                <li key={k} dangerouslySetInnerHTML={{ __html: item.replace(/^[-\d.]+\s*/, "").replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                                <li key={k} dangerouslySetInnerHTML={{ __html: inline(item.replace(/^[-\d.]+\s*/, "")) }} />
                               ))}
                             </Tag>
                           );
                         }
-                        return <p key={j} className="text-[#333] text-base leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: part.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />;
+                        return <p key={j} className="text-[#333] text-base leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: inline(part) }} />;
                       })}
                     </div>
                   );
                 })}
               </div>
+
+              {post.faq && post.faq.length > 0 && (
+                <div className="mt-4">
+                  <h2 className="text-2xl font-black text-black mb-4">Quick answers</h2>
+                  <div className="space-y-3">
+                    {post.faq.map((f) => (
+                      <details key={f.q} className="rounded-xl bg-[#F5F5F5] p-5">
+                        <summary className="cursor-pointer font-semibold text-black">{f.q}</summary>
+                        <p className="mt-3 text-[#333] leading-relaxed">{f.a}</p>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {post.sources && post.sources.length > 0 && (
+                <div className="mt-8 border-t border-gray-200 pt-6">
+                  <h2 className="text-lg font-bold text-black mb-2">Sources</h2>
+                  <ul className="list-disc pl-6 space-y-1 text-sm text-[#555]">
+                    {post.sources.map((src) => (
+                      <li key={src.url}>
+                        <a href={src.url} target="_blank" rel="noopener" className="underline">{src.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-3 text-xs text-[#666]">Rules change and towns differ. This article is general information, not legal advice — confirm requirements with your building department.</p>
+                </div>
+              )}
 
               {/* CTA within article */}
               <div className="mt-12 bg-gradient-to-r from-[#E00000] to-[#CC0000] rounded-2xl p-8 text-center">
