@@ -46,6 +46,11 @@ export const MATERIAL_LIFESPAN = {
   clapboard: "25–40 years",
 } as const;
 
+/* Repair work has a minimum job size. Set the amount the owner confirms
+   (e.g. "$1,500") to show it in the repair-page strip; null shows the notice
+   without a number. Never guess this value. */
+export const REPAIR_MINIMUM: string | null = null;
+
 /* Derived, ready-to-render strings */
 export const REVIEW_COUNT = String(BUSINESS.reviews.count);
 export const REVIEW_RATING = BUSINESS.reviews.rating.toFixed(1);

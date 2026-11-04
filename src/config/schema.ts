@@ -35,6 +35,7 @@ export const SERVICE_CATALOG: { group: string; items: { name: string; path?: str
       { name: "Cedar Impressions", path: "/services/cedar-impressions-siding" },
       { name: "CeraClad Fiber Cement Siding", path: "/services/ceraclad-fiber-cement-siding" },
       { name: "Siding Replacement", path: "/services/full-siding-replacement" },
+      { name: "Siding Repair (minimum job size applies)", path: "/services/siding-repair-services" },
     ],
   },
   {

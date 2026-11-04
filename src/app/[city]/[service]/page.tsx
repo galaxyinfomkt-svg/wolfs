@@ -17,6 +17,7 @@ import { HeroStars, HeroCtas } from "../../components/HeroBits";
 import LocalProfile from "../../components/LocalProfile";
 import { nearestWork } from "../../data/nearestWork";
 import { cityProfile } from "../../data/cityProfiles";
+import RepairMinimumBar from "../../components/RepairMinimumBar";
 import { isCityServiceIndexable } from "../../../config/indexing";
 
 type Params = { city: string; service: string };
@@ -126,6 +127,8 @@ export default async function CityServicePage({ params }: { params: Promise<Para
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
+      {serviceSlug === "siding-repair-services" && <RepairMinimumBar />}
+
       {/* ═══ HERO — job-site photo, big headline, estimate form as a card ═══ */}
       <section className="relative bg-[#111] min-h-[100svh] pt-[110px] sm:min-h-0 lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
         <HeroPhoto image={heroFor(`${citySlug}/${serviceSlug}`)} />
@@ -150,7 +153,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
               </h1>
 
               <p className="mb-6 max-w-xl text-lg leading-relaxed text-white/90 lg:text-xl [text-shadow:0_2px_14px_rgba(0,0,0,.35)]">
-                {service.shortName} for {city.name} homes, installed by our own crew. Owner-run {SINCE}, licensed and insured.
+                {service.shortName} for {city.name} homes, {serviceSlug === "siding-repair-services" ? "done" : "installed"} by our own crew. Owner-run {SINCE}, licensed and insured.
               </p>
 
               <HeroStars />

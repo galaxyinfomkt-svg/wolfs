@@ -6,6 +6,7 @@ import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE, REVIEW_
 import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../../config/business";
 import { cappedDescription, assertMeta } from "../../../config/meta";
 import { businessRef } from "../../../config/schema";
+import RepairMinimumBar from "../../components/RepairMinimumBar";
 import { EXTRA_SERVICES, getExtraService } from "../../data/extraServices";
 import ExtraServicePage from "../ExtraServicePage";
 import { BLOG_POSTS } from "../../data/blog";
@@ -150,6 +151,9 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+
+      {slug === "siding-repair-services" && <RepairMinimumBar />}
+
 
       {/* ═══ HERO — real job photo, big headline, estimate form as a card ═══ */}
       <section className="relative bg-[#111] min-h-[100svh] pt-[110px] sm:min-h-0 lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
