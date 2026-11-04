@@ -8,7 +8,10 @@ import type { BlogPost } from "./blog";
    Every regulatory statement links to the rule or agency page it rests on.
    Deliberately NOT stated (could not be confirmed): the current Guaranty
    Fund cap (c.142A was amended in 2024), and any license Wolf's holds other
-   than HIC #218835. author: "company" until the owner reviews the text.
+   than HIC #218835. The permit, pre-1978 and Hardie-vs-vinyl articles were
+   approved by the owner (Ezequias Lobo) in Nov 2026 and carry his byline; the
+   cost article stays author "company" until he reviews it. The cost article
+   uses only published Cost vs. Value 2025 figures — never Wolf's own quotes.
    ═══════════════════════════════════════════════════════════════════════ */
 
 const S = {
@@ -24,9 +27,46 @@ const S = {
   hardieZones: { label: "James Hardie — Hardie Zone System", url: "https://www.jameshardie.com/hardie-zone-system" },
   hardieWarranty: { label: "James Hardie — Warranty information", url: "https://www.jameshardie.com/product-support/warranty-information" },
   hardiePlank: { label: "James Hardie — HardiePlank lap siding", url: "https://www.jameshardie.com/products/hardieplank-lap-siding" },
+  cvv2025: { label: "JLC / Zonda — Cost vs. Value Report 2025 (national)", url: "https://www.jlconline.com/cost-vs-value/2025/" },
+  cvvNE: { label: "JLC / Zonda — Cost vs. Value Report 2025, New England", url: "https://www.jlconline.com/cost-vs-value/2025/new-england/" },
+
 };
 
 export const AEO_POSTS: BlogPost[] = [
+  {
+    slug: "siding-replacement-cost-massachusetts",
+    title: "How Much Does Siding Replacement Cost in Massachusetts?",
+    excerpt:
+      "Published 2025 averages for New England siding jobs, what moves the price up or down on a Massachusetts house, and how to compare estimates. Industry figures, not Wolf's Siding prices.",
+    heroImage: "/services/siding-replacement-2.jpg",
+    category: "Costs",
+    date: "2026-11-04",
+    readTime: "6 min read",
+    relatedService: "full-siding-replacement",
+    author: "company",
+    content: [
+      "**About these numbers:** the figures below are published industry averages from the Cost vs. Value Report 2025 by JLC and Zonda. They are **not a quote, an estimate or a price list from Wolf's Siding**. Every house is priced after an on-site look at the walls, and your number can land well above or below an average.",
+
+      "## What does siding replacement cost in New England?\n\nAccording to the Cost vs. Value Report 2025, the average New England job cost for a standard siding replacement was about **$17,590 for vinyl** and about **$20,678 for fiber cement**. Nationally the same report put vinyl at about $17,950 and fiber cement at about $21,485. These describe one standard, mid-size project, not a typical Massachusetts house, so treat them as a reference point rather than a budget.",
+
+      "## Does new siding pay back at resale?\n\nPartly, and fiber cement did better in the 2025 report. For New England, the report estimated that a vinyl siding replacement recouped about 93% of its cost at resale, and a fiber-cement replacement about 145%. Nationally the figures were about 97% for vinyl and 114% for fiber cement. Those are estimates of resale value from real-estate professionals, not a guarantee for any one house.",
+
+      "## Why can one house cost far more than the average?\n\nBecause the average is one standard job. On real Massachusetts houses the price moves with:\n\n- **Wall area and height** — a two- or three-story house, a steep lot or a tall gable needs more staging and more time.\n- **Material** — vinyl, composite, engineered wood, fiber cement, cedar and clapboard differ in material cost and in how long they take to install.\n- **Trim scope** — corner boards, window and door casings, soffit, fascia and frieze can be a large share of the job, especially on older houses with detailed trim.\n- **What comes off** — one layer or several, and whether the old siding is asbestos-cement, which adds MassDEP rules.\n- **What is underneath** — rotted sheathing, sills or window flashing found during tear-off has to be fixed before the wall is closed.\n- **Lead paint** — homes built before 1978 bring Massachusetts lead-safe renovation requirements (see [re-siding a pre-1978 house](/blog/re-siding-pre-1978-house-massachusetts)).\n- **Permits and review** — the building permit, and a historic-district certificate where one applies (see [siding permits in Massachusetts](/blog/siding-permit-massachusetts)).\n- **Openings and add-ons** — the number of windows and doors, gutters, and whether windows are being replaced at the same time.",
+
+      "## Is vinyl always the cheaper choice?\n\nOn the material and labor, standard vinyl is usually the lower-cost option, which matches the 2025 averages above. Premium and insulated vinyl narrow the gap with fiber cement, and the resale estimates in the same report favored fiber cement. The comparison is covered in more detail in [Hardie Plank vs vinyl siding](/blog/hardie-plank-vs-vinyl-siding-comparison).",
+
+      "## How should you compare siding estimates?\n\nMake sure every estimate prices the same thing:\n\n- the same material and product line, and the same trim scope;\n- removal and disposal of the old siding, and how asbestos or lead will be handled on an older house;\n- housewrap, flashing at windows and doors, and an allowance or unit price for rotted sheathing;\n- who pulls the permit (it should be the contractor) and the contractor's HIC registration number;\n- the manufacturer's warranty and any workmanship warranty, in writing.\n\nThe lowest number is often the one that leaves something out.",
+
+      "## How do you get a real number for your house?\n\nWith an on-site look. Wolf's Siding gives a free on-site assessment and a written, itemized estimate for the specific house — the only kind of number worth budgeting from.",
+    ],
+    faq: [
+      { q: "How much does it cost to replace siding in Massachusetts?", a: "There is no single price. As a reference, the Cost vs. Value Report 2025 put the average New England siding replacement at about $17,590 for vinyl and $20,678 for fiber cement. These are industry averages, not Wolf's Siding prices; a real number needs an on-site estimate." },
+      { q: "Is fiber cement siding worth the extra cost?", a: "In the Cost vs. Value Report 2025 for New England, fiber-cement replacement recouped about 145% of its cost at resale versus about 93% for vinyl. Those are estimates, and the right choice also depends on the house and budget." },
+      { q: "What makes siding replacement more expensive?", a: "Taller walls and staging, the material, the amount of trim, several old layers or asbestos siding to remove, rotted sheathing found during tear-off, lead-safe requirements on pre-1978 homes, permits, and the number of windows and doors." },
+      { q: "Are these Wolf's Siding prices?", a: "No. The figures are published industry averages from the Cost vs. Value Report 2025. Wolf's Siding prices each house after a free on-site assessment." },
+    ],
+    sources: [S.cvv2025, S.cvvNE],
+  },
   {
     slug: "siding-permit-massachusetts",
     title: "Do You Need a Permit to Replace Siding in Massachusetts?",
@@ -37,7 +77,7 @@ export const AEO_POSTS: BlogPost[] = [
     date: "2026-11-04",
     readTime: "6 min read",
     relatedService: "full-siding-replacement",
-    author: "company",
+    author: "owner",
     content: [
       "## Do you need a building permit to replace siding in Massachusetts?\n\nIn most cases, yes. The Massachusetts building code requires a permit to construct, alter, repair or remove part of a building, and only ordinary repairs are exempt. Whether a re-side counts as an ordinary repair is the building official's call, and many towns require a permit for it. Some towns go further and list siding and roofing as their own permit types; [Boylston's permit application](/boylston), for example, has separate boxes for both. The building department in your town has the final word, so ask before work starts.",
 
@@ -71,7 +111,7 @@ export const AEO_POSTS: BlogPost[] = [
     date: "2026-11-04",
     readTime: "7 min read",
     relatedService: "full-siding-replacement",
-    author: "company",
+    author: "owner",
     content: [
       "## Why does 1978 matter for a siding job?\n\nLead-based paint for homes was banned in 1978, so a house built before then is presumed to have lead paint on its trim, old clapboards or shingles unless testing shows otherwise. Tearing off siding means cutting, scraping and breaking painted surfaces, which is exactly the kind of work that releases lead dust. In much of Massachusetts this is most homes: in many towns more than half the housing was built before 1980 (see the numbers on each [town page](/service-areas)).",
 
@@ -110,7 +150,7 @@ export const HARDIE_VS_VINYL: Pick<BlogPost, "title" | "excerpt" | "readTime" | 
     "Fiber cement or vinyl for a New England house? A straight comparison of durability, cold weather, fire, upkeep, warranty and cost — and when each one is the better call.",
   readTime: "8 min read",
   updated: "2026-11-04",
-  author: "company",
+  author: "owner",
   content: [
     "## Which is better for a Massachusetts home, Hardie Plank or vinyl?\n\nNeither wins everywhere. Hardie Plank (James Hardie fiber cement) is the better fit when you want the look of painted wood, a noncombustible wall and a long substrate warranty, and you're willing to pay more for it. Vinyl is the better fit when budget and low upkeep come first and the house doesn't need the heavier, crisper look of fiber cement.",
 
