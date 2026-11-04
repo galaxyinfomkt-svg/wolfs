@@ -33,7 +33,7 @@ export default function FormEmbed({
         <a href={`mailto:${BUSINESS.email}`} className="font-bold text-[#E00000] hover:underline">
           {BUSINESS.email}
         </a>
-        <span className="basis-full text-center text-xs text-[#777]">Mon–Fri 7–6 · Sat 8–2</span>
+        <span className="basis-full text-center text-xs text-[#666]">Mon–Fri 7–6 · Sat 8–2</span>
       </div>
       <noscript>
         <p className="px-5 py-3 text-sm text-[#333]">

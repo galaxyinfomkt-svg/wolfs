@@ -150,7 +150,7 @@ export default function CaseStudy({ c }: { c: PortfolioCase }) {
                 placeholderLabel="Loading map..."
               />
             </div>
-            <p className="mt-2 text-xs text-[#777]">Map shows the town, not the home — we never publish a client&apos;s address.</p>
+            <p className="mt-2 text-xs text-[#666]">Map shows the town, not the home — we never publish a client&apos;s address.</p>
           </aside>
         </div>
       </section>

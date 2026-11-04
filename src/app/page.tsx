@@ -1,6 +1,5 @@
-"use client";
-
-import { useState, useEffect, useRef, useCallback } from "react";
+import { HeaderShell, MenuButton, MobileDropdown, ScrollAnimate } from "./components/HomeHeaderClient";
+import FooterAreas from "./components/FooterAreas";
 import Image from "next/image";
 import Link from "next/link";
 import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
@@ -287,22 +286,7 @@ const SERVICES = [
 
 const CDN = "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media";
 
-const PROJECT_IMAGES = [
-  { src: "/services/vinyl-siding.jpg", alt: "Vinyl siding installation on residential home by Wolf's Siding, MA", label: "Vinyl Siding", city: "Massachusetts" },
-  { src: "/services/hardie-plank-siding.jpg", alt: "Hardie Plank siding on multi-family building with Wolf's Siding van, MA", label: "Hardie Plank", city: "Massachusetts" },
-  { src: "/services/cedar-shingle-siding.jpg", alt: "Cedar shingle siding installation around window by Wolf's Siding, MA", label: "Cedar Shingles", city: "Massachusetts" },
-  { src: "/services/clapboard-siding.jpg", alt: "Clapboard siding installation with soffit and trim detail, MA", label: "Clapboard Siding", city: "Massachusetts" },
-  { src: "/services/exterior-trim.jpg", alt: "Professional exterior window trim work on multi-family home, MA", label: "Exterior Trim", city: "Massachusetts" },
-  { src: "/services/siding-replacement-1.jpg", alt: "Custom door trim and corbel detail by Wolf's Siding, MA", label: "Exterior Trim", city: "Massachusetts" },
-  { src: "/services/gutter-installation.jpg", alt: "Gutter guard system installation by Wolf's Siding, MA", label: "Gutter Installation", city: "Massachusetts" },
-  { src: "/services/gutter-black.jpg", alt: "Black seamless gutters on gray siding home by Wolf's Siding, MA", label: "Gutter Installation", city: "Massachusetts" },
-  { src: "/services/roofing-installation.jpg", alt: "Roofing installation on residential home by Wolf's Siding, MA", label: "Roofing", city: "Massachusetts" },
-  { src: "/services/roofing-4.jpg", alt: "Completed roof installation aerial view by Wolf's Siding, MA", label: "Roofing", city: "Massachusetts" },
-  { src: "/services/siding-replacement-3.jpg", alt: "Complete siding replacement on residential home by Wolf's Siding, MA", label: "Full Siding Replacement", city: "Massachusetts" },
-  { src: "/services/siding-replacement-2.jpg", alt: "Window trim after full siding replacement by Wolf's Siding, MA", label: "Full Siding Replacement", city: "Massachusetts" },
-];
 
-const GALLERY_FILTERS = ["All", "Vinyl Siding", "Hardie Plank", "Cedar Shingles", "Clapboard Siding", "Exterior Trim", "Full Siding Replacement", "Gutter Installation", "Roofing"];
 
 const FAQS = [
   { q: "How much does siding installation cost in Massachusetts?", a: "Siding installation costs depend on the size of your home, material chosen, and project complexity. Every home is different, which is why we provide free on-site assessments with transparent, itemized estimates — no hidden fees or surprises. Call us for your free quote." },
@@ -364,53 +348,10 @@ function ServiceIcon({ name, className = "w-6 h-6" }: { name: string; className?
    ════════════════════════════════════════════════════════════ */
 
 export default function HomePage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [galleryFilter, setGalleryFilter] = useState("All");
-
-  /* Scroll listener for header */
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const handleNavClick = useCallback(() => setMobileMenuOpen(false), []);
-
-  /* Intersection observer for scroll animations
-     opacity-0 is applied via JS only (not in SSR HTML) so crawlers see visible content */
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  useEffect(() => {
-    const els = document.querySelectorAll(".scroll-animate");
-    // Apply opacity-0 via JS so SSR HTML remains visible to crawlers
-    els.forEach((el) => el.classList.add("opacity-0"));
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in-up");
-            entry.target.classList.remove("opacity-0");
-            observerRef.current?.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
-    );
-    els.forEach((el) => observerRef.current?.observe(el));
-    return () => observerRef.current?.disconnect();
-  }, [galleryFilter]);
-
-  /* Filtered gallery images */
-  const filteredImages =
-    galleryFilter === "All"
-      ? PROJECT_IMAGES
-      : PROJECT_IMAGES.filter((img) => img.label === galleryFilter);
-
   return (
     <>
       {/* Business + WebSite structured data come from the root layout (@graph). */}
+      <ScrollAnimate />
 
       {/* ═══════════════════════════════════════════════════════
           1. HEADER — Two-tier (RS model: top bar + main nav)
@@ -449,11 +390,7 @@ export default function HomePage() {
       </div>
 
       {/* MAIN NAV — white/light bg so logo is visible (RS model) */}
-      <header
-        className={`fixed top-10 left-0 right-0 z-50 transition-all duration-300 bg-white ${
-          scrolled ? "shadow-xl" : "shadow-md"
-        }`}
-      >
+      <HeaderShell className="fixed top-10 left-0 right-0 z-50 transition-all duration-300 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[70px]">
             <Link href="/" className="flex-shrink-0 mr-auto" aria-label="Wolf's Siding Inc. — home">
@@ -488,11 +425,11 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <a href="/projects" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Projects</a>
+              <Link href="/projects" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Projects</Link>
               <Link href="/blog" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Blog</Link>
-              <a href="/about" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">About</a>
-              <a href="/reviews" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Reviews</a>
-              <a href="/contact" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Contact</a>
+              <Link href="/about" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">About</Link>
+              <Link href="/reviews" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Reviews</Link>
+              <Link href="/contact" className="text-sm font-semibold text-[#333] hover:text-[#E00000] transition-colors">Contact</Link>
             </nav>
 
             {/* Desktop CTA */}
@@ -521,47 +458,38 @@ export default function HomePage() {
                 <PhoneIcon className="w-3.5 h-3.5" />
                 Call Now
               </a>
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-[#333333]"
-                aria-label="Toggle menu"
-              >
-                {mobileMenuOpen ? <XMarkIcon /> : <MenuIcon />}
-              </button>
+              <MenuButton openIcon={<XMarkIcon />} closedIcon={<MenuIcon />} />
             </div>
           </div>
         </div>
 
         {/* Mobile dropdown */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-white mobile-menu-enter">
+        <MobileDropdown>
             <div className="px-4 py-4 space-y-1">
-              <a href="#home" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Home</a>
+              <a href="#home" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Home</a>
               <div className="px-4 py-2 text-xs font-bold text-[#E00000] uppercase tracking-wider">Services</div>
               {SIDING_SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
                 <Link
                   key={s.slug}
                   href={`/services/${s.slug}`}
-                  onClick={handleNavClick}
+                 
                   className="block px-6 py-2.5 rounded-lg text-sm text-[#333] hover:bg-[#E00000]/5"
                 >
                   {s.shortName}
                 </Link>
               ))}
-              <a href="/projects" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</a>
-              <Link href="/blog" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Blog</Link>
-              <a href="/about" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">About</a>
-              <a href="/reviews" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Reviews</a>
-              <a href="/contact" onClick={handleNavClick} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Contact</a>
+              <Link href="/projects" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</Link>
+              <Link href="/blog" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Blog</Link>
+              <Link href="/about" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">About</Link>
+              <Link href="/reviews" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Reviews</Link>
+              <Link href="/contact" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Contact</Link>
               <a href="tel:+17744841895" className="flex items-center justify-center gap-2 mt-3 bg-[#E00000] text-white px-6 py-3 rounded-lg text-sm font-bold">
                 <PhoneIcon className="w-4 h-4" />
                 Call (774) 484-1895
               </a>
             </div>
-          </div>
-        )}
-      </header>
+        </MobileDropdown>
+      </HeaderShell>
 
       <main>
         {/* ═══════════════════════════════════════════════════════
@@ -608,7 +536,7 @@ export default function HomePage() {
                   <span>Prefer to talk?</span>
                   <a href={`tel:${BUSINESS.phoneE164}`} className="font-bold text-black hover:text-[#E00000]">{BUSINESS.phone}</a>
                   <a href={`mailto:${BUSINESS.email}`} className="font-bold text-[#E00000] hover:underline">{BUSINESS.email}</a>
-                  <span className="basis-full text-center text-xs text-[#777]">Mon–Fri 7–6 · Sat 8–2</span>
+                  <span className="basis-full text-center text-xs text-[#666]">Mon–Fri 7–6 · Sat 8–2</span>
                 </div>
               </div>
             </div>
@@ -813,7 +741,7 @@ export default function HomePage() {
                     {i + 1}
                   </span>
                   <h3 className="text-lg font-extrabold lg:mb-2 lg:text-xl">{step.title}</h3>
-                  <p className="leading-relaxed text-[#ffe3e3]">{step.desc}</p>
+                  <p className="leading-relaxed text-white">{step.desc}</p>
                 </li>
               ))}
             </ol>
@@ -986,28 +914,18 @@ export default function HomePage() {
 
             <div className="space-y-4">
               {FAQS.map((faq, i) => (
-                <div
+                <details
                   key={i}
-                  className="bg-[#F5F5F5] rounded-2xl overflow-hidden border border-transparent hover:border-[#E00000]/20 transition-colors scroll-animate"
+                  className="group bg-[#F5F5F5] rounded-2xl overflow-hidden border border-transparent hover:border-[#E00000]/20 transition-colors scroll-animate"
                 >
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="flex items-center justify-between w-full p-6 text-left"
-                  >
+                  <summary className="flex items-center justify-between w-full p-6 text-left cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                     <span className="text-base sm:text-lg font-bold text-black pr-4">{faq.q}</span>
-                    <ChevronDownIcon
-                      className={`w-6 h-6 text-[#E00000] flex-shrink-0 transition-transform duration-300 ${
-                        openFaq === i ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                  <div className={`faq-content ${openFaq === i ? "open" : ""}`}>
-                    <div className="px-6 pb-6">
-                      <p className="text-[#333333] leading-relaxed">{faq.a}</p>
-                    </div>
+                    <ChevronDownIcon className="w-6 h-6 text-[#E00000] flex-shrink-0 transition-transform duration-300 group-open:rotate-180" />
+                  </summary>
+                  <div className="px-6 pb-6">
+                    <p className="text-[#333333] leading-relaxed">{faq.a}</p>
                   </div>
-                </div>
+                </details>
               ))}
             </div>
           </div>
@@ -1195,7 +1113,7 @@ export default function HomePage() {
 
             {/* Col 2: Services */}
             <div>
-              <h3 className="text-[#FF4444] font-bold text-sm uppercase tracking-wider mb-5">Our Services</h3>
+              <h3 className="text-[#FF6B6B] font-bold text-sm uppercase tracking-wider mb-5">Our Services</h3>
               <ul className="space-y-3">
                 {SERVICES.map((s) => (
                   <li key={s.slug}>
@@ -1209,7 +1127,7 @@ export default function HomePage() {
 
             {/* Col 3: Contact */}
             <div>
-              <h3 className="text-[#FF4444] font-bold text-sm uppercase tracking-wider mb-5">Contact Us</h3>
+              <h3 className="text-[#FF6B6B] font-bold text-sm uppercase tracking-wider mb-5">Contact Us</h3>
               <div className="space-y-4">
                 <a href="tel:+17744841895" className="flex items-center gap-3 text-white/80 hover:text-[#E00000] transition-colors">
                   <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0">
@@ -1240,7 +1158,7 @@ export default function HomePage() {
 
             {/* Col 4: Service Areas */}
             <div>
-              <h3 className="text-[#FF4444] font-bold text-sm uppercase tracking-wider mb-5">Service Areas</h3>
+              <h3 className="text-[#FF6B6B] font-bold text-sm uppercase tracking-wider mb-5">Service Areas</h3>
               <ul className="space-y-2">
                 {SERVICE_AREAS.slice(0, 12).map((city) => (
                   <li key={city.slug}>
@@ -1250,7 +1168,7 @@ export default function HomePage() {
                   </li>
                 ))}
                 <li>
-                  <Link href="/marlborough" className="text-[#FF4444] text-sm font-semibold">
+                  <Link href="/service-areas" className="text-[#FF6B6B] text-sm font-semibold">
                     + {SERVICE_AREAS_ALL.length - 12} more cities →
                   </Link>
                 </li>
@@ -1258,23 +1176,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* All cities band — RS style */}
-          <div className="border-t border-white/10 mt-10 pt-8">
-            <h3 className="text-center mb-4 flex items-center justify-center gap-2">
-              <MapPinIcon className="w-5 h-5 text-[#E00000]" />
-              <span className="text-[#FF4444] font-bold text-sm uppercase tracking-wider">
-                Service Areas – {SERVICE_AREAS_ALL.length}+ Cities Across Massachusetts
-              </span>
-            </h3>
-            <div className="flex flex-wrap justify-center gap-x-1 gap-y-1 max-w-6xl mx-auto">
-              {SERVICE_AREAS_ALL.map((c, i) => (
-                <span key={c.slug} className="text-white/70 text-xs">
-                  <Link href={`/${c.slug}`} className="hover:text-[#E00000] transition-colors">{c.name}</Link>
-                  {i < SERVICE_AREAS_ALL.length - 1 && <span className="mx-1">·</span>}
-                </span>
-              ))}
-            </div>
-          </div>
+          <FooterAreas />
 
           {/* Copyright */}
           <div className="pt-8 text-center">
@@ -1284,7 +1186,7 @@ export default function HomePage() {
             </p>
             <p className="text-white/30 text-[10px] mt-2">
               Site developed by{" "}
-              <a href="https://galaxyinfo.us/" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#E00000] transition-colors">Galaxy IT MKT</a>
+              <a href="https://galaxyinfo.us/" target="_blank" rel="noopener noreferrer" className="text-white/70 underline hover:text-white transition-colors">Galaxy IT MKT</a>
             </p>
           </div>
         </div>

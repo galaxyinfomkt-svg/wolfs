@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:uniqueness": "node scripts/check-uniqueness.mjs"
+    "check:uniqueness": "node scripts/check-uniqueness.mjs",
+    "audit:site": "node scripts/audit-site.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

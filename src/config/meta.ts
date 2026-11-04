@@ -41,6 +41,18 @@ export function cappedTitle(lead: string, place: string): string {
   return title.slice(0, TITLE_MAX);
 }
 
+/**
+ * Fit a page title into the cap: "{main} | Wolf's Siding" when it fits,
+ * otherwise "{main}" alone, otherwise {main} cut back to a word boundary.
+ */
+export function fitTitle(main: string): string {
+  const withBrand = `${main} | ${BRAND}`;
+  if (withBrand.length <= TITLE_MAX) return withBrand;
+  if (main.length <= TITLE_MAX) return main;
+  const cut = main.slice(0, TITLE_MAX - 1);
+  return cut.slice(0, cut.lastIndexOf(" ")).replace(/[\s,:;—-]+$/, "") + "…";
+}
+
 /** Clamp a description to the cap on a word boundary, keeping the phone at the end. */
 export function cappedDescription(body: string): string {
   const phone = BUSINESS.phone;

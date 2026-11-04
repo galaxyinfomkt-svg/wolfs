@@ -7,7 +7,7 @@ import { BUSINESS, SINCE } from "../config/business";
 import { siteGraph } from "../config/schema";
 import "./globals.css";
 
-const META_DESC = `Expert siding installation & replacement across Massachusetts — vinyl, Hardie Plank, cedar & clapboard by Wolf's Siding. Serving ${SINCE}. Free estimates. ${BUSINESS.phone}`;
+const META_DESC = `Siding, trim, windows, gutters & roofing across Massachusetts by Wolf's Siding, owner-run ${SINCE}. Free estimates. ${BUSINESS.phone}`;
 
 const inter = Inter({
   variable: "--font-inter",
