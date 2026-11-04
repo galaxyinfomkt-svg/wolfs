@@ -8,10 +8,9 @@ import type { BlogPost } from "./blog";
    Every regulatory statement links to the rule or agency page it rests on.
    Deliberately NOT stated (could not be confirmed): the current Guaranty
    Fund cap (c.142A was amended in 2024), and any license Wolf's holds other
-   than HIC #218835. The permit, pre-1978 and Hardie-vs-vinyl articles were
-   approved by the owner (Ezequias Lobo) in Nov 2026 and carry his byline; the
-   cost article stays author "company" until he reviews it. The cost article
-   uses only published Cost vs. Value 2025 figures — never Wolf's own quotes.
+   than HIC #218835. All four articles were approved by the owner (Ezequias
+   Lobo) in Nov 2026 and carry his byline. The cost article uses only
+   published Cost vs. Value 2025 figures — never Wolf's own quotes.
    ═══════════════════════════════════════════════════════════════════════ */
 
 const S = {
@@ -43,7 +42,7 @@ export const AEO_POSTS: BlogPost[] = [
     date: "2026-11-04",
     readTime: "6 min read",
     relatedService: "full-siding-replacement",
-    author: "company",
+    author: "owner",
     content: [
       "**About these numbers:** the figures below are published industry averages from the Cost vs. Value Report 2025 by JLC and Zonda. They are **not a quote, an estimate or a price list from Wolf's Siding**. Every house is priced after an on-site look at the walls, and your number can land well above or below an average.",
 
