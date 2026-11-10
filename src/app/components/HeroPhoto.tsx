@@ -38,11 +38,17 @@ export const HERO_PHOTOS: HeroImage[] = [
   },
 ];
 
+/* Page heroes use Massachusetts jobs only: a Massachusetts town page headed by
+   a New Hampshire cabin reads as stock imagery, even though the job is real.
+   The NH jobs stay on /projects with their true locations. */
+const MA_HEROES = HERO_PHOTOS.filter((h) => /-ma-/.test(h.src));
+
 /** Same photo for the same page on every build; different pages get different photos. */
 export function heroFor(key: string): HeroImage {
+  const pool = MA_HEROES.length ? MA_HEROES : HERO_PHOTOS;
   let h = 0;
   for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
-  return HERO_PHOTOS[h % HERO_PHOTOS.length];
+  return pool[h % pool.length];
 }
 
 export default function HeroPhoto({ image }: { image: HeroImage }) {

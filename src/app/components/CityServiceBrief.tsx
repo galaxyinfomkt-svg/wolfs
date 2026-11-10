@@ -72,16 +72,13 @@ export default function CityServiceBrief({
 
         {drive && (
           <p>
-            {city.name} is {drive}
-            {cty ? `, in ${cty} County` : ""}, so a {trade} job
-            here is scheduled as a full crew day rather than split across sites.
+            {city.name} is {drive}{cty ? `, in ${cty} County` : ""}.
           </p>
         )}
 
         {near.length > 0 && (
           <p>
-            The same crew that runs {trade} in {city.name} also
-            covers{" "}
+            Nearby towns we also serve:{" "}
             {near.map((c, i) => (
               <span key={c.slug}>
                 <Link href={`/${c.slug}`} className="text-[#E00000] underline underline-offset-2">
@@ -90,8 +87,7 @@ export default function CityServiceBrief({
                 {i < near.length - 2 ? ", " : i === near.length - 2 ? " and " : ""}
               </span>
             ))}
-            . When two of those towns book in the same week we can usually bring the{" "}
-            {city.name} start date forward.
+            .
           </p>
         )}
 

@@ -116,7 +116,7 @@ export const SERVICES: ServiceData[] = [
       "Persistent mold, mildew, and algae growth on aging siding surfaces that never fully cleans away and keeps coming back each season",
     ],
     benefits: [
-      "Virtually maintenance-free — no painting, staining, or sealing required. Just an occasional rinse with a garden hose to keep it looking new",
+      "Low maintenance — no painting, staining or sealing. An occasional rinse with a garden hose keeps it clean",
       "Engineered to withstand New England's extreme weather: wind-resistant up to 110 mph, impact-resistant, and UV-protected against fading",
       "Insulated vinyl options can reduce energy costs by up to 20%, keeping your home warmer in winter and cooler in summer",
       "Available in 40+ colors and realistic wood-grain textures that replicate the look of natural wood without any of the upkeep",
@@ -174,7 +174,7 @@ export const SERVICES: ServiceData[] = [
       { title: "Expert Installation", desc: "We carefully remove old siding, repair any sheathing damage, install weather barrier, and apply new clapboards with precision cuts and uniform spacing." },
     ],
     faqs: [
-      { q: "What's the difference between wood and fiber cement clapboard?", a: "Wood clapboard offers the most authentic look but requires regular painting and is susceptible to rot. Fiber cement (like Hardie) looks nearly identical to wood but is fireproof, rot-proof, and needs paint only every 15+ years. We install both and can help you decide." },
+      { q: "What's the difference between wood and fiber cement clapboard?", a: "Wood clapboard offers the most authentic look but requires regular painting and is susceptible to rot. Fiber cement (like Hardie) looks very close to painted wood, is noncombustible and resists rot; with a factory ColorPlus finish, the paint carries a 15-year limited warranty. We install both and can help you decide." },
       { q: "Does clapboard siding work on modern homes?", a: "Absolutely. While clapboard is a traditional style, it works beautifully on modern and contemporary homes. The clean horizontal lines complement many architectural styles, and modern materials make it a practical choice for any home." },
       { q: "How often does clapboard siding need to be repainted?", a: "Wood clapboard typically needs repainting every 5-7 years. Fiber cement clapboard holds paint much longer — usually 12-15 years before a repaint is needed. We use premium exterior paints that maximize longevity." },
     ],
@@ -192,7 +192,7 @@ export const SERVICES: ServiceData[] = [
     slug: "hardie-plank-siding-installation",
     shortName: "Hardie Plank",
     material: "Hardie Plank fiber cement siding",
-    description: "James Hardie fiber cement siding is the premium choice for Massachusetts homes — fireproof, rot-proof, and engineered to withstand the harshest New England conditions.",
+    description: "James Hardie fiber cement siding: noncombustible, resistant to rot and pests, with an HZ5 product line engineered for freezing temperatures, snow and ice.",
     heroImage: "/services/hardie-plank-siding.jpg",
     priceRange: "$12,000 – $30,000",
     lifespan: MATERIAL_LIFESPAN.hardie,
@@ -218,7 +218,7 @@ export const SERVICES: ServiceData[] = [
       { title: "Expert Installation", desc: "As trained Hardie professionals, we follow James Hardie's Best Practices installation guide to ensure your warranty is fully valid and your siding performs for decades." },
     ],
     faqs: [
-      { q: "Why is Hardie Plank more expensive than vinyl?", a: "Hardie Plank costs more upfront because it's a premium cement-based product that's fireproof, rot-proof, and lasts 50+ years with minimal maintenance. When you factor in the lifespan, reduced maintenance costs, and home value increase, Hardie Plank is actually the better long-term investment." },
+      { q: "Why is Hardie Plank more expensive than vinyl?", a: "Hardie Plank costs more because the material is heavier fiber cement and takes more labor to cut and hang. In return it is noncombustible, carries a 30-year non-prorated substrate warranty, and in the Cost vs. Value Report 2025 fiber-cement replacement recouped more of its cost at resale than vinyl in New England." },
       { q: "Is Hardie Plank good for cold climates?", a: "James Hardie specifically manufactures HZ10® products for cold climate zones like Massachusetts. This formulation is engineered to resist moisture penetration and freeze-thaw damage, making it one of the best siding choices for New England homes." },
       { q: "Do I need a special contractor for Hardie Plank?", a: "While not required, using a contractor experienced with fiber cement is critical. Hardie Plank requires different tools and techniques than vinyl or wood. Our crew is trained in James Hardie's Best Practices, ensuring proper installation and full warranty coverage." },
     ],
@@ -292,7 +292,7 @@ export const SERVICES: ServiceData[] = [
       "Gaps between trim boards and siding creating entry points for insects, rodents, drafts, and moisture that damage your home from the inside out",
     ],
     benefits: [
-      "PVC and composite trim options that never rot, split, or need painting — engineered for permanent weather resistance in New England conditions",
+      "PVC and composite trim that doesn't absorb water or rot and doesn't need painting — a long-lasting option for New England weather",
       "Clean, precise joints and transitions that give your home a professionally finished look and dramatically boost curb appeal",
       "Proper trim installation creates a continuous weather seal around windows, doors, and corners, preventing costly water infiltration",
       "Custom trim profiles available to match historic architectural details or create modern, clean-lined designs unique to your home",
@@ -473,7 +473,7 @@ export const SERVICES: ServiceData[] = [
       "Complete tear-off and inspection of roof deck ensures any hidden rot, water damage, or ventilation issues are addressed before new roofing goes on",
       "Ice and water shield membrane installed along eaves, valleys, and penetrations provides critical protection against ice dams — essential for New England homes",
       "Proper ridge ventilation installed during re-roofing improves attic airflow, reduces energy costs, and extends the life of your new shingles",
-      "Manufacturer warranties up to 50 years on materials, plus our workmanship guarantee — your roof is protected for decades",
+      "Manufacturer warranties on roofing materials, with the warranty details for your job listed in the written estimate",
       "Complete project includes new flashing around chimneys, vents, and skylights — the most common source of roof leaks",
     ],
     processSteps: [
