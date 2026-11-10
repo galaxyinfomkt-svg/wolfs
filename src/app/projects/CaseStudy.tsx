@@ -4,7 +4,7 @@ import CaseGallery from "./CaseGallery";
 import FormEmbed from "../components/FormEmbed";
 import LazyIframe from "../components/LazyIframe";
 import ReviewsSection from "../components/ReviewsSection";
-import { BUSINESS } from "../../config/business";
+import { BUSINESS, HOURS_SHORT } from "../../config/business";
 import { STATE_NAME, TOWN_GEO, relatedCases, type PortfolioCase } from "../data/portfolio";
 import { businessRef } from "../../config/schema";
 
@@ -183,7 +183,7 @@ export default function CaseStudy({ c }: { c: PortfolioCase }) {
             <div className="mt-8 space-y-3 text-lg">
               <a href={`tel:${BUSINESS.phoneE164}`} className="block font-bold hover:text-[#E00000]">{BUSINESS.phone}</a>
               <a href={`mailto:${BUSINESS.email}`} className="block font-bold text-[#FF4A4A] hover:underline">{BUSINESS.email}</a>
-              <p className="text-sm text-white/60">Mon–Fri 7–6 · Sat 8–2 · HIC #{BUSINESS.hicLicense}</p>
+              <p className="text-sm text-white/60">{HOURS_SHORT} · HIC #{BUSINESS.hicLicense}</p>
             </div>
           </div>
           <FormEmbed id="contact-form" className="form-iframe-hero" />

@@ -23,9 +23,10 @@ export const BUSINESS = {
     state: "MA",
     zip: "01752",
   },
+  // Same as the Google Business Profile (confirmed 2026-11-10): Mon–Sat 8am–7pm, Sun closed.
   hours: {
-    weekday: { opens: "07:00", closes: "18:00" },
-    saturday: { opens: "08:00", closes: "14:00" },
+    weekday: { opens: "08:00", closes: "19:00" },
+    saturday: { opens: "08:00", closes: "19:00" },
   },
   // TODO: wire to the Google Business Profile API so this updates automatically.
   // Until then this is the ONE place the review count/rating is edited — the GHL
@@ -56,6 +57,9 @@ export const REPAIR_MINIMUM: string | null = null;
 
 /* Derived, ready-to-render strings */
 export const REVIEW_COUNT = String(BUSINESS.reviews.count);
+/** Business hours as text — keep in sync with BUSINESS.hours and the Google profile. */
+export const HOURS_SHORT = "Mon–Sat 8am–7pm";
+export const HOURS_LONG = "Monday–Saturday 8am–7pm · Sunday closed";
 /** e.g. "5.0 from 36 Google reviews (Nov 2026)" — always dated, never a live claim. */
 export const REVIEW_SUMMARY = `${BUSINESS.reviews.rating.toFixed(1)} from ${BUSINESS.reviews.count} Google reviews (${BUSINESS.reviews.asOf})`;
 export const REVIEW_RATING = BUSINESS.reviews.rating.toFixed(1);

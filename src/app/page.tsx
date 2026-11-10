@@ -3,7 +3,7 @@ import FooterAreas from "./components/FooterAreas";
 import Image from "next/image";
 import Link from "next/link";
 import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
-import { BUSINESS, SINCE, REVIEW_RATING, CITIES_SERVED, YEARS_EXPERIENCE } from "../config/business";
+import { BUSINESS, SINCE, REVIEW_RATING, CITIES_SERVED, YEARS_EXPERIENCE, HOURS_SHORT } from "../config/business";
 import CustomerReviews from "./components/CustomerReviews";
 import LazyIframe from "./components/LazyIframe";
 import SectionCta from "./components/SectionCta";
@@ -527,7 +527,7 @@ export default function HomePage() {
                   <span>Prefer to talk?</span>
                   <a href={`tel:${BUSINESS.phoneE164}`} className="font-bold text-black hover:text-[#E00000]">{BUSINESS.phone}</a>
                   <a href={`mailto:${BUSINESS.email}`} className="font-bold text-[#E00000] hover:underline">{BUSINESS.email}</a>
-                  <span className="basis-full text-center text-xs text-[#666]">Mon–Fri 7–6 · Sat 8–2</span>
+                  <span className="basis-full text-center text-xs text-[#666]">{HOURS_SHORT}</span>
                 </div>
               </div>
             </div>
@@ -940,7 +940,7 @@ export default function HomePage() {
                 <div className="form-fallback mb-3 rounded-lg bg-[#F5F5F5] px-4 py-2.5 text-sm text-[#333]">
                   Prefer to talk? Call{" "}
                   <a href="tel:+17744841895" className="font-bold text-[#E00000] hover:underline">(774) 484-1895</a>{" "}
-                  — Mon–Fri 7–6, Sat 8–2.
+                  — {HOURS_SHORT}.
                 </div>
                 <div id="contact-form-2" className="scroll-mt-28 bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden p-2 sm:p-3">
                   <LazyIframe
@@ -997,7 +997,7 @@ export default function HomePage() {
                       </div>
                       <div>
                         <p className="text-white/60 text-xs">Business Hours</p>
-                        <p className="text-white font-semibold">Mon–Fri 7AM–6PM | Sat 8AM–2PM</p>
+                        <p className="text-white font-semibold">{HOURS_SHORT}</p>
                       </div>
                     </div>
                   </div>
@@ -1143,7 +1143,7 @@ export default function HomePage() {
                   <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0">
                     <ClockIcon className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-sm">Mon–Fri 7–6 | Sat 8–2</span>
+                  <span className="text-sm">{HOURS_SHORT}</span>
                 </div>
               </div>
             </div>
