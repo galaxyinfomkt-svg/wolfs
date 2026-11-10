@@ -33,6 +33,7 @@ export function GET() {
 - Legal name: ${BUSINESS.legalName}
 - Owner / founder: ${BUSINESS.owner}
 - Founded: ${BUSINESS.foundedYear}
+- Owner in the trade since: ${BUSINESS.inTradeSince}
 - Massachusetts Home Improvement Contractor (HIC) license: #${BUSINESS.hicLicense}
 - Phone: ${BUSINESS.phone}
 - Email: ${BUSINESS.email}

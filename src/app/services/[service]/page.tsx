@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { SERVICES, CITIES, getServiceBySlug, STATE_ABBR, REGION_CLIMATE, REVIEW_RATING } from "../../data/cities";
-import { BUSINESS, SINCE, YEARS_IN_BUSINESS, CITIES_SERVED } from "../../../config/business";
+import { BUSINESS, SINCE, IN_TRADE_SINCE, CITIES_SERVED } from "../../../config/business";
 import { cappedDescription, assertMeta } from "../../../config/meta";
 import { businessRef, faqLd } from "../../../config/schema";
 import RepairMinimumBar from "../../components/RepairMinimumBar";
@@ -263,7 +263,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
                 <div className="space-y-4 text-[#333] text-base leading-relaxed">
                   <p>
-                    {service.description} At Wolf&apos;s Siding Inc., we bring <strong>hands-on experience {SINCE}</strong> in{" "}
+                    {service.description} At Wolf&apos;s Siding Inc., we bring <strong>hands-on experience — our owner has been {IN_TRADE_SINCE}</strong> — in{" "}
                     {service.shortName.toLowerCase()} to every project across Massachusetts. Whether your home is in Metro West, Greater Boston,
                     the South Shore, North Shore, or Worcester County, our team has the expertise to deliver exceptional results.
                   </p>
@@ -304,7 +304,7 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                     <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     <p className="text-green-800 text-sm leading-relaxed">
                       <strong>The Solution:</strong> Wolf&apos;s Siding Inc. addresses all of these challenges with professional{" "}
-                      {service.shortName.toLowerCase()} tailored specifically for Massachusetts conditions. Our local experience {SINCE}
+                      {service.shortName.toLowerCase()} tailored specifically for Massachusetts conditions. Our owner&apos;s experience ({IN_TRADE_SINCE})
                       means we know exactly what works and what doesn&apos;t.
                     </p>
                   </div>

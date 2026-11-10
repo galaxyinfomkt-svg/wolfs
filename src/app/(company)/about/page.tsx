@@ -7,8 +7,8 @@ import { CITIES, getRegionLabel } from "../../data/cities";
 import { PORTFOLIO } from "../../data/portfolio";
 
 const URL = `${BUSINESS.url}/about`;
-const TITLE = "About Wolf's Siding | Owner-Run Since 2007";
-const DESC = `Wolf's Siding Inc. is an owner-run siding, trim, gutter and roofing contractor in Northborough, MA. Founded in ${BUSINESS.foundedYear} by ${BUSINESS.owner}. MA HIC #${BUSINESS.hicLicense}.`;
+const TITLE = "About Wolf's Siding | Owner-Run Since 2018";
+const DESC = `Wolf's Siding Inc. is an owner-run siding, trim, gutter and roofing contractor in Marlborough, MA. Founded in ${BUSINESS.foundedYear} by ${BUSINESS.owner}. MA HIC #${BUSINESS.hicLicense}.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -56,7 +56,7 @@ export default function AboutPage() {
             <p>
               Wolf&apos;s Siding Inc. is an owner-run exterior contractor based at {BUSINESS.address.street} in{" "}
               {BUSINESS.address.city}, Massachusetts. {BUSINESS.owner} founded the company in {BUSINESS.foundedYear} and still
-              runs it day to day.
+              runs it day to day; he has been in the trade since {BUSINESS.inTradeSince}.
             </p>
             <p>
               We are a licensed Massachusetts Home Improvement Contractor (HIC #{BUSINESS.hicLicense}). Our work is the outside
@@ -64,7 +64,7 @@ export default function AboutPage() {
               and new construction for builders.
             </p>
             <p>
-              We work across {CITIES.length} towns from the Northborough shop, in {regions.map(getRegionLabel).join(", ")}.
+              We work across {CITIES.length} towns from our Marlborough office, in {regions.map(getRegionLabel).join(", ")}.
               {maJobs > 0 && (
                 <>
                   {" "}You can see {maJobs} of our Massachusetts jobs, with photos and the town each one is in, on our{" "}

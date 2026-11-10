@@ -3,7 +3,7 @@
 
    Before: the layout emitted an Organization, the home page a second
    HomeAndConstructionBusiness, and every one of the 109 city pages a third,
-   each with its own `url` (the city page) but the same Northborough address.
+   each with its own `url` (the city page) but the same office address.
    Google had no @id to tie them together, so it saw up to three different
    "businesses" per page — and 109 look-alike local businesses across the
    site, which reads like a fake-location pattern.
@@ -13,7 +13,7 @@
    re-declaring it.
    ═══════════════════════════════════════════════════════════════════════ */
 
-import { BUSINESS, SINCE } from "./business";
+import { BUSINESS, SINCE, HQ_COORDS, IN_TRADE_SINCE } from "./business";
 
 export const BUSINESS_ID = `${BUSINESS.url}/#business`;
 export const WEBSITE_ID = `${BUSINESS.url}/#website`;
@@ -101,7 +101,7 @@ export function businessNode() {
       postalCode: BUSINESS.address.zip,
       addressCountry: "US",
     },
-    geo: { "@type": "GeoCoordinates", latitude: 42.3195, longitude: -71.6412 },
+    geo: { "@type": "GeoCoordinates", latitude: HQ_COORDS[0], longitude: HQ_COORDS[1] },
     hasMap: BUSINESS.social.googleMaps,
     areaServed: { "@type": "State", name: "Massachusetts" },
     identifier: { "@type": "PropertyValue", name: "MA HIC License", value: BUSINESS.hicLicense },
@@ -130,7 +130,6 @@ export function businessNode() {
       BUSINESS.social.instagram,
       BUSINESS.social.facebook,
       BUSINESS.social.googleMaps,
-      "https://www.google.com/maps/place/Wolf's+Siding+Inc./@42.3195,-71.6412,15z",
     ],
   };
 }
@@ -145,6 +144,7 @@ export function siteGraph() {
         "@id": OWNER_ID,
         name: BUSINESS.owner,
         jobTitle: "Owner",
+        description: `Founder of Wolf's Siding Inc. (${BUSINESS.foundedYear}), ${IN_TRADE_SINCE}.`,
         worksFor: businessRef,
         url: `${BUSINESS.url}/about`,
       },
