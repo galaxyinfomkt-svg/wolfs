@@ -1,6 +1,6 @@
 import { CITIES } from "../data/cities";
 import { BLOG_POSTS } from "../data/blog";
-import { BUSINESS, REVIEW_RATING } from "../../config/business";
+import { BUSINESS, REVIEW_SUMMARY } from "../../config/business";
 import { SERVICE_CATALOG } from "../../config/schema";
 
 /* llms.txt — a plain-text brief for AI answer engines (ChatGPT, Claude,
@@ -39,7 +39,7 @@ export function GET() {
 - Email: ${BUSINESS.email}
 - Address: ${BUSINESS.address.street}, ${BUSINESS.address.city}, ${BUSINESS.address.state} ${BUSINESS.address.zip}
 - Hours: Monday–Friday 7am–6pm, Saturday 8am–2pm
-- Google rating: ${REVIEW_RATING}
+- Google rating: ${REVIEW_SUMMARY}
 - Free written estimates: yes
 - Works for: homeowners, and builders / general contractors on new construction
 

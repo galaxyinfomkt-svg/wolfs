@@ -30,7 +30,9 @@ export const BUSINESS = {
   // TODO: wire to the Google Business Profile API so this updates automatically.
   // Until then this is the ONE place the review count/rating is edited — the GHL
   // reputation widget keeps showing live reviews independently of this constant.
-  reviews: { rating: 5.0, count: 31 },
+  // Read from the Google Business Profile on 2026-11-10. Update rating, count
+  // AND asOf together — the site prints them as a dated snapshot.
+  reviews: { rating: 5.0, count: 36, asOf: "Nov 2026" },
   social: {
     instagram: "https://www.instagram.com/wolfs_siding_inc/",
     facebook: "https://www.facebook.com/wolfsiding",
@@ -54,6 +56,8 @@ export const REPAIR_MINIMUM: string | null = null;
 
 /* Derived, ready-to-render strings */
 export const REVIEW_COUNT = String(BUSINESS.reviews.count);
+/** e.g. "5.0 from 36 Google reviews (Nov 2026)" — always dated, never a live claim. */
+export const REVIEW_SUMMARY = `${BUSINESS.reviews.rating.toFixed(1)} from ${BUSINESS.reviews.count} Google reviews (${BUSINESS.reviews.asOf})`;
 export const REVIEW_RATING = BUSINESS.reviews.rating.toFixed(1);
 export const CITIES_SERVED = String(BUSINESS.citiesServed);
 export const SINCE = `since ${BUSINESS.foundedYear}`;

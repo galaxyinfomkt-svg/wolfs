@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BUSINESS, REVIEW_RATING } from "../../../config/business";
+import { BUSINESS, REVIEW_RATING, REVIEW_SUMMARY } from "../../../config/business";
 import { businessRef } from "../../../config/schema";
 import CustomerReviews from "../../components/CustomerReviews";
 
@@ -37,7 +37,7 @@ export default function ReviewsPage() {
         </nav>
         <h1 className="mb-3 text-4xl font-extrabold tracking-[-0.02em] text-black sm:text-5xl">Customer reviews</h1>
         <p className="mb-10 max-w-2xl text-lg text-[#333]">
-          Reviews left by our customers on Google, copied here word for word. Rated {REVIEW_RATING} on Google.
+          Reviews left by our customers on Google, copied here word for word. Rated {REVIEW_SUMMARY}.
         </p>
 
         <CustomerReviews />
