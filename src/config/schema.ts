@@ -83,7 +83,7 @@ export function businessNode() {
     "@type": ["HomeAndConstructionBusiness", "GeneralContractor", "RoofingContractor"],
     "@id": BUSINESS_ID,
     name: BUSINESS.legalName,
-    alternateName: ["Wolf's Siding", "Wolfs Siding", "Wolf Siding Inc"],
+    alternateName: ["Wolf's Siding", "Wolfs Siding Inc", "Wolfs Siding", "Wolf Siding Inc"],
     description: `Siding, trim, windows, gutters and roofing contractor in Massachusetts, owner-run ${SINCE}. Licensed MA Home Improvement Contractor #${BUSINESS.hicLicense}.`,
     url: BUSINESS.url,
     telephone: BUSINESS.phoneE164,

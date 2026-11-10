@@ -1,5 +1,5 @@
 import LazyIframe from "./LazyIframe";
-import { BUSINESS } from "../../config/business";
+import { BUSINESS, HOURS_SHORT } from "../../config/business";
 
 /* The one GHL estimate form embed per page, shown as a white card with a red
    top edge (the hero card of the approved "Modelo A"). The embed itself is
@@ -33,7 +33,7 @@ export default function FormEmbed({
         <a href={`mailto:${BUSINESS.email}`} className="font-bold text-[#E00000] hover:underline">
           {BUSINESS.email}
         </a>
-        <span className="basis-full text-center text-xs text-[#666]">Mon–Fri 7–6 · Sat 8–2</span>
+        <span className="basis-full text-center text-xs text-[#666]">{HOURS_SHORT}</span>
       </div>
       <noscript>
         <p className="px-5 py-3 text-sm text-[#333]">
@@ -41,7 +41,7 @@ export default function FormEmbed({
           <a href={`tel:${BUSINESS.phoneE164}`} className="font-bold text-[#E00000]">
             {BUSINESS.phone}
           </a>{" "}
-          for a free estimate — Mon–Fri 7–6, Sat 8–2.
+          for a free estimate — {HOURS_SHORT}.
         </p>
       </noscript>
     </div>
