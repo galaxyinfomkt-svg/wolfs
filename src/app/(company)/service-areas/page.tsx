@@ -8,7 +8,7 @@ import { regionSlug } from "../../components/FooterAreas";
 
 const URL = `${BUSINESS.url}/service-areas`;
 const TITLE = "Service Areas: 109 Massachusetts Towns | Wolf's Siding";
-const DESC = `Every Massachusetts town Wolf's Siding works in, by region, with the distance from our Northborough shop. Siding, trim, windows, gutters and roofing.`;
+const DESC = `Every Massachusetts town Wolf's Siding works in, by region, with the distance from our Marlborough office. Siding, trim, windows, gutters and roofing.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -56,7 +56,7 @@ export default function ServiceAreasPage() {
                       <li key={c.slug}>
                         <Link href={`/${c.slug}`} className="block rounded-lg border border-gray-200 px-4 py-3 hover:border-[#E00000]">
                           <span className="font-semibold text-black">{c.name}</span>
-                          {mi !== null && <span className="block text-xs text-[#666]">{mi} mi from the shop</span>}
+                          {mi !== null && <span className="block text-xs text-[#666]">{mi} mi from our office</span>}
                         </Link>
                       </li>
                     );

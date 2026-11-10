@@ -40,7 +40,7 @@ export default async function CityLayout({
                   className="h-10 w-auto mb-4"
                 />
                 <p className="text-white/60 text-sm leading-relaxed">
-                  Professional siding contractor serving cities across Massachusetts. experience since 2007 in vinyl, Hardie Plank, cedar, and clapboard siding.
+                  Professional siding contractor serving cities across Massachusetts. Owner in the trade since 2007; vinyl, Hardie Plank, cedar, and clapboard siding.
                 </p>
               </div>
 
@@ -83,7 +83,7 @@ export default async function CityLayout({
                     <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0">
                       <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
                     </div>
-                    <div className="text-white/60 text-sm">156 Washburn St<br />Northborough, MA 01532</div>
+                    <div className="text-white/60 text-sm">449 Boston Post Rd E<br />Marlborough, MA 01752</div>
                   </li>
                 </ul>
               </div>

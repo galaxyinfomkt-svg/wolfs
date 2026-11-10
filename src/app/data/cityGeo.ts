@@ -14,7 +14,10 @@
 
 import { CITY_FACTS, type County } from "./cityFacts";
 
-const HQ_SLUG = "northborough";
+import { HQ_COORDS } from "../../config/business";
+
+/* Distances are measured from the office (449 Boston Post Rd E, Marlborough). */
+
 
 /* Anchor points on the Massachusetts shoreline inside (or just beyond) the
    service area. Distance to the nearest one is what "salt air" means here —
@@ -40,12 +43,11 @@ function haversineMiles(a: [number, number], b: [number, number]): number {
   return 2 * R_MILES * Math.asin(Math.sqrt(s));
 }
 
-/** Miles from the Northborough shop, rounded to the nearest mile. */
+/** Miles from the Marlborough office, rounded to the nearest mile. */
 export function milesFromHQ(slug: string): number | null {
   const c = CITY_FACTS[slug];
-  const hq = CITY_FACTS[HQ_SLUG];
-  if (!c || !hq) return null;
-  return Math.round(haversineMiles(hq.coords, c.coords));
+  if (!c) return null;
+  return Math.round(haversineMiles(HQ_COORDS, c.coords));
 }
 
 /* Initial compass bearing from a to b, in degrees clockwise from north. */
@@ -61,11 +63,11 @@ function bearingDeg(a: [number, number], b: [number, number]): number {
 
 const COMPASS = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"] as const;
 
-/** Which way the town lies from the Northborough shop, on an 8-point compass. */
+/** Which way the town lies from the Marlborough office, on an 8-point compass. */
 export function directionFromHQ(slug: string): (typeof COMPASS)[number] | null {
   const c = CITY_FACTS[slug];
-  const hq = CITY_FACTS[HQ_SLUG];
-  if (!c || !hq) return null;
+  const hq = { coords: HQ_COORDS };
+  if (!c) return null;
   return COMPASS[Math.round(bearingDeg(hq.coords, c.coords) / 45) % 8];
 }
 
@@ -115,10 +117,10 @@ export function county(slug: string): County | null {
 export function driveDescription(slug: string): string | null {
   const mi = milesFromHQ(slug);
   if (mi === null) return null;
-  if (mi <= 6) return "practically next door to our Northborough shop";
-  if (mi <= 15) return `about ${mi} miles from our Northborough shop`;
-  if (mi <= 30) return `roughly ${mi} miles ${directionFromHQ(slug)} of our Northborough shop`;
-  return `about ${mi} miles from the shop — a drive our crews make regularly`;
+  if (mi <= 4) return "close to our Marlborough office";
+  if (mi <= 15) return `about ${mi} miles from our Marlborough office`;
+  if (mi <= 30) return `roughly ${mi} miles ${directionFromHQ(slug)} of our Marlborough office`;
+  return `about ${mi} miles from our Marlborough office`;
 }
 
 /** Everything a page needs, resolved once. */

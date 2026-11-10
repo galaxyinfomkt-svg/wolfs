@@ -3,7 +3,7 @@ import FooterAreas from "./components/FooterAreas";
 import Image from "next/image";
 import Link from "next/link";
 import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
-import { BUSINESS, SINCE, REVIEW_RATING, CITIES_SERVED, YEARS_IN_BUSINESS } from "../config/business";
+import { BUSINESS, SINCE, REVIEW_RATING, CITIES_SERVED, YEARS_EXPERIENCE } from "../config/business";
 import CustomerReviews from "./components/CustomerReviews";
 import LazyIframe from "./components/LazyIframe";
 import SectionCta from "./components/SectionCta";
@@ -368,7 +368,7 @@ export default function HomePage() {
             <div className="hidden sm:flex items-center gap-4">
               <span className="flex items-center gap-1.5 font-medium">
                 <MapPinIcon className="w-3.5 h-3.5" />
-                Serving Northborough, Massachusetts
+                Marlborough, Massachusetts
               </span>
               <a href={`mailto:${BUSINESS.email}`} className="flex items-center gap-1.5 whitespace-nowrap hover:text-white/90 transition-colors">
                 <EnvelopeIcon className="w-3.5 h-3.5 shrink-0" />
@@ -573,7 +573,7 @@ export default function HomePage() {
           <div className="mx-auto grid max-w-7xl grid-cols-2 px-4 sm:px-6 lg:grid-cols-4 lg:px-8">
             {[
               { n: String(BUSINESS.foundedYear), label: "Owner-run since" },
-              { n: `${YEARS_IN_BUSINESS}+`, label: "Years of experience" },
+              { n: `${YEARS_EXPERIENCE}+`, label: "Years in the trade" },
               { n: String(SERVICE_AREAS_ALL.length), label: "Cities served in MA" },
               { n: String(SERVICES.length), label: "Exterior services" },
             ].map((x, i) => (
@@ -666,7 +666,7 @@ export default function HomePage() {
                     homeowner and delivering solutions that exceed expectations.
                   </p>
                   <p>
-                    Based in <strong className="text-white">Northborough, MA</strong>, our skilled
+                    Based in <strong className="text-white">Marlborough, MA</strong>, our
                     crew serves homeowners across the MetroWest region, Worcester County, and beyond.
                     Whether it&apos;s a small trim repair or a full siding replacement, you get the same
                     dedication, transparency, and craftsmanship on every job.
@@ -694,7 +694,7 @@ export default function HomePage() {
                 <div className="rounded-2xl overflow-hidden shadow-2xl">
                   <Image
                     src="https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68e581d6416ab711d774e6cf.jpeg"
-                    alt="Ezequias Lobo — Owner of Wolf's Siding Inc., Massachusetts siding contractor serving since 2007"
+                    alt="Ezequias Lobo — Owner of Wolf's Siding Inc., in the trade since 2007"
                     width={600}
                     height={750}
                     className="w-full h-auto object-cover"
@@ -707,13 +707,13 @@ export default function HomePage() {
                     <ShieldCheckIcon className="w-8 h-8" />
                     <div>
                       <p className="font-bold text-sm">Trusted Contractor</p>
-                      <p className="text-xs text-white/80">Serving Since 2007</p>
+                      <p className="text-xs text-white/80">In the trade since 2007</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <SectionCta variant="dark" label={`${YEARS_IN_BUSINESS}+ years, one owner, one crew. Let's talk about your project.`} />
+            <SectionCta variant="dark" label={`${YEARS_EXPERIENCE}+ years in the trade, one owner. Let's talk about your project.`} />
           </div>
         </section>
 
@@ -800,7 +800,7 @@ export default function HomePage() {
                   No shortcuts. No subcontractors. Just our crew.
                 </p>
                 <ul className="space-y-3 mb-8">
-                  {[`${YEARS_IN_BUSINESS}+ years of experience`, "Licensed & insured", "Free estimates, done right"].map((item) => (
+                  {[`${YEARS_EXPERIENCE}+ years in the trade`, "Licensed & insured", "Free estimates, done right"].map((item) => (
                     <li key={item} className="flex items-center gap-3 text-white/90">
                       <CheckCircleIcon className="w-5 h-5 text-[#E00000] flex-shrink-0" />
                       <span className="font-medium">{item}</span>
@@ -987,7 +987,7 @@ export default function HomePage() {
                       </div>
                       <div>
                         <p className="text-white/60 text-xs">Address</p>
-                        <p className="text-white font-semibold">156 Washburn St, Northborough, MA 01532</p>
+                        <p className="text-white font-semibold">449 Boston Post Rd E, Marlborough, MA 01752</p>
                       </div>
                     </div>
                     {/* Hours */}
@@ -1063,7 +1063,7 @@ export default function HomePage() {
                 loading="lazy"
                 width="100%"
                 height="400"
-                title="Wolf's Siding Inc. Location — Northborough, Massachusetts"
+                title="Wolf's Siding Inc. office — Marlborough, Massachusetts"
                 className="map-iframe"
               />
             </div>
@@ -1089,7 +1089,7 @@ export default function HomePage() {
               />
               <p className="text-white/70 text-sm leading-relaxed mb-5">
                 Quality, Durability, and Impeccable Craftsmanship for Your Home&apos;s Exterior.
-                Proudly serving Massachusetts homeowners with experience since 2007.
+                Owner-run since 2018, with experience in the trade since 2007.
               </p>
               {/* Social */}
               <div className="flex gap-3">
@@ -1137,7 +1137,7 @@ export default function HomePage() {
                   <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                     <MapPinIcon className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-sm">156 Washburn St<br />Northborough, MA 01532</span>
+                  <span className="text-sm">449 Boston Post Rd E<br />Marlborough, MA 01752</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/70">
                   <div className="w-8 h-8 bg-[#E00000] rounded-full flex items-center justify-center flex-shrink-0">

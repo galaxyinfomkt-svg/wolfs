@@ -8,7 +8,7 @@
    cities. That is scaled content, and Google reads it as such.
 
    What changed: the engine now composes from measured facts in cityGeo.ts —
-   the town's county, its real distance from the Northborough shop, its
+   the town's county, its real distance from the Marlborough office, its
    distance from salt water, and the towns that genuinely border it. Those
    are different for all 109 towns, so the sentences built from them are
    different too, without a thesaurus anywhere in the pipeline.
@@ -173,9 +173,9 @@ export function getLocalContent(
 
   const placement = buildPlacement(city.name, city.slug);
 
-  const isHome = city.slug === "northborough";
+  const isHome = city.slug === "marlborough";
   const intro = isHome
-    ? `${city.name} is where the Wolf's Siding shop is, so ${short} jobs here are the closest ones we do.`
+    ? `${city.name} is where the Wolf's Siding office is, so ${short} jobs here are the closest ones we do.`
     : `${placement} Nearby towns we also serve include ${nearNames.join(", ")}.`;
 
   /* The exposure paragraph explains a mechanism that is shared by every town
@@ -290,7 +290,7 @@ export function getCityLocal(city: CityData): CityLocal {
   const s = seed(city.slug);
   const nearby = g.neighbours.map((n) => ({ slug: n, name: titleCase(n) }));
   const placement = buildPlacement(city.name, city.slug);
-  const isHome = city.slug === "northborough";
+  const isHome = city.slug === "marlborough";
 
   return {
     intro: isHome

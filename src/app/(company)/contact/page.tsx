@@ -63,7 +63,7 @@ export default function ContactPage() {
               <p className="text-lg">Monday–Friday 7am–6pm<br />Saturday 8am–2pm</p>
             </div>
             <p className="text-sm text-[#555]">Massachusetts HIC #{BUSINESS.hicLicense}</p>
-            <LazyIframe src={MAP_SRC} className="h-[300px] w-full rounded-xl border-0" title="Map to Wolf's Siding in Northborough, MA" placeholderLabel="Loading map..." />
+            <LazyIframe src={MAP_SRC} className="h-[300px] w-full rounded-xl border-0" title="Map to Wolf's Siding in Marlborough, MA" placeholderLabel="Loading map..." />
           </div>
 
           <div>

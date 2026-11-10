@@ -8,7 +8,8 @@ export const BUSINESS = {
   legalName: "Wolf's Siding Inc.",
   shortName: "Wolf's Siding",
   owner: "Ezequias Lobo",
-  foundedYear: 2007, // render as "since 2007" — never a fixed years-count phrase
+  foundedYear: 2018, // the company (confirmed by the owner, Nov 2026)
+  inTradeSince: 2007, // the owner's own experience in the trade — NOT the company's age
   citiesServed: 110, // ONE number, used everywhere
   hicLicense: "218835",
   phone: "(774) 484-1895",
@@ -17,10 +18,10 @@ export const BUSINESS = {
   url: "https://wolfs-siding.com",
   logo: "https://wolfs-siding.com/logo.png",
   address: {
-    street: "156 Washburn St",
-    city: "Northborough",
+    street: "449 Boston Post Rd E",
+    city: "Marlborough",
     state: "MA",
-    zip: "01532",
+    zip: "01752",
   },
   hours: {
     weekday: { opens: "07:00", closes: "18:00" },
@@ -57,3 +58,8 @@ export const REVIEW_RATING = BUSINESS.reviews.rating.toFixed(1);
 export const CITIES_SERVED = String(BUSINESS.citiesServed);
 export const SINCE = `since ${BUSINESS.foundedYear}`;
 export const YEARS_IN_BUSINESS = new Date().getFullYear() - BUSINESS.foundedYear;
+/* The owner's experience, distinct from the company's founding year. */
+export const IN_TRADE_SINCE = `in the trade since ${BUSINESS.inTradeSince}`;
+export const YEARS_EXPERIENCE = new Date().getFullYear() - BUSINESS.inTradeSince;
+/* Office location (US Census geocoder, 449 Boston Post Rd E, Marlborough MA 01752). */
+export const HQ_COORDS: [number, number] = [42.3475, -71.5135];
