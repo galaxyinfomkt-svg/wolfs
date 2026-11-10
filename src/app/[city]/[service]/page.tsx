@@ -228,9 +228,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                           {i < arr.length - 2 ? ", " : i === arr.length - 2 ? " and " : ""}
                         </span>
                       ))}
-                      , and we run {service.shortName.toLowerCase()} jobs across all of them from the
-                      same shop — so scheduling a {city.name} project rarely waits on crew
-                      availability.
+                       — towns we also serve from the same shop.
                     </p>
                   )}
                   <p>

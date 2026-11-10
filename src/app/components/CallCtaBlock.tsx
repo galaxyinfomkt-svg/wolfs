@@ -7,7 +7,7 @@ export default function CallCtaBlock() {
   return (
     <div className="bg-black rounded-2xl p-6 text-center">
       <p className="text-white font-bold text-lg mb-1">Get Your Free Estimate</p>
-      <p className="text-white/60 text-sm mb-4">No obligation — same-day response.</p>
+      <p className="text-white/60 text-sm mb-4">No obligation — free on-site assessment.</p>
       <a
         href={`tel:${BUSINESS.phoneE164}`}
         className="flex items-center justify-center gap-2 bg-[#E00000] hover:bg-[#CC0000] text-white px-5 py-3 rounded-lg font-bold mb-2 transition-colors"

@@ -224,7 +224,7 @@ const SERVICES = [
   {
     title: "Clapboard Siding Installation",
     slug: "clapboard-siding-installation",
-    description: "Dealing with rotting wood or high maintenance costs? Clapboard mimics natural wood while offering easy maintenance and durability — a popular choice for Massachusetts homeowners seeking a traditional, elegant finish.",
+    description: "Dealing with rotting wood or high maintenance costs? Wood clapboard is the traditional New England wall: real wood lap boards with matched corners and trim, also available in lower-maintenance fiber cement and engineered wood.",
     cta: "Explore Clapboard Options",
     image: "/services/clapboard-siding.jpg",
     featured: false,
@@ -269,7 +269,7 @@ const SERVICES = [
   {
     title: "Gutter Installation",
     slug: "gutter-installation",
-    description: "Overflowing gutters damaging your foundation? We install seamless aluminum gutters with leaf guard systems — custom-fabricated on-site for a perfect fit with zero leak points.",
+    description: "Overflowing gutters damaging your foundation? We install seamless aluminum gutters with leaf guard systems — formed on site to the length of each run, so there are no seams along the straight sections.",
     cta: "Get Gutter Estimate",
     image: "/services/gutter-installation.jpg",
     featured: false,
@@ -293,9 +293,9 @@ const CDN = "https://assets.cdn.filesafe.space/BCczy6muFwhd63dPhKCC/media";
 const FAQS = [
   { q: "How much does siding installation cost in Massachusetts?", a: "Siding installation costs depend on the size of your home, material chosen, and project complexity. Every home is different, which is why we provide free on-site assessments with transparent, itemized estimates — no hidden fees or surprises. Call us for your free quote." },
   { q: "How long does siding typically last?", a: "It depends on the material: vinyl siding lasts 20–40 years, Hardie Plank 30–50 years, and cedar shingles 20–40+ years with proper maintenance. With our expert installation and premium materials, your siding will provide decades of protection." },
-  { q: "What is the best siding material for New England weather?", a: "For Massachusetts' harsh winters, rain, and summer heat, Hardie Plank and vinyl siding are top choices. Hardie Plank offers superior impact resistance and fire protection. Vinyl is budget-friendly and virtually maintenance-free. We'll help you choose during your free assessment." },
+  { q: "What is the best siding material for New England weather?", a: "For Massachusetts' harsh winters, rain, and summer heat, Hardie Plank and vinyl siding are top choices. Hardie Plank is noncombustible fiber cement with a 30-year substrate warranty. Vinyl costs less and never needs painting. We'll help you choose during your free assessment." },
   { q: "How do I know if it's time for a full replacement?", a: "If your siding is 10+ years old, shows widespread fading, multiple areas of damage, persistent moisture issues, or your energy bills keep climbing, it's likely time for a full replacement rather than patching individual spots. During your free assessment, we'll inspect the entire exterior and give you an honest recommendation based on the overall condition of your home." },
-  { q: "Do you offer warranties on your work?", a: "Yes. All installations come with manufacturer material warranties plus our workmanship guarantee. We stand behind every project because our reputation depends on your satisfaction." },
+  { q: "Do you offer warranties on your work?", a: "Materials carry the manufacturer's warranty, and the warranty details for your job are listed in the written estimate before any work starts." },
   { q: "How long does a siding installation project take?", a: "Most residential projects take 1–3 weeks depending on home size and weather conditions. We work efficiently while maintaining the highest quality standards and will provide a realistic timeline during your free assessment." },
 ];
 

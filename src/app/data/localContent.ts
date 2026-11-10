@@ -175,8 +175,8 @@ export function getLocalContent(
 
   const isHome = city.slug === "northborough";
   const intro = isHome
-    ? `${city.name} is home. Our shop is here, our crew lives here, and a good share of the ${short} we install goes on streets we drive every day — which is a strong incentive to leave a wall we would be happy to pass again.`
-    : `${placement} That puts a ${short} job here inside our normal working radius, so the crew arrives with the right materials on the first morning instead of making a supply run mid-job. We also work regularly in ${nearNames.join(", ")}, so the drive is routine rather than an excursion.`;
+    ? `${city.name} is where the Wolf's Siding shop is, so ${short} jobs here are the closest ones we do.`
+    : `${placement} Nearby towns we also serve include ${nearNames.join(", ")}.`;
 
   /* The exposure paragraph explains a mechanism that is shared by every town
      in the band — which is honest, but on its own it makes two inland towns
