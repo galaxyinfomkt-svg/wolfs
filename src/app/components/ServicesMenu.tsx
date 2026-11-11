@@ -17,7 +17,7 @@ export function serviceHref(path: string, citySlug?: string) {
    no link from any menu. */
 export default function ServicesMenu({ citySlug }: { citySlug?: string }) {
   return (
-    <div className="grid w-[620px] grid-cols-2 gap-x-6 gap-y-4 rounded-xl border border-gray-100 bg-white p-5 shadow-xl">
+    <div className="relative grid max-h-[calc(100vh-120px)] w-[620px] grid-cols-2 gap-x-6 gap-y-4 overflow-y-auto rounded-xl border border-gray-100 bg-white p-5 shadow-xl">
       {SERVICE_CATALOG.map((g) => (
         <div key={g.group}>
           <p className="mb-1.5 text-xs font-bold uppercase tracking-wider text-[#C00000]">{g.group}</p>
@@ -25,21 +25,23 @@ export default function ServicesMenu({ citySlug }: { citySlug?: string }) {
             {g.items.map((s) =>
               s.path === "/services/vinyl-siding-installation" ? (
                 /* Vinyl opens a side flyout with the upgrade options. */
-                <li key={s.name} className="group/vinyl relative">
+                <li key={s.name} className="group/vinyl">
                   <Link href={serviceHref(s.path, citySlug)} className="flex items-center justify-between rounded-md px-2 py-1.5 text-sm font-medium text-[#333] hover:bg-[#E00000]/5 hover:text-[#E00000]">
                     {s.name}
                     <span className="ml-2 rounded bg-[#E00000]/10 px-1.5 py-0.5 text-[10px] font-bold uppercase text-[#C00000]">Upgrades ›</span>
                   </Link>
-                  <div className="invisible absolute left-full top-0 z-50 pl-2 opacity-0 transition-all duration-150 group-hover/vinyl:visible group-hover/vinyl:opacity-100 group-focus-within/vinyl:visible group-focus-within/vinyl:opacity-100">
-                    <div className="w-80 rounded-xl border border-gray-100 bg-white p-4 shadow-2xl">
-                      <p className="mb-1 text-xs font-bold uppercase tracking-wider text-[#C00000]">Vinyl or an upgrade?</p>
-                      <p className="mb-2 text-xs text-[#555]">Step up from vinyl to:</p>
-                      <ul className="space-y-0.5">
+                  <div className="invisible absolute right-0 top-0 z-50 opacity-0 transition-all duration-150 group-hover/vinyl:visible group-hover/vinyl:opacity-100 group-focus-within/vinyl:visible group-focus-within/vinyl:opacity-100">
+                    {/* Opens over the dropdown's right column (anchored to the panel,
+                        not the item) in a compact 2-column grid, so it never runs past
+                        the screen edge or bottom. */}
+                    <div className="w-[330px] rounded-xl border border-gray-200 bg-white p-4 shadow-2xl">
+                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#C00000]">Vinyl or an upgrade? <span className="font-normal normal-case tracking-normal text-[#555]">Step up from vinyl to:</span></p>
+                      <ul className="grid grid-cols-2 gap-x-2 gap-y-0.5">
                         {VINYL_UPGRADES.map((u) => (
                           <li key={u.path}>
                             <Link href={u.path} className="block rounded-md px-2 py-1.5 hover:bg-[#E00000]/5">
-                              <span className="block text-sm font-semibold text-black">{u.name}</span>
-                              <span className="block text-xs leading-snug text-[#555]">{u.note}</span>
+                              <span className="block text-sm font-semibold leading-tight text-black">{u.name}</span>
+                              <span className="block text-[11px] text-[#555]">{u.short}</span>
                             </Link>
                           </li>
                         ))}
