@@ -71,7 +71,22 @@ export default function VinylUpgradesPage() {
           Warranty details are the manufacturers&apos; and can change; your written estimate lists the current terms.
         </p>
 
-        <div className="overflow-x-auto rounded-xl border border-gray-200">
+        {/* Phones: one card per material (the 5-column table would need a sideways scroll). */}
+        <div className="space-y-3 md:hidden">
+          {ROWS.map((r, i) => (
+            <div key={r.path} className={`rounded-xl border p-4 ${i === 0 ? "border-[#F0D98A] bg-[#FFF8E1]" : "border-gray-200 bg-white"}`}>
+              <Link href={r.path} className="text-lg font-extrabold text-black underline underline-offset-2">{r.name}</Link>
+              <dl className="mt-2 space-y-2 text-sm">
+                <div><dt className="text-xs font-bold uppercase tracking-wider text-[#C00000]">What it is</dt><dd className="text-[#333]">{r.material}</dd></div>
+                <div><dt className="text-xs font-bold uppercase tracking-wider text-[#C00000]">Manufacturer warranty</dt><dd className="text-[#333]">{r.warranty}</dd></div>
+                <div><dt className="text-xs font-bold uppercase tracking-wider text-[#C00000]">Upkeep</dt><dd className="text-[#333]">{r.upkeep}</dd></div>
+                <div><dt className="text-xs font-bold uppercase tracking-wider text-[#C00000]">Best for</dt><dd className="text-[#333]">{r.bestFor}</dd></div>
+              </dl>
+            </div>
+          ))}
+        </div>
+
+        <div className="hidden overflow-x-auto rounded-xl border border-gray-200 md:block">
           <table className="min-w-[860px] w-full text-left text-sm">
             <thead className="bg-[#14263f] text-white">
               <tr>

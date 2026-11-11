@@ -88,9 +88,10 @@ const nextConfig: NextConfig = {
     const csp = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.leadconnectorhq.com https://reputationhub.site",
-      "style-src 'self' 'unsafe-inline' https://*.leadconnectorhq.com",
+      // fonts.bunny.net: the Bee Pro (LeadConnector) chat widget loads Roboto from it.
+      "style-src 'self' 'unsafe-inline' https://*.leadconnectorhq.com https://fonts.bunny.net",
       "img-src 'self' data: blob: https:",
-      "font-src 'self' data:",
+      "font-src 'self' data: https://fonts.bunny.net",
       "connect-src 'self' https: wss:",
       "frame-src 'self' https://*.leadconnectorhq.com https://reputationhub.site https://maps.google.com https://www.google.com https://www.youtube-nocookie.com https://www.youtube.com",
       "worker-src 'self' blob:",
@@ -183,6 +184,8 @@ const nextConfig: NextConfig = {
       // services). Sending unmatched legacy URLs to the home page tends to be
       // treated by Google as a soft 404; the hub is the closest real match.
       { source: "/service/:slug*", destination: "/services", permanent: true },
+      // Browsers and crawlers still ask for /favicon.ico; the icon is src/app/icon.png.
+      { source: "/favicon.ico", destination: "/icon.png", permanent: true },
     ];
   },
 };
