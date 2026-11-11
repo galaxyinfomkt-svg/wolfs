@@ -7,7 +7,7 @@ import LazyIframe from "../../components/LazyIframe";
 
 const URL = `${BUSINESS.url}/contact`;
 const TITLE = "Contact Wolf's Siding | Free Estimates";
-const DESC = `Call ${BUSINESS.phone} or request a free written estimate. Wolf's Siding Inc., ${BUSINESS.address.street}, ${BUSINESS.address.city}, MA ${BUSINESS.address.zip}. Mon–Sat 8am–7pm.`;
+const DESC = `Call ${BUSINESS.phone} or request a free written estimate. Wolf's Siding Inc., ${BUSINESS.address.street}, ${BUSINESS.address.city}, MA ${BUSINESS.address.zip}. Mon–Fri 8am–6pm, Sat 8am–12pm.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -60,7 +60,7 @@ export default function ContactPage() {
             </div>
             <div>
               <h2 className="mb-1 text-sm font-bold uppercase tracking-wider text-[#E00000]">Hours</h2>
-              <p className="text-lg">Monday–Saturday 8am–7pm<br />Sunday closed</p>
+              <p className="text-lg">Monday–Friday 8am–6pm<br />Saturday 8am–12pm<br />Sunday closed</p>
             </div>
             <p className="text-sm text-[#555]">Massachusetts HIC #{BUSINESS.hicLicense}</p>
             <LazyIframe src={MAP_SRC} className="h-[300px] w-full rounded-xl border-0" title="Map to Wolf's Siding in Marlborough, MA" placeholderLabel="Loading map..." />
