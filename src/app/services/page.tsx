@@ -45,6 +45,10 @@ export default function ServicesHub() {
           Everything Wolf&apos;s Siding does on the outside of a house, from the siding itself to the trim, windows, gutters and roof.
           Every job starts with a free on-site assessment and a written estimate.
         </p>
+        <Link href="/services/vinyl-siding-upgrades" className="mb-10 block rounded-2xl border-2 border-black bg-[#FFF8E1] p-6 hover:border-[#E00000]">
+          <span className="block text-xl font-extrabold text-black">Vinyl siding or an upgrade? →</span>
+          <span className="mt-1 block text-[#333]">Compare vinyl with Hardie Plank, Everlast, LP SmartSide, Cedar Impressions, wood and cedar: material, warranty and upkeep.</span>
+        </Link>
         <div className="space-y-12">
           {SERVICE_CATALOG.map((g) => (
             <section key={g.group}>
