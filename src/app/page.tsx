@@ -398,7 +398,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[70px]">
             <Link href="/" className="flex-shrink-0 mr-auto" aria-label="Wolf's Siding Inc. — home">
-              <Image src="/logo.png" alt="Wolf's Siding Inc." width={594} height={420} loading="eager" className="h-11 lg:h-14 w-auto" />
+              <Image src="/logo.png" alt="Wolf's Siding Inc." width={80} height={57} loading="eager" className="h-11 lg:h-14 w-auto" />
             </Link>
 
             {/* Desktop nav */}

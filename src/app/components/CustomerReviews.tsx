@@ -54,7 +54,7 @@ export default function CustomerReviews({ city, schemaOnly = false, seedKey, cou
             <p className="text-sm text-[#333] leading-relaxed mb-4">&ldquo;{r.text}&rdquo;</p>
             <p className="text-sm font-bold text-black">
               {r.author}
-              {r.city ? <span className="font-normal text-[#333]/60"> · {r.city}, MA</span> : null}
+              {r.city ? <span className="font-normal text-[#595959]"> · {r.city}, MA</span> : null}
             </p>
           </div>
         ))}

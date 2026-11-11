@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { SERVICE_CATALOG } from "../../config/schema";
-import { SERVICES } from "../data/cities";
+import { CITY_SERVICE_SLUGS } from "../data/cityServiceSlugs";
 import { VINYL_UPGRADES } from "../data/vinylUpgrades";
 
-const CITY_LEVEL = new Set(SERVICES.map((s) => s.slug));
+const CITY_LEVEL = new Set<string>(CITY_SERVICE_SLUGS);
 
 /* The menus leave out Siding Repair (owner's request, Nov 2026): the repair
    pages stay live and indexed, they just are not promoted in navigation. */

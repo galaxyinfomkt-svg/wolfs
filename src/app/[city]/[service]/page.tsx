@@ -376,7 +376,7 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                     </div>
                     <div>
                       <span className="font-semibold block">{service.shortName} — Statewide</span>
-                      <span className="text-xs text-[#333]/60">View all MA service areas</span>
+                      <span className="text-xs text-[#595959]">View all MA service areas</span>
                     </div>
                   </Link>
                 </div>
