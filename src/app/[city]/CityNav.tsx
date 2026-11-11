@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SERVICES } from "../data/cities";
 import { BUSINESS } from "../../config/business";
 import ServicesMenu from "../components/ServicesMenu";
+import MobileServicesMenu from "../components/MobileServicesMenu";
 
 export default function CityNav({ citySlug, cityName }: { citySlug: string; cityName: string }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -96,19 +96,7 @@ export default function CityNav({ citySlug, cityName }: { citySlug: string; city
           <div className="md:hidden bg-white border-t border-gray-100 shadow-lg animate-slide-down">
             <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
               <Link href="/" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Home</Link>
-              <div className="px-4 py-2 text-xs font-bold text-[#E00000] uppercase tracking-wider">Services in {cityName}</div>
-              {SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
-                <Link
-                  key={s.slug}
-                  href={`/${citySlug}/${s.slug}`}
-                  onClick={() => setMobileOpen(false)}
-                  className="block px-6 py-2.5 rounded-lg text-sm text-[#333] hover:bg-[#E00000]/5"
-                >
-                  {s.shortName}
-                </Link>
-              ))}
-              <Link href="/services" className="block px-6 py-2.5 rounded-lg text-sm font-bold text-[#C00000] hover:bg-[#E00000]/5">All services →</Link>
-              <Link href="/services/vinyl-siding-upgrades" className="block px-6 py-2.5 rounded-lg text-sm font-bold text-black hover:bg-[#E00000]/5">Vinyl or an upgrade? →</Link>
+              <MobileServicesMenu citySlug={citySlug} label={`Services in ${cityName}`} onNavigate={() => setMobileOpen(false)} />
               <Link href="/projects" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</Link>
               <Link href="/about" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">About</Link>
               <Link href="/reviews" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Reviews</Link>

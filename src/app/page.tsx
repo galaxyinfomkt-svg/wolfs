@@ -2,7 +2,7 @@ import { HeaderShell, MenuButton, MobileDropdown, ScrollAnimate } from "./compon
 import FooterAreas from "./components/FooterAreas";
 import Image from "next/image";
 import Link from "next/link";
-import { CITIES as SERVICE_AREAS_ALL, SERVICES as SIDING_SERVICES } from "./data/cities";
+import { CITIES as SERVICE_AREAS_ALL } from "./data/cities";
 import { BUSINESS, SINCE, REVIEW_RATING, CITIES_SERVED, YEARS_EXPERIENCE, HOURS_SHORT } from "../config/business";
 import CustomerReviews from "./components/CustomerReviews";
 import LazyIframe from "./components/LazyIframe";
@@ -14,6 +14,7 @@ import { HeroStars, HeroCtas } from "./components/HeroBits";
 import LazyVideo from "./components/LazyVideo";
 import ServicesMenu from "./components/ServicesMenu";
 import { faqLd } from "../config/schema";
+import MobileServicesMenu from "./components/MobileServicesMenu";
 
 /* ════════════════════════════════════════════════════════════
    INLINE SVG ICON COMPONENTS
@@ -457,19 +458,7 @@ export default function HomePage() {
         <MobileDropdown>
             <div className="px-4 py-4 space-y-1">
               <a href="#home" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Home</a>
-              <div className="px-4 py-2 text-xs font-bold text-[#E00000] uppercase tracking-wider">Services</div>
-              {SIDING_SERVICES.filter((s) => s.slug !== "siding-repair-services").map((s) => (
-                <Link
-                  key={s.slug}
-                  href={`/services/${s.slug}`}
-                 
-                  className="block px-6 py-2.5 rounded-lg text-sm text-[#333] hover:bg-[#E00000]/5"
-                >
-                  {s.shortName}
-                </Link>
-              ))}
-              <Link href="/services" className="block px-6 py-2.5 rounded-lg text-sm font-bold text-[#C00000] hover:bg-[#E00000]/5">All services →</Link>
-              <Link href="/services/vinyl-siding-upgrades" className="block px-6 py-2.5 rounded-lg text-sm font-bold text-black hover:bg-[#E00000]/5">Vinyl or an upgrade? →</Link>
+              <MobileServicesMenu />
               <Link href="/projects" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</Link>
               <Link href="/blog" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Blog</Link>
               <Link href="/about" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">About</Link>
