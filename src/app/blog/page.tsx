@@ -136,7 +136,7 @@ export default function BlogIndexPage() {
                     </div>
                   </div>
                   <div className="p-6 flex-1 flex flex-col">
-                    <div className="flex items-center gap-3 text-[#333]/50 text-xs mb-3">
+                    <div className="flex items-center gap-3 text-[#595959] text-xs mb-3">
                       <span>{new Date(post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
                       <span>&middot;</span>
                       <span>{post.readTime}</span>

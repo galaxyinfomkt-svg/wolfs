@@ -26,7 +26,7 @@ export default function ReviewsSection({ seedKey, count }: { seedKey?: string; c
             href="https://g.page/r/CfACa1fxiHsqEAE"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-bold text-[#E00000] hover:underline"
+            className="text-sm font-bold text-[#FF6B6B] hover:underline"
           >
             See all reviews on Google →
           </a>

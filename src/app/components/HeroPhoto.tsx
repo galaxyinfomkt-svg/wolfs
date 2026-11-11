@@ -1,4 +1,5 @@
 import { getImageProps } from "next/image";
+import { preload } from "react-dom";
 
 /* The hero photo fills the whole hero and the headline sits on top of it.
    - phone / tablet: a dedicated 2:3 portrait crop centred on the house, so the
@@ -54,11 +55,17 @@ export function heroFor(key: string): HeroImage {
 export default function HeroPhoto({ image }: { image: HeroImage }) {
   const common = { alt: image.alt, fill: true, priority: true, quality: 72 } as const;
   const {
-    props: { srcSet: desktop },
+    props: { srcSet: desktop, src: desktopSrc },
   } = getImageProps({ ...common, src: image.src, sizes: "100vw" });
   const {
     props: { srcSet: mobile, ...rest },
   } = getImageProps({ ...common, src: image.mobileSrc, sizes: "100vw" });
+
+  /* <picture> art direction gets no automatic preload (only <Image priority>
+     does), so the hero — the LCP element — was found late. Preload the
+     variant each screen size will actually use. */
+  preload(rest.src as string, { as: "image", imageSrcSet: mobile, imageSizes: "100vw", media: "(max-width: 1023px)", fetchPriority: "high" });
+  preload(desktopSrc as string, { as: "image", imageSrcSet: desktop, imageSizes: "100vw", media: "(min-width: 1024px)", fetchPriority: "high" });
 
   return (
     <div className="absolute inset-x-0 top-[110px] h-[calc(100svh-110px)] max-h-[860px] lg:inset-0 lg:top-0 lg:h-auto lg:max-h-none">

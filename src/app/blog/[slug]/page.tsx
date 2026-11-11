@@ -235,7 +235,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                       </div>
                       <div>
                         <span className="font-semibold block">{relatedService.shortName}</span>
-                        <span className="text-xs text-[#333]/60">Learn more about this service</span>
+                        <span className="text-xs text-[#595959]">Learn more about this service</span>
                       </div>
                     </Link>
                   </div>
@@ -260,7 +260,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             <Image src={p.heroImage} alt={p.title} fill className="object-cover" sizes="80px" />
                           </div>
                           <div>
-                            <span className="text-xs text-[#333]/50 block">{p.category}</span>
+                            <span className="text-xs text-[#595959] block">{p.category}</span>
                             <span className="text-sm font-medium text-[#333] group-hover:text-[#E00000] transition-colors leading-snug line-clamp-2">{p.title}</span>
                           </div>
                         </Link>
@@ -289,7 +289,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     </div>
                   </div>
                   <div className="p-6">
-                    <div className="flex items-center gap-3 text-[#333]/50 text-xs mb-3">
+                    <div className="flex items-center gap-3 text-[#595959] text-xs mb-3">
                       <span>{new Date(p.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
                       <span>&middot;</span>
                       <span>{p.readTime}</span>

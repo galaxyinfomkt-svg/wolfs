@@ -10,6 +10,7 @@ export interface CityData {
 }
 
 import { MATERIAL_LIFESPAN } from "../../config/business";
+import { CITY_SERVICE_SLUGS } from "./cityServiceSlugs";
 
 export interface ServiceData {
   name: string;
@@ -652,4 +653,10 @@ export function getAllCitySlugs() {
 
 export function getAllServiceSlugs() {
   return SERVICES.map((s) => s.slug);
+}
+
+// The menus use CITY_SERVICE_SLUGS (a light copy of the slugs); fail the build
+// if it drifts from SERVICES.
+if ([...CITY_SERVICE_SLUGS].sort().join() !== SERVICES.map((s) => s.slug).sort().join()) {
+  throw new Error("cityServiceSlugs.ts is out of sync with SERVICES in cities.ts");
 }
