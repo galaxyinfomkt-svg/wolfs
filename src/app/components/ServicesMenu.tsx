@@ -5,6 +5,13 @@ import { VINYL_UPGRADES } from "../data/vinylUpgrades";
 
 const CITY_LEVEL = new Set(SERVICES.map((s) => s.slug));
 
+/* The menus leave out Siding Repair (owner's request, Nov 2026): the repair
+   pages stay live and indexed, they just are not promoted in navigation. */
+export const MENU_CATALOG = SERVICE_CATALOG.map((g) => ({
+  ...g,
+  items: g.items.filter((s) => s.path !== "/services/siding-repair-services"),
+})).filter((g) => g.items.length);
+
 /** Where a catalog item should point: the town's own page when the service has
     city pages and we are inside a town, otherwise the statewide page. */
 export function serviceHref(path: string, citySlug?: string) {
@@ -18,7 +25,7 @@ export function serviceHref(path: string, citySlug?: string) {
 export default function ServicesMenu({ citySlug }: { citySlug?: string }) {
   return (
     <div className="relative grid max-h-[calc(100vh-120px)] w-[620px] grid-cols-2 gap-x-6 gap-y-4 overflow-y-auto rounded-xl border border-gray-100 bg-white p-5 shadow-xl">
-      {SERVICE_CATALOG.map((g) => (
+      {MENU_CATALOG.map((g) => (
         <div key={g.group}>
           <p className="mb-1.5 text-xs font-bold uppercase tracking-wider text-[#C00000]">{g.group}</p>
           <ul className="space-y-0.5">
