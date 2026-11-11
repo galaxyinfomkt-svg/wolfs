@@ -9,7 +9,7 @@ export const BUSINESS = {
   shortName: "Wolf's Siding",
   owner: "Ezequias Lobo",
   foundedYear: 2018, // the company (confirmed by the owner, Nov 2026)
-  inTradeSince: 2007, // the owner's own experience in the trade — NOT the company's age
+  inTradeSince: 2010, // owner's experience: 16 years as of 2026 (confirmed 2026-11-11) — NOT the company's age
   citiesServed: 110, // ONE number, used everywhere
   hicLicense: "218835",
   phone: "(774) 484-1895",
@@ -23,10 +23,11 @@ export const BUSINESS = {
     state: "MA",
     zip: "01752",
   },
-  // Same as the Google Business Profile (confirmed 2026-11-10): Mon–Sat 8am–7pm, Sun closed.
+  // Confirmed by the office (Jaqueline) 2026-11-11: Mon–Fri 8am–6pm, Sat 8am–12pm, Sun closed.
+  // The Google Business Profile still showed 8am–7pm and must be updated to match.
   hours: {
-    weekday: { opens: "08:00", closes: "19:00" },
-    saturday: { opens: "08:00", closes: "19:00" },
+    weekday: { opens: "08:00", closes: "18:00" },
+    saturday: { opens: "08:00", closes: "12:00" },
   },
   // TODO: wire to the Google Business Profile API so this updates automatically.
   // Until then this is the ONE place the review count/rating is edited — the GHL
@@ -58,8 +59,8 @@ export const REPAIR_MINIMUM: string | null = null;
 /* Derived, ready-to-render strings */
 export const REVIEW_COUNT = String(BUSINESS.reviews.count);
 /** Business hours as text — keep in sync with BUSINESS.hours and the Google profile. */
-export const HOURS_SHORT = "Mon–Sat 8am–7pm";
-export const HOURS_LONG = "Monday–Saturday 8am–7pm · Sunday closed";
+export const HOURS_SHORT = "Mon–Fri 8am–6pm · Sat 8am–12pm";
+export const HOURS_LONG = "Monday–Friday 8am–6pm · Saturday 8am–12pm · Sunday closed";
 /** e.g. "5.0 from 36 Google reviews (Nov 2026)" — always dated, never a live claim. */
 export const REVIEW_SUMMARY = `${BUSINESS.reviews.rating.toFixed(1)} from ${BUSINESS.reviews.count} Google reviews (${BUSINESS.reviews.asOf})`;
 export const REVIEW_RATING = BUSINESS.reviews.rating.toFixed(1);

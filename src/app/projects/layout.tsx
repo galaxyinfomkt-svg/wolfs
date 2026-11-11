@@ -21,7 +21,7 @@ export default function ProjectsLayout({ children }: { children: React.ReactNode
               <div>
                 <Image src="/logo.png" alt="Wolf's Siding Inc. Logo" width={150} height={48} className="h-10 w-auto mb-4" />
                 <p className="text-white/60 text-sm leading-relaxed">
-                  Professional siding contractor serving cities across Massachusetts. Owner in the trade since 2007; vinyl, Hardie Plank, cedar, and clapboard siding.
+                  Professional siding contractor serving cities across Massachusetts. Owner in the trade since 2010; vinyl, Hardie Plank, cedar, and clapboard siding.
                 </p>
               </div>
               <div>

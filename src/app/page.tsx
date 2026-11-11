@@ -660,7 +660,7 @@ export default function HomePage() {
                     <strong className="text-white">exterior remodeling</strong> services.
                   </p>
                   <p>
-                    With <strong className="text-white">industry experience since 2007</strong>,
+                    With <strong className="text-white">industry experience since 2010</strong>,
                     Ezequias personally oversees every project — from the initial assessment to the
                     final walkthrough. He believes that great work starts with listening to the
                     homeowner and delivering solutions that exceed expectations.
@@ -694,7 +694,7 @@ export default function HomePage() {
                 <div className="rounded-2xl overflow-hidden shadow-2xl">
                   <Image
                     src="https://storage.googleapis.com/msgsndr/BCczy6muFwhd63dPhKCC/media/68e581d6416ab711d774e6cf.jpeg"
-                    alt="Ezequias Lobo — Owner of Wolf's Siding Inc., in the trade since 2007"
+                    alt="Ezequias Lobo — Owner of Wolf's Siding Inc., in the trade since 2010"
                     width={600}
                     height={750}
                     className="w-full h-auto object-cover"
@@ -707,7 +707,7 @@ export default function HomePage() {
                     <ShieldCheckIcon className="w-8 h-8" />
                     <div>
                       <p className="font-bold text-sm">Trusted Contractor</p>
-                      <p className="text-xs text-white/80">In the trade since 2007</p>
+                      <p className="text-xs text-white/80">In the trade since 2010</p>
                     </div>
                   </div>
                 </div>
@@ -1089,7 +1089,7 @@ export default function HomePage() {
               />
               <p className="text-white/70 text-sm leading-relaxed mb-5">
                 Quality, Durability, and Impeccable Craftsmanship for Your Home&apos;s Exterior.
-                Owner-run since 2018, with experience in the trade since 2007.
+                Owner-run since 2018, with experience in the trade since 2010.
               </p>
               {/* Social */}
               <div className="flex gap-3">
