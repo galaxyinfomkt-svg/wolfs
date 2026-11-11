@@ -469,6 +469,7 @@ export default function HomePage() {
                 </Link>
               ))}
               <Link href="/services" className="block px-6 py-2.5 rounded-lg text-sm font-bold text-[#C00000] hover:bg-[#E00000]/5">All services →</Link>
+              <Link href="/services/vinyl-siding-upgrades" className="block px-6 py-2.5 rounded-lg text-sm font-bold text-black hover:bg-[#E00000]/5">Vinyl or an upgrade? →</Link>
               <Link href="/projects" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Projects</Link>
               <Link href="/blog" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Blog</Link>
               <Link href="/about" className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">About</Link>

@@ -9,6 +9,7 @@ import { businessRef, faqLd } from "../../../config/schema";
 import RepairMinimumBar from "../../components/RepairMinimumBar";
 import { EXTRA_SERVICES, getExtraService } from "../../data/extraServices";
 import ExtraServicePage from "../ExtraServicePage";
+import { VINYL_UPGRADES } from "../../data/vinylUpgrades";
 import { BLOG_POSTS } from "../../data/blog";
 import FormEmbed from "../../components/FormEmbed";
 import HeroPhoto, { heroFor } from "../../components/HeroPhoto";
@@ -416,6 +417,28 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                   })}
                 </div>
               </div>
+
+              {slug === "vinyl-siding-installation" && (
+                <div id="upgrades" className="scroll-mt-32 rounded-2xl border-2 border-black bg-[#FFF8E1] p-6">
+                  <h2 className="text-2xl font-black text-black mb-2">Vinyl or an upgrade?</h2>
+                  <p className="text-[#333] mb-4">
+                    Vinyl is the lowest-cost, low-upkeep option. If you want a heavier board, a painted-wood or cedar look, or a noncombustible wall, you can step up:
+                  </p>
+                  <ul className="grid gap-2 sm:grid-cols-2">
+                    {VINYL_UPGRADES.map((u) => (
+                      <li key={u.path}>
+                        <Link href={u.path} className="block h-full rounded-lg bg-white p-3 hover:ring-2 hover:ring-[#E00000]">
+                          <span className="block font-bold text-black">{u.name}</span>
+                          <span className="block text-sm text-[#555]">{u.note}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/services/vinyl-siding-upgrades" className="mt-4 inline-block rounded-lg bg-black px-5 py-2.5 text-sm font-bold text-white hover:bg-[#222]">
+                    Compare vinyl and every upgrade →
+                  </Link>
+                </div>
+              )}
 
               {related.length > 0 && (
                 <div>
