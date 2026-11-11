@@ -38,7 +38,7 @@ export function MobileDropdown({ children }: { children: React.ReactNode }) {
   if (!open) return null;
   return (
     <div
-      className="lg:hidden border-t border-gray-200 bg-white mobile-menu-enter"
+      className="lg:hidden border-t border-gray-200 bg-white mobile-menu-enter max-h-[calc(100dvh-110px)] overflow-y-auto overscroll-contain pb-24"
       onClick={(e) => {
         if ((e.target as HTMLElement).closest("a")) setOpen(false);
       }}

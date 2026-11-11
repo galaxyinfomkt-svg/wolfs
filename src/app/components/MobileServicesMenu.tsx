@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SERVICE_CATALOG } from "../../config/schema";
 import { VINYL_UPGRADES } from "../data/vinylUpgrades";
 import { serviceHref } from "./ServicesMenu";
@@ -23,6 +23,16 @@ function Chevron({ open }: { open: boolean }) {
 export default function MobileServicesMenu({ citySlug, label = "Services", onNavigate }: { citySlug?: string; label?: string; onNavigate?: () => void }) {
   const [group, setGroup] = useState<string | null>(SERVICE_CATALOG[0]?.group ?? null);
   const [vinylOpen, setVinylOpen] = useState(false);
+
+  /* This component only exists while the phone menu is open: lock the page
+     behind it so a swipe scrolls the menu, not the page. */
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
 
   return (
     <div className="py-1">

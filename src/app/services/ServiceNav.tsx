@@ -85,7 +85,7 @@ export default function ServiceNav() {
         </div>
 
         {mobileOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100 shadow-lg animate-slide-down">
+          <div className="md:hidden bg-white border-t border-gray-100 shadow-lg animate-slide-down max-h-[calc(100dvh-110px)] overflow-y-auto overscroll-contain pb-24">
             <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
               <Link href="/" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-semibold text-[#333] hover:bg-[#E00000]/5">Home</Link>
               <MobileServicesMenu label="Our Services" onNavigate={() => setMobileOpen(false)} />
