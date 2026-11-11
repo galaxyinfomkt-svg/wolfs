@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { SERVICE_CATALOG } from "../../config/schema";
 import { VINYL_UPGRADES } from "../data/vinylUpgrades";
-import { serviceHref } from "./ServicesMenu";
+import { MENU_CATALOG, serviceHref } from "./ServicesMenu";
 
 const VINYL = "/services/vinyl-siding-installation";
 
@@ -21,7 +20,7 @@ function Chevron({ open }: { open: boolean }) {
    as the desktop flyout. Links close the menu through `onNavigate` (or the
    parent's click handler). */
 export default function MobileServicesMenu({ citySlug, label = "Services", onNavigate }: { citySlug?: string; label?: string; onNavigate?: () => void }) {
-  const [group, setGroup] = useState<string | null>(SERVICE_CATALOG[0]?.group ?? null);
+  const [group, setGroup] = useState<string | null>(MENU_CATALOG[0]?.group ?? null);
   const [vinylOpen, setVinylOpen] = useState(false);
 
   /* This component only exists while the phone menu is open: lock the page
@@ -38,7 +37,7 @@ export default function MobileServicesMenu({ citySlug, label = "Services", onNav
     <div className="py-1">
       <div className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#E00000]">{label}</div>
       <div className="mx-2 overflow-hidden rounded-xl border border-gray-100">
-        {SERVICE_CATALOG.map((g) => {
+        {MENU_CATALOG.map((g) => {
           const open = group === g.group;
           return (
             <div key={g.group} className="border-b border-gray-100 last:border-b-0">
