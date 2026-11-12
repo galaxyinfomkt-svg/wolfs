@@ -68,7 +68,7 @@ export default function HeroPhoto({ image }: { image: HeroImage }) {
   preload(desktopSrc as string, { as: "image", imageSrcSet: desktop, imageSizes: "100vw", media: "(min-width: 1024px)", fetchPriority: "high" });
 
   return (
-    <div className="absolute inset-x-0 top-[110px] h-[calc(100svh-110px)] max-h-[860px] lg:top-0 lg:h-[871px] lg:max-h-none">
+    <div className="absolute inset-x-0 top-[110px] h-[calc(100svh-110px)] max-h-[860px] lg:inset-0 lg:top-0 lg:h-auto lg:max-h-none">
       <picture>
         <source media="(min-width: 1024px)" srcSet={desktop} />
         <source media="(max-width: 1023px)" srcSet={mobile} />
@@ -76,10 +76,6 @@ export default function HeroPhoto({ image }: { image: HeroImage }) {
         <img {...rest} fetchPriority="high" loading="eager" decoding="async" className={`object-cover object-[50%_30%] ${image.desktopPosition}`} style={{ ...rest.style }} />
       </picture>
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,.58)_0%,rgba(10,10,10,.55)_40%,rgba(10,10,10,.72)_72%,#111_100%)] lg:hidden" />
-      {/* Desktop: the photo keeps its original 871px framing even when the
-          form card makes the hero taller; a short fade blends its bottom edge
-          into the dark band below. */}
-      <div className="absolute inset-x-0 bottom-0 hidden h-24 bg-gradient-to-b from-transparent to-[#111] lg:block" />
       <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(10,10,10,.8)_0%,rgba(10,10,10,.55)_27%,rgba(10,10,10,.1)_45%,rgba(10,10,10,0)_56%)] lg:block" />
     </div>
   );
