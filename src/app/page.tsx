@@ -476,13 +476,13 @@ export default function HomePage() {
         {/* ═══════════════════════════════════════════════════════
             2. HERO — job-site photo, big headline, estimate form as a card
             ═══════════════════════════════════════════════════════ */}
-        <section id="home" className="relative bg-[#111] min-h-[100svh] pt-[110px] sm:min-h-0 lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
+        <section id="home" className="relative bg-[#111] min-h-[100svh] pt-[110px] sm:min-h-0 lg:flex lg:min-h-[860px] lg:items-start lg:bg-[#111] lg:pt-[110px]">
           {/* Home leads with a Massachusetts job (Grafton), not the NH cabin. */}
           <HeroPhoto image={HERO_PHOTOS.find((h) => h.src.includes("grafton-ma")) ?? HERO_PHOTOS[0]} />
 
           <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 pt-8 sm:px-6 sm:pt-12 lg:px-8 lg:py-16">
-            <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:gap-14">
-              <div>
+            <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:items-start lg:gap-14">
+              <div className="lg:pt-10">
                 <span className="inline-block rounded-full bg-[#E00000] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.06em] text-white">
                   Serving {SERVICE_AREAS_ALL.length}+ MA Cities · HIC #{BUSINESS.hicLicense}
                 </span>
