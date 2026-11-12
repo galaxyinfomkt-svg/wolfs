@@ -118,12 +118,12 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       {/* ═══ HERO — job-site photo, big headline, estimate form as a card ═══ */}
-      <section className="relative bg-[#111] min-h-[100svh] pt-[110px] sm:min-h-0 lg:flex lg:min-h-[860px] lg:items-center lg:bg-transparent lg:pt-[110px]">
+      <section className="relative bg-[#111] min-h-[100svh] pt-[110px] sm:min-h-0 lg:flex lg:min-h-[860px] lg:items-start lg:bg-[#111] lg:pt-[110px]">
         <HeroPhoto image={heroFor(slug)} />
 
         <div className="relative mx-auto w-full max-w-7xl px-4 pb-10 pt-8 sm:px-6 sm:pt-12 lg:px-8 lg:py-16">
-          <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:gap-14">
-            <div>
+          <div className="grid items-center gap-8 lg:grid-cols-[1.25fr_0.85fr] lg:items-start lg:gap-14">
+            <div className="lg:pt-10">
               <nav className="mb-4 text-sm text-white/70" aria-label="Breadcrumb">
                 <Link href="/" className="hover:text-white">Home</Link>
                 <span className="mx-2">/</span>
