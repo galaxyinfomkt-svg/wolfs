@@ -87,7 +87,7 @@ const nextConfig: NextConfig = {
   async headers() {
     const csp = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.leadconnectorhq.com https://reputationhub.site",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.leadconnectorhq.com https://reputationhub.site https://link.msgsndr.com",
       // fonts.bunny.net: the Bee Pro (LeadConnector) chat widget loads Roboto from it.
       "style-src 'self' 'unsafe-inline' https://*.leadconnectorhq.com https://fonts.bunny.net",
       "img-src 'self' data: blob: https:",

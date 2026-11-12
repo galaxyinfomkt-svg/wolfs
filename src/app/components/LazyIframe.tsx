@@ -58,6 +58,21 @@ export default function LazyIframe(
     };
   }, [clickOnly, eager]);
 
+  /* Bee Pro (GHL) forms: load the official embed script once, alongside the
+     form. It talks to the form iframe and sets the iframe to the form's exact
+     height — no blank space under the button, and nothing cut off when the
+     Cloudflare check appears or fields change in the form builder. */
+  const isForm = src.includes("/widget/form/");
+  useEffect(() => {
+    if (!loaded || !isForm) return;
+    if (document.querySelector('script[data-ghl-form-embed]')) return;
+    const s = document.createElement("script");
+    s.src = "https://link.msgsndr.com/js/form_embed.js";
+    s.async = true;
+    s.dataset.ghlFormEmbed = "1";
+    document.body.appendChild(s);
+  }, [loaded, isForm]);
+
   const handleClick = () => {
     if (!loaded) setLoaded(true);
   };
