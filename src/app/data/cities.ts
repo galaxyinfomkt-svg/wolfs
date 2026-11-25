@@ -11,6 +11,7 @@ export interface CityData {
 
 import { MATERIAL_LIFESPAN } from "../../config/business";
 import { CITY_SERVICE_SLUGS } from "./cityServiceSlugs";
+import { neighbours } from "./cityGeo";
 
 export interface ServiceData {
   name: string;
@@ -631,7 +632,18 @@ export function getServiceBySlug(slug: string): ServiceData | undefined {
   return SERVICES.find((s) => s.slug === slug);
 }
 
+/** The closest towns we serve, by distance between town centres (cityGeo.ts).
+    It used to return the first towns of the same `region` in list order, so
+    Bellingham's "nearby" links went to Lexington and Bedford, and Franklin
+    shared Winchester's list. The region fallback only covers a town with no
+    coordinates. */
 export function getNearbyCities(city: CityData, limit = 6): CityData[] {
+  const bySlug = new Map(CITIES.map((c) => [c.slug, c]));
+  const near = neighbours(city.slug, CITIES.length)
+    .map((s) => bySlug.get(s))
+    .filter((c): c is CityData => Boolean(c))
+    .slice(0, limit);
+  if (near.length) return near;
   return CITIES.filter((c) => c.region === city.region && c.slug !== city.slug).slice(0, limit);
 }
 

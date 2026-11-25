@@ -9,7 +9,7 @@ import { EXTRA_SERVICES } from "./data/extraServices";
 const BASE_URL = "https://wolfs-siding.com";
 // Date of the last real content change. Do not bump it without a change —
 // a lastmod Google learns to distrust is worse than none.
-const SITE_UPDATED = "2026-11-04";
+const SITE_UPDATED = "2026-11-25";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Homepage
