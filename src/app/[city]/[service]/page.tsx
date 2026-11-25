@@ -19,6 +19,7 @@ import { nearestWork } from "../../data/nearestWork";
 import { cityProfile } from "../../data/cityProfiles";
 import RepairMinimumBar from "../../components/RepairMinimumBar";
 import { isCityServiceIndexable } from "../../../config/indexing";
+import { cityServiceCopy } from "../../data/cityServiceCopy";
 
 type Params = { city: string; service: string };
 
@@ -88,7 +89,13 @@ export default async function CityServicePage({ params }: { params: Promise<Para
     : null;
   const sharedFaq = service.faqs.length ? service.faqs[(citySlug.length + citySlug.charCodeAt(0)) % service.faqs.length] : null;
   const researched = Boolean(profile?.serviceNotes?.[serviceSlug] && profile?.story?.length);
-  const allFaqs = [...(researched ? [] : [local.faq]), ...(permitFaq ? [permitFaq] : []), ...(sharedFaq ? [sharedFaq] : [])];
+  // Written for this town AND this service (data/cityServiceCopy.ts). When it
+  // exists it replaces the town-story paragraph and the service FAQ that every
+  // town shares, which were most of the text this page used to repeat.
+  const copy = cityServiceCopy(citySlug, serviceSlug);
+  const allFaqs = copy
+    ? [copy.faq, ...(permitFaq ? [permitFaq] : [])]
+    : [...(researched ? [] : [local.faq]), ...(permitFaq ? [permitFaq] : []), ...(sharedFaq ? [sharedFaq] : [])];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -193,7 +200,18 @@ export default async function CityServicePage({ params }: { params: Promise<Para
                   Expert {service.shortName} in <span className="text-[#E00000]">{city.name}, {STATE_ABBR}</span>
                 </h2>
                 <div className="w-20 h-1 bg-[#E00000] rounded-full mb-6" />
-                {researched ? (
+                {copy ? (
+                  <div className="space-y-4 text-[#333] text-base leading-relaxed">
+                    {copy.body.map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                    <p>
+                      More on <Link href={`/${citySlug}`} className="text-[#E00000] font-semibold hover:underline">{city.name} homes</Link>, or
+                      see <Link href={`/services/${serviceSlug}`} className="text-[#E00000] font-semibold hover:underline">{service.shortName.toLowerCase()} materials and options</Link>.
+                      Every job starts with a free on-site assessment.
+                    </p>
+                  </div>
+                ) : researched ? (
                   /* Researched town: the written-for-this-town note leads, then one
                      paragraph of the town story. Replaces the template intro. */
                   <div className="space-y-4 text-[#333] text-base leading-relaxed">
