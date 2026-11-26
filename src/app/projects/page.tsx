@@ -94,7 +94,7 @@ export default function ProjectsPage() {
               </p>
             </div>
             <dl className="grid grid-cols-3 gap-4 border-t border-black/10 pt-6 lg:border-0 lg:pt-0">
-              <div><dt className="text-xs font-semibold uppercase tracking-[0.1em] text-[#666]">Projects completed</dt><dd className="mt-1 text-3xl font-extrabold text-black">{BUSINESS.jobsCompleted}</dd></div>
+              <div><dt className="text-xs font-semibold uppercase tracking-[0.1em] text-[#666]">Completed</dt><dd className="mt-1 text-3xl font-extrabold text-black">{BUSINESS.jobsCompleted}</dd></div>
               <div><dt className="text-xs font-semibold uppercase tracking-[0.1em] text-[#666]">Featured here</dt><dd className="mt-1 text-3xl font-extrabold text-black">{projectCount}</dd></div>
               <div><dt className="text-xs font-semibold uppercase tracking-[0.1em] text-[#666]">Since</dt><dd className="mt-1 text-3xl font-extrabold text-black">{BUSINESS.foundedYear}</dd></div>
             </dl>
