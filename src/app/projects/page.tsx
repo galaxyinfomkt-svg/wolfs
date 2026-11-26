@@ -32,8 +32,6 @@ export default function ProjectsPage() {
   const others = PORTFOLIO.slice(1);
   const earlier = PROJECTS.filter((p) => p.serviceType !== "Team");
   const projectCount = PORTFOLIO.length + RECENT_WORK.length + earlier.length;
-  const photoCount =
-    PORTFOLIO.reduce((n, c) => n + c.photos.length, 0) + RECENT_WORK.length + earlier.reduce((n, p) => n + p.images.length, 0);
 
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -96,8 +94,8 @@ export default function ProjectsPage() {
               </p>
             </div>
             <dl className="grid grid-cols-3 gap-4 border-t border-black/10 pt-6 lg:border-0 lg:pt-0">
-              <div><dt className="text-xs font-semibold uppercase tracking-[0.1em] text-[#666]">Projects</dt><dd className="mt-1 text-3xl font-extrabold text-black">{projectCount}</dd></div>
-              <div><dt className="text-xs font-semibold uppercase tracking-[0.1em] text-[#666]">Photos</dt><dd className="mt-1 text-3xl font-extrabold text-black">{photoCount}</dd></div>
+              <div><dt className="text-xs font-semibold uppercase tracking-[0.1em] text-[#666]">Projects completed</dt><dd className="mt-1 text-3xl font-extrabold text-black">{BUSINESS.jobsCompleted}</dd></div>
+              <div><dt className="text-xs font-semibold uppercase tracking-[0.1em] text-[#666]">Featured here</dt><dd className="mt-1 text-3xl font-extrabold text-black">{projectCount}</dd></div>
               <div><dt className="text-xs font-semibold uppercase tracking-[0.1em] text-[#666]">Since</dt><dd className="mt-1 text-3xl font-extrabold text-black">{BUSINESS.foundedYear}</dd></div>
             </dl>
           </div>

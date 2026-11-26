@@ -565,7 +565,7 @@ export default function HomePage() {
               { n: String(BUSINESS.foundedYear), label: "Owner-run since" },
               { n: `${YEARS_EXPERIENCE}+`, label: "Years in the trade" },
               { n: String(SERVICE_AREAS_ALL.length), label: "Cities served in MA" },
-              { n: String(SERVICES.length), label: "Exterior services" },
+              { n: BUSINESS.jobsCompleted, label: "Projects completed" },
             ].map((x, i) => (
               <div key={x.label} className={`border-[#2a2a2a] px-3 py-6 lg:px-6 lg:py-8 ${i > 1 ? "border-t lg:border-t-0" : ""} ${i % 2 === 1 ? "lg:border-l" : ""} ${i === 2 ? "lg:border-l" : ""}`}>
                 <p className="text-[2rem] font-extrabold leading-none tracking-[-0.03em] lg:text-[2.75rem]">{x.n}</p>
