@@ -9,6 +9,7 @@ export const BUSINESS = {
   shortName: "Wolf's Siding",
   owner: "Ezequias Lobo",
   foundedYear: 2018, // the company (confirmed by the owner, Nov 2026)
+  jobsCompleted: "1,000+", // completed jobs, given by the office (Jaqueline) on 2026-11-23
   inTradeSince: 2010, // owner's experience: 16 years as of 2026 (confirmed 2026-11-11) — NOT the company's age
   citiesServed: 110, // ONE number, used everywhere
   hicLicense: "218835",
