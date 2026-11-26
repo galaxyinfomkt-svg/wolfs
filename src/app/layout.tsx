@@ -7,6 +7,7 @@ import { BUSINESS, SINCE } from "../config/business";
 import { siteGraph } from "../config/schema";
 import "./globals.css";
 
+import Script from "next/script";
 const META_DESC = `Siding, trim, windows, gutters & roofing across Massachusetts by Wolf's Siding, owner-run ${SINCE}. Free estimates. ${BUSINESS.phone}`;
 
 const inter = Inter({
@@ -96,6 +97,13 @@ export default function RootLayout({
           abre a pagina, le e sai sem interagir.
         */}
         <Analytics />
+              {/* GHL External Tracking (Settings > External Tracking) */}
+        <Script
+          id="ghl-external-tracking"
+          src="https://link.msgsndr.com/js/external-tracking.js"
+          data-tracking-id="tk_92b53d4b53e642c7992c5e6afc615036"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
